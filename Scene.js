@@ -32,6 +32,9 @@ function init(){
 	camera.updateProjectionMatrix();
 	renderer.setSize( window.innerWidth, window.innerHeight );
 	document.body.appendChild(renderer.domElement );
+	// GenPlane();
+	// SetLight();
+	// GenCube(cubedata.x,cubedata.y,cubedata.z);
 }
 
 
@@ -95,24 +98,24 @@ keyListener:function(event){
 loop = function(){
 
 	if(controller.up && cubedata.jump == false){
-		cubedata.yval -=5;
+		cubedata.y_vel +=5;
 		cubedata.jump = true;
 	}
 
 	if(controller.left){
-		cubedata.xval -=0.5;
+		cubedata.x_vel -=0.01;
 	}
 	if(controller.right){
-		cubedata.xval +=0.5;
+		cubedata.x_vel +=0.01;
 	}
 	if(controller.forward){
-		cubedata.zval -=0.5;
+		cubedata.z_vel -=0.01;
 	}
 	if(controller.back){
-		cubedata.zval +=0.5;
+		cubedata.z_vel +=0.01;
 	}
 
-	cubedata.y_vel +=1.5;//gravity
+	cubedata.y_vel -=0.7;//gravity
 	cubedata.x += cubedata.x_vel;
 	cubedata.z += cubedata.z_vel;
 	cubedata.y += cubedata.y_vel;
@@ -121,16 +124,16 @@ loop = function(){
 	cubedata.z_vel *= 0.9;//friction
 
 	//colision detection
-	if(cubedata.y > -1){
+	if(cubedata.y < 1){
 		cubedata.jump = false;
-		cubedata.y = -1;
+		cubedata.y = 1;
 		cubedata.t_vel = 0;
 	}
 	GenPlane();
 	SetLight();
 	GenCube(cubedata.x,cubedata.y,cubedata.z);
 	render();
-  requestAnimationFrame(loop);
+  window.requestAnimationFrame(loop);
 
 }
 
@@ -161,6 +164,7 @@ function SetLight(){
 };
 
 function GenCube(x1,y1,z1){
+	scene.remove(cube);
 	var geometry = new THREE.BoxGeometry( 1, 1, 1 );
 	var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
 	cube = new THREE.Mesh( geometry, material );
