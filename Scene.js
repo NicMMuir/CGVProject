@@ -1,12 +1,15 @@
+//Quick notes:
+//ground with height differencr of 1 will act as a stair
 
-//Everything up to this point is to render the first frame
 
-var scene, camera, renderer, loop,cube,cubedata,controller ;
+
+
+var scene, camera,raycamera, renderer, loop,cube,cubedata,controller;
+var Colidables = [];
 var frame = 0;
 var xSpeed = 0.5;
 var zSpeed = 0.5;
 var ySpeed = 0;
-
 cubedata = {
 	W:1,
 	H:1,
@@ -16,9 +19,38 @@ cubedata = {
 	y_vel:0,
 	z_vel:0,
 	x:0,
-	y:0,
+	y:2,
 	z:0
 };
+
+
+
+//raycasting
+var rayforward = new THREE.Raycaster();
+var raybackward = new THREE.Raycaster();
+var raydown = new THREE.Raycaster();
+var rayleft = new THREE.Raycaster();
+var rayright = new THREE.Raycaster();
+
+// Direction Vectors
+var vecforward = new THREE.Vector3(0,0,-1);
+var vecbackward = new THREE.Vector3(0,0,1);
+var vecleft = new THREE.Vector3(-1,0,0);
+var vecright = new THREE.Vector3(1,0,0);
+var vecdown = new THREE.Vector3(0,-1,0);
+
+//cube Vector3
+
+var cubevec = new THREE.Vector3(cubedata.x,cubedata.y,cubedata.z);
+
+//array of intersecting objects
+var fobj = new Array();
+var bobj= new Array();
+var dobj= new Array();
+var lobj= new Array();
+var robj= new Array();
+
+
 
 init();
 
@@ -27,14 +59,13 @@ function init(){
   camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
 	renderer = new THREE.WebGLRenderer();
 
-	camera.position.set(0,3,20);
+	camera.position.set(0,15,30);
 	camera.lookAt(0,0,0);
 	camera.updateProjectionMatrix();
 	renderer.setSize( window.innerWidth, window.innerHeight );
 	document.body.appendChild(renderer.domElement );
-	// GenPlane();
-	// SetLight();
-	// GenCube(cubedata.x,cubedata.y,cubedata.z);
+	SetLight();
+	GenPlanes();
 }
 
 
@@ -71,10 +102,6 @@ keyListener:function(event){
 				controller.up = keystate;
 			break;
 	}
-
-
-
-
 }
 
 // function CubeMove(event) {
@@ -97,25 +124,27 @@ keyListener:function(event){
 
 loop = function(){
 
+	GenCube(cubedata.x,cubedata.y,cubedata.z);
+	colisiondetection(cube);
 	if(controller.up && cubedata.jump == false){
-		cubedata.y_vel +=5;
+		cubedata.y_vel +=6;
 		cubedata.jump = true;
 	}
 
 	if(controller.left){
-		cubedata.x_vel -=0.01;
+		cubedata.x_vel -=0.04;
 	}
 	if(controller.right){
-		cubedata.x_vel +=0.01;
+		cubedata.x_vel +=0.04;
 	}
 	if(controller.forward){
-		cubedata.z_vel -=0.01;
+		cubedata.z_vel -=0.04;
 	}
 	if(controller.back){
-		cubedata.z_vel +=0.01;
+		cubedata.z_vel +=0.04;
 	}
 
-	cubedata.y_vel -=0.7;//gravity
+	cubedata.y_vel -=0.3;//gravity
 	cubedata.x += cubedata.x_vel;
 	cubedata.z += cubedata.z_vel;
 	cubedata.y += cubedata.y_vel;
@@ -124,14 +153,69 @@ loop = function(){
 	cubedata.z_vel *= 0.9;//friction
 
 	//colision detection
-	if(cubedata.y < 1){
-		cubedata.jump = false;
-		cubedata.y = 1;
-		cubedata.t_vel = 0;
+	// if(cubedata.y < 1){
+	// 	cubedata.jump = false;
+	// 	cubedata.y = 1;
+	// 	cubedata.t_vel = 0;
+	// }
+
+	// down collis
+	console.log(fobj);
+	  //fall through map
+	if(cubedata.y<-50){
+		cubedata.x=0
+		cubedata.y=2
+		cubedata.z=0
 	}
-	GenPlane();
-	SetLight();
+	if(cubedata.y<1.2){
+		cubedata.jump = false;
+	}
+	if(cubedata.jump != true && dobj.length != 0){
+	if(dobj[0].distance <= 1.5){
+		cubedata.jump = false;
+		cubedata.y = dobj[0].point.y+0.5;
+		//cubedata.t_vel = 0;
+	}
+}
+	//forward collis
+	if(fobj.length != 0){
+		if(fobj[0].distance <= 1){
+			cubedata.jump = false;
+			cubedata.z = fobj[0].point.z+1.1;
+			//cubedata.t_vel = 0;
+		}
+	}
+	if(bobj.length != 0){
+		if(bobj[0].distance <= 1){
+			cubedata.jump = false;
+			cubedata.z = bobj[0].point.z-1.1;
+			//cubedata.t_vel = 0;
+		}
+	}
+	if(lobj.length != 0){
+		if(lobj[0].distance <= 1){
+			cubedata.jump = false;
+			cubedata.x = lobj[0].point.x+1.1;
+			//cubedata.t_vel = 0;
+		}
+	}
+	if(robj.length != 0){
+		if(robj[0].distance <= 1){
+			cubedata.jump = false;
+			cubedata.x = robj[0].point.x-1.1;
+			//cubedata.t_vel = 0;
+		}
+	}
+
+
+
+
+
+//
+
+	GenPlanes();
 	GenCube(cubedata.x,cubedata.y,cubedata.z);
+
 	render();
   window.requestAnimationFrame(loop);
 
@@ -142,15 +226,46 @@ loop = function(){
 
 
 
-function GenPlane(){
-
-	var geometry = new THREE.PlaneGeometry( 5, 20, 32 );
+function GenPlanes(){
+	//planes need to overlap by atleast 1
+	var geometry = new THREE.BoxGeometry( 20, 1, 20 );
 	var material = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide} );
 	var plane = new THREE.Mesh( geometry, material );
-	plane.rotation.x = Math.PI / 2;
+
+
+
+	var geometry = new THREE.BoxGeometry( 22, 3, 22 );
+	var material = new THREE.MeshBasicMaterial( { color: 0xFF0000 } );
+	cube1 = new THREE.Mesh( geometry, material );
+	var geometry = new THREE.BoxGeometry( 22, 3, 22 );
+	var material = new THREE.MeshBasicMaterial( { color: 0xFF0000 } );
+	cube2 = new THREE.Mesh( geometry, material );
+	var geometry = new THREE.BoxGeometry( 22, 3, 22 );
+	var material = new THREE.MeshBasicMaterial( { color: 0xFF0000 } );
+	cube3 = new THREE.Mesh( geometry, material );
+	// cube1.position.x = 0;
+	// cube1.position.y = y1;
+	cube1.position.z = -20;
+	cube2.position.x = -20;
+	cube3.position.x = +20;
+	// var geometry = new THREE.PlaneGeometry( 20, 20, 32 );
+	// var material = new THREE.MeshBasicMaterial( {color: 0xFF0000, side: THREE.DoubleSide} );
+	// var plane2 = new THREE.Mesh( geometry, material );
+	// plane2.translateOnAxis(plane2.worldToLocal(new THREE.Vector3(0,0,-1)),20);
+	// plane2.translateOnAxis(plane2.worldToLocal(new THREE.Vector3(0,1,0)),1);
+	// plane2.rotation.x = Math.PI / 2;
+
+	Colidables.push(plane);
+	Colidables.push(cube1);
+	Colidables.push(cube2);
+	Colidables.push(cube3);
 	scene.add( plane );
+	scene.add( cube1 );
+	scene.add( cube2 );
+	scene.add( cube3 );
 
 };
+
 
 
 function SetLight(){
@@ -175,6 +290,24 @@ function GenCube(x1,y1,z1){
 }
 
 
+function colisiondetection(cube){
+		cubevec.set(cubedata.x,cubedata.y,cubedata.z);
+		//raycaster.set(pos , direc);
+		rayforward.set(cubevec , vecforward ,far=5);
+		raybackward.set(cubevec , vecbackward,far=5);
+		raydown.set(cubevec , vecdown,far=5);
+		rayleft.set(cubevec , vecleft,far=5);
+		rayright.set(cubevec , vecright,far=5);
+		//.intersectObjects ( objects : Array, recursive : Boolean, optionalTarget : Array ) : Array
+
+
+		 fobj = rayforward.intersectObjects(Colidables).slice(1,2,3);
+		 bobj = raybackward.intersectObjects(Colidables).slice(1,2,3);
+		 dobj = raydown.intersectObjects(Colidables).slice(1,2,3);
+		 lobj = rayleft.intersectObjects(Colidables).slice(1,2,3);
+		 robj = rayright.intersectObjects(Colidables).slice(1,2,3);
+
+}
 
 //Event Listeners:
 
