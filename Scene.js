@@ -1,9 +1,6 @@
 //Quick notes:
 //ground with height differencr of 1 will act as a stair
 
-
-
-
 var scene, camera,raycamera, renderer, loop,cube,cubedata,controller;
 var Colidables = [];
 var frame = 0;
@@ -52,6 +49,32 @@ var robj= new Array();
 
 
 
+var geometry1 = new THREE.BoxGeometry( 20, 1, 20 );
+var material1 = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide} );
+var floor1 = new THREE.Mesh( geometry1, material1 );
+
+
+
+var geometry2 = new THREE.BoxGeometry( 22, 3, 22 );
+var material2 = new THREE.MeshBasicMaterial( { color: 0xFF0000 } );
+var floor2 = new THREE.Mesh( geometry2, material2 );
+var floor3 = new THREE.Mesh( geometry2, material2 );
+var floor4 = new THREE.Mesh( geometry2, material2 );
+// cube1.position.x = 0;
+// cube1.position.y = y1;
+var geometryC = new THREE.BoxGeometry( 1, 1, 1 );
+var materialC = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+cube = new THREE.Mesh( geometryC, materialC );
+
+
+
+
+
+
+
+
+
+
 init();
 
 function init(){
@@ -64,8 +87,22 @@ function init(){
 	camera.updateProjectionMatrix();
 	renderer.setSize( window.innerWidth, window.innerHeight );
 	document.body.appendChild(renderer.domElement );
+	floor2.position.z = -20;
+	floor3.position.x = -20;
+	floor4.position.x = +20;
+
+
+	scene.add( floor1 );
+	scene.add( floor2 );
+	scene.add( floor3 );
+	scene.add( floor4 );
+	Colidables.push(floor1);
+	Colidables.push(floor2);
+	Colidables.push(floor3);
+	Colidables.push(floor4);
+	scene.add(cube);
+
 	SetLight();
-	GenPlanes();
 }
 
 
@@ -160,7 +197,7 @@ loop = function(){
 	// }
 
 	// down collis
-	console.log(fobj);
+	//console.log(fobj);
 	  //fall through map
 	if(cubedata.y<-50){
 		cubedata.x=0
@@ -213,7 +250,6 @@ loop = function(){
 
 //
 
-	GenPlanes();
 	GenCube(cubedata.x,cubedata.y,cubedata.z);
 
 	render();
@@ -221,51 +257,24 @@ loop = function(){
 
 }
 
+function colisiondetection(cube){
+		cubevec.set(cubedata.x,cubedata.y,cubedata.z);
+		//raycaster.set(pos , direc);
+		rayforward.set(cubevec , vecforward ,far=5);
+		raybackward.set(cubevec , vecbackward,far=5);
+		raydown.set(cubevec , vecdown,far=5);
+		rayleft.set(cubevec , vecleft,far=5);
+		rayright.set(cubevec , vecright,far=5);
+		//.intersectObjects ( objects : Array, recursive : Boolean, optionalTarget : Array ) : Array
 
 
-
-
-
-function GenPlanes(){
-	//planes need to overlap by atleast 1
-	var geometry = new THREE.BoxGeometry( 20, 1, 20 );
-	var material = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide} );
-	var plane = new THREE.Mesh( geometry, material );
-
-
-
-	var geometry = new THREE.BoxGeometry( 22, 3, 22 );
-	var material = new THREE.MeshBasicMaterial( { color: 0xFF0000 } );
-	cube1 = new THREE.Mesh( geometry, material );
-	var geometry = new THREE.BoxGeometry( 22, 3, 22 );
-	var material = new THREE.MeshBasicMaterial( { color: 0xFF0000 } );
-	cube2 = new THREE.Mesh( geometry, material );
-	var geometry = new THREE.BoxGeometry( 22, 3, 22 );
-	var material = new THREE.MeshBasicMaterial( { color: 0xFF0000 } );
-	cube3 = new THREE.Mesh( geometry, material );
-	// cube1.position.x = 0;
-	// cube1.position.y = y1;
-	cube1.position.z = -20;
-	cube2.position.x = -20;
-	cube3.position.x = +20;
-	// var geometry = new THREE.PlaneGeometry( 20, 20, 32 );
-	// var material = new THREE.MeshBasicMaterial( {color: 0xFF0000, side: THREE.DoubleSide} );
-	// var plane2 = new THREE.Mesh( geometry, material );
-	// plane2.translateOnAxis(plane2.worldToLocal(new THREE.Vector3(0,0,-1)),20);
-	// plane2.translateOnAxis(plane2.worldToLocal(new THREE.Vector3(0,1,0)),1);
-	// plane2.rotation.x = Math.PI / 2;
-
-	Colidables.push(plane);
-	Colidables.push(cube1);
-	Colidables.push(cube2);
-	Colidables.push(cube3);
-	scene.add( plane );
-	scene.add( cube1 );
-	scene.add( cube2 );
-	scene.add( cube3 );
+		 fobj = rayforward.intersectObjects(Colidables).slice(0,3);
+		 bobj = raybackward.intersectObjects(Colidables).slice(0,3);
+		 dobj = raydown.intersectObjects(Colidables).slice(0,3);
+		 lobj = rayleft.intersectObjects(Colidables).slice(0,3);
+		 robj = rayright.intersectObjects(Colidables).slice(0,3);
 
 };
-
 
 
 function SetLight(){
@@ -279,35 +288,13 @@ function SetLight(){
 };
 
 function GenCube(x1,y1,z1){
-	scene.remove(cube);
-	var geometry = new THREE.BoxGeometry( 1, 1, 1 );
-	var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-	cube = new THREE.Mesh( geometry, material );
+
+
 	cube.position.x = x1;
 	cube.position.y = y1;
 	cube.position.z = z1;
-	scene.add(cube);
 }
 
-
-function colisiondetection(cube){
-		cubevec.set(cubedata.x,cubedata.y,cubedata.z);
-		//raycaster.set(pos , direc);
-		rayforward.set(cubevec , vecforward ,far=5);
-		raybackward.set(cubevec , vecbackward,far=5);
-		raydown.set(cubevec , vecdown,far=5);
-		rayleft.set(cubevec , vecleft,far=5);
-		rayright.set(cubevec , vecright,far=5);
-		//.intersectObjects ( objects : Array, recursive : Boolean, optionalTarget : Array ) : Array
-
-
-		 fobj = rayforward.intersectObjects(Colidables).slice(1,2,3);
-		 bobj = raybackward.intersectObjects(Colidables).slice(1,2,3);
-		 dobj = raydown.intersectObjects(Colidables).slice(1,2,3);
-		 lobj = rayleft.intersectObjects(Colidables).slice(1,2,3);
-		 robj = rayright.intersectObjects(Colidables).slice(1,2,3);
-
-}
 
 //Event Listeners:
 
