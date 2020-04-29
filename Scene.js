@@ -260,15 +260,14 @@ loop = function(){
 function colisiondetection(cube){
 		cubevec.set(cubedata.x,cubedata.y,cubedata.z);
 		//raycaster.set(pos , direc);
-<<<<<<< HEAD
+
 		rayforward.set(cubevec , vecforward ,far=5);
 		raybackward.set(cubevec , vecbackward,far=5);
 		raydown.set(cubevec , vecdown,far=5);
 		rayleft.set(cubevec , vecleft,far=5);
 		rayright.set(cubevec , vecright,far=5);
 		//.intersectObjects ( objects : Array, recursive : Boolean, optionalTarget : Array ) : Array
-=======
-<<<<<<< HEAD
+
 		rayforward.set(cubevec , vecforward);
 		raybackward.set(cubevec , vecbackward);
 		raydown.set(cubevec , vecdown);
@@ -280,14 +279,14 @@ function colisiondetection(cube){
 		dobj = raydown.intersectObjects(Colidables).slice(0,3);
 		lobj = rayleft.intersectObjects(Colidables).slice(0,3);
 		robj = rayright.intersectObjects(Colidables).slice(0,3);
-=======
+
 		rayforward.set(cubevec , vecforward ,far=5);
 		raybackward.set(cubevec , vecbackward,far=5);
 		raydown.set(cubevec , vecdown,far=5);
 		rayleft.set(cubevec , vecleft,far=5);
 		rayright.set(cubevec , vecright,far=5);
 		//.intersectObjects ( objects : Array, recursive : Boolean, optionalTarget : Array ) : Array
->>>>>>> 22062c3d761390f439240cb69454a1f0cf0d919e
+
 
 
 		 fobj = rayforward.intersectObjects(Colidables).slice(0,3);
@@ -295,10 +294,6 @@ function colisiondetection(cube){
 		 dobj = raydown.intersectObjects(Colidables).slice(0,3);
 		 lobj = rayleft.intersectObjects(Colidables).slice(0,3);
 		 robj = rayright.intersectObjects(Colidables).slice(0,3);
-<<<<<<< HEAD
-=======
->>>>>>> PhysicsExperiment
->>>>>>> 22062c3d761390f439240cb69454a1f0cf0d919e
 
 };
 
@@ -314,11 +309,7 @@ function SetLight(){
 };
 
 function GenCube(x1,y1,z1){
-<<<<<<< HEAD
-=======
 
-
->>>>>>> PhysicsExperiment
 	cube.position.x = x1;
 	cube.position.y = y1;
 	cube.position.z = z1;
