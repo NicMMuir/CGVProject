@@ -3,6 +3,7 @@
 
 var scene, camera,raycamera, renderer, loop,cube,cubedata,controller;
 var Colidables = [];
+var distanceprev;
 var frame = 0;
 var xSpeed = 0.5;
 var zSpeed = 0.5;
@@ -123,7 +124,7 @@ function init(){
   camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
 	renderer = new THREE.WebGLRenderer();
 
-	camera.position.set(0,15,30);
+	camera.position.set(0,25,30);
 
 	camera.lookAt(0,0,0);
 	camera.updateProjectionMatrix();
@@ -314,11 +315,11 @@ keyListener:function(event){
 }
 
 loop = function(){
-
+	distanceprev = cubedata.y;
 	GenCube(cubedata.x,cubedata.y,cubedata.z);
 	colisiondetection(cube);
 	if(controller.up && cubedata.jump == false){
-		cubedata.y_vel +=6;
+		cubedata.y_vel +=10;
 		cubedata.jump = true;
 	}
 
@@ -353,20 +354,23 @@ loop = function(){
 	// down collis
 	//console.log(fobj);
 	  //fall through map
-	if(cubedata.y<-50){
-		cubedata.x=0
-		cubedata.y=2
-		cubedata.z=0
+if(dobj.length != 0){
+	if(cubedata.jump == true && dobj[0].distance<1.5 && distanceprev>cubedata.y){
+			cubedata.jump = false;
 	}
-	if(cubedata.y<1.2){
+}
+
+	if(cubedata.y<-50){
+		cubedata.x=0;
+		cubedata.y=2;
+		cubedata.z=0;
 		cubedata.jump = false;
 	}
-	if(cubedata.jump != true && dobj.length != 0){
-	if(dobj[0].distance <= 1.5){
+	if(cubedata.jump == false && dobj.length != 0){
+	//if(dobj[0].distance <= 10){
 		cubedata.jump = false;
 		cubedata.y = dobj[0].point.y+0.5;
-		//cubedata.t_vel = 0;
-	}
+//	}
 }
 	//forward collis
 	if(fobj.length != 0){
@@ -410,6 +414,7 @@ loop = function(){
 	render();
   window.requestAnimationFrame(loop);
 
+
 }
 
 function colisiondetection(cube){
@@ -421,11 +426,11 @@ function colisiondetection(cube){
 		rayleft.set(cubevec , vecleft);
 		rayright.set(cubevec , vecright);
 		//.intersectObjects ( objects : Array, recursive : Boolean, optionalTarget : Array ) : Array
-		fobj = rayforward.intersectObjects(Colidables).slice(0,3);
-		bobj = raybackward.intersectObjects(Colidables).slice(0,3);
-		dobj = raydown.intersectObjects(Colidables).slice(0,3);
-		lobj = rayleft.intersectObjects(Colidables).slice(0,3);
-		robj = rayright.intersectObjects(Colidables).slice(0,3);
+		fobj = rayforward.intersectObjects(Colidables);
+		bobj = raybackward.intersectObjects(Colidables);
+		dobj = raydown.intersectObjects(Colidables);
+		lobj = rayleft.intersectObjects(Colidables);
+		robj = rayright.intersectObjects(Colidables);
 
 };
 
