@@ -36,6 +36,9 @@ var vecleft = new THREE.Vector3(-1,0,0);
 var vecright = new THREE.Vector3(1,0,0);
 var vecdown = new THREE.Vector3(0,-1,0);
 
+
+//camerarotation
+
 //cube Vector3
 
 var cubevec = new THREE.Vector3(cubedata.x,cubedata.y,cubedata.z);
@@ -83,8 +86,10 @@ function init(){
 	renderer = new THREE.WebGLRenderer();
 
 	camera.position.set(0,15,30);
+
 	camera.lookAt(0,0,0);
 	camera.updateProjectionMatrix();
+
 	renderer.setSize( window.innerWidth, window.innerHeight );
 	document.body.appendChild(renderer.domElement );
 	floor2.position.z = -20;
@@ -103,6 +108,9 @@ function init(){
 	scene.add(cube);
 
 	SetLight();
+
+
+
 }
 
 
@@ -251,7 +259,8 @@ loop = function(){
 //
 
 	GenCube(cubedata.x,cubedata.y,cubedata.z);
-
+	//mouserotate.update();
+	movecam();
 	render();
   window.requestAnimationFrame(loop);
 
@@ -260,14 +269,6 @@ loop = function(){
 function colisiondetection(cube){
 		cubevec.set(cubedata.x,cubedata.y,cubedata.z);
 		//raycaster.set(pos , direc);
-
-		rayforward.set(cubevec , vecforward ,far=5);
-		raybackward.set(cubevec , vecbackward,far=5);
-		raydown.set(cubevec , vecdown,far=5);
-		rayleft.set(cubevec , vecleft,far=5);
-		rayright.set(cubevec , vecright,far=5);
-		//.intersectObjects ( objects : Array, recursive : Boolean, optionalTarget : Array ) : Array
-
 		rayforward.set(cubevec , vecforward);
 		raybackward.set(cubevec , vecbackward);
 		raydown.set(cubevec , vecdown);
@@ -279,21 +280,6 @@ function colisiondetection(cube){
 		dobj = raydown.intersectObjects(Colidables).slice(0,3);
 		lobj = rayleft.intersectObjects(Colidables).slice(0,3);
 		robj = rayright.intersectObjects(Colidables).slice(0,3);
-
-		rayforward.set(cubevec , vecforward ,far=5);
-		raybackward.set(cubevec , vecbackward,far=5);
-		raydown.set(cubevec , vecdown,far=5);
-		rayleft.set(cubevec , vecleft,far=5);
-		rayright.set(cubevec , vecright,far=5);
-		//.intersectObjects ( objects : Array, recursive : Boolean, optionalTarget : Array ) : Array
-
-
-
-		 fobj = rayforward.intersectObjects(Colidables).slice(0,3);
-		 bobj = raybackward.intersectObjects(Colidables).slice(0,3);
-		 dobj = raydown.intersectObjects(Colidables).slice(0,3);
-		 lobj = rayleft.intersectObjects(Colidables).slice(0,3);
-		 robj = rayright.intersectObjects(Colidables).slice(0,3);
 
 };
 
@@ -309,10 +295,14 @@ function SetLight(){
 };
 
 function GenCube(x1,y1,z1){
-
 	cube.position.x = x1;
 	cube.position.y = y1;
 	cube.position.z = z1;
+}
+
+function movecam(){
+	//move the camera with the cube
+	camera.position.set(cubedata.x,cubedata.y+15,cubedata.z+30);
 }
 
 
