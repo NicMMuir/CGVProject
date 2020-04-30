@@ -281,10 +281,6 @@ function colisiondetection(cube){
 		lobj = rayleft.intersectObjects(Colidables).slice(0,3);
 		robj = rayright.intersectObjects(Colidables).slice(0,3);
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 89051fe9ba0ed70772be330601553dfc485457db
 };
 
 
