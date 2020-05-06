@@ -5,6 +5,14 @@
 //Heightmap
 //orbital controls
 
+//---pause menu functionality------//
+var gamePaused = true; //for pause menu 
+window.onload=function(){
+	document.getElementById("startBtn").addEventListener("click", init);
+	
+}
+
+
 var scene, camera,raycamera, renderer, loop,cube,cubedata,controller;
 var Collidables = [];
 var distanceprev;
@@ -128,9 +136,13 @@ var floor25 = new THREE.Mesh( geometry8, material2 );
 
 
 
-init();
+//init();
 
 function init(){
+	//hide pause menu 
+	document.getElementById("menu").style.display = "none"; 
+	gamePaused = false; 
+	console.log("started!");
 
 
 	camera.position.set(camstartx,camstarty,camstartz);
