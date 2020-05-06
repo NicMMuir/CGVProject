@@ -1,13 +1,27 @@
 //Quick notes:
 //ground with height differencr of 1 will act as a stair
 
+
+//Heightmap
+//orbital controls
+
 var scene, camera,raycamera, renderer, loop,cube,cubedata,controller;
-var Colidables = [];
+var Collidables = [];
 var distanceprev;
 var frame = 0;
 var xSpeed = 0.5;
 var zSpeed = 0.5;
 var ySpeed = 0;
+
+var camstartx = 0;
+camstarty = 40;
+camstartz = 50;
+
+scene = new THREE.Scene();
+camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
+renderer = new THREE.WebGLRenderer();
+document.body.appendChild( renderer.domElement );
+
 cubedata = {
 	W:1,
 	H:1,
@@ -22,6 +36,7 @@ cubedata = {
 };
 
 
+const controls = new THREE.OrbitControls(camera, renderer.domElement);
 
 //raycasting
 var rayforward = new THREE.Raycaster();
@@ -67,20 +82,16 @@ var geometryC = new THREE.BoxGeometry( 1, 1, 1 );
 var materialC = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
 cube = new THREE.Mesh( geometryC, materialC );
 
+
 var geometry3 = new THREE.BoxGeometry( 22, 3, 3 );
 var material3 = new THREE.MeshBasicMaterial( { color: 0xFF00ff } );
-
 var geometry4 = new THREE.BoxGeometry( 22, 3, 10 );
 var material4 = new THREE.MeshBasicMaterial( { color: 0xFF0000 } );
-
 var geometry5 = new THREE.BoxGeometry( 22, 3, 5 );
 var material5 = new THREE.MeshBasicMaterial( { color: 0x808080 } );
-
 var geometry6 = new THREE.BoxGeometry( 7, 3, 5 );
 var material6 = new THREE.MeshBasicMaterial( { color: 0x464646 } );
-
 var geometry7 = new THREE.BoxGeometry( 14, 3, 5 );
-
 var geometry8 = new THREE.CircleGeometry( 10, 10, 10 );
 
 var floor1 = new THREE.Mesh( geometry1, material1 );
@@ -120,17 +131,24 @@ var floor25 = new THREE.Mesh( geometry8, material2 );
 init();
 
 function init(){
-	scene = new THREE.Scene();
-  camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
-	renderer = new THREE.WebGLRenderer();
 
-	camera.position.set(0,25,30);
 
+	camera.position.set(camstartx,camstarty,camstartz);
 	camera.lookAt(0,0,0);
 	camera.updateProjectionMatrix();
-
 	renderer.setSize( window.innerWidth, window.innerHeight );
 	document.body.appendChild(renderer.domElement );
+
+
+
+
+
+
+
+
+
+
+
 	floor2.position.y = -2;
 	floor2.position.z = -20;
 	floor3.position.x = -20;
@@ -225,33 +243,33 @@ function init(){
 	scene.add( floor24 );
 	scene.add( cubicLog3 );
 	scene.add( floor25 );
-	Colidables.push(floor1);
-	Colidables.push(floor2);
-	Colidables.push(floor3);
-	Colidables.push(floor4);
-	Colidables.push(floor5);
-	Colidables.push(cubicLog1);
-	Colidables.push(floor6);
-	Colidables.push(floor7);
-	Colidables.push(floor8);
-	Colidables.push(floor9);
-	Colidables.push(floor10);
-	Colidables.push(floor11);
-	Colidables.push(floor12);
-	Colidables.push(floor13);
-	Colidables.push(floor14);
-	Colidables.push(floor15);
-	Colidables.push(floor16);
-	Colidables.push(floor17);
-	Colidables.push(floor19);
-	Colidables.push(floor20);
-	Colidables.push(floor21);
-	Colidables.push(cubicLog2);
-	Colidables.push(floor22);
-	Colidables.push(floor23);
-	Colidables.push(floor24);
-	Colidables.push(cubicLog3);
-	Colidables.push(floor25);
+	Collidables.push(floor1);
+	Collidables.push(floor2);
+	Collidables.push(floor3);
+	Collidables.push(floor4);
+	Collidables.push(floor5);
+	Collidables.push(cubicLog1);
+	Collidables.push(floor6);
+	Collidables.push(floor7);
+	Collidables.push(floor8);
+	Collidables.push(floor9);
+	Collidables.push(floor10);
+	Collidables.push(floor11);
+	Collidables.push(floor12);
+	Collidables.push(floor13);
+	Collidables.push(floor14);
+	Collidables.push(floor15);
+	Collidables.push(floor16);
+	Collidables.push(floor17);
+	Collidables.push(floor19);
+	Collidables.push(floor20);
+	Collidables.push(floor21);
+	Collidables.push(cubicLog2);
+	Collidables.push(floor22);
+	Collidables.push(floor23);
+	Collidables.push(floor24);
+	Collidables.push(cubicLog3);
+	Collidables.push(floor25);
 	scene.add(cube);
 
 	SetLight();
@@ -319,7 +337,7 @@ loop = function(){
 	GenCube(cubedata.x,cubedata.y,cubedata.z);
 	colisiondetection(cube);
 	if(controller.up && cubedata.jump == false){
-		cubedata.y_vel +=10;
+		cubedata.y_vel +=7;
 		cubedata.jump = true;
 	}
 
@@ -365,6 +383,8 @@ if(dobj.length != 0){
 		cubedata.y=2;
 		cubedata.z=0;
 		cubedata.jump = false;
+		camera.position.set(camstartx,camstarty,camstartz);
+		camera.lookAt(0,0,0);
 	}
 	if(cubedata.jump == false && dobj.length != 0){
 	//if(dobj[0].distance <= 10){
@@ -426,11 +446,11 @@ function colisiondetection(cube){
 		rayleft.set(cubevec , vecleft);
 		rayright.set(cubevec , vecright);
 		//.intersectObjects ( objects : Array, recursive : Boolean, optionalTarget : Array ) : Array
-		fobj = rayforward.intersectObjects(Colidables);
-		bobj = raybackward.intersectObjects(Colidables);
-		dobj = raydown.intersectObjects(Colidables);
-		lobj = rayleft.intersectObjects(Colidables);
-		robj = rayright.intersectObjects(Colidables);
+		fobj = rayforward.intersectObjects(Collidables);
+		bobj = raybackward.intersectObjects(Collidables);
+		dobj = raydown.intersectObjects(Collidables);
+		lobj = rayleft.intersectObjects(Collidables);
+		robj = rayright.intersectObjects(Collidables);
 
 };
 
@@ -451,10 +471,16 @@ function GenCube(x1,y1,z1){
 	cube.position.z = z1;
 }
 
+const direction = new THREE.Vector3();
+const camOffset = 10;
+
 function movecam(){
-	//move the camera with the cube
-	camera.position.set(cubedata.x,cubedata.y+15,cubedata.z+30);
+
+	camera.position.set(camera.position.x+cubedata.x_vel,camera.position.y,camera.position.z+cubedata.z_vel)
+	controls.target.set(cubedata.x,cubedata.y,cubedata.z);
+	controls.update();
 }
+
 
 
 //Event Listeners:
