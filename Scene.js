@@ -30,6 +30,10 @@ var camstartx = 0;
 var camstarty = 15;
 var camstartz = 30;
 
+var cubestartx = 0;
+var cubestarty = 0;
+var cubestartz = 0;
+
 cubedata = {
 	W:1,
 	H:1,
@@ -136,7 +140,7 @@ loop = function(){
 	colisiondetection(controls.getObject());
 	if(controller.up && cubedata.jump == false){
 		//must be a mutiple of the gravity
-		cubedata.y_vel +=10;
+		cubedata.y_vel +=5;
 		cubedata.jump = true;
 	}
 
@@ -171,8 +175,8 @@ if(dobj.length != 0){
 		cubedata.y=2;
 		cubedata.z=0;
 		cubedata.jump = false;
-		camera.position.set(camstartx,camstarty,camstartz);
-		camera.lookAt(0,0,0);
+		controls.getObject().position.set(cubestartx,cubestarty,cubestartz);
+		//camera.lookAt(0,0,0);
 	}
 	if(cubedata.jump == false && dobj.length != 0){
 		cubedata.jump = false;
