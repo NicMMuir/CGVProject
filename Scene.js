@@ -4,11 +4,20 @@
 //Heightmap
 //orbital controls
 
-//---pause menu functionality------//
-var gamePaused = true; //for pause menu
-// window.onload=function(){
-// 	document.getElementById("startBtn").addEventListener("click", init);
-// }
+//---pause menu functionality (currenlty broken)------//
+/*var gamePaused = true; //for pause menu
+document.getElementById("menu").style.display = "block";
+
+window.onload=function(){document.getElementById("startBtn").addEventListener("click", hideMenu); }
+
+function hideMenu(){
+//hides pause menu
+	gamePaused = false;
+	document.getElementById("menu").style.display = "none";
+	gamePaused = false;
+	console.log("started!");
+}*/
+
 
 var scene, camera,raycamera, renderer, loop,cube,cubedata,controller;
 var Collidables = [];
@@ -64,14 +73,15 @@ var materialC = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
 
 
 
+
+
 init();
+
 function init(){
-	cube = new THREE.Mesh( geometryC, materialC );
-	//hide pause menu
-	// document.getElementById("menu").style.display = "none";
-	// gamePaused = false;
-	console.log("started!");
-	//set rendersize
+
+cube = new THREE.Mesh( geometryC, materialC );
+
+
 	renderer.setSize( window.innerWidth, window.innerHeight );
 	document.body.appendChild(renderer.domElement );
 	getarr();
