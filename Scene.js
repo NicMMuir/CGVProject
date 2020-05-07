@@ -52,21 +52,20 @@ var lobj= new Array();
 var robj= new Array();
 
 //Textures
+//Textures
 var texture = new THREE.TextureLoader().load( 'Textures/pebble.jpg' );
 var texture2 = new THREE.TextureLoader().load( 'Textures/wood.jpg' );
 var texture3 = new THREE.TextureLoader().load( 'Textures/brick.jpg' );
 var texture4 = new THREE.TextureLoader().load( 'Textures/steel.jpg' );
 var texture5 = new THREE.TextureLoader().load( 'Textures/start.jpg' );
 
-
-
 var geometry1 = new THREE.BoxGeometry( 20, 1, 20 );
-var material1 = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide} );
+var material1 = new THREE.MeshBasicMaterial( {map: texture5, side: THREE.DoubleSide} );
 
 
 
 var geometry2 = new THREE.BoxGeometry( 22, 3, 22 );
-var material2 = new THREE.MeshBasicMaterial( { map: texture  } );
+var material2 = new THREE.MeshBasicMaterial( { map: texture } );
 
 // cube1.position.x = 0;
 // cube1.position.y = y1;
@@ -81,7 +80,7 @@ var geometry4 = new THREE.BoxGeometry( 22, 3, 10 );
 var material4 = new THREE.MeshBasicMaterial( { map: texture4 } );
 
 var geometry5 = new THREE.BoxGeometry( 22, 3, 5 );
-var material5 = new THREE.MeshBasicMaterial( {  map: texture2 } );
+var material5 = new THREE.MeshBasicMaterial( { map: texture2 } );
 
 var geometry6 = new THREE.BoxGeometry( 7, 3, 5 );
 var material6 = new THREE.MeshBasicMaterial( { map: texture3 } );
