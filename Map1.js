@@ -5,7 +5,6 @@ var geometry1 = new THREE.BoxGeometry( 20, 1, 20 );
 var material1 = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide} );
 var geometry2 = new THREE.BoxGeometry( 22, 3, 22 );
 var material2 = new THREE.MeshBasicMaterial( { color: 0xFF0000 } );
-
 var geometry3 = new THREE.BoxGeometry( 22, 3, 3 );
 var material3 = new THREE.MeshBasicMaterial( { color: 0xFF00ff } );
 var geometry4 = new THREE.BoxGeometry( 22, 3, 10 );

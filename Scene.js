@@ -1,17 +1,14 @@
 //Quick notes:
 //ground with height differencr of 1 will act as a stair
 
-
 //Heightmap
 //orbital controls
 
 //---pause menu functionality------//
-var gamePaused = true; //for pause menu 
-window.onload=function(){
-	document.getElementById("startBtn").addEventListener("click", init);
-	
-}
-
+var gamePaused = true; //for pause menu
+// window.onload=function(){
+// 	document.getElementById("startBtn").addEventListener("click", init);
+// }
 
 var scene, camera,raycamera, renderer, loop,cube,cubedata,controller;
 var Collidables = [];
@@ -20,15 +17,9 @@ var frame = 0;
 var xSpeed = 0.5;
 var zSpeed = 0.5;
 var ySpeed = 0;
-
 var camstartx = 0;
 var camstarty = 15;
 var camstartz = 30;
-
-scene = new THREE.Scene();
-camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
-renderer = new THREE.WebGLRenderer();
-
 
 cubedata = {
 	W:1,
@@ -44,10 +35,6 @@ cubedata = {
 	rotationy:0
 };
 
-camera.position.set(camstartx,camstarty,camstartz);
-camera.lookAt(cubedata.x,cubedata.y,cubedata.z);
-camera.updateProjectionMatrix();
-var controls = new THREE.PointerLockControls(camera);
 
 //raycasting
 var rayforward = new THREE.Raycaster();
@@ -56,99 +43,82 @@ var raydown = new THREE.Raycaster();
 var rayleft = new THREE.Raycaster();
 var rayright = new THREE.Raycaster();
 
-// Direction Vectors
-
-
-//camerarotation
-
+//Scene and camear etc
+scene = new THREE.Scene();
+camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
+renderer = new THREE.WebGLRenderer();
+camera.position.set(camstartx,camstarty,camstartz);
+camera.lookAt(cubedata.x,cubedata.y,cubedata.z);
+camera.updateProjectionMatrix();
+controls = new THREE.PointerLockControls(camera);
 //cube Vector3
-
 var cubevec = new THREE.Vector3(cubedata.x,cubedata.y,cubedata.z);
-
 //array of intersecting objects
 var fobj = new Array();
 var bobj= new Array();
 var dobj= new Array();
 var lobj= new Array();
 var robj= new Array();
-
-
-
-
-// cube1.position.x = 0;
-// cube1.position.y = y1;
 var geometryC = new THREE.BoxGeometry( 1, 1, 1 );
 var materialC = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-cube = new THREE.Mesh( geometryC, materialC );
 
 
 
-
-
-
-//init();
-
+init();
 function init(){
-	//hide pause menu 
-	document.getElementById("menu").style.display = "none"; 
-	gamePaused = false; 
+	cube = new THREE.Mesh( geometryC, materialC );
+	//hide pause menu
+	// document.getElementById("menu").style.display = "none";
+	// gamePaused = false;
 	console.log("started!");
-
-
-
+	//set rendersize
 	renderer.setSize( window.innerWidth, window.innerHeight );
 	document.body.appendChild(renderer.domElement );
-
 	getarr();
+
 	for(let k =0 ;k<ObjectsArr.length;k++){
 		scene.add( ObjectsArr[k] );
 		Collidables.push(ObjectsArr[k]);
 	}
 
 	controls.getObject().add(cube);
-
-
 	scene.add(controls.getObject());
 	SetLight();
 }
-
 
 function render(){
 	renderer.render(scene,camera);
 };
 
 
-
 controller = {
-
 		forward:false,
 		back:false,
 		left:false,
 		right:false,
 		up:false,
-
-keyListener:function(event){
-	var keystate = (event.type == "keydown")?true:false;
-	switch (event.keyCode) {
-		case 87:
-				controller.forward = keystate;
-			break;
-		case 83:
-				controller.back = keystate;
-			break;
-		case 65:
-				controller.left = keystate;
-			break;
-		case 68:
-				controller.right = keystate;
-			break;
-		case 32:
-				controller.up = keystate;
-			break;
-	}
+			keyListener:function(event){
+				var keystate = (event.type == "keydown")?true:false;
+				switch (event.keyCode) {
+					case 87:
+							controller.forward = keystate;
+						break;
+					case 83:
+							controller.back = keystate;
+						break;
+					case 65:
+							controller.left = keystate;
+						break;
+					case 68:
+							controller.right = keystate;
+						break;
+					case 32:
+							controller.up = keystate;
+						break;
+				}
+}
 }
 
-}
 
 loop = function(){
 	distanceprev = cubedata.y;
@@ -176,22 +146,16 @@ loop = function(){
 	if(controller.back){
 		cubedata.z_vel +=0.04;
 	}
-
 	cubedata.y_vel -=0.25;//gravity
-	// cubedata.x += cubedata.x_vel;
-	// cubedata.z += cubedata.z_vel;
 	cubedata.y += cubedata.y_vel;
 	cubedata.x_vel *= 0.9;//friction
 	cubedata.y_vel *= 0.9;//friction
 	cubedata.z_vel *= 0.9;//friction
-
-
 if(dobj.length != 0){
 	if(cubedata.jump == true && dobj[0].distance<1.5 && distanceprev>cubedata.y){
 			cubedata.jump = false;
 	}
 }
-
 	if(cubedata.y<-50){
 		cubedata.x=0;
 		cubedata.y=2;
@@ -201,54 +165,38 @@ if(dobj.length != 0){
 		camera.lookAt(0,0,0);
 	}
 	if(cubedata.jump == false && dobj.length != 0){
-	//if(dobj[0].distance <= 10){
 		cubedata.jump = false;
 		cubedata.y = dobj[0].point.y+0.5;
-//	}
 }
 	//forward collis
 	if(fobj.length != 0){
 		if(fobj[0].distance <= 1){
 			cubedata.jump = false;
 			controls.getObject().position.z = fobj[0].point.z-1.1;
-			//cubedata.t_vel = 0;
 		}
 	}
 	if(bobj.length != 0){
 		if(bobj[0].distance <= 1){
 			cubedata.jump = false;
 			controls.getObject().position.z = bobj[0].point.z+1.1;
-			//cubedata.t_vel = 0;
 		}
 	}
 	if(lobj.length != 0){
 		if(lobj[0].distance <= 1){
 			cubedata.jump = false;
 			controls.getObject().position.x = lobj[0].point.x+1.1;
-			//cubedata.t_vel = 0;
 		}
 	}
 	if(robj.length != 0){
 		if(robj[0].distance <= 1){
 			cubedata.jump = false;
 			controls.getObject().position.x = robj[0].point.x+1.1;
-			//cubedata.t_vel = 0;
 		}
 	}
-
-
-
-
-
 //
-
 	MoveCube(cubedata.x,cubedata.y,cubedata.z);
-
-
 	render();
   window.requestAnimationFrame(loop);
-
-
 }
 
 
@@ -269,15 +217,14 @@ function colisiondetection(cube){
 					 }
 			 }
 	 }
-		let rot = (Math.PI + realRot) + screenRot;
 
+		let rot = (Math.PI + realRot) + screenRot;
 		 //rays in order to check for collisions
 		 var forw = new THREE.Vector3(Math.sin(rot), 0, -Math.cos(rot)); //Forward
 		 var backw  = new THREE.Vector3(Math.sin(rot), 0, Math.cos(rot)); //back
 		 var left = new THREE.Vector3(Math.sin(rot - Math.PI / 2), 0, Math.cos(rot - Math.PI / 2)); //Left
 		 var right = new THREE.Vector3(Math.sin(rot + Math.PI / 2), 0, Math.cos(rot + Math.PI / 2)); //Right
 		 var downw = new THREE.Vector3(0, -1, 0); //Down
-
 		cubevec.set(controls.getObject().position.x,controls.getObject().position.y,controls.getObject().position.z);
 		//raycaster.set(pos , direc);
 		rayforward.set(cubevec , forw);//farward
@@ -291,7 +238,6 @@ function colisiondetection(cube){
 		dobj = raydown.intersectObjects(Collidables);
 		lobj = rayleft.intersectObjects(Collidables);
 		robj = rayright.intersectObjects(Collidables);
-
 };
 
 
