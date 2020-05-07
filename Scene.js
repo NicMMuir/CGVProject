@@ -61,12 +61,12 @@ var material1 = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.Doubl
 
 
 var geometry2 = new THREE.BoxGeometry( 22, 3, 22 );
-var material2 = new THREE.MeshBasicMaterial( { color: 0xFF0000, wireframe: false } );
+var material2 = new THREE.MeshBasicMaterial( { color: 0xFF0000, side: THREE.DoubleSide, wireframe: false } );
 
 // cube1.position.x = 0;
 // cube1.position.y = y1;
 var geometryC = new THREE.BoxGeometry( 1, 1, 1 );
-var materialC = new THREE.MeshBasicMaterial( { color: 0x00ff00 , wireframe: false} );
+var materialC = new THREE.MeshBasicMaterial( { color: 0x00ff00 , side: THREE.DoubleSide, wireframe: false} );
 cube = new THREE.Mesh( geometryC, materialC );
 
 // -----------------------------------------------------------------------------------------
@@ -99,7 +99,7 @@ var floorGeometry = new THREE.ExtrudeGeometry( floorShape, extrudeSettings );
 // -----------------------------------------------------------------------------------------
 // Geometry and material for cubic log in path:
 var geometry4 = new THREE.BoxGeometry( 20, 3, 3 );
-var material4 = new THREE.MeshBasicMaterial( { color: 0xFF00ff, wireframe: false } );
+var material4 = new THREE.MeshBasicMaterial( { color: 0xFF00ff, side: THREE.DoubleSide, wireframe: false } );
 // ===============================================================================================
 
 // -----------------------------------------------------------------------------------------
@@ -136,12 +136,12 @@ var floorGeometry2 = new THREE.ExtrudeGeometry( floorShape2, extrudeSettings );
 
 // ===============================================================================================
 
-var geometry8 = new THREE.CircleGeometry( 40, 40, 40 );
+var geometry8 = new THREE.SphereGeometry( 55, 55, 55 );
 
 // -----------------------------------------------------------------------------------------
 // Geometry for the finishing podium:
 var geometry9 = new THREE.CylinderGeometry( 3, 3, 6, 8 );
-var material9 = new THREE.MeshBasicMaterial( {color: 0xffff00, wireframe: false} );
+var material9 = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide, wireframe: false} );
 // ===============================================================================================
 
 // -----------------------------------------------------------------------------------------
@@ -150,7 +150,7 @@ var geometry10 = new THREE.BoxGeometry( 2, 100, 230 );
 var material10 = new THREE.MeshBasicMaterial( {color: 0xF4A460, side: THREE.DoubleSide, wireframe: false} );
 
 var geometry12 = new THREE.BoxGeometry( 370, 100, 2 );
-var material12 = new THREE.MeshBasicMaterial( {color: 0xF4A460, side: THREE.DoubleSide, wireframe: true} );
+var material12 = new THREE.MeshBasicMaterial( {color: 0xF4A460, side: THREE.DoubleSide, wireframe: false} );
 // ===============================================================================================
 
 // -----------------------------------------------------------------------------------------
@@ -170,7 +170,7 @@ var wallShape = new THREE.Shape( geometry11 );
 
 var wallSettings = {
 	steps: 2,
-	depth: 20,
+	depth: 40,
 	bevelEnabled: false,
 	bevelThickness: 20,
 	bevelSize: 1,
@@ -181,6 +181,34 @@ var wallSettings = {
 var wallGeometry = new THREE.ExtrudeGeometry( wallShape, wallSettings );
 
 // ===============================================================================================
+
+// -----------------------------------------------------------------------------------------
+// Geometry for wall curve to the right( Right wall ):
+var geometry13 = [];
+	geometry13.push( new THREE.Vector2 ( 0, 0 ) );
+	geometry13.push( new THREE.Vector2 ( 0,10 ) );
+	geometry13.push( new THREE.Vector2 ( 8,25 ) );
+	geometry13.push( new THREE.Vector2 ( 17,30 ) );
+	geometry13.push( new THREE.Vector2 ( 22,30 ) );
+	geometry13.push( new THREE.Vector2 ( 22,28 ) );
+	geometry13.push( new THREE.Vector2 ( 2,0 ) );
+
+var wallShape2 = new THREE.Shape( geometry13 );
+
+var wallSettings = {
+	steps: 2,
+	depth: 40,
+	bevelEnabled: false,
+	bevelThickness: 20,
+	bevelSize: 1,
+	bevelOffset: 0,
+	bevelSegments: 1
+}
+
+var wallGeometry2 = new THREE.ExtrudeGeometry( wallShape2, wallSettings );
+
+// ===============================================================================================
+
 
 
 
@@ -232,6 +260,7 @@ var wall4 = new THREE.Mesh( geometry12, material12 );
 var wall5 = new THREE.Mesh( geometry12, material12 );
 var wall6 = new THREE.Mesh( geometry12, material12 );
 var wall7 = new THREE.Mesh( geometry12, material12 );
+var wall8 = new THREE.Mesh( wallGeometry2, material10 );
 
 
 
@@ -248,9 +277,9 @@ function init(){
   camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
 	renderer = new THREE.WebGLRenderer();
 
-	camera.position.set(0,15,30);
+	camera.position.set(0,15,30);//(0,15,30)
 
-	camera.lookAt(0,0,0);
+	camera.lookAt(0, 0, 0);
 	camera.updateProjectionMatrix();
 
 	renderer.setSize( window.innerWidth, window.innerHeight );
@@ -298,14 +327,14 @@ function init(){
 	floor13.position.y = 38;
 	floor13.position.z = -255;
 	floor14.position.x = 42;
-	floor14.position.y = 36;
+	floor14.position.y = 35.5;
 	floor14.position.z = -265;
-	floor15.position.x = 95;
-	floor15.position.y = 36;
+	floor15.position.x = 97;
+	floor15.position.y = 35.5;
 	floor15.position.z = -245;
 	floor15.rotation.set(0, Math.PI, 0);
 	floor16.position.x = 115;
-	floor16.position.y = 38;
+	floor16.position.y = 37;
 	floor16.position.z = -255;
 	cubicLog3.position.x = 115;
 	cubicLog3.position.y = 39;
@@ -316,7 +345,7 @@ function init(){
 	floor17.position.z = -246;
 	floor17.rotation.set(0, Math.PI, 0);
 	floor18.position.x = 180;
-	floor18.position.y = 10;
+	floor18.position.y = -12;
 	floor18.position.z = -256;
 	floor19.position.x = 200;
 	floor19.position.y = 36;
@@ -335,37 +364,37 @@ function init(){
 	floor22.position.z = -246;
 	floor22.rotation.set(0, Math.PI, 0);
 	floor23.position.x = 340;
-	floor23.position.y = 40;
+	floor23.position.y = 38.5;
 	floor23.position.z = -255;
 	floor24.position.x = 340;
-	floor24.position.y = 40;
+	floor24.position.y = 38.5;
 	floor24.position.z = -275;
 	floor25.position.x = 330;
 	floor25.position.y = 36;
 	floor25.position.z = -266;
 	floor25.rotation.set(0, Math.PI, 0);
 	floor26.position.x = 297;
-	floor26.position.y = 38;
+	floor26.position.y = 37;
 	floor26.position.z = -275;
 	floor27.position.x = 380;
 	floor27.position.y = 38;
 	floor27.position.z = -246;
 	floor27.rotation.set(0, Math.PI, 0);
 	floor28.position.x = 390;
-	floor28.position.y = 42;
+	floor28.position.y = 40.5;
 	floor28.position.z = -255;
 	podium.position.x = 390;
 	podium.position.y = 42;
 	podium.position.z = -255;
 	wall1.position.x = 10;
 	wall1.position.y = 20;
-	wall1.position.z = -100;
+	wall1.position.z = -102;
 	wall2.position.x = -10;
 	wall2.position.y = 20;
 	wall2.position.z = -100;
 	wall3.position.x = -9;
 	wall3.position.y = 28;
-	wall3.position.z = -221;
+	wall3.position.z = -214;
 	wall3.rotation.set(-Math.PI/2, 0, 0);
 	wall4.position.x = 215;
 	wall4.position.y = 28;
@@ -379,6 +408,10 @@ function init(){
 	wall7.position.x = 535;
 	wall7.position.y = 28;
 	wall7.position.z = -265;
+	wall8.position.x = 9;
+	wall8.position.y = 28;
+	wall8.position.z = -216;
+	wall8.rotation.set(-Math.PI/2, 0, 0);
 
 
 	
@@ -427,6 +460,7 @@ function init(){
 	scene.add( wall5 );
 	scene.add( wall6 );
 	scene.add( wall7 );
+	scene.add( wall8 );
 
 	// ***********************************************************************************************************************
 	// Here we allow objects to take a solid form
@@ -471,6 +505,7 @@ function init(){
 	Colidables.push(wall5);
 	Colidables.push(wall6);
 	Colidables.push(wall7);
+	Colidables.push(wall8);
 	
 	scene.add(cube);
 
@@ -540,30 +575,30 @@ loop = function(){
 	GenCube(cubedata.x,cubedata.y,cubedata.z);
 	colisiondetection(cube);
 	if(controller.up && cubedata.jump == false){
-		cubedata.y_vel +=6;
+		cubedata.y_vel +=6;//(6)
 		cubedata.jump = true;
 	}
 
 	if(controller.left){
-		cubedata.x_vel -=0.04;
+		cubedata.x_vel -=0.04;//(0.04)
 	}
 	if(controller.right){
-		cubedata.x_vel +=0.04;
+		cubedata.x_vel +=0.04;//(0.04)
 	}
 	if(controller.forward){
-		cubedata.z_vel -=0.04;
+		cubedata.z_vel -=0.04;//(0.04)
 	}
 	if(controller.back){
-		cubedata.z_vel +=0.04;
+		cubedata.z_vel +=0.04;//(0.04)
 	}
 
-	cubedata.y_vel -=0.3;//gravity
+	cubedata.y_vel -=0.3;//gravity(0.3)_
 	cubedata.x += cubedata.x_vel;
 	cubedata.z += cubedata.z_vel;
 	cubedata.y += cubedata.y_vel;
-	cubedata.x_vel *= 0.9;//friction
-	cubedata.y_vel *= 0.9;//friction
-	cubedata.z_vel *= 0.9;//friction
+	cubedata.x_vel *= 0.9;//friction(0.9)
+	cubedata.y_vel *= 0.9;//friction(0.9)
+	cubedata.z_vel *= 0.9;//friction(0.9)
 
 	//colision detection
 	// if(cubedata.y < 1){
@@ -575,18 +610,19 @@ loop = function(){
 	// down collis
 	//console.log(fobj);
 	  //fall through map
-	if(cubedata.y<-50){
+	if(cubedata.y<-50){//(-50)//Distance cube falls before it restarts
+		//restart at this position:
 		cubedata.x=0
-		cubedata.y=2
+		cubedata.y=2//(2)
 		cubedata.z=0
 	}
-	if(cubedata.y<1.2){
+	if(cubedata.y<1.2){//(1.2)
 		cubedata.jump = false;
 	}
 	if(cubedata.jump != true && dobj.length != 0){
 	if(dobj[0].distance <= 1.5){
 		cubedata.jump = false;
-		cubedata.y = dobj[0].point.y+0.5;
+		cubedata.y = dobj[0].point.y+0.5;//(0.5)Could this be it?
 		//cubedata.t_vel = 0;
 	}
 }
@@ -671,41 +707,6 @@ function GenCube(x1,y1,z1){
 function movecam(){
 	//move the camera with the cube
 	camera.position.set(cubedata.x,cubedata.y+15,cubedata.z+15);//(cubedata.x,cubedata.y+15,cubedata.z+15)(340,130,-240)
-}
-
-/**
- * 
- * @param {number} radius 
- * @param {number} holeRadius 
- * @param {number} segments 
- * @param {number} angle
- * @param {number} thetaStart 
- * @param {number} thetaLength 
- * @param {number} stepTheta 
- */
-function StairsGeometry(radius, holeRadius, segments, angle, thetaStart, thetaLength, stepTheta) {
-
-  if (!(this instanceof StairsGeometry)) {
-    throw new TypeError("StairsGeometry needs to be called using new");
-  }
-
-  THREE.Geometry.call(this);
-
-  this.type = 'StairsGeometry';
-
-  this.parameters = {
-    radius: radius,
-    holeRadius: holeRadius,
-    segments: segments,
-    angle: angle,
-    thetaStart: thetaStart,
-    thetaLength: thetaLength,
-    stepTheta: stepTheta
-  };
-
-  this.fromBufferGeometry(new StairsBufferGeometry(radius, holeRadius, segments, angle, thetaStart, thetaLength, stepTheta));
-  this.mergeVertices();
-
 }
 
 
