@@ -6,12 +6,14 @@ var texture2 = new THREE.TextureLoader().load( 'Textures/wood.jpg' );
 var texture3 = new THREE.TextureLoader().load( 'Textures/brick.jpg' );
 var texture4 = new THREE.TextureLoader().load( 'Textures/steel.jpg' );
 var texture5 = new THREE.TextureLoader().load( 'Textures/start.jpg' );
+var texture6 = new THREE.TextureLoader().load( 'Textures/ladder.jpg' );
 
 var material1 = new THREE.MeshBasicMaterial( { map: texture } );
 var material2 = new THREE.MeshBasicMaterial( { map: texture2 } );
-var material3 = new THREE.MeshBasicMaterial( { map: texture3, wireframe: false } );
+var material3 = new THREE.MeshBasicMaterial( { map: texture3, side: THREE.DoubleSide, wireframe: false } );
 var material4 = new THREE.MeshBasicMaterial( { map: texture4 } );
 var material5 = new THREE.MeshBasicMaterial( { map: texture5 } );
+var material6 = new THREE.MeshBasicMaterial( { map: texture6 } );
 
 
 // ***********************************************************************************************************************
@@ -153,6 +155,8 @@ var wallGeometry2 = new THREE.ExtrudeGeometry( wallShape2, wallSettings );
 // ===============================================================================================
 var geometry14 = new THREE.BoxGeometry( 5, 4, 5 );//Blocks on the staircase
 var geometry15 = new THREE.BoxGeometry( 12, 4, 5 );//Blocks on the staircase
+var geometry16 = new THREE.CylinderGeometry( 10,10,100,8,1,true,0,Math.PI );//CylinderGeometry to close the end of map
+
 
 
 
@@ -182,7 +186,7 @@ var floor17 = new THREE.Mesh( floorGeometry, material1 );
 var floor18 = new THREE.Mesh( geometry8, material1 );
 var floor19 = new THREE.Mesh( floorGeometry, material1 );
 var floor20 = new THREE.Mesh( geometry1, material1 );
-var cubicLog4 = new THREE.Mesh( geometry4, material2 );
+var cubicLog4 = new THREE.Mesh( geometry4, material4 );
 var floor21 = new THREE.Mesh( geometry1, material1 );
 var floor22 = new THREE.Mesh( floorGeometry, material1 );
 var floor23 = new THREE.Mesh( geometry1, material1 );
@@ -204,6 +208,9 @@ var wall5 = new THREE.Mesh( geometry12, material3 );
 var wall6 = new THREE.Mesh( geometry12, material3 );
 var wall7 = new THREE.Mesh( geometry12, material3 );
 var wall8 = new THREE.Mesh( wallGeometry2, material3 );
+var wall9 = new THREE.Mesh( geometry10, material3 );
+var wall10 = new THREE.Mesh( geometry16, material3 );
+var wall11 = new THREE.Mesh( geometry16, material3 );
 
 
 function genarr(){
@@ -252,6 +259,9 @@ function genarr(){
   ObjectsArr.push(wall6);
   ObjectsArr.push(wall7);
   ObjectsArr.push(wall8);
+  ObjectsArr.push(wall9);
+  ObjectsArr.push(wall10);
+  ObjectsArr.push(wall11);
 }
 
 function moveobjects(){
@@ -391,6 +401,17 @@ function moveobjects(){
 	wall8.position.y = 28;
 	wall8.position.z = -216;
 	wall8.rotation.set(-Math.PI/2, 0, 0);
+	wall9.position.x = 293;
+	wall9.position.y = 28.5;
+	wall9.position.z = -365;
+	wall9.rotation.set( 0, Math.PI/6, 0 );
+	wall10.position.x = 390;
+	wall10.position.y = 28;
+	wall10.position.z = -255;
+	wall11.position.x = 287;
+	wall11.position.y = 28;
+	wall11.position.z = -275;
+	wall11.rotation.set( 0, Math.PI, 0 );
 }
 
 function getarr(){
