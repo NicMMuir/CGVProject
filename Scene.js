@@ -160,7 +160,7 @@ loop = function(){
 	if(controller.back){
 		cubedata.z_vel +=0.04;
 	}
-	cubedata.y_vel -=0.25;//gravity
+	cubedata.y_vel -=0;//gravity(0.25)
 	cubedata.y += cubedata.y_vel;
 	cubedata.x_vel *= 0.9;//friction
 	cubedata.y_vel *= 0.9;//friction
