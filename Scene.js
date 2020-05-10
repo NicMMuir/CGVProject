@@ -47,7 +47,7 @@ cubedata = {
 	z:0,
 	rotationy:0
 };
-
+var character = new THREE.Object3D();
 
 //raycasting
 var rayforward = new THREE.Raycaster();
@@ -64,26 +64,37 @@ camera.position.set(camstartx,camstarty,camstartz);
 camera.lookAt(cubedata.x,cubedata.y,cubedata.z);
 camera.updateProjectionMatrix();
 controls = new THREE.PointerLockControls(camera);
+
+
+
 //cube Vector3
 var cubevec = new THREE.Vector3(cubedata.x,cubedata.y,cubedata.z);
 //array of intersecting objects
+
+
 var fobj = new Array();
 var bobj= new Array();
 var dobj= new Array();
 var lobj= new Array();
 var robj= new Array();
+
+
+//cube creation dont need anymore
 var geometryC = new THREE.BoxGeometry( 1, 1, 1 );
 var materialC = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
 
-
-
-
-
+//char body shpere
+var geometry = new THREE.SphereGeometry( 1, 20, 10 );
+var material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
+var CharacterBody = new THREE.Mesh( geometry, material );
+CharacterBody.translateY(0.5);
+character.add(CharacterBody);
+character.position.set(0,0,0);
 init();
 
 function init(){
 
-cube = new THREE.Mesh( geometryC, materialC );
+//cube = new THREE.Mesh( geometryC, materialC );
 
 
 	renderer.setSize( window.innerWidth, window.innerHeight );
@@ -95,7 +106,7 @@ cube = new THREE.Mesh( geometryC, materialC );
 		Collidables.push(ObjectsArr[k]);
 	}
 
-	controls.getObject().add(cube);
+	controls.getObject().add(character);
 	scene.add(controls.getObject());
 	SetLight();
 }
@@ -196,15 +207,15 @@ if(dobj.length != 0){
 		}
 	}
 	if(lobj.length != 0){
-		if(lobj[0].distance <= 1){
+		if(lobj[0].distance <= 2){
 			cubedata.jump = false;
-			controls.getObject().position.x = lobj[0].point.x+1.1;
+			controls.getObject().position.x = lobj[0].point.x-1.6;
 		}
 	}
 	if(robj.length != 0){
-		if(robj[0].distance <= 1){
+		if(robj[0].distance <= 2){
 			cubedata.jump = false;
-			controls.getObject().position.x = robj[0].point.x+1.1;
+			controls.getObject().position.x = robj[0].point.x+1.6;
 		}
 	}
 //

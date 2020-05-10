@@ -1,0 +1,4 @@
+To Run:
+run a python server at file location:
+-> open terminal al locations and type : python3 -m http.server
+then click the html file and all textures should load.
