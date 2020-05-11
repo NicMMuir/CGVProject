@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--Intro menu that then routes to the games html page-->
+    <meta charset="UTF-8">
+    <title>CGVProject: Title Screen</title>
+    <style>
+        body{
+            background-color: #232323;
+            margin: 0;
+            font-family: 'Nunito','Arial', sans-serif;
+
+        }
+
+        canvas{
+            display: block;
+        }
+
+        #menu {
+            position: absolute;
+            width: 10%;
+            height: 15em;
+            top: 20%; left: 50%;
+            margin: -125px 0 0 -100px;
+            flex: 1;
+            text-align: center;
+
+            border: 3px solid #fff;
+            border-radius: 15px;
+            box-shadow: 2px 10px 5px #888;
+        }
+
+        .menu-btn {
+            width: 80px;
+            height: 25px;
+
+            background-color: #C44032;
+
+            border: 3px solid #fff;
+            border-radius: 5px;
+
+            font-size: 14px;
+            font-weight: bold;
+            color: #fff;
+            transition-duration: 0.4s;
+        }
+
+        .menu-btn:hover{
+            background-color: white;
+            color: orange;
+        }
+
+
+
+        h1, h2{
+            color: white;
+            margin: 0 auto;
+            text-align: center;
+            font-weight: normal;
+            text-transform: uppercase;
+
+        }
+
+      </style>
+</head>
+<body>
+    <!--loads game page-->
+    <script>
+    window.onload=function(){document.getElementById("startBtn").addEventListener("click", this.startGame ); }
+    function startGame(){
+    window.location.assign("CGVProject.html")
+    }
+    
+    </script>
+    <div id="menu">
+        <h1>Untitled CGV Game</h1>
+        <div class = "menu-item">
+            <p type="button" class = "menu-btn" id="startBtn" onclick=startGame()>Start</p>
+        </div>
+        <div class = "menu-item"></div>
+            <p class = "menu-btn">Levels</p>
+        </div>
+    </div>
+</body>
+</html>
