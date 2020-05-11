@@ -8,8 +8,9 @@ var texture4 = new THREE.TextureLoader().load( 'Textures/steel.jpg' );
 var texture5 = new THREE.TextureLoader().load( 'Textures/start.jpg' );
 var texture6 = new THREE.TextureLoader().load( 'Textures/ladder.jpg' );
 
-var material1 = new THREE.MeshBasicMaterial( { map: texture } );
-var material2 = new THREE.MeshBasicMaterial( { map: texture2 } );
+var material1 = new THREE.MeshBasicMaterial( { map: texture, side: THREE.DoubleSide } );
+var material2 = new THREE.MeshBasicMaterial( { map: texture2, polygonOffset: true, polygonOffsetUnits: 1,
+polygonOffsetFactor: 1 } );
 var material3 = new THREE.MeshBasicMaterial( { map: texture3, side: THREE.DoubleSide, wireframe: false } );
 var material4 = new THREE.MeshBasicMaterial( { map: texture4 } );
 var material5 = new THREE.MeshBasicMaterial( { map: texture5 } );
@@ -19,7 +20,7 @@ var material6 = new THREE.MeshBasicMaterial( { map: texture6 } );
 // ***********************************************************************************************************************
 	// This section creates the geometry and material for the different objects
 // ***********************************************************************************************************************
-var geometry1 = new THREE.BoxGeometry( 20, 0, 20 );
+var geometry1 = new THREE.BoxGeometry( 25, 20, 25 );
 var geometry2 = new THREE.BoxGeometry( 22, 3, 22 );
 // -----------------------------------------------------------------------------------------
 // Geometry for floor incline/decline( eg floor4/floor2 ):
@@ -36,9 +37,9 @@ var floorShape = new THREE.Shape( geometry3 );
 
 var extrudeSettings = {
 	steps: 2,
-	depth: 20,
+	depth: 25,
 	bevelEnabled: false,
-	bevelThickness: 20,
+	bevelThickness: 10,
 	bevelSize: 1,
 	bevelOffset: 0,
 	bevelSegments: 1
@@ -85,7 +86,7 @@ var floorGeometry2 = new THREE.ExtrudeGeometry( floorShape2, extrudeSettings );
 
 // ===============================================================================================
 
-var geometry8 = new THREE.SphereGeometry( 55, 55, 55 );
+var geometry8 = new THREE.SphereGeometry( 55, 55, 55, 0, Math.PI);
 
 // -----------------------------------------------------------------------------------------
 // Geometry for the finishing podium:
@@ -94,7 +95,7 @@ var geometry9 = new THREE.CylinderGeometry( 3, 3, 6, 8 );
 
 // -----------------------------------------------------------------------------------------
 // wall geometry:
-var geometry10 = new THREE.BoxGeometry( 1, 100, 230 );
+var geometry10 = new THREE.BoxGeometry( 1, 100, 240 );
 var geometry12 = new THREE.BoxGeometry( 370, 100, 1 );
 // ===============================================================================================
 
@@ -155,7 +156,7 @@ var wallGeometry2 = new THREE.ExtrudeGeometry( wallShape2, wallSettings );
 // ===============================================================================================
 var geometry14 = new THREE.BoxGeometry( 5, 4, 5 );//Blocks on the staircase
 var geometry15 = new THREE.BoxGeometry( 12, 4, 5 );//Blocks on the staircase
-var geometry16 = new THREE.CylinderGeometry( 10,10,100,8,1,true,0,Math.PI );//CylinderGeometry to close the end of map
+var geometry16 = new THREE.CylinderGeometry( 11,11,100,8,1,true,0,Math.PI );//CylinderGeometry to close the end of map
 
 
 
@@ -181,9 +182,7 @@ var floor13 = new THREE.Mesh( geometry1, material1 );
 var floor14 = new THREE.Mesh( floorGeometry, material1 );
 var floor15 = new THREE.Mesh( floorGeometry, material1 );
 var floor16 = new THREE.Mesh( geometry1, material1 );
-var cubicLog3 = new THREE.Mesh( geometry4, material2 );
 var floor17 = new THREE.Mesh( floorGeometry, material1 );
-var floor18 = new THREE.Mesh( geometry8, material1 );
 var floor19 = new THREE.Mesh( floorGeometry, material1 );
 var floor20 = new THREE.Mesh( geometry1, material1 );
 var cubicLog4 = new THREE.Mesh( geometry4, material4 );
@@ -195,19 +194,19 @@ var floor25 = new THREE.Mesh( floorGeometry, material1 );
 var floor26 = new THREE.Mesh( geometry1, material1 );
 var floor27 = new THREE.Mesh( floorGeometry, material1 );
 var floor28 = new THREE.Mesh( geometry1, material1 );
-var floor29 = new THREE.Mesh( geometry14, material3 );
-var floor30 = new THREE.Mesh( geometry14, material3 );
-var floor31 = new THREE.Mesh( geometry15, material3 );
-var floor32 = new THREE.Mesh( geometry15, material3 );
+var floor29 = new THREE.Mesh( geometry14, material3 );//Blocks on the staircase
+var floor30 = new THREE.Mesh( geometry14, material3 );//Blocks on the staircase
+var floor31 = new THREE.Mesh( geometry15, material3 );//Blocks on the staircase
+var floor32 = new THREE.Mesh( geometry15, material3 );//Blocks on the staircase
 var podium = new THREE.Mesh( geometry9, material5 );
 var wall1 = new THREE.Mesh( geometry10, material3 );
 var wall2 = new THREE.Mesh( geometry10, material3 );
-var wall3 = new THREE.Mesh( wallGeometry, material3 );
+var wall3 = new THREE.Mesh( wallGeometry, material3 );//Left wall that curves
 var wall4 = new THREE.Mesh( geometry12, material3 );
 var wall5 = new THREE.Mesh( geometry12, material3 );
 var wall6 = new THREE.Mesh( geometry12, material3 );
 var wall7 = new THREE.Mesh( geometry12, material3 );
-var wall8 = new THREE.Mesh( wallGeometry2, material3 );
+var wall8 = new THREE.Mesh( wallGeometry2, material3 );//wall that curves, right wall
 var wall9 = new THREE.Mesh( geometry10, material3 );
 var wall10 = new THREE.Mesh( geometry16, material3 );
 var wall11 = new THREE.Mesh( geometry16, material3 );
@@ -232,9 +231,7 @@ function genarr(){
   ObjectsArr.push(floor14);
   ObjectsArr.push(floor15);
   ObjectsArr.push(floor16);
-  ObjectsArr.push(cubicLog3);
   ObjectsArr.push(floor17);
-  ObjectsArr.push(floor18);
   ObjectsArr.push(floor19);
   ObjectsArr.push(floor20);
   ObjectsArr.push(cubicLog4);
@@ -265,152 +262,147 @@ function genarr(){
 }
 
 function moveobjects(){
+  	floor1.position.y = -8;
   	floor2.position.x = -10;
-	floor2.position.y = -2.5;
+	floor2.position.y = -1.2;
 	floor2.position.z = -10;
 	floor2.rotation.set(0, Math.PI/2, 0);
-	floor3.position.y = -2.5;
-	floor3.position.z = -50;
-	cubicLog1.position.y = -1;
+	floor3.position.y = -10.5;
+	floor3.position.z = -52.5;
 	cubicLog1.position.z = -50;
 	floor4.position.y = -2.5;
 	floor4.position.x = 10;
-	floor4.position.z = -90;
+	floor4.position.z = -95;
 	floor4.rotation.set(0, -Math.PI/2, 0);
-	floor5.position.z = -105;
-	floor6.position.z = -130;
+	floor5.position.y = -8.5;
+	floor5.position.z = -115;
+	floor6.position.y = -8.5;
+	floor6.position.z = -145;
 	floor7.position.x = 10;
-	floor7.position.z = -170;
+	floor7.position.z = -185;
 	floor7.rotation.set(0, -Math.PI/2, 0);
-	floor8.position.x = -10;
+	floor8.position.x = -10;//floor8 = Staircase
 	floor8.position.y = 2;
-	floor8.position.z = -160;
+	floor8.position.z = -185;
 	floor8.rotation.set(0, Math.PI/2, 0);
-	floor9.position.y = 38;
-	floor9.position.z = -195;
-	cubicLog2.position.y = 39;
-	cubicLog2.position.z = -205;
-	floor10.position.y = 38;
-	floor10.position.z = -215;
+	floor9.position.y = 28;
+	floor9.position.z = -223;
+	cubicLog2.position.y = 38;
+	cubicLog2.position.z = -235;
+	floor10.position.y = 28;
+	floor10.position.z = -247;//-215
 	floor11.position.x = 7;
-	floor11.position.y = 38;
-	floor11.position.z = -240;
+	floor11.position.y = 28;
+	floor11.position.z = -277;//-240
 	floor11.rotation.set(0, -Math.PI/6, 0);
 	floor12.position.x = 18;
-	floor12.position.y = 38;
-	floor12.position.z = -250;
+	floor12.position.y = 28;
+	floor12.position.z = -285;
 	floor12.rotation.set(0, -Math.PI/3, 0);
 	floor13.position.x = 32;
-	floor13.position.y = 38;
-	floor13.position.z = -255;
-	floor14.position.x = 42;
+	floor13.position.y = 28;
+	floor13.position.z = -288.5;
+	floor14.position.x = 50;
 	floor14.position.y = 35.5;
-	floor14.position.z = -265;
-	floor15.position.x = 96;
+	floor14.position.z = -298.5;
+	floor15.position.x = 105;
 	floor15.position.y = 35.5;
-	floor15.position.z = -245;
+	floor15.position.z = -278.5;
 	floor15.rotation.set(0, Math.PI, 0);
-	floor16.position.x = 112;
-	floor16.position.y = 37;
-	floor16.position.z = -255;
-	cubicLog3.position.x = 112;
-	cubicLog3.position.y = 39;
-	cubicLog3.position.z = -255;
-	cubicLog3.rotation.set(0, Math.PI/2, 0);
-	floor17.position.x = 155;
-	floor17.position.y = 36;
-	floor17.position.z = -246;
+	floor16.position.x = 125;
+	floor16.position.y = 28;
+	floor16.position.z = -288.5;
+	floor17.position.x = 168;
+	floor17.position.y = 37;
+	floor17.position.z = -278.5;
 	floor17.rotation.set(0, Math.PI, 0);
-	floor18.position.x = 175;
-	floor18.position.y = -12;
-	floor18.position.z = -256;
-	floor19.position.x = 195;
-	floor19.position.y = 36;
-	floor19.position.z = -266;
-	floor20.position.x = 237;
-	floor20.position.y = 38;
-	floor20.position.z = -255;
-	cubicLog4.position.x = 257;
-	cubicLog4.position.y = 37;
-	cubicLog4.position.z = -255;
-	floor21.position.x = 277;
-	floor21.position.y = 38;
-	floor21.position.z = -255;
-	floor22.position.x = 320;
-	floor22.position.y = 36;
-	floor22.position.z = -246;
+	floor19.position.x = 167;
+	floor19.position.y = 37;
+	floor19.position.z = -298.5;
+	floor20.position.x = 210;
+	floor20.position.y = 28;
+	floor20.position.z = -288.5;
+	cubicLog4.position.x = 232.5;
+	cubicLog4.position.y = 36.5;
+	cubicLog4.position.z = -288.5;
+	floor21.position.x = 255;
+	floor21.position.y = 28;
+	floor21.position.z = -288.5;
+	floor22.position.x = 298;
+	floor22.position.y = 38;
+	floor22.position.z = -278.5;
 	floor22.rotation.set(0, Math.PI, 0);
-	floor23.position.x = 330;
-	floor23.position.y = 38.5;
-	floor23.position.z = -255;
-	floor24.position.x = 330;
-	floor24.position.y = 38.5;
-	floor24.position.z = -275;
-	floor25.position.x = 320;
-	floor25.position.y = 36;
-	floor25.position.z = -266;
+	floor23.position.x = 310;
+	floor23.position.y = 31;
+	floor23.position.z = -288.5;
+	floor24.position.x = 310;
+	floor24.position.y = 30;
+	floor24.position.z = -312;
+	floor25.position.x = 298;
+	floor25.position.y = 37;
+	floor25.position.z = -298.5;
 	floor25.rotation.set(0, Math.PI, 0);
-	floor26.position.x = 287;
-	floor26.position.y = 37;
-	floor26.position.z = -275;
-	floor27.position.x = 375;
-	floor27.position.y = 38;
-	floor27.position.z = -246;
+	floor26.position.x = 262;
+	floor26.position.y = 28;
+	floor26.position.z = -312;
+	floor27.position.x = 355;
+	floor27.position.y = 41;
+	floor27.position.z = -278.5;
 	floor27.rotation.set(0, Math.PI, 0);
-	floor28.position.x = 390;
-	floor28.position.y = 40.5;
-	floor28.position.z = -255;
-	floor29.position.x = -7;
+	floor28.position.x = 366;//Final floor
+	floor28.position.y = 34;
+	floor28.position.z = -288.5;
+	floor29.position.x = -7;//Block on the staircase
 	floor29.position.y = 16;
-	floor29.position.z = -173;
-	floor30.position.x = 7;
+	floor29.position.z = -198;
+	floor30.position.x = 7;//Block on the staircase
 	floor30.position.y = 16;
-	floor30.position.z = -173;
-	floor31.position.x = -4;
+	floor30.position.z = -198;
+	floor31.position.x = -4;//Block on the staircase
 	floor31.position.y = 24;
-	floor31.position.z = -177.5;
-	floor32.position.x = 4;
+	floor31.position.z = -202.5;
+	floor32.position.x = 4;//Block on the staircase
 	floor32.position.y = 32;
-	floor32.position.z = -182.5;
-	podium.position.x = 390;
-	podium.position.y = 42;
-	podium.position.z = -255;
+	floor32.position.z = -207.5;
+	podium.position.x = 366;
+	podium.position.y = 43;
+	podium.position.z = -288.5;
 	wall1.position.x = 10;
 	wall1.position.y = 20;
-	wall1.position.z = -102;
+	wall1.position.z = -130;
 	wall2.position.x = -10;
 	wall2.position.y = 20;
-	wall2.position.z = -100;
-	wall3.position.x = -9;
+	wall2.position.z = -130;
+	wall3.position.x = -9;//Left wall that curves
 	wall3.position.y = 28;
-	wall3.position.z = -214;
+	wall3.position.z = -249;
 	wall3.rotation.set(-Math.PI/2, 0, 0);
 	wall4.position.x = 215;
 	wall4.position.y = 28;
-	wall4.position.z = -245;
-	wall5.position.x = 135;
+	wall4.position.z = -278;
+	wall5.position.x = 120;
 	wall5.position.y = 28;
-	wall5.position.z = -265;
+	wall5.position.z = -299;
 	wall6.position.x = 300;
 	wall6.position.y = 28;
-	wall6.position.z = -285;
-	wall7.position.x = 535;
+	wall6.position.z = -322;
+	wall7.position.x = 507.5;
 	wall7.position.y = 28;
-	wall7.position.z = -265;
-	wall8.position.x = 9;
+	wall7.position.z = -299;
+	wall8.position.x = 9;//right wall that curves
 	wall8.position.y = 28;
-	wall8.position.z = -216;
+	wall8.position.z = -248.5;
 	wall8.rotation.set(-Math.PI/2, 0, 0);
-	wall9.position.x = 293;
+	wall9.position.x = 263;
 	wall9.position.y = 28.5;
-	wall9.position.z = -365;
+	wall9.position.z = -402.6;
 	wall9.rotation.set( 0, Math.PI/6, 0 );
-	wall10.position.x = 390;
-	wall10.position.y = 28;
-	wall10.position.z = -255;
-	wall11.position.x = 287;
+	wall10.position.x = 366;//End wall for end of map
+	wall10.position.y = 34;
+	wall10.position.z = -288.5;
+	wall11.position.x = 262;//End wall for secret passage
 	wall11.position.y = 28;
-	wall11.position.z = -275;
+	wall11.position.z = -310;//-275
 	wall11.rotation.set( 0, Math.PI, 0 );
 }
 
