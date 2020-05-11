@@ -19,7 +19,7 @@ function hideMenu(){
 }*/
 
 
-var scene, camera,raycamera, renderer, loop,cube,cubedata,controller;
+var scene, camera,raycamera, renderer, loop,char,chardata,controller;
 var Collidables = [];
 var distanceprev;
 var frame = 0;
@@ -30,11 +30,11 @@ var camstartx = 0;
 var camstarty = 15;
 var camstartz = 30;
 
-var cubestartx = 0;
-var cubestarty = 0;
-var cubestartz = 0;
+var charstartx = 0;
+var charstarty = 0;
+var charstartz = 0;
 
-cubedata = {
+chardata = {
 	W:1,
 	H:1,
 	B:1,
@@ -47,7 +47,7 @@ cubedata = {
 	z:0,
 	rotationy:0
 };
-
+var character = new THREE.Object3D();
 
 //raycasting
 var rayforward = new THREE.Raycaster();
@@ -61,41 +61,42 @@ scene = new THREE.Scene();
 camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
 renderer = new THREE.WebGLRenderer();
 camera.position.set(camstartx,camstarty,camstartz);
-camera.lookAt(cubedata.x,cubedata.y,cubedata.z);
+camera.lookAt(chardata.x,chardata.y,chardata.z);
 camera.updateProjectionMatrix();
 controls = new THREE.PointerLockControls(camera);
-//cube Vector3
-var cubevec = new THREE.Vector3(cubedata.x,cubedata.y,cubedata.z);
+
+
+
+//char Vector3
+var charvec = new THREE.Vector3(chardata.x,chardata.y,chardata.z);
 //array of intersecting objects
+
+
 var fobj = new Array();
 var bobj= new Array();
 var dobj= new Array();
 var lobj= new Array();
 var robj= new Array();
-var geometryC = new THREE.BoxGeometry( 1, 1, 1 );
-var materialC = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-
-
-
 
 
 init();
 
 function init(){
 
-cube = new THREE.Mesh( geometryC, materialC );
-
-
 	renderer.setSize( window.innerWidth, window.innerHeight );
 	document.body.appendChild(renderer.domElement );
+
+
+
 	getarr();
+	CharBody();
 
 	for(let k =0 ;k<ObjectsArr.length;k++){
 		scene.add( ObjectsArr[k] );
 		Collidables.push(ObjectsArr[k]);
 	}
 
-	controls.getObject().add(cube);
+	controls.getObject().add(CharacterBuild);
 	scene.add(controls.getObject());
 	SetLight();
 }
@@ -135,86 +136,86 @@ controller = {
 
 
 loop = function(){
-	distanceprev = cubedata.y;
-	MoveCube(cubedata.x,cubedata.y,cubedata.z);
+	distanceprev = chardata.y;
+	Movechar(chardata.x,chardata.y,chardata.z);
 	colisiondetection(controls.getObject());
-	if(controller.up && cubedata.jump == false){
+	if(controller.up && chardata.jump == false){
 		//must be a mutiple of the gravity
-		cubedata.y_vel +=5;
-		cubedata.jump = true;
+		chardata.y_vel +=5;//
+		chardata.jump = true;
 	}
 
 	if(controller.left){
-		// cube.rotation.y-=0.04;
-		// cubedata.rotationy -= 0.04
-		cubedata.x_vel -=0.04;
+		// char.rotation.y-=0.04;
+		// chardata.rotationy -= 0.04
+		chardata.x_vel -=0.04;
 	}
 	if(controller.right){
-		cubedata.x_vel +=0.04;
-		// cube.rotation.y +=0.04;
-		// cubedata.rotationy += 0.04
+		chardata.x_vel +=0.04;
+		// char.rotation.y +=0.04;
+		// chardata.rotationy += 0.04
 	}
 	if(controller.forward){
-		cubedata.z_vel -=0.04;
+		chardata.z_vel -=0.04;//
 	}
 	if(controller.back){
-		cubedata.z_vel +=0.04;
+		chardata.z_vel +=0.04;
 	}
-	cubedata.y_vel -=0;//gravity(0.25)
-	cubedata.y += cubedata.y_vel;
-	cubedata.x_vel *= 0.9;//friction
-	cubedata.y_vel *= 0.9;//friction
-	cubedata.z_vel *= 0.9;//friction
+	chardata.y_vel -=0.25;//gravity(0.25)
+	chardata.y += chardata.y_vel;
+	chardata.x_vel *= 0.9;//friction
+	chardata.y_vel *= 0.9;//friction
+	chardata.z_vel *= 0.9;//friction
 if(dobj.length != 0){
-	if(cubedata.jump == true && dobj[0].distance<1.5 && distanceprev>cubedata.y){
-			cubedata.jump = false;
+	if(chardata.jump == true && dobj[0].distance<3 && distanceprev>chardata.y){
+			chardata.jump = false;
 	}
 }
-	if(cubedata.y<-50){
-		cubedata.x=0;
-		cubedata.y=2;
-		cubedata.z=0;
-		cubedata.jump = false;
-		controls.getObject().position.set(cubestartx,cubestarty,cubestartz);
+	if(chardata.y<-50){
+		chardata.x=0;
+		chardata.y=2;
+		chardata.z=0;
+		chardata.jump = false;
+		controls.getObject().position.set(charstartx,charstarty,charstartz);
 		//camera.lookAt(0,0,0);
 	}
-	if(cubedata.jump == false && dobj.length != 0){
-		cubedata.jump = false;
-		cubedata.y = dobj[0].point.y+0.5;
+	if(chardata.jump == false && dobj.length != 0){
+		chardata.jump = false;
+		chardata.y = dobj[0].point.y+0.5;
 }
 	//forward collis
 	if(fobj.length != 0){
 		if(fobj[0].distance <= 1){
-			cubedata.jump = false;
+			chardata.jump = false;
 			controls.getObject().position.z = fobj[0].point.z-1.1;
 		}
 	}
 	if(bobj.length != 0){
 		if(bobj[0].distance <= 1){
-			cubedata.jump = false;
+			chardata.jump = false;
 			controls.getObject().position.z = bobj[0].point.z+1.1;
 		}
 	}
 	if(lobj.length != 0){
-		if(lobj[0].distance <= 1){
-			cubedata.jump = false;
-			controls.getObject().position.x = lobj[0].point.x+1.1;
+		if(lobj[0].distance <= 2){
+			chardata.jump = false;
+			controls.getObject().position.x = lobj[0].point.x-1.6;
 		}
 	}
 	if(robj.length != 0){
-		if(robj[0].distance <= 1){
-			cubedata.jump = false;
-			controls.getObject().position.x = robj[0].point.x+1.1;
+		if(robj[0].distance <= 2){
+			chardata.jump = false;
+			controls.getObject().position.x = robj[0].point.x+1.6;
 		}
 	}
 //
-	MoveCube(cubedata.x,cubedata.y,cubedata.z);
+	Movechar(chardata.x,chardata.y,chardata.z);
 	render();
   window.requestAnimationFrame(loop);
 }
 
 
-function colisiondetection(cube){
+function colisiondetection(char){
 
 	let realRot = controls.getObject().rotation.y;
 	let screenRot;
@@ -239,13 +240,13 @@ function colisiondetection(cube){
 		 var left = new THREE.Vector3(Math.sin(rot - Math.PI / 2), 0, Math.cos(rot - Math.PI / 2)); //Left
 		 var right = new THREE.Vector3(Math.sin(rot + Math.PI / 2), 0, Math.cos(rot + Math.PI / 2)); //Right
 		 var downw = new THREE.Vector3(0, -1, 0); //Down
-		cubevec.set(controls.getObject().position.x,controls.getObject().position.y,controls.getObject().position.z);
+		charvec.set(controls.getObject().position.x,controls.getObject().position.y,controls.getObject().position.z);
 		//raycaster.set(pos , direc);
-		rayforward.set(cubevec , forw);//farward
-		raybackward.set(cubevec , backw);//back
-		raydown.set(cubevec , downw);//down
-		rayleft.set(cubevec , left);//left
-		rayright.set(cubevec , right);//right
+		rayforward.set(charvec , forw);//farward
+		raybackward.set(charvec , backw);//back
+		raydown.set(charvec , downw);//down
+		rayleft.set(charvec , left);//left
+		rayright.set(charvec , right);//right
 		//.intersectObjects ( objects : Array, recursive : Boolean, optionalTarget : Array ) : Array
 		fobj = rayforward.intersectObjects(Collidables);
 		bobj = raybackward.intersectObjects(Collidables);
@@ -262,15 +263,37 @@ function SetLight(){
 	var directionalLight = new THREE.DirectionalLight( 0xffffff, 0.7 );
 	directionalLight.position.set( 0,4,1 );
 	directionalLight.castShadow = true;
+
+
+//Lighting for shadows getObject// Enable shadow mapping
+// renderer.shadowMap.enabled = true;
+// renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+//
+// // Add an ambient lights
+// var ambientLight = new THREE.AmbientLight( 0xffffff, 0.2 );
+// scene.add( ambientLight );
+//
+// // Add a point light that will cast shadows
+// var pointLight = new THREE.PointLight( 0xffffff, 1 );
+// pointLight.position.set( 10, 10, 10 );
+// pointLight.castShadow = true;
+// pointLight.shadow.mapSize.width = 1024;
+// pointLight.shadow.mapSize.height = 1024;
+// scene.add( pointLight );
+
+
+
+
 	scene.add( directionalLight );
 };
 
 
-function MoveCube(x1,y1,z1){
-	controls.getObject().translateZ(cubedata.z_vel);
-	controls.getObject().translateX(cubedata.x_vel);
-	controls.getObject().position.y=cubedata.y;
+function Movechar(x1,y1,z1){
+	controls.getObject().translateZ(chardata.z_vel);
+	controls.getObject().translateX(chardata.x_vel);
+	controls.getObject().position.y=chardata.y;
 }
+
 
 
 
@@ -285,6 +308,8 @@ function OnMouseDown(event){
 		controls.lock();
 	}
 }
+
+
 
 //Event Listeners:
 
