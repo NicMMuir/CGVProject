@@ -4,19 +4,6 @@
 //Heightmap
 //orbital controls
 
-//---pause menu functionality (currenlty broken)------//
-/*var gamePaused = true; //for pause menu
-document.getElementById("menu").style.display = "block";
-
-window.onload=function(){document.getElementById("startBtn").addEventListener("click", hideMenu); }
-
-function hideMenu(){
-//hides pause menu
-	gamePaused = false;
-	document.getElementById("menu").style.display = "none";
-	gamePaused = false;
-	console.log("started!");
-}*/
 
 
 var scene, camera,raycamera, renderer, loop,char,chardata,controller;
@@ -131,7 +118,7 @@ controller = {
 							controller.up = keystate;
 						break;
 				}
-}
+			}
 }
 
 
@@ -140,6 +127,7 @@ loop = function(){
 	Movechar(chardata.x,chardata.y,chardata.z);
 	colisiondetection(controls.getObject());
 	if(controller.up && chardata.jump == false){
+
 		//must be a mutiple of the gravity
 		chardata.y_vel +=5;
 		chardata.jump = true;
@@ -235,9 +223,9 @@ function colisiondetection(char){
 
 		let rot = (Math.PI + realRot) + screenRot;
 		 //rays in order to check for collisions
-		 var forw = new THREE.Vector3(Math.sin(rot), 0, -Math.cos(rot)); //Forward
-		 var backw  = new THREE.Vector3(Math.sin(rot), 0, Math.cos(rot)); //back
-		 var left = new THREE.Vector3(Math.sin(rot - Math.PI / 2), 0, Math.cos(rot - Math.PI / 2)); //Left
+		 var forw  = new THREE.Vector3(Math.sin(rot), 0, -Math.cos(rot)); //Forward
+		 var backw = new THREE.Vector3(Math.sin(rot), 0, Math.cos(rot)); //back
+		 var left  = new THREE.Vector3(Math.sin(rot - Math.PI / 2), 0, Math.cos(rot - Math.PI / 2)); //Left
 		 var right = new THREE.Vector3(Math.sin(rot + Math.PI / 2), 0, Math.cos(rot + Math.PI / 2)); //Right
 		 var downw = new THREE.Vector3(0, -1, 0); //Down
 		charvec.set(controls.getObject().position.x,controls.getObject().position.y,controls.getObject().position.z);
