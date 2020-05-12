@@ -59,7 +59,7 @@ var rayright = new THREE.Raycaster();
 //Scene and camear etc
 scene = new THREE.Scene();
 camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
-renderer = new THREE.WebGLRenderer();
+renderer = new THREE.WebGLRenderer({antialias:false, alpha: true});
 camera.position.set(camstartx,camstarty,camstartz);
 camera.lookAt(chardata.x,chardata.y,chardata.z);
 camera.updateProjectionMatrix();
@@ -94,11 +94,14 @@ function init(){
 	for(let k =0 ;k<ObjectsArr.length;k++){
 		scene.add( ObjectsArr[k] );
 		Collidables.push(ObjectsArr[k]);
+
 	}
 
 	controls.getObject().add(CharacterBuild);
 	scene.add(controls.getObject());
 	SetLight();
+
+
 }
 
 function render(){
