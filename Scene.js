@@ -76,7 +76,7 @@ function init(){
 
 
 	getarr();
-	CharBody();
+	Charinit();
 
 	for(let k =0 ;k<ObjectsArr.length;k++){
 		scene.add( ObjectsArr[k] );
