@@ -21,6 +21,13 @@ function Charinit(){
         Char = object;
         Char.rotateX(Math.PI/2);
         CharacterBuild.add(Char);
+        object.traverse(function (child) {
+          if (child instanceof THREE.Mesh) {
+            console.log(child);
+         // here you can make what you want with the children of object
+        }
+     });
+
       });
     });
 }

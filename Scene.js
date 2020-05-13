@@ -151,8 +151,8 @@ loop = function(){
 	}
 	chardata.y_vel -=0.25;//gravity(0.25)
 	chardata.y += chardata.y_vel;
-	chardata.x_vel *= 0.9;//friction
-	chardata.y_vel *= 0.9;//friction
+	chardata.x_vel *= 0.8;//friction
+	chardata.y_vel *= 0.8;//friction
 	chardata.z_vel *= 0.9;//friction
 if(dobj.length != 0){
 	if(chardata.jump == true && dobj[0].distance<3 && distanceprev>chardata.y){
@@ -173,27 +173,31 @@ if(dobj.length != 0){
 }
 	//forward collis
 	if(fobj.length != 0){
-		if(fobj[0].distance <= 1){
-			chardata.jump = false;
+		if(fobj[0].distance < 1){
+			chardata.jump = true;
+			chardata.z_vel = 0;
 			controls.getObject().position.z = fobj[0].point.z-1.1;
 		}
 	}
 	if(bobj.length != 0){
-		if(bobj[0].distance <= 1){
-			chardata.jump = false;
+		if(bobj[0].distance < 1){
+			chardata.jump = true;
+			chardata.z_vel = 0;
 			controls.getObject().position.z = bobj[0].point.z+1.1;
 		}
 	}
 	if(lobj.length != 0){
-		if(lobj[0].distance <= 2){
-			chardata.jump = false;
-			controls.getObject().position.x = lobj[0].point.x-1.6;
+		if(lobj[0].distance < 1){
+			chardata.jump = true;
+			chardata.x_vel = 0;
+			controls.getObject().position.x = lobj[0].point.x-1.5;
 		}
 	}
 	if(robj.length != 0){
-		if(robj[0].distance <= 2){
-			chardata.jump = false;
-			controls.getObject().position.x = robj[0].point.x+1.6;
+		if(robj[0].distance < 1){
+			chardata.jump = true;
+			chardata.x_vel = 0;
+			controls.getObject().position.x = robj[0].point.x+1.5;
 		}
 	}
 //
