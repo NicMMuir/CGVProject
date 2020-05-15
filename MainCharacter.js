@@ -1,6 +1,6 @@
  var CharacterBuild = new THREE.Object3D();
  var Char;
-
+ var childern = []
 
 function Charinit(){
     const objLoader = new THREE.OBJLoader();
@@ -19,14 +19,12 @@ function Charinit(){
       objLoader.setMaterials(materials);
       objLoader.load('Character.obj', (object) => {
         Char = object;
-        Char.rotateX(Math.PI/2);
+        Char.castShadow = true;
+        Char.receiveShadow = true
+        //Char children : 1 eyes , 2 rightfoot 3: leftfoot 4:right hand , 5 : lefthand
+        //Char.children[3].translateX(-10);
         CharacterBuild.add(Char);
-        object.traverse(function (child) {
-          if (child instanceof THREE.Mesh) {
-            console.log(child);
-         // here you can make what you want with the children of object
-        }
-     });
+
 
       });
     });
