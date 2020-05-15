@@ -75,12 +75,12 @@ function init(){
 
 
 
-	getarr();
+	getarrMap1();
 	Charinit();
 
-	for(let k =0 ;k<ObjectsArr.length;k++){
-		scene.add( ObjectsArr[k] );
-		Collidables.push(ObjectsArr[k]);
+	for(let k =0 ;k<ObjectsMap1Arr.length;k++){
+		scene.add( ObjectsMap1Arr[k] );
+		Collidables.push(ObjectsMap1Arr[k]);
 	}
 
 	controls.getObject().add(CharacterBuild);

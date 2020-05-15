@@ -2,6 +2,11 @@
  var Char;
  var childern = []
 
+ var coinlist = []
+ var rubylist = []
+
+
+
 function Charinit(){
     const objLoader = new THREE.OBJLoader();
     objLoader.setPath('/Charblender/');
