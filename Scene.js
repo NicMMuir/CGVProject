@@ -7,6 +7,7 @@
 
 
 var scene, camera,raycamera, renderer, loop,char,chardata,controller;
+var mesh, oceanGeometry, material, clock;
 var Collidables = [];
 
 var distanceprev;
@@ -47,7 +48,7 @@ var rayright = new THREE.Raycaster();
 //Scene and camear etc
 scene = new THREE.Scene();
 camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
-renderer = new THREE.WebGLRenderer();
+renderer = new THREE.WebGLRenderer({antialias:true, alpha: true});
 camera.position.set(camstartx,camstarty,camstartz);
 camera.lookAt(chardata.x,chardata.y,chardata.z);
 camera.updateProjectionMatrix();
@@ -71,6 +72,9 @@ init();
 
 function init(){
 
+	clock = new THREE.Clock();
+
+	renderer.setPixelRatio( window.devicePixelRatio );
 	renderer.setSize( window.innerWidth, window.innerHeight );
 	document.body.appendChild(renderer.domElement );
 
@@ -100,7 +104,25 @@ function init(){
 	SetLight();
 }
 
+function animate() {
+
+				requestAnimationFrame( animate );
+				render();
+			}
+
 function render(){
+	var time = clock.getElapsedTime() * 10;
+
+				var position = oceanGeometry.attributes.position;
+
+				for ( var i = 0; i < position.count; i ++ ) {
+
+					var y = 5 * Math.sin( i / 5 + ( time + i ) / 7 );
+					position.setY( i, y );
+
+				}
+
+				position.needsUpdate = true;
 	renderer.render(scene,camera);
 };
 
