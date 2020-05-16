@@ -1,5 +1,5 @@
 var Coin = new THREE.Object3D();
-var Ruby = new THREE.Object3D();
+
 
 
 
@@ -8,7 +8,7 @@ function Coininit(){
     objLoader.setPath('/Charblender/Points/');
 
     const mtlLoader = new THREE.MTLLoader();
-    mtlLoader.setPath('/Charblender/Points');
+    mtlLoader.setPath('/Charblender/Points/');
 
     new Promise((resolve) => {
       mtlLoader.load('Coin.mtl', (materials) => {
@@ -25,19 +25,12 @@ function Coininit(){
       });
     });
 
-    new Promise((resolve) => {
-      mtlLoader.load('Ruby.mtl', (materials) => {
-        resolve(materials);
-      });
-    })
-    .then((materials) => {
-      materials.preload();
-      objLoader.setMaterials(materials);
-      objLoader.load('Ruby.obj', (object) => {
-        Coin.add(object);
 
 
-      });
-    });
+}
 
+
+function gencoin(){
+    Coininit();
+  return Coin;
 }

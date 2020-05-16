@@ -8,6 +8,7 @@
 
 var scene, camera,raycamera, renderer, loop,char,chardata,controller;
 var Collidables = [];
+
 var distanceprev;
 var frame = 0;
 var xSpeed = 0.5;
@@ -30,7 +31,7 @@ chardata = {
 	y_vel:0,
 	z_vel:0,
 	x:0,
-	y:2,
+	y:20,
 	z:0,
 	rotationy:0
 };
@@ -78,6 +79,17 @@ function init(){
 	getarrMap1();
 	Charinit();
 
+	var Rby = genruby();
+	var temp = Rby.copy();
+	console.log(Rby);
+	Rby.position.x = 20;
+	Rby.position.y = 5;
+	Rby.position.z = 10;
+	scene.add(Rby);
+	scene.add(temp);
+///////////////////////
+
+
 	for(let k =0 ;k<ObjectsMap1Arr.length;k++){
 		scene.add( ObjectsMap1Arr[k] );
 		Collidables.push(ObjectsMap1Arr[k]);
@@ -123,6 +135,14 @@ controller = {
 
 
 loop = function(){
+
+
+
+	//checkruby();
+
+
+
+
 	distanceprev = chardata.y;
 	Movechar(chardata.x,chardata.y,chardata.z);
 	colisiondetection(controls.getObject());
@@ -201,6 +221,9 @@ if(dobj.length != 0){
 		}
 	}
 //
+
+
+
 	Movechar(chardata.x,chardata.y,chardata.z);
 	render();
   window.requestAnimationFrame(loop);
@@ -256,26 +279,6 @@ function SetLight(){
 	directionalLight.position.set( 0,4,1 );
 	directionalLight.castShadow = true;
 
-
-//Lighting for shadows getObject// Enable shadow mapping
-// renderer.shadowMap.enabled = true;
-// renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-//
-// // Add an ambient lights
-// var ambientLight = new THREE.AmbientLight( 0xffffff, 0.2 );
-// scene.add( ambientLight );
-//
-// // Add a point light that will cast shadows
-// var pointLight = new THREE.PointLight( 0xffffff, 1 );
-// pointLight.position.set( 10, 10, 10 );
-// pointLight.castShadow = true;
-// pointLight.shadow.mapSize.width = 1024;
-// pointLight.shadow.mapSize.height = 1024;
-// scene.add( pointLight );
-
-
-
-
 	scene.add( directionalLight );
 };
 
@@ -301,6 +304,26 @@ function OnMouseDown(event){
 	}
 }
 
+function GenCoinList(){
+	for(let k =0 ; k<5;k++){
+		CoinList.push(new gencoin());
+	}
+}
+
+
+
+
+
+
+
+function checkruby(){
+	for(let k = 0 ; k< Ruby.length;k++){
+		if(controls.getObject().position.x <= (Ruby[k].position.x+2) && controls.getObject().position.x >= (Ruby[k].position.x-2) && controls.getObject().position.z >= Ruby[k].position.z-2 && controls.getObject().position.z <= Ruby[k].position.z+2){
+			scene.remove(Ruby[k])
+
+		}
+	}
+}
 
 
 //Event Listeners:
