@@ -1,5 +1,5 @@
 var Ruby = new THREE.Object3D();
-var RubyArray = []
+var RubyArray = [];
 function rubyinit(){
 
   const objLoader = new THREE.OBJLoader();
@@ -19,11 +19,10 @@ function rubyinit(){
     materials.preload();
     objLoader.setMaterials(materials);
     objLoader.load('Ruby.obj', (object) => {
+
       object.castShadow = true;
       object.receiveShadow = true
-      Ruby.add(object);
-
-
+      Ruby = object ;
     });
   });
 }
@@ -31,7 +30,14 @@ function rubyinit(){
 
 function genruby(){
     //If this is compented out and Ruby returned, it renders to scene
-    rubyinit();
 
-  return Ruby;
+    rubyinit();
+    console.log(Ruby);
+    RubyArray.push(Ruby);
+    for(let k =0;k<5;k++){
+      var temp = new THREE.Object3D() ;
+      temp.copy(Ruby);
+      RubyArray.push(temp);
+    }
+  return RubyArray;
 }

@@ -28,7 +28,7 @@ var NorthEastSeg = new THREE.Mesh( NorthEastSegmentgeom , MainFloormaterial );
 var NorthWestSeg = new THREE.Mesh( NorthWestSegmentgeom , MainFloormaterial );
 
 
-var oceanGeometry = new THREE.PlaneBufferGeometry( 20000, 20000, 128-1, 128-1);
+ oceanGeometry = new THREE.PlaneBufferGeometry( 20000, 20000, 128-1, 128-1);
         oceanGeometry.rotateX( - Math.PI / 2 );
 
         var position = oceanGeometry.attributes.position;
@@ -45,12 +45,12 @@ var texture = new THREE.TextureLoader().load( 'textures/water.jpg' );
         texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
         texture.repeat.set( 5, 5 );
 
-var oceanMaterial = new THREE.MeshBasicMaterial( { color: 0x0044ff, map: texture } );
+ oceanMaterial = new THREE.MeshBasicMaterial( { color: 0x0044ff, map: texture } );
 var oceanMesh = new THREE.Mesh( oceanGeometry, oceanMaterial );
 
 
 function genarrMap1(){
-  
+
   ObjectsMap1Arr.push(startpad);
   ObjectsMap1Arr.push(SotheSeg);
   ObjectsMap1Arr.push(NorthEastSeg);

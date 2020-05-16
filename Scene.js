@@ -10,6 +10,12 @@ var scene, camera,raycamera, renderer, loop,char,chardata,controller;
 var mesh, oceanGeometry, material, clock;
 var Collidables = [];
 
+var DeathCounter = 0;
+var PointsCounter = 0;
+
+
+
+
 var distanceprev;
 var frame = 0;
 var xSpeed = 0.5;
@@ -84,13 +90,21 @@ function init(){
 	Charinit();
 
 	var Rby = genruby();
-	var temp = Rby.copy();
-	console.log(Rby);
-	Rby.position.x = 20;
-	Rby.position.y = 5;
-	Rby.position.z = 10;
-	scene.add(Rby);
+
+	for(let k=0;k<Rby.length;k++){
+		Rby[k].position.x = 10*k;
+		Rby[k].position.z = 10*k;
+		Rby[k].position.y = 7;
+
+	}
+	var temp = Rby[0];
 	scene.add(temp);
+	console.log(Rby);
+	for(let k = 0;k<Rby.length;k++){
+		scene.add(Rby[k]);
+	}
+
+
 ///////////////////////
 
 
@@ -202,6 +216,7 @@ if(dobj.length != 0){
 	}
 }
 	if(chardata.y<-50){
+		DeathCounter= DeathCounter+1;
 		chardata.x=0;
 		chardata.y=2;
 		chardata.z=0;
@@ -341,6 +356,7 @@ function GenCoinList(){
 function checkruby(){
 	for(let k = 0 ; k< Ruby.length;k++){
 		if(controls.getObject().position.x <= (Ruby[k].position.x+2) && controls.getObject().position.x >= (Ruby[k].position.x-2) && controls.getObject().position.z >= Ruby[k].position.z-2 && controls.getObject().position.z <= Ruby[k].position.z+2){
+			PointsCounter = PointsCounter+5;
 			scene.remove(Ruby[k])
 
 		}
