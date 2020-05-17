@@ -22,7 +22,7 @@ function rubyinit(){
 
       object.castShadow = true;
       object.receiveShadow = true
-      Ruby = object ;
+      Ruby = object;
     });
   });
 }
@@ -32,8 +32,10 @@ function genruby(){
     //If this is compented out and Ruby returned, it renders to scene
 
     rubyinit();
-    console.log(Ruby);
-    RubyArray.push(Ruby);
+
+    Ruby.position.y = 7;
+
+    scene.add(Ruby);
     for(let k =0;k<5;k++){
       var temp = new THREE.Object3D() ;
       temp.copy(Ruby);

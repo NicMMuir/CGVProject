@@ -4,16 +4,12 @@
 //Heightmap
 //orbital controls
 
-
-
 var scene, camera,raycamera, renderer, loop,char,chardata,controller;
 var mesh, oceanGeometry, material, clock;
 var Collidables = [];
 
 var DeathCounter = 0;
 var PointsCounter = 0;
-
-
 
 
 var distanceprev;
@@ -89,22 +85,6 @@ function init(){
 	getarrMap1();
 	Charinit();
 
-	var Rby = genruby();
-
-	for(let k=0;k<Rby.length;k++){
-		Rby[k].position.x = 10*k;
-		Rby[k].position.z = 10*k;
-		Rby[k].position.y = 7;
-
-	}
-	var temp = Rby[0];
-	scene.add(temp);
-	console.log(Rby);
-	for(let k = 0;k<Rby.length;k++){
-		scene.add(Rby[k]);
-	}
-
-
 ///////////////////////
 
 
@@ -115,7 +95,36 @@ function init(){
 
 	controls.getObject().add(CharacterBuild);
 	scene.add(controls.getObject());
+
+
+	var Rby = genruby();
+
+	for(let k=0;k<Rby.length;k++){
+		Rby[k].position.x = 10*k;
+		Rby[k].position.z = 10*k;
+		Rby[k].position.y = 7;
+
+	}
+
+	scene.add(Ruby);
+	console.log(Rby);
+	for(let k = 0;k<Rby.length;k++){
+		scene.add(Rby[k]);
+	}
+
+
+
+
+
+
+
 	SetLight();
+
+
+
+
+
+
 }
 
 function animate() {
