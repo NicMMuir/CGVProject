@@ -3,6 +3,30 @@ var ObjectsMap1Arr = [];
 var camera, controls, scene, renderer, stats;
 var Mesh, oceanGeometry, oceanMaterial, clock;
 
+//Skybox
+let materialArray = [];
+let texture_ft = new THREE.TextureLoader().load( 'Textures/bay_ft.jpg');
+let texture_bk = new THREE.TextureLoader().load( 'Textures/bay_bk.jpg');
+let texture_up = new THREE.TextureLoader().load( 'Textures/bay_up.jpg');
+let texture_dn = new THREE.TextureLoader().load( 'Textures/bay_dn.jpg');
+let texture_rt = new THREE.TextureLoader().load( 'Textures/bay_rt.jpg');
+let texture_lf = new THREE.TextureLoader().load( 'Textures/bay_lf.jpg');
+
+materialArray.push(new THREE.MeshBasicMaterial( { map: texture_ft }));
+materialArray.push(new THREE.MeshBasicMaterial( { map: texture_bk }));
+materialArray.push(new THREE.MeshBasicMaterial( { map: texture_up }));
+materialArray.push(new THREE.MeshBasicMaterial( { map: texture_dn }));
+materialArray.push(new THREE.MeshBasicMaterial( { map: texture_rt }));
+materialArray.push(new THREE.MeshBasicMaterial( { map: texture_lf }));
+
+for (let i = 0; i < 6; i++)
+  materialArray[i].side = THREE.BackSide;
+
+let skyboxGeo = new THREE.BoxGeometry( 700, 700, 700);
+let skybox = new THREE.Mesh( skyboxGeo, materialArray );
+
+
+
 //Textures
 var MainFloortexture = new THREE.TextureLoader().load( 'Textures/Grass.jpg' );
 var MainFloormaterial = new THREE.MeshBasicMaterial( { map: MainFloortexture, side: THREE.DoubleSide } );
@@ -145,6 +169,9 @@ function genarrMap1(){
 
 
   // ObjectsMap1Arr.push(centreBridge);
+  //ObjectsMap1Arr.push(skybox);
+  scene.add( skybox );
+
 }
 
 function moveobjectsMap1(){
