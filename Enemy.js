@@ -1,28 +1,16 @@
-      var scene = new THREE.Scene( );
-      var camera = new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight,0.1,1000);
-      var spikes_pillar = new THREE.Group();
+
+      var inviscube = new THREE.Object3D();
+
+      var spikes_pillar = new THREE.Object3D();
+
       var pillar = new THREE.Object3D();
       var box = new THREE.Object3D();
       var spikes= new THREE.Object3D();
       var head= new THREE.Object3D();
 
 
-      var renderer = new THREE.WebGLRenderer();
-      renderer.setSize(window.innerWidth,window.innerHeight);
-      document.body.appendChild(renderer.domElement);
 
-      window.addEventListener('resize',function(){
-
-      var width = window.innerWidth;
-      var height = window.innerHeight;
-      renderer.setSize(width,height);
-      camera.aspect = width/height;
-      camera.updateProjectionMatrix();
-
-      });
-
-      controls = new THREE.OrbitControls(camera,renderer.domElement);
-
+function GenEnemey(){
       //Adding box to spiked pillar
        var geometry = new THREE.BoxGeometry( 1, 1, 1 );
        var cubeMaterials =
@@ -155,26 +143,8 @@
      head.add(h_cone5);
      head.add(h_cone6);
 
-     scene.add(spikes_pillar);
-
-     camera.position.z=3;
+     //Add spikes_pillar to inviscube(Make inviscube)
 
 
-      var update = function(){
-      //rotate the pillar
-      // pillar.rotation.y += 0.05;
-
-
-      };
-
-      var render = function(){
-        renderer.render(scene,camera);
-      };
-
-      var GameLoop = function(){
-        requestAnimationFrame(GameLoop);
-        update();
-        render();
-      };
-
-      GameLoop();
+     return(inviscube);
+   }
