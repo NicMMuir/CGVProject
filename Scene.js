@@ -96,17 +96,16 @@ function init(){
 	controls.getObject().add(CharacterBuild);
 	scene.add(controls.getObject());
 
-
+	//gets ruby aarray
 	var Rby = genruby();
-
+	//changes each ruby pos
 	for(let k=0;k<Rby.length;k++){
 		Rby[k].position.x = 10*k;
 		Rby[k].position.z = 10*k;
 		Rby[k].position.y = 7;
 
 	}
-
-	scene.add(Ruby);
+	//Adds ech ruby
 	console.log(Rby);
 	for(let k = 0;k<Rby.length;k++){
 		scene.add(Rby[k]);
