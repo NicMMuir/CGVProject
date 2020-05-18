@@ -1,36 +1,28 @@
+var PosCoinList = [];
 var Coin = new THREE.Object3D();
+var CoinArray = [];
+var temp;
+function coininit(){
 
+  var loader = new THREE.GLTFLoader();
+  loader.load('/Charblender/Points/ruby.glb', function(gltf){
+  Coin = gltf.scene;
 
+  for(let k = 0;k<5;k++){
+    temp = gltf.scene.clone();
+    temp.position.x = PosList[k].x ;
+    temp.position.y = PosList[k].y;
+    temp.position.z = PosList[k].z;
+    CoinArray.push(temp);
+    scene.add(temp);
+  }
 
-
-function Coininit(){
-    const objLoader = new THREE.OBJLoader();
-    objLoader.setPath('/Charblender/Points/');
-
-    const mtlLoader = new THREE.MTLLoader();
-    mtlLoader.setPath('/Charblender/Points/');
-
-    new Promise((resolve) => {
-      mtlLoader.load('Coin.mtl', (materials) => {
-        resolve(materials);
-      });
-    })
-    .then((materials) => {
-      materials.preload();
-      objLoader.setMaterials(materials);
-      objLoader.load('Coin.obj', (object) => {
-        Coin.add(object);
-
-
-      });
-    });
-
-
-
+});
 }
 
 
-function gencoin(){
-    Coininit();
-  return Coin;
+function gencoin(posclist){
+  PosCoinList = poslist;
+  coininit();
+  return CoinArray;
 }

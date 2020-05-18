@@ -15,12 +15,12 @@ function GenEnemey(){
        var geometry = new THREE.BoxGeometry( 1, 1, 1 );
        var cubeMaterials =
        [
-         new THREE.MeshBasicMaterial( {map: new THREE.TextureLoader().load('imgs/wooden.jfif'),side: THREE.DoubleSide} ),
-         new THREE.MeshBasicMaterial( {map: new THREE.TextureLoader().load('imgs/wooden.jfif'),side: THREE.DoubleSide} ),
-         new THREE.MeshBasicMaterial( {map: new THREE.TextureLoader().load('imgs/wooden.jfif'),side: THREE.DoubleSide} ),
-         new THREE.MeshBasicMaterial( {map: new THREE.TextureLoader().load('imgs/wooden.jfif'),side: THREE.DoubleSide} ),
-         new THREE.MeshBasicMaterial( {map: new THREE.TextureLoader().load('imgs/wooden.jfif'),side: THREE.DoubleSide} ),
-         new THREE.MeshBasicMaterial( {map: new THREE.TextureLoader().load('imgs/wooden.jfif'),side: THREE.DoubleSide} )
+         new THREE.MeshBasicMaterial( {map: new THREE.TextureLoader().load('Textures/wooden.jfif'),side: THREE.DoubleSide} ),
+         new THREE.MeshBasicMaterial( {map: new THREE.TextureLoader().load('Textures/wooden.jfif'),side: THREE.DoubleSide} ),
+         new THREE.MeshBasicMaterial( {map: new THREE.TextureLoader().load('Textures/wooden.jfif'),side: THREE.DoubleSide} ),
+         new THREE.MeshBasicMaterial( {map: new THREE.TextureLoader().load('Textures/wooden.jfif'),side: THREE.DoubleSide} ),
+         new THREE.MeshBasicMaterial( {map: new THREE.TextureLoader().load('Textures/wooden.jfif'),side: THREE.DoubleSide} ),
+         new THREE.MeshBasicMaterial( {map: new THREE.TextureLoader().load('Textures/wooden.jfif'),side: THREE.DoubleSide} )
        ];
       var material = new THREE.MeshFaceMaterial(cubeMaterials);
       var cube = new THREE.Mesh( geometry, material );
@@ -28,7 +28,7 @@ function GenEnemey(){
       //scene.add( cube );
 
       //Adding cylinder(pillar) to spiked pillar
-      var texture = new THREE.TextureLoader().load( 'imgs/tribal.jpg' );
+      var texture = new THREE.TextureLoader().load( 'Textures/tribal.jpg' );
       var material = new THREE.MeshBasicMaterial( { map: texture } );
       var geometry = new THREE.CylinderGeometry( 1, 0.8, 3.5, 22 );
       var cylinder = new THREE.Mesh( geometry, material );
@@ -38,7 +38,7 @@ function GenEnemey(){
       //scene.add( cylinder );
 
       //Creating cone(spike)
-      var texture = new THREE.TextureLoader().load( 'imgs/lights.jpg' );
+      var texture = new THREE.TextureLoader().load( 'Textures/lights.jpg' );
       var material1 = new THREE.MeshBasicMaterial( { map: texture } );
       var geometry = new THREE.ConeGeometry( 1, 6.5, 22 );
       var material = new THREE.MeshBasicMaterial( {color: 0xcd853f} );
@@ -62,7 +62,7 @@ function GenEnemey(){
      var spikes3 = spikes.clone();
      var spikes4 = spikes.clone();
 
-     var texture = new THREE.TextureLoader().load( 'imgs/lights.jpg' );
+     var texture = new THREE.TextureLoader().load( 'Textures/lights.jpg' );
      var material1 = new THREE.MeshBasicMaterial( { map: texture } );
      var geometry = new THREE.ConeGeometry( 5, 6.5, 22 );
      var head_cone = new THREE.Mesh( geometry, material1 );
@@ -144,7 +144,7 @@ function GenEnemey(){
      head.add(h_cone6);
 
      //Add spikes_pillar to inviscube(Make inviscube)
-    
 
-     return(inviscube);
+
+     return(spikes_pillar);
    }

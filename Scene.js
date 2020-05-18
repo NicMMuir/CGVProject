@@ -13,6 +13,9 @@ var PointsCounter = 0;
 
 var RPosList = [];
 var RubyArr = [];
+var CPosList = [];
+var CoinArr = [];
+
 
 
 var distanceprev;
@@ -98,7 +101,7 @@ function init(){
 		 var tp = new THREE.Vector3(10*k,5,10*k);
 	  RPosList.push(tp);
 	}
-	console.log(RPosList);
+	 console.log(RPosList);
 	 RubyArr = genruby(RPosList);
 
 
@@ -111,6 +114,7 @@ function init(){
 	}
 
 	controls.getObject().add(CharacterBuild);
+	controls.getObject().position.x = -420;
 	scene.add(controls.getObject());
 
 
@@ -233,21 +237,21 @@ if(dobj.length != 0){
 	}
 	if(chardata.jump == false && dobj.length != 0){
 		chardata.jump = false;
-		chardata.y = dobj[0].point.y+0.5;
+		chardata.y = dobj[0].point.y+0.2;
 }
 	//forward collis
 	if(fobj.length != 0){
 		if(fobj[0].distance < 1){
 			chardata.jump = true;
 			chardata.z_vel = 0;
-			controls.getObject().position.z = fobj[0].point.z-1.1;
+			controls.getObject().position.z = fobj[0].point.z+1.1; // might be -1.1
 		}
 	}
 	if(bobj.length != 0){
 		if(bobj[0].distance < 1){
 			chardata.jump = true;
 			chardata.z_vel = 0;
-			controls.getObject().position.z = bobj[0].point.z+1.1;
+			controls.getObject().position.z = bobj[0].point.z-1.1; // might be +1.1
 		}
 	}
 	if(lobj.length != 0){
@@ -362,9 +366,20 @@ function GenCoinList(){
 
 function checkruby(){
 	for(let k = 0 ; k< RubyArr.length;k++){
-		if(controls.getObject().position.x <= (PosList[k].x+2) && controls.getObject().position.x >= (PosList[k].x-2) && controls.getObject().position.z >= PosList[k].z-2 && controls.getObject().position.z <= PosList[k].z+2){
+		if((controls.getObject().position.x <= (RPosList[k].x+2) && controls.getObject().position.x >= (RPosList[k].x-2) && controls.getObject().position.z >= RPosList[k].z-2 && controls.getObject().position.z <= RPosList[k].z+2)&& scene.getObjectById(RubyArr[k].id,true) != null ){
 			PointsCounter = PointsCounter+5;
 			scene.remove(RubyArr[k])
+
+		}
+	}
+}
+
+
+function checkcoin(){
+	for(let k = 0 ; k< CoinArr.length;k++){
+		if((controls.getObject().position.x <= (CPosList[k].x+2) && controls.getObject().position.x >= (CPosList[k].x-2) && controls.getObject().position.z >= CPosList[k].z-2 && controls.getObject().position.z <= CPosList[k].z+2)&& scene.getObjectById(CoinArr[k].id,true) != null){
+			PointsCounter = PointsCounter+1;
+			scene.remove(CoinArr[k])
 
 		}
 	}

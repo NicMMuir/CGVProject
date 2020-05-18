@@ -1,9 +1,12 @@
 var ObjectsMap1Arr = [];
-
+var EnemyList = [];
 var camera, controls, scene, renderer, stats;
 var Mesh, oceanGeometry, oceanMaterial, clock;
 
 //Skybox
+var enmy = new THREE.Object3D();
+
+
 let materialArray = [];
 let texture_ft = new THREE.TextureLoader().load( 'Textures/bay_ft.jpg');
 let texture_bk = new THREE.TextureLoader().load( 'Textures/bay_bk.jpg');
@@ -22,7 +25,7 @@ materialArray.push(new THREE.MeshBasicMaterial( { map: texture_lf }));
 for (let i = 0; i < 6; i++)
   materialArray[i].side = THREE.BackSide;
 
-let skyboxGeo = new THREE.BoxGeometry( 700, 700, 700);
+let skyboxGeo = new THREE.BoxGeometry( 1000, 1000, 1000);
 let skybox = new THREE.Mesh( skyboxGeo, materialArray );
 
 
@@ -149,6 +152,14 @@ var leftTransBox = new THREE.Mesh(transGeometry, transMaterial);
 
 function genarrMap1(){
   scene.add(oceanMesh)
+  enmy = GenEnemey();
+  enmy.position.x = 10;
+  enmy.position.z = 0;
+  enmy.position.y = 0;
+  enmy.scale.x = 3;
+  enmy.scale.y = 3;
+  enmy.scale.z = 3;
+  ObjectsMap1Arr.push(enmy);
   ObjectsMap1Arr.push(startpad);
   ObjectsMap1Arr.push(SotheSeg);
   ObjectsMap1Arr.push(NorthEastSeg);

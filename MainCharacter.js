@@ -2,9 +2,6 @@
  var Char;
  var childern = []
 
- var coinlist = []
- var rubylist = []
-
 
 
 function Charinit(){
