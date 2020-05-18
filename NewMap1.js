@@ -59,7 +59,7 @@ var NorthSeg = new THREE.Mesh( SouthSegmentgeom , MainFloormaterial );
 
 
 
- oceanGeometry = new THREE.PlaneBufferGeometry( 20000, 20000, 128-1, 128-1);
+ oceanGeometry = new THREE.PlaneBufferGeometry( 1000, 1000, 128-1, 128-1);
         oceanGeometry.rotateX( - Math.PI / 2 );
 
         var position = oceanGeometry.attributes.position;
@@ -148,15 +148,15 @@ var leftTransBox = new THREE.Mesh(transGeometry, transMaterial);
 
 
 function genarrMap1(){
-
+  scene.add(oceanMesh)
   ObjectsMap1Arr.push(startpad);
   ObjectsMap1Arr.push(SotheSeg);
   ObjectsMap1Arr.push(NorthEastSeg);
   ObjectsMap1Arr.push(NorthWestSeg);
   ObjectsMap1Arr.push(NorthSeg);
-  ObjectsMap1Arr.push(oceanMesh);
+  //ObjectsMap1Arr.push(oceanMesh);
   ObjectsMap1Arr.push(sandHill);
-  
+
   ObjectsMap1Arr.push(rightBridge1);
   ObjectsMap1Arr.push(rightTransBox);
 
@@ -186,13 +186,13 @@ function moveobjectsMap1(){
   NorthEastSeg.position.x = 250
 
   NorthWestSeg.position.z = -260;
-  NorthWestSeg.position.x = -250;  
+  NorthWestSeg.position.x = -250;
 
   NorthSeg.position.y = -10;
   NorthSeg.position.z = -520;
 
   oceanMesh.position.y = -10;
-  
+
   sandHill.position.y = -10;
   sandHill.scale.set(50,50,50);
 
@@ -215,7 +215,7 @@ function moveobjectsMap1(){
   leftBridge2.position.y = -7;
   leftBridge2.position.z = -410;
   leftBridge2.scale.set(0.07,0.07,0.07);
-  
+
   rightTransBox.position.x = 200;
   rightTransBox.position.y = -10;
   rightTransBox.position.z = -130;
@@ -224,7 +224,7 @@ function moveobjectsMap1(){
   leftTransBox.position.y = -10;
   leftTransBox.position.z = -130;
 
-  
+
 }
 
 

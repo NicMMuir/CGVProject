@@ -11,6 +11,9 @@ var Collidables = [];
 var DeathCounter = 0;
 var PointsCounter = 0;
 
+var RPosList = [];
+var RubyArr = [];
+
 
 var distanceprev;
 var frame = 0;
@@ -61,7 +64,12 @@ controls = new THREE.PointerLockControls(camera);
 //char Vector3
 var charvec = new THREE.Vector3(chardata.x,chardata.y,chardata.z);
 //array of intersecting objects
-
+//vectors:
+var forw  = new THREE.Vector3(); //Forward
+var backw = new THREE.Vector3(); //back
+var left  = new THREE.Vector3(); //Left
+var right = new THREE.Vector3(); //Right
+var downw = new THREE.Vector3();
 
 var fobj = new Array();
 var bobj= new Array();
@@ -85,7 +93,16 @@ function init(){
 	getarrMap1();
 	Charinit();
 
-///////////////////////
+	///////////////////////
+	for(let k = 0;k<5;k++){
+		 var tp = new THREE.Vector3(10*k,5,10*k);
+	  RPosList.push(tp);
+	}
+	console.log(RPosList);
+	 RubyArr = genruby(RPosList);
+
+
+
 
 
 	for(let k =0 ;k<ObjectsMap1Arr.length;k++){
@@ -96,20 +113,9 @@ function init(){
 	controls.getObject().add(CharacterBuild);
 	scene.add(controls.getObject());
 
-	//gets ruby aarray
-	var Rby = genruby();
-	//changes each ruby pos
-	for(let k=0;k<Rby.length;k++){
-		Rby[k].position.x = 10*k;
-		Rby[k].position.z = 10*k;
-		Rby[k].position.y = 7;
 
-	}
-	//Adds ech ruby
-	console.log(Rby);
-	for(let k = 0;k<Rby.length;k++){
-		scene.add(Rby[k]);
-	}
+
+
 
 
 
@@ -179,16 +185,9 @@ controller = {
 
 
 loop = function(){
-
-
-
-	//checkruby();
-
-
-
-
+	checkruby();
 	distanceprev = chardata.y;
-	Movechar(chardata.x,chardata.y,chardata.z);
+	//Movechar(chardata.x,chardata.y,chardata.z);
 	colisiondetection(controls.getObject());
 	if(controller.up && chardata.jump == false){
 
@@ -200,18 +199,18 @@ loop = function(){
 	if(controller.left){
 		// char.rotation.y-=0.04;
 		// chardata.rotationy -= 0.04
-		chardata.x_vel -=0.04;
+		chardata.x_vel -=0.06;
 	}
 	if(controller.right){
-		chardata.x_vel +=0.04;
+		chardata.x_vel +=0.06;
 		// char.rotation.y +=0.04;
 		// chardata.rotationy += 0.04
 	}
 	if(controller.forward){
-		chardata.z_vel -=0.04;
+		chardata.z_vel -=0.06;
 	}
 	if(controller.back){
-		chardata.z_vel +=0.04;
+		chardata.z_vel +=0.06;
 	}
 	chardata.y_vel -=0.25;//gravity(0.25)
 	chardata.y += chardata.y_vel;
@@ -295,11 +294,11 @@ function colisiondetection(char){
 
 		let rot = (Math.PI + realRot) + screenRot;
 		 //rays in order to check for collisions
-		 var forw  = new THREE.Vector3(Math.sin(rot), 0, -Math.cos(rot)); //Forward
-		 var backw = new THREE.Vector3(Math.sin(rot), 0, Math.cos(rot)); //back
-		 var left  = new THREE.Vector3(Math.sin(rot - Math.PI / 2), 0, Math.cos(rot - Math.PI / 2)); //Left
-		 var right = new THREE.Vector3(Math.sin(rot + Math.PI / 2), 0, Math.cos(rot + Math.PI / 2)); //Right
-		 var downw = new THREE.Vector3(0, -1, 0); //Down
+		  forw.set(Math.sin(rot), 0, -Math.cos(rot)); //Forward
+		  backw.set(Math.sin(rot), 0, Math.cos(rot)); //back
+		  left.set(Math.sin(rot - Math.PI / 2), 0, Math.cos(rot - Math.PI / 2)); //Left
+		  right.set(Math.sin(rot + Math.PI / 2), 0, Math.cos(rot + Math.PI / 2)); //Right
+		  downw.set(0, -1, 0); //Down
 		charvec.set(controls.getObject().position.x,controls.getObject().position.y,controls.getObject().position.z);
 		//raycaster.set(pos , direc);
 		rayforward.set(charvec , forw);//farward
@@ -362,10 +361,10 @@ function GenCoinList(){
 
 
 function checkruby(){
-	for(let k = 0 ; k< Ruby.length;k++){
-		if(controls.getObject().position.x <= (Ruby[k].position.x+2) && controls.getObject().position.x >= (Ruby[k].position.x-2) && controls.getObject().position.z >= Ruby[k].position.z-2 && controls.getObject().position.z <= Ruby[k].position.z+2){
+	for(let k = 0 ; k< RubyArr.length;k++){
+		if(controls.getObject().position.x <= (PosList[k].x+2) && controls.getObject().position.x >= (PosList[k].x-2) && controls.getObject().position.z >= PosList[k].z-2 && controls.getObject().position.z <= PosList[k].z+2){
 			PointsCounter = PointsCounter+5;
-			scene.remove(Ruby[k])
+			scene.remove(RubyArr[k])
 
 		}
 	}

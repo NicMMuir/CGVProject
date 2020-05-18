@@ -144,7 +144,7 @@ function GenEnemey(){
      head.add(h_cone6);
 
      //Add spikes_pillar to inviscube(Make inviscube)
-
+    
 
      return(inviscube);
    }

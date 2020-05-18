@@ -12,25 +12,31 @@
 //   });
 // }
 
-
+var PosList = [];
 var Ruby = new THREE.Object3D();
 var RubyArray = [];
+var temp;
 function rubyinit(){
 
   var loader = new THREE.GLTFLoader();
   loader.load('/Charblender/Points/ruby.glb', function(gltf){
-  var Ruby = gltf.scene;
-  scene.add(Ruby)
+  Ruby = gltf.scene;
+
+  for(let k = 0;k<5;k++){
+    temp = gltf.scene.clone();
+    temp.position.x = PosList[k].x ;
+    temp.position.y = PosList[k].y;
+    temp.position.z = PosList[k].z;
+    RubyArray.push(temp);
+    scene.add(temp);
+  }
+
 });
 }
 
 
-function genruby(){
-    //If this is compented out and Ruby returned, it renders to scene
-
-    rubyinit();
-    for(let k =0;k<5;k++){
-      RubyArray.push(Ruby.clone());
-    }
+function genruby(poslist){
+  PosList = poslist;
+  rubyinit();
   return RubyArray;
 }
