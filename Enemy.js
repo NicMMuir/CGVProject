@@ -11,6 +11,8 @@
 
 
 function GenEnemey(){
+
+
       //Adding box to spiked pillar
        var geometry = new THREE.BoxGeometry( 1, 1, 1 );
        var cubeMaterials =
@@ -50,6 +52,8 @@ function GenEnemey(){
       var cone2 = cone.clone();
       cone1.position.set(0,-0.6,0);
       cone2.position.set(0,-1.2,0);
+
+
 
      //Creating object spikes of 3 cones
      spikes.add(cone);
@@ -144,7 +148,21 @@ function GenEnemey(){
      head.add(h_cone6);
 
      //Add spikes_pillar to inviscube(Make inviscube)
+     //Making Inviscube:
+      var invisBox = new THREE.BoxGeometry(1,5,1);
+      var invisMat = new THREE.MeshPhongMaterial({
+        color: 0x000000,
+        opacity: 0.5,
+        transparent: true,
+        polygonOffset: true, 
+        polygonOffsetUnits: 1,
+        polygonOffsetFactor: 1
+      });
+      var invisibleCube = new THREE.Mesh(invisBox, invisMat);
+      inviscube.add(invisibleCube);
 
+     //Adding S_P to inviscube:
+      spikes_pillar.add(inviscube);
 
      return(spikes_pillar);
    }

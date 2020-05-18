@@ -311,11 +311,11 @@ function colisiondetection(char){
 		rayleft.set(charvec , left);//left
 		rayright.set(charvec , right);//right
 		//.intersectObjects ( objects : Array, recursive : Boolean, optionalTarget : Array ) : Array
-		fobj = rayforward.intersectObjects(Collidables);
-		bobj = raybackward.intersectObjects(Collidables);
-		dobj = raydown.intersectObjects(Collidables);
-		lobj = rayleft.intersectObjects(Collidables);
-		robj = rayright.intersectObjects(Collidables);
+		fobj = rayforward.intersectObjects(Collidables, true);
+		bobj = raybackward.intersectObjects(Collidables, true);
+		dobj = raydown.intersectObjects(Collidables, true);
+		lobj = rayleft.intersectObjects(Collidables, true);
+		robj = rayright.intersectObjects(Collidables, true);
 };
 
 
