@@ -211,12 +211,12 @@ loop = function(){
 		// chardata.rotationy += 0.04
 	}
 	if(controller.forward){
-		chardata.z_vel -=0.06;
+		chardata.z_vel -=0.2;
 	}
 	if(controller.back){
 		chardata.z_vel +=0.06;
 	}
-	chardata.y_vel -=0.25;//gravity(0.25)
+	chardata.y_vel -=0;//gravity(0.25)
 	chardata.y += chardata.y_vel;
 	chardata.x_vel *= 0.8;//friction
 	chardata.y_vel *= 0.8;//friction

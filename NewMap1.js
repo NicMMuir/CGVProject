@@ -131,6 +131,22 @@ loader.load('./3DObjects/LongBridge/scene.gltf', function(gltf){
     centreBridge.add(gltf.scene);
 });
 
+//Load Palm Tree Model
+var palmTree1 = new THREE.Object3D();
+var palmTree2 = new THREE.Object3D();
+var palmTree3 = new THREE.Object3D();
+var palmTree4 = new THREE.Object3D();
+var loader = new THREE.GLTFLoader();
+loader.load('./3DObjects/palmTree/scene.gltf', function(gltf){
+    palmTree1.add(gltf.scene);
+    palmTree2.add(gltf.scene.clone());
+    palmTree3.add(gltf.scene.clone());
+    palmTree4.add(gltf.scene.clone());
+});
+
+
+
+
 //Creating a few platforms XD:
 // Start floor
 var platform1 = new THREE.Mesh( platformGeometry , woodMat );
@@ -304,13 +320,13 @@ function genarrMap1(){
   ObjectsMap1Arr.push(wallPlane13);
 
 
-
-
-
-
-
-  //ObjectsMap1Arr.push(skybox);
-  scene.add( skybox );
+  ObjectsMap1Arr.push(palmTree1);
+  ObjectsMap1Arr.push(palmTree2);
+  ObjectsMap1Arr.push(palmTree3);
+  ObjectsMap1Arr.push(palmTree4);
+  
+  ObjectsMap1Arr.push(skybox);
+  // scene.add( skybox );
 
 }
 
@@ -523,6 +539,23 @@ function moveobjectsMap1(){
     wallPlane13.position.y =25;
     wallPlane13.position.z =-520;
     wallPlane13.rotation.set(Math.PI/2, 0, 0);
+
+    palmTree1.position.x = -480;
+    palmTree1.position.y = 0;
+    palmTree1.position.z = -100;
+    palmTree1.scale.set(10,10,10);
+     palmTree2.position.x = -210;
+    palmTree2.position.y = 0;
+    palmTree2.position.z = -360;
+    palmTree2.scale.set(15,15,15);
+     palmTree3.position.x = 350;
+    palmTree3.position.y = 0;
+    palmTree3.position.z = -160;
+    palmTree3.scale.set(20,20,20);
+     palmTree4.position.x = 180;
+    palmTree4.position.y = 0;
+    palmTree4.position.z = -610;
+    palmTree4.scale.set(30,30,30);
 
 
 
