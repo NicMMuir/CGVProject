@@ -236,6 +236,11 @@ loop = function(){
 	chardata.x_vel *= 0.8;//friction
 	chardata.y_vel *= 0.8;//friction
 	chardata.z_vel *= 0.9;//friction
+
+
+
+
+	/////////////////////Normal collisions
 if(dobj.length != 0){
 	if(dobj[0].distance>3){
 		chardata.jump = true;
@@ -261,17 +266,19 @@ if(dobj.length != 0){
 	if(fobj.length != 0){
 		if(fobj[0].distance < 2){
 			chardata.jump = true;
-				chardata.z_vel = 0;
-			controls.getObject().position.z = fobj[0].point.z+2.1;
+			if(chardata.z_vel > 0){
+				chardata.z_vel = chardata.z_vel*-1;
+			}
+			controls.getObject().position.z = fobj[0].point.z+2.2;
 		}
 	}
 	if(bobj.length != 0){
 		if(bobj[0].distance < 2){
 			chardata.jump = true;
 			if(chardata.z_vel < 0){
-				chardata.z_vel = 0;
+				chardata.z_vel = chardata.z_vel*-1;
 			}
-			controls.getObject().position.z = bobj[0].point.z-2.1;
+			controls.getObject().position.z = bobj[0].point.z-2.2;
 		}
 	}
 	if(lobj.length != 0){
@@ -280,7 +287,7 @@ if(dobj.length != 0){
 			if(chardata.x_vel > 0){
 				chardata.x_vel = 0;
 			}
-			controls.getObject().position.x = lobj[0].point.x+2;
+			controls.getObject().position.x = lobj[0].point.x+2.2;
 		}
 	}
 	if(robj.length != 0){
@@ -292,6 +299,55 @@ if(dobj.length != 0){
 			controls.getObject().position.x = robj[0].point.x-2.1;
 		}
 	}
+/////////enemy ccollisions
+
+if(efobj.length != 0){
+	if(efobj[0].distance < 2){
+		DeathCounter= DeathCounter+1;
+		chardata.x=0;
+		chardata.y=2;
+		chardata.z=0;
+		chardata.jump = false;
+		controls.getObject().position.set(charstartx,charstarty,charstartz);
+	}
+}
+if(ebobj.length != 0){
+	if(ebobj[0].distance < 2){
+		DeathCounter= DeathCounter+1;
+		chardata.x=0;
+		chardata.y=2;
+		chardata.z=0;
+		chardata.jump = false;
+		controls.getObject().position.set(charstartx,charstarty,charstartz);
+	}
+}
+if(elobj.length != 0){
+	if(elobj[0].distance < 2){
+		DeathCounter= DeathCounter+1;
+		chardata.x=0;
+		chardata.y=2;
+		chardata.z=0;
+		chardata.jump = false;
+		controls.getObject().position.set(charstartx,charstarty,charstartz);
+	}
+}
+if(erobj.length != 0){
+	if(erobj[0].distance < 2){
+		DeathCounter= DeathCounter+1;
+		chardata.x=0;
+		chardata.y=2;
+		chardata.z=0;
+		chardata.z_vel = 0;
+		chardata.x_vel = 0;
+		chardata.jump = false;
+		controls.getObject().position.set(charstartx,charstarty,charstartz);
+		}
+
+	}
+
+
+
+
 
 	Movechar(chardata.x,chardata.y,chardata.z);
 	render();
@@ -334,11 +390,17 @@ function colisiondetection(char){
 		rayleft.set(charvec , left);//left
 		rayright.set(charvec , right);//right
 		//.intersectObjects ( objects : Array, recursive : Boolean, optionalTarget : Array ) : Array
-		fobj = rayforward.intersectObjects(Collidables);
-		bobj = raybackward.intersectObjects(Collidables);
-		dobj = raydown.intersectObjects(Collidables);
-		lobj = rayleft.intersectObjects(Collidables);
-		robj = rayright.intersectObjects(Collidables);
+		fobj = rayforward.intersectObjects(Collidables,true);
+		bobj = raybackward.intersectObjects(Collidables,true);
+		dobj = raydown.intersectObjects(Collidables,true);
+		lobj = rayleft.intersectObjects(Collidables,true);
+		robj = rayright.intersectObjects(Collidables,true);
+
+		efobj = rayforward.intersectObjects(EnemyList,true);
+		ebobj = raybackward.intersectObjects(EnemyList,true);
+		edobj = raydown.intersectObjects(EnemyList,true);
+		elobj = rayleft.intersectObjects(EnemyList,true);
+		erobj = rayright.intersectObjects(EnemyList,true);
 };
 
 

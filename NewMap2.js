@@ -236,6 +236,7 @@ function genarrMap1(){
   enmy.scale.y = 3;
   enmy.scale.z = 3;
   ObjectsMap1Arr.push(enmy);
+  EnemyList.push(enmy);
   ObjectsMap1Arr.push(startpad);
   ObjectsMap1Arr.push(SotheSeg);
   ObjectsMap1Arr.push(NorthEastSeg);
@@ -261,12 +262,12 @@ function genarrMap1(){
   ObjectsMap1Arr.push(platform7);
   ObjectsMap1Arr.push(highPlatform8);
   ObjectsMap1Arr.push(platform9);
-  
+
   ObjectsMap1Arr.push(glowingRock1);
   ObjectsMap1Arr.push(glowingRock2);
   ObjectsMap1Arr.push(glowingRock3);
   ObjectsMap1Arr.push(glowingRock4);
-  
+
   ObjectsMap1Arr.push(wallPlane1);
   ObjectsMap1Arr.push(wallPlane2);
   ObjectsMap1Arr.push(wallPlane3);
@@ -285,7 +286,7 @@ function genarrMap1(){
 //East Wing platforms:
   ObjectsMap1Arr.push(glowingRock7);
   ObjectsMap1Arr.push(glowingRock8);
-  
+
   ObjectsMap1Arr.push(platform10);
   ObjectsMap1Arr.push(platform11);
 
@@ -313,7 +314,7 @@ function genarrMap1(){
   ObjectsMap1Arr.push(platform22);
   ObjectsMap1Arr.push(platform23);
 
-  
+
   // ObjectsMap1Arr.push(skybox);
   scene.add( skybox )
 }
@@ -423,8 +424,8 @@ function moveobjectsMap1(){
     wallPlane6.position.x = -45;
     wallPlane6.position.y =0;
     wallPlane6.position.z =5;
-    
-     
+
+
     //West Wing Platforms:
     glowingRock5.position.x = -300;
     glowingRock5.position.y = 0;

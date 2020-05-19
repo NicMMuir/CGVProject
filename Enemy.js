@@ -154,15 +154,15 @@ function GenEnemey(){
         color: 0x000000,
         opacity: 0.5,
         transparent: true,
-        polygonOffset: true, 
+        polygonOffset: true,
         polygonOffsetUnits: 1,
         polygonOffsetFactor: 1
       });
       var invisibleCube = new THREE.Mesh(invisBox, invisMat);
-      inviscube.add(invisibleCube);
+      //inviscube.add(invisibleCube);
 
      //Adding S_P to inviscube:
-      spikes_pillar.add(inviscube);
+      //spikes_pillar.add(inviscube);
 
      return(spikes_pillar);
    }
