@@ -1,18 +1,64 @@
  var CharacterBuild = new THREE.Object3D();
  var Char;
  var childern = []
-
+ const mixers = []; //holds one AnimationMixer for each model (an Animation Mixer attaches animations to models)
 
 
 function Charinit(){
-  var loader = new THREE.GLTFLoader();
-  loader.load('/Charblender/Character.glb', function(gltf){
-  CharacterBuild = gltf.scene;
-  console.log(CharacterBuild);
-  });
+  loadModel();
+  renderer.setAnimationLoop(()=>{
+    update();
+    render();
+  })
+
+}
+ 
+
+
+function update(){//get elapsed time (delta) since last frame and update mixer
+    const delta = clock.getDelta();
+
+    for (const mixer of mixers){//there's only one mixer for one model at current, but this is written to be able to work with multiple models
+        mixer.update(delta);
+    }
+}
+
+function render(){
+  renderer.render(scene, camera);
 }
 
 
+
+function loadModel(){
+  const gltfLoader = new THREE.GLTFLoader();
+  const url = '/Charblender/GLTF/Character.glb';
+
+  const onLoad = (gltf)=>{//gltf is the object the loader returns
+    CharacterBuild = gltf.scene;
+    console.log(CharacterBuild);
+
+ 
+    //get a reference to the animation clip for loaded model
+    const animation = gltf.animations[0];
+    //create animation mixer for loaded object (updates model as animation progresses)
+    //push this mixer to the mixers array, loop over mixers once at start of each frame in update(), passing in clock time passed since prev frame
+    const mixer = new THREE.AnimationMixer(CharacterBuild);
+    mixers.push(mixer);
+    //create animation action for animation clip. animation action controls state of clip (playing, stopped, paused, etc.)
+    const action = mixer.clipAction(animation);
+    action.play();
+    //scene.add(CharacterBuild);
+
+    controls.getObject().add(CharacterBuild);
+	  scene.add(controls.getObject());
+  	//scene.add(CharacterBuild);
+   
+};
+
+const onError = (errorMessage) => {console.log(errorMessage)};
+gltfLoader.load(url, gltf => onLoad (gltf), onError);
+
+};
 
 
 

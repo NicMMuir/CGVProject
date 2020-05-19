@@ -121,13 +121,11 @@ function init(){
 
 
 	for(let k =0 ;k<ObjectsMap1Arr.length;k++){
-		scene.add( ObjectsMap1Arr[k] );
+		scene.add(ObjectsMap1Arr[k] );
 		Collidables.push(ObjectsMap1Arr[k]);
 	}
 
-	controls.getObject().add(CharacterBuild);
-	scene.add(controls.getObject());
-
+	
 
 
 
@@ -227,7 +225,7 @@ loop = function(){
 	if(controller.back){
 		chardata.z_vel +=0.06;
 	}
-	chardata.y_vel -=0.5;//gravity(0.25)
+	chardata.y_vel -=0.25;//gravity(0.25)
 	chardata.y += chardata.y_vel;
 	chardata.x_vel *= 0.8;//friction
 	chardata.y_vel *= 0.8;//friction
@@ -416,6 +414,7 @@ function Movechar(x1,y1,z1){
 	controls.getObject().translateZ(chardata.z_vel);
 	controls.getObject().translateX(chardata.x_vel);
 	controls.getObject().position.y=chardata.y;
+	//
 }
 
 
