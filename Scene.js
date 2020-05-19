@@ -16,6 +16,7 @@ var RubyArr = [];
 var CPosList = [];
 var CoinArr = [];
 
+var Direction = new THREE.Vector3();
 
 
 var distanceprev;
@@ -40,11 +41,20 @@ chardata = {
 	y_vel:0,
 	z_vel:0,
 	x:0,
-	y:20,
+	y:50,
 	z:0,
 	rotationy:0
 };
 var character = new THREE.Object3D();
+
+//Vectors
+
+	 //rays in order to check for collisions
+	 var forw = new THREE.Vector3(0, 0, -1); //Forward
+	 var backw  = new THREE.Vector3(0,0,1); //back
+	 var left = new THREE.Vector3(-1,0,0); //Left
+	 var right = new THREE.Vector3(1,0,0); //Right
+	 var downw = new THREE.Vector3(0, -1, 0); //Down
 
 //raycasting
 var rayforward = new THREE.Raycaster();
@@ -68,11 +78,11 @@ controls = new THREE.PointerLockControls(camera);
 var charvec = new THREE.Vector3(chardata.x,chardata.y,chardata.z);
 //array of intersecting objects
 //vectors:
-var forw  = new THREE.Vector3(); //Forward
-var backw = new THREE.Vector3(); //back
-var left  = new THREE.Vector3(); //Left
-var right = new THREE.Vector3(); //Right
-var downw = new THREE.Vector3();
+// var forw  = new THREE.Vector3(); //Forward
+// var backw = new THREE.Vector3(); //back
+// var left  = new THREE.Vector3(); //Left
+// var right = new THREE.Vector3(); //Right
+// var downw = new THREE.Vector3();
 
 var fobj = new Array();
 var bobj= new Array();
@@ -101,8 +111,14 @@ function init(){
 		 var tp = new THREE.Vector3(10*k,5,10*k);
 	  RPosList.push(tp);
 	}
-	 console.log(RPosList);
-	 RubyArr = genruby(RPosList);
+	RubyArr = genruby(RPosList);
+	for(let k = 0;k<5;k++){
+		 var tp = new THREE.Vector3(-10*k,5,10*k);
+	   CPosList.push(tp);
+	}
+	CoinArr = gencoin(CPosList);
+	 //console.log(RPosList);
+
 
 
 
@@ -114,7 +130,6 @@ function init(){
 	}
 
 	controls.getObject().add(CharacterBuild);
-	controls.getObject().position.x = -420;
 	scene.add(controls.getObject());
 
 
@@ -190,43 +205,46 @@ controller = {
 
 loop = function(){
 	checkruby();
+	checkcoin();
 	distanceprev = chardata.y;
-	//Movechar(chardata.x,chardata.y,chardata.z);
 	colisiondetection(controls.getObject());
 	if(controller.up && chardata.jump == false){
 
 		//must be a mutiple of the gravity
-		chardata.y_vel +=5;
+		chardata.y_vel +=10;
 		chardata.jump = true;
 	}
 
 	if(controller.left){
 		// char.rotation.y-=0.04;
 		// chardata.rotationy -= 0.04
-		chardata.x_vel -=0.06;
+		chardata.x_vel -=0.1;
 	}
 	if(controller.right){
-		chardata.x_vel +=0.06;
+		chardata.x_vel +=0.1;
 		// char.rotation.y +=0.04;
 		// chardata.rotationy += 0.04
 	}
 	if(controller.forward){
-		chardata.z_vel -=0.2;
+		chardata.z_vel -=0.1;
 	}
 	if(controller.back){
 		chardata.z_vel +=0.06;
 	}
-	chardata.y_vel -=0;//gravity(0.25)
+	chardata.y_vel -=0.5;//gravity(0.25)
 	chardata.y += chardata.y_vel;
 	chardata.x_vel *= 0.8;//friction
 	chardata.y_vel *= 0.8;//friction
 	chardata.z_vel *= 0.9;//friction
 if(dobj.length != 0){
+	if(dobj[0].distance>3){
+		chardata.jump = true;
+	}
 	if(chardata.jump == true && dobj[0].distance<3 && distanceprev>chardata.y){
 			chardata.jump = false;
 	}
 }
-	if(chardata.y<-50){
+	if(chardata.y<-20){
 		DeathCounter= DeathCounter+1;
 		chardata.x=0;
 		chardata.y=2;
@@ -241,36 +259,39 @@ if(dobj.length != 0){
 }
 	//forward collis
 	if(fobj.length != 0){
-		if(fobj[0].distance < 1){
+		if(fobj[0].distance < 2){
 			chardata.jump = true;
-			chardata.z_vel = 0;
-			controls.getObject().position.z = fobj[0].point.z+1.1; // might be -1.1
+				chardata.z_vel = 0;
+			controls.getObject().position.z = fobj[0].point.z+2.1;
 		}
 	}
 	if(bobj.length != 0){
-		if(bobj[0].distance < 1){
+		if(bobj[0].distance < 2){
 			chardata.jump = true;
-			chardata.z_vel = 0;
-			controls.getObject().position.z = bobj[0].point.z-1.1; // might be +1.1
+			if(chardata.z_vel < 0){
+				chardata.z_vel = 0;
+			}
+			controls.getObject().position.z = bobj[0].point.z-2.1;
 		}
 	}
 	if(lobj.length != 0){
-		if(lobj[0].distance < 1){
+		if(lobj[0].distance < 2){
 			chardata.jump = true;
-			chardata.x_vel = 0;
-			controls.getObject().position.x = lobj[0].point.x-1.5;
+			if(chardata.x_vel > 0){
+				chardata.x_vel = 0;
+			}
+			controls.getObject().position.x = lobj[0].point.x+2;
 		}
 	}
 	if(robj.length != 0){
-		if(robj[0].distance < 1){
+		if(robj[0].distance < 2){
 			chardata.jump = true;
-			chardata.x_vel = 0;
-			controls.getObject().position.x = robj[0].point.x+1.5;
+			if(chardata.x_vel < 0){
+				chardata.x_vel = 0;
+			}
+			controls.getObject().position.x = robj[0].point.x-2.1;
 		}
 	}
-//
-
-
 
 	Movechar(chardata.x,chardata.y,chardata.z);
 	render();
@@ -280,29 +301,31 @@ if(dobj.length != 0){
 
 function colisiondetection(char){
 
-	let realRot = controls.getObject().rotation.y;
-	let screenRot;
-	 if(controls.getObject().position.z == 0) {
-			 screenRot = Math.PI / 2 * Math.sign(controls.getObject().position.x);
-	 } else {
-			 if(controls.getObject().position.x != 0) {
-					 screenRot = Math.atan(controls.getObject().position.x / controls.getObject().position.z);
-			 } else {
-					 if(controls.getObject().position.z == -1) {
-							 screenRot = Math.PI;
-					 } else {
-							 screenRot = 0;
-					 }
-			 }
-	 }
+	//Comented out due to errors:
 
-		let rot = (Math.PI + realRot) + screenRot;
-		 //rays in order to check for collisions
-		  forw.set(Math.sin(rot), 0, -Math.cos(rot)); //Forward
-		  backw.set(Math.sin(rot), 0, Math.cos(rot)); //back
-		  left.set(Math.sin(rot - Math.PI / 2), 0, Math.cos(rot - Math.PI / 2)); //Left
-		  right.set(Math.sin(rot + Math.PI / 2), 0, Math.cos(rot + Math.PI / 2)); //Right
-		  downw.set(0, -1, 0); //Down
+	// let realRot = controls.getObject().rotation.y;
+	// let screenRot;
+	//  if(controls.getObject().position.z == 0) {
+	// 		 screenRot = Math.PI / 2 * Math.sign(controls.getObject().position.x);
+	//  } else {
+	// 		 if(controls.getObject().position.x != 0) {
+	// 				 screenRot = Math.atan(controls.getObject().position.x / controls.getObject().position.z);
+	// 		 } else {
+	// 				 if(controls.getObject().position.z == -1) {
+	// 						 screenRot = Math.PI;
+	// 				 } else {
+	// 						 screenRot = 0;
+	// 				 }
+	// 		 }
+	//  }
+	//
+	// 	let rot = (Math.PI + realRot) + screenRot;
+	// 	 //rays in order to check for collisions
+	// 	 var forw = new THREE.Vector3(Math.sin(rot), 0, -Math.cos(rot)); //Forward
+	// 	 var backw  = new THREE.Vector3(Math.sin(rot), 0, Math.cos(rot)); //back
+	// 	 var left = new THREE.Vector3(Math.sin(rot - Math.PI / 2), 0, Math.cos(rot - Math.PI / 2)); //Left
+	// 	 var right = new THREE.Vector3(Math.sin(rot + Math.PI / 2), 0, Math.cos(rot + Math.PI / 2)); //Right
+	// 	 var downw = new THREE.Vector3(0, -1, 0); //Down
 		charvec.set(controls.getObject().position.x,controls.getObject().position.y,controls.getObject().position.z);
 		//raycaster.set(pos , direc);
 		rayforward.set(charvec , forw);//farward
@@ -311,11 +334,11 @@ function colisiondetection(char){
 		rayleft.set(charvec , left);//left
 		rayright.set(charvec , right);//right
 		//.intersectObjects ( objects : Array, recursive : Boolean, optionalTarget : Array ) : Array
-		fobj = rayforward.intersectObjects(Collidables, true);
-		bobj = raybackward.intersectObjects(Collidables, true);
-		dobj = raydown.intersectObjects(Collidables, true);
-		lobj = rayleft.intersectObjects(Collidables, true);
-		robj = rayright.intersectObjects(Collidables, true);
+		fobj = rayforward.intersectObjects(Collidables);
+		bobj = raybackward.intersectObjects(Collidables);
+		dobj = raydown.intersectObjects(Collidables);
+		lobj = rayleft.intersectObjects(Collidables);
+		robj = rayright.intersectObjects(Collidables);
 };
 
 
