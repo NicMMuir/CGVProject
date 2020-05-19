@@ -226,20 +226,12 @@ loop = function(){
 		// chardata.rotationy += 0.04
 	}
 	if(controller.forward){
-<<<<<<< HEAD
 		chardata.z_vel -=0.1;
-=======
-		chardata.z_vel -=0.06;
->>>>>>> 93a39cd6aae3ffc02f6892759727611f52f71094
 	}
 	if(controller.back){
 		chardata.z_vel +=0.06;
 	}
-<<<<<<< HEAD
 	chardata.y_vel -=0.5;//gravity(0.25)
-=======
-	chardata.y_vel -=0.25;//gravity(0.25)
->>>>>>> 93a39cd6aae3ffc02f6892759727611f52f71094
 	chardata.y += chardata.y_vel;
 	chardata.x_vel *= 0.8;//friction
 	chardata.y_vel *= 0.8;//friction
