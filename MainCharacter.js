@@ -2,8 +2,7 @@
  var Char;
  var childern = []
  const mixers = []; //holds one AnimationMixer for each model (an Animation Mixer attaches animations to models)
-
-
+var action; 
 function Charinit(){
   loadModel();
   renderer.setAnimationLoop(()=>{
@@ -35,7 +34,7 @@ function loadModel(){
 
   const onLoad = (gltf)=>{//gltf is the object the loader returns
     CharacterBuild = gltf.scene;
-    console.log(CharacterBuild);
+    console.log("log gltf model of character", CharacterBuild);
 
  
     //get a reference to the animation clip for loaded model
@@ -45,13 +44,9 @@ function loadModel(){
     const mixer = new THREE.AnimationMixer(CharacterBuild);
     mixers.push(mixer);
     //create animation action for animation clip. animation action controls state of clip (playing, stopped, paused, etc.)
-    const action = mixer.clipAction(animation);
-    action.play();
-    //scene.add(CharacterBuild);
-
+    action = mixer.clipAction(animation);
     controls.getObject().add(CharacterBuild);
 	  scene.add(controls.getObject());
-  	//scene.add(CharacterBuild);
    
 };
 

@@ -177,27 +177,33 @@ controller = {
 			keyListener:function(event){
 				var keystate = (event.type == "keydown")?true:false;
 				switch (event.keyCode) {
-					case 87:
+					case 87://the "W" key is pressed
 							controller.forward = keystate;
+							console.log("Character has just moved forward...");
+							//action.play();
 						break;
-					case 83:
+					case 83://the "S" key is pressed
 							controller.back = keystate;
 						break;
-					case 65:
+					case 65://the "A" key is pressed
 							controller.left = keystate;
 						break;
-					case 68:
+					case 68://the "D" key is pressed
 							controller.right = keystate;
 						break;
-					case 32:
+					case 32://the spacebar is pressed
 							controller.up = keystate;
 						break;
 				}
+
+				
 			}
 }
 
 
+
 loop = function(){
+
 	checkruby();
 	checkcoin();
 	distanceprev = chardata.y;
@@ -221,10 +227,13 @@ loop = function(){
 	}
 	if(controller.forward){
 		chardata.z_vel -=0.1;
+		action.play(); //need to figure out how controller event listener processes 'keyup' events to call action.stop() when 'W' is released
 	}
 	if(controller.back){
 		chardata.z_vel +=0.06;
 	}
+
+	
 	chardata.y_vel -=0.25;//gravity(0.25)
 	chardata.y += chardata.y_vel;
 	chardata.x_vel *= 0.8;//friction
