@@ -24,7 +24,7 @@ materialArray.push(new THREE.MeshBasicMaterial( { map: texture_lf }));
 for (let i = 0; i < 6; i++)
   materialArray[i].side = THREE.BackSide;
 
-let skyboxGeo = new THREE.BoxGeometry( 1000, 1000, 1000);
+let skyboxGeo = new THREE.BoxGeometry( 2000, 1000, 2000);
 let skybox = new THREE.Mesh( skyboxGeo, materialArray );
 
 
@@ -72,7 +72,7 @@ var NorthSeg = new THREE.Mesh( SouthSegmentgeom , lavaRockMaterial );
 
 
 
- oceanGeometry = new THREE.PlaneBufferGeometry( 1000, 1000, 128-1, 128-1);
+ oceanGeometry = new THREE.PlaneBufferGeometry( 2000, 2000, 128-1, 128-1);
         oceanGeometry.rotateX( - Math.PI / 2 );
 
         var position = oceanGeometry.attributes.position;

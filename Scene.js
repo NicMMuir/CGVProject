@@ -65,15 +65,15 @@ var rayright = new THREE.Raycaster();
 
 //Scene and camear etc
 scene = new THREE.Scene();
-camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
+camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 5000 );
 renderer = new THREE.WebGLRenderer({antialias:true, alpha: true});
 camera.position.set(camstartx,camstarty,camstartz);
 camera.lookAt(chardata.x,chardata.y,chardata.z);
 camera.updateProjectionMatrix();
 controls = new THREE.PointerLockControls(camera);
 
-
-
+var position;//Ocean moveement
+var time;
 //char Vector3
 var charvec = new THREE.Vector3(chardata.x,chardata.y,chardata.z);
 //array of intersecting objects
@@ -89,7 +89,7 @@ var bobj= new Array();
 var dobj= new Array();
 var lobj= new Array();
 var robj= new Array();
-
+var tp = new THREE.Vector3();
 
 init();
 
@@ -105,17 +105,13 @@ function init(){
 
 	getarrMap1();
 	Charinit();
-
-	///////////////////////
-	for(let k = 0;k<5;k++){
-		 var tp = new THREE.Vector3(10*k,5,10*k);
-	  RPosList.push(tp);
-	}
-	RubyArr = genruby(RPosList);
-	for(let k = 0;k<5;k++){
-		 var tp = new THREE.Vector3(-10*k,5,10*k);
-	   CPosList.push(tp);
-	}
+	   RPosList = gerrubyl();
+	// }
+	 RubyArr = genruby(RPosList);
+	// for(let k = 0;k<5;k++){
+	// 	 tp = new THREE.Vector3(-10*k,5,10*k);
+	    CPosList = getcoinl();
+	// }
 	CoinArr = gencoin(CPosList);
 	 //console.log(RPosList);
 
@@ -158,9 +154,9 @@ function animate() {
 			}
 
 function render(){
-	var time = clock.getElapsedTime() * 10;
+	 time = clock.getElapsedTime() * 10;
 
-				var position = oceanGeometry.attributes.position;
+				 position = oceanGeometry.attributes.position;
 
 				for ( var i = 0; i < position.count; i ++ ) {
 

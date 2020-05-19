@@ -5,31 +5,11 @@
 
 
 function Charinit(){
-    const objLoader = new THREE.OBJLoader();
-    objLoader.setPath('/Charblender/');
-
-    const mtlLoader = new THREE.MTLLoader();
-    mtlLoader.setPath('/Charblender/');
-
-    new Promise((resolve) => {
-      mtlLoader.load('Character.mtl', (materials) => {
-        resolve(materials);
-      });
-    })
-    .then((materials) => {
-      materials.preload();
-      objLoader.setMaterials(materials);
-      objLoader.load('Character.obj', (object) => {
-        Char = object;
-        Char.castShadow = true;
-        Char.receiveShadow = true
-        //Char children : 1 eyes , 2 rightfoot 3: leftfoot 4:right hand , 5 : lefthand
-        //Char.children[3].translateX(-10);
-        CharacterBuild.add(Char);
-
-
-      });
-    });
+  var loader = new THREE.GLTFLoader();
+  loader.load('/Charblender/Character.glb', function(gltf){
+  CharacterBuild = gltf.scene;
+  console.log(CharacterBuild);
+  });
 }
 
 

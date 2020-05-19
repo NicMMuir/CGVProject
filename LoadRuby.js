@@ -8,7 +8,8 @@ function rubyinit(){
   loader.load('/Charblender/Points/ruby.glb', function(gltf){
   Ruby = gltf.scene;
 
-  for(let k = 0;k<5;k++){
+  for(let k = 0;k<PosRubyList.length;k++){
+    
     temp = gltf.scene.clone();
     temp.position.x = PosRubyList[k].x ;
     temp.position.y = PosRubyList[k].y;

@@ -8,7 +8,7 @@ function coininit(){
   loader.load('/Charblender/Points/coin.glb', function(gltf){
   Coin = gltf.scene;
 
-  for(let k = 0;k<5;k++){
+  for(let k = 0;k<PosCoinList.length;k++){
     temp = gltf.scene.clone();
     temp.position.x = PosCoinList[k].x ;
     temp.position.y = PosCoinList[k].y;
