@@ -178,13 +178,13 @@ controller = {
 		left:false,
 		right:false,
 		up:false,
+
 			keyListener:function(event){
 				var keystate = (event.type == "keydown")?true:false;
-				switch (event.keyCode) {
+				switch (event.keyCode){
 					case 87://the "W" key is pressed
 							controller.forward = keystate;
 							console.log("Character has just moved forward...");
-							//action.play();
 						break;
 					case 83://the "S" key is pressed
 							controller.back = keystate;
