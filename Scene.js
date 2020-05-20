@@ -7,7 +7,6 @@
 var scene, camera,raycamera, renderer, loop,char,chardata,controller;
 var mesh, oceanGeometry, material, clock;
 var Collidables = [];
-
 var DeathCounter = 0;
 var PointsCounter = 0;
 
@@ -105,6 +104,7 @@ function init(){
 
 	getarrMap1();
 	Charinit();
+	 
 	   RPosList = gerrubyl();
 	// }
 	 RubyArr = genruby(RPosList);
@@ -174,13 +174,20 @@ controller = {
 		left:false,
 		right:false,
 		up:false,
+		forwardUP: true,
+		//fowardUP: true,
 			keyListener:function(event){
+				//var keystateUP = (event.type == "keyup")?true:false;
+
 				var keystate = (event.type == "keydown")?true:false;
 				switch (event.keyCode) {
 					case 87://the "W" key is pressed
 							controller.forward = keystate;
 							console.log("Character has just moved forward...");
-							//action.play();
+							
+							//controller.fowardUP = keystateUP;
+							action.play();
+							//action.stop();
 						break;
 					case 83://the "S" key is pressed
 							controller.back = keystate;
@@ -196,14 +203,27 @@ controller = {
 						break;
 				}
 
+				if (controller.forward == false){
+					action.stop();
+				}
+
+				
+				// var keystateUP = (event.type == "keyup")?true:false;
+				// switch (event.keyCode){
+				// 	case 87: 
+				// 		//action.stop();
+				// }
+
 				
 			}
 }
 
 
 
+
 loop = function(){
 
+	//action.stop();
 	checkruby();
 	checkcoin();
 	distanceprev = chardata.y;
@@ -227,12 +247,14 @@ loop = function(){
 	}
 	if(controller.forward){
 		chardata.z_vel -=0.1;
-		action.play(); //need to figure out how controller event listener processes 'keyup' events to call action.stop() when 'W' is released
+	 //need to figure out how controller event listener processes 'keyup' events to call action.stop() when 'W' is released
 	}
 	if(controller.back){
 		chardata.z_vel +=0.06;
 	}
-
+	// if (!controller.forward){
+	// 	act.enabled = false;
+	// }
 	
 	chardata.y_vel -=0.25;//gravity(0.25)
 	chardata.y += chardata.y_vel;

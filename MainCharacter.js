@@ -9,7 +9,6 @@ function Charinit(){
     update();
     render();
   })
-
 }
  
 
