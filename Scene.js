@@ -103,7 +103,7 @@ function init(){
 
 	getarrMap1();
 	Charinit();
-	 
+
 	   RPosList = gerrubyl();
 	// }
 	 RubyArr = genruby(RPosList);
@@ -124,23 +124,7 @@ function init(){
 		Collidables.push(ObjectsMap1Arr[k]);
 	}
 
-
-
-
-
-
-
-
-
-
-
-
 	SetLight();
-
-
-
-
-
 
 }
 
@@ -151,7 +135,7 @@ function animate() {
 			}
 
 function render(){
-	 time = clock.getElapsedTime() * 10;
+	 time = clock.getElapsedTime() * 5;
 
 				 position = oceanGeometry.attributes.position;
 
@@ -189,7 +173,7 @@ controller = {
 					case 87://the "W" key is pressed
 							controller.forward = keystate;
 							console.log("Character has just moved forward...");
-							
+
 							//controller.fowardUP = keystateUP;
 							action.play();
 							//action.stop();
@@ -212,14 +196,6 @@ controller = {
 					action.stop();
 				}
 
-				
-				// var keystateUP = (event.type == "keyup")?true:false;
-				// switch (event.keyCode){
-				// 	case 87: 
-				// 		//action.stop();
-				// }
-
-				
 			}
 }
 
@@ -251,7 +227,7 @@ loop = function(){
 		// chardata.rotationy += 0.04
 	}
 	if(controller.forward){
-		chardata.z_vel -=0.1;
+		chardata.z_vel -=0.2;
 	 //need to figure out how controller event listener processes 'keyup' events to call action.stop() when 'W' is released
 	}
 	if(controller.back){
@@ -260,7 +236,7 @@ loop = function(){
 	// if (!controller.forward){
 	// 	act.enabled = false;
 	// }
-	
+
 	chardata.y_vel -=0.25;//gravity(0.25)
 	chardata.y += chardata.y_vel;
 	chardata.x_vel *= 0.8;//friction
@@ -372,12 +348,11 @@ if(erobj.length != 0){
 		chardata.jump = false;
 		controls.getObject().position.set(charstartx,charstarty,charstartz);
 		}
+	}
+	if((controls.getObject().position.x <= (End.position.x+11) && controls.getObject().position.x >= (End.position.x-11) && controls.getObject().position.z >= End.position.z-11 && controls.getObject().position.z <= End.position.z+11)){
+		console.log("End Reached")
 
 	}
-
-
-
-
 
 	Movechar(chardata.x,chardata.y,chardata.z);
 	render();
@@ -386,32 +361,6 @@ if(erobj.length != 0){
 
 
 function colisiondetection(char){
-
-	//Comented out due to errors:
-
-	// let realRot = controls.getObject().rotation.y;
-	// let screenRot;
-	//  if(controls.getObject().position.z == 0) {
-	// 		 screenRot = Math.PI / 2 * Math.sign(controls.getObject().position.x);
-	//  } else {
-	// 		 if(controls.getObject().position.x != 0) {
-	// 				 screenRot = Math.atan(controls.getObject().position.x / controls.getObject().position.z);
-	// 		 } else {
-	// 				 if(controls.getObject().position.z == -1) {
-	// 						 screenRot = Math.PI;
-	// 				 } else {
-	// 						 screenRot = 0;
-	// 				 }
-	// 		 }
-	//  }
-	//
-	// 	let rot = (Math.PI + realRot) + screenRot;
-	// 	 //rays in order to check for collisions
-	// 	 var forw = new THREE.Vector3(Math.sin(rot), 0, -Math.cos(rot)); //Forward
-	// 	 var backw  = new THREE.Vector3(Math.sin(rot), 0, Math.cos(rot)); //back
-	// 	 var left = new THREE.Vector3(Math.sin(rot - Math.PI / 2), 0, Math.cos(rot - Math.PI / 2)); //Left
-	// 	 var right = new THREE.Vector3(Math.sin(rot + Math.PI / 2), 0, Math.cos(rot + Math.PI / 2)); //Right
-	// 	 var downw = new THREE.Vector3(0, -1, 0); //Down
 		charvec.set(controls.getObject().position.x,controls.getObject().position.y,controls.getObject().position.z);
 		//raycaster.set(pos , direc);
 		rayforward.set(charvec , forw);//farward

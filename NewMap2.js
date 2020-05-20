@@ -1,5 +1,6 @@
 var ObjectsMap1Arr = [];
 var EnemyList = [];
+var End;
 var camera, controls, scene, renderer, stats;
 var Mesh, oceanGeometry, oceanMaterial, clock;
 
@@ -68,6 +69,7 @@ MainFloortexture.wrapS = THREE.RepeatWrapping;
 MainFloortexture.wrapT = THREE.RepeatWrapping;
 //floor geometries
 var startpadgeom = new THREE.BoxGeometry( 5, 2, 5 );
+var endpadgeom = new THREE.BoxGeometry( 10, 10, 10 );
 
 var SouthSegmentgeom = new THREE.BoxGeometry( 1000, 20, 220 );
 var NorthEastSegmentgeom = new THREE.BoxGeometry( 220, 20, 220 );
@@ -79,6 +81,7 @@ var wallGeometry = new THREE.PlaneGeometry(50,50);
 
 //Mesh:
 var startpad = new THREE.Mesh( startpadgeom, Startpadmaterial );
+var endpad = new THREE.Mesh( endpadgeom , Startpadmaterial );
 var SotheSeg = new THREE.Mesh( SouthSegmentgeom , lavaRockMaterial );
 var NorthEastSeg = new THREE.Mesh( NorthEastSegmentgeom , lavaRockMaterial );
 var NorthWestSeg = new THREE.Mesh( NorthWestSegmentgeom , lavaRockMaterial );
@@ -251,6 +254,8 @@ function genarrMap1(){
   enmy.scale.z = 3;
   ObjectsMap1Arr.push(enmy);
   EnemyList.push(enmy);
+  End = endpad;
+  ObjectsMap1Arr.push(endpad);
   ObjectsMap1Arr.push(startpad);
   ObjectsMap1Arr.push(SotheSeg);
   ObjectsMap1Arr.push(NorthEastSeg);
@@ -539,6 +544,10 @@ function moveobjectsMap1(){
     glowingRock14.position.x = -90;//left-left-bottom
     glowingRock14.position.y = 0;
     glowingRock14.position.z = -505;
+
+    endpad.position.x = 297;
+    endpad.position.y = 10;
+    endpad.position.z = -519;
 
 
 
