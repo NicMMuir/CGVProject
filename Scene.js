@@ -185,7 +185,7 @@ controller = {
 				//var keystateUP = (event.type == "keyup")?true:false;
 
 				var keystate = (event.type == "keydown")?true:false;
-				switch (event.keyCode) {
+				switch (event.keyCode){
 					case 87://the "W" key is pressed
 							controller.forward = keystate;
 							console.log("Character has just moved forward...");
