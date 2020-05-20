@@ -3,9 +3,10 @@ var EnemyList = [];
 var camera, controls, scene, renderer, stats;
 var Mesh, oceanGeometry, oceanMaterial, clock;
 
-//Skybox
+
 var enmy = new THREE.Object3D();
 
+//Skybox
 let materialArray = [];
 let texture_ft = new THREE.TextureLoader().load( 'Textures/bay_ft.jpg');
 let texture_bk = new THREE.TextureLoader().load( 'Textures/bay_bk.jpg');
@@ -26,6 +27,19 @@ for (let i = 0; i < 6; i++)
 
 let skyboxGeo = new THREE.BoxGeometry( 2000, 1000, 2000);
 let skybox = new THREE.Mesh( skyboxGeo, materialArray );
+
+//Lights
+var directionalLight = new THREE.DirectionalLight( 	0xB07214, 5 );
+directionalLight.position.set( 3000, 1000, -6000 );
+var light = new THREE.PointLight( 0xFFFFFF, 5, 0, 1 );
+light.position.set( 0, 0, 10 );
+
+//const color = 0xFFFFFF;
+//const intensity = 2;
+//const light = new THREE.AmbientLight(color, intensity);
+//scene.add(light);
+
+
 
 
 
@@ -314,6 +328,9 @@ function genarrMap1(){
   ObjectsMap1Arr.push(platform22);
   ObjectsMap1Arr.push(platform23);
 
+//Adding Lights
+scene.add( directionalLight );
+scene.add( light );
 
   // ObjectsMap1Arr.push(skybox);
   scene.add( skybox )

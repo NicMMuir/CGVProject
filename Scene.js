@@ -7,6 +7,9 @@
 var scene, camera,raycamera, renderer, loop,char,chardata,controller;
 var mesh, oceanGeometry, material, clock;
 var Collidables = [];
+
+var PauseState = false;
+
 var DeathCounter = 0;
 var PointsCounter = 0;
 
@@ -16,7 +19,7 @@ var CPosList = [];
 var CoinArr = [];
 
 var Direction = new THREE.Vector3();
-
+var YDirection = new THREE.Vector3(0,1,0);
 
 var distanceprev;
 var frame = 0;
@@ -73,15 +76,11 @@ controls = new THREE.PointerLockControls(camera);
 
 var position;//Ocean moveement
 var time;
+
+
 //char Vector3
 var charvec = new THREE.Vector3(chardata.x,chardata.y,chardata.z);
-//array of intersecting objects
-//vectors:
-// var forw  = new THREE.Vector3(); //Forward
-// var backw = new THREE.Vector3(); //back
-// var left  = new THREE.Vector3(); //Left
-// var right = new THREE.Vector3(); //Right
-// var downw = new THREE.Vector3();
+
 
 var fobj = new Array();
 var bobj= new Array();
@@ -125,7 +124,7 @@ function init(){
 		Collidables.push(ObjectsMap1Arr[k]);
 	}
 
-	
+
 
 
 
@@ -156,11 +155,17 @@ function render(){
 
 				 position = oceanGeometry.attributes.position;
 
-				for ( var i = 0; i < position.count; i ++ ) {
+				for ( let i = 0; i < position.count; i ++ ) {
 
 					var y = 5 * Math.sin( i / 5 + ( time + i ) / 7 );
 					position.setY( i, y );
 
+				}
+				for(let k = 0;k<CoinArr.length;k++){
+					CoinArr[k].rotateY(0.01);
+				}
+				for(let k = 0;k<RubyArr.length;k++){
+					RubyArr[k].rotateY(0.01);
 				}
 
 				position.needsUpdate = true;
