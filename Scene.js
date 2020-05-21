@@ -116,34 +116,15 @@ function init(){
 	 //console.log(RPosList);
 
 
-
-
-
-
 	for(let k =0 ;k<ObjectsMap1Arr.length;k++){
 		scene.add(ObjectsMap1Arr[k] );
 		Collidables.push(ObjectsMap1Arr[k]);
 	}
 
-	
-
-
-
-
-
-
-
-
-
 
 	SetLight();
-
-
-
-
-
-
 }
+
 
 function animate() {
 
@@ -226,7 +207,7 @@ loop = function(){
 		// chardata.rotationy += 0.04
 	}
 	if(controller.forward){
-		chardata.z_vel -=0.1;
+		chardata.z_vel -=0.1;//0.1
 		action.play(); //need to figure out how controller event listener processes 'keyup' events to call action.stop() when 'W' is released
 	}
 	if(controller.back){

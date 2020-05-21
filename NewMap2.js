@@ -44,7 +44,7 @@ var lavaRockMaterial = new THREE.MeshBasicMaterial( { map: lavaRockTexture, side
 
 var transMaterial = new THREE.MeshPhongMaterial({
     color: 0x000000,
-    opacity: 0.8,
+    opacity: 0,
     transparent: true,
   });
 
@@ -93,21 +93,8 @@ var texture = new THREE.TextureLoader().load( 'textures/water.jpg' );
 var oceanMesh = new THREE.Mesh( oceanGeometry, oceanMaterial );
 
 
-//Load SandHill Model
-var sandHill = new THREE.Object3D();
-{
-  var loader = new THREE.GLTFLoader();
-  loader.load('./3DObjects/SandHill/scene.gltf', function(gltf){
-
-    sandHill.add(gltf.scene);
-});
-}
-
-
 //Load Short Bridge Model
 var rightBridge1 = new THREE.Object3D();
-var leftBridge1 = new THREE.Object3D();
-var rightBridge2 = new THREE.Object3D();
 var leftBridge2 = new THREE.Object3D();
 {
   var loader = new THREE.GLTFLoader();
@@ -115,12 +102,6 @@ var leftBridge2 = new THREE.Object3D();
 
     var rightWoodBridge1 = gltf.scene;
     rightBridge1.add(rightWoodBridge1);
-
-    var leftWoodBridge1 = gltf.scene.clone();
-    leftBridge1.add(leftWoodBridge1);
-
-    var rightWoodBridge2 = gltf.scene.clone();
-    rightBridge2.add(rightWoodBridge2);
 
     var leftWoodBridge2 = gltf.scene.clone();
     leftBridge2.add(leftWoodBridge2);
@@ -242,7 +223,6 @@ function genarrMap1(){
   ObjectsMap1Arr.push(NorthEastSeg);
   ObjectsMap1Arr.push(NorthWestSeg);
   ObjectsMap1Arr.push(NorthSeg);
-  // ObjectsMap1Arr.push(sandHill);
 
   ObjectsMap1Arr.push(rightBridge1);
   ObjectsMap1Arr.push(rightTransBox);
@@ -324,8 +304,6 @@ function moveobjectsMap1(){
   SotheSeg.position.y = -10
   NorthEastSeg.position.y = -10
   NorthWestSeg.position.y = -10
-
-
 
   NorthEastSeg.position.z = -260;
   NorthEastSeg.position.x = 250
