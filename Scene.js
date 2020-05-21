@@ -149,6 +149,9 @@ function render(){
 
 				position.needsUpdate = true;
 	renderer.render(scene,camera);
+	onRender();
+	boxRender(boxe1,40,-20);
+	boxRender(boxe2,-40,-20);
 };
 
 
@@ -222,7 +225,7 @@ loop = function(){
 		// chardata.rotationy += 0.04
 	}
 	if(controller.forward){
-		chardata.z_vel -=0.1;//0.1
+		chardata.z_vel -=0.6;//0.1
 		action.play(); //need to figure out how controller event listener processes 'keyup' events to call action.stop() when 'W' is released
 
 	}
@@ -233,7 +236,7 @@ loop = function(){
 	// 	act.enabled = false;
 	// }
 
-	chardata.y_vel -=0.4;//gravity(0.25)
+	chardata.y_vel -=0;//gravity(0.4)
 	chardata.y += chardata.y_vel;
 	chardata.x_vel *= 0.8;//friction
 	chardata.y_vel *= 0.8;//friction

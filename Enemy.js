@@ -144,5 +144,35 @@ function GenEnemey(){
      head.add(h_cone5);
      head.add(h_cone6);
 
+     onRender = function() {
+        dxPerFrame = 1/2;
+        dzPerFrame = 1/2;
+        dxPerFrame1 = -1/2;
+        dzPerFrame1 = 1/2;
+
+        pillar.rotation.y +=0.1;
+
+        //console.log("position.x: "+spikes_pillar.position.x);
+        //console.log("position.z: "+spikes_pillar.position.z);
+
+
+        if (spikes_pillar.position.x < 60 && spikes_pillar.position.z >= 45 ){
+          spikes_pillar.position.x += dxPerFrame;
+        }
+
+        if (spikes_pillar.position.x >= 60 && spikes_pillar.position.z > 15){
+          spikes_pillar.position.z -= dzPerFrame
+        }
+
+        if (spikes_pillar.position.x > - 60 && spikes_pillar.position.z <= 15){
+          spikes_pillar.position.x += dxPerFrame1
+        }
+
+        if (spikes_pillar.position.x <= -60 && spikes_pillar.position.z < 45){
+          spikes_pillar.position.z += dzPerFrame1
+        }
+
+      };
+
      return(spikes_pillar);
    }
