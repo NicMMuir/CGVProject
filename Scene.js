@@ -151,6 +151,9 @@ function render(){
 
 				position.needsUpdate = true;
 	renderer.render(scene,camera);
+	onRender();
+	boxRender(boxe1,40,-20);
+	boxRender(boxe2,-40,-20);
 };
 
 
