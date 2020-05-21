@@ -30,9 +30,9 @@ var camstartx = 0;
 var camstarty = 15;
 var camstartz = 30;
 
-var charstartx = -1955;
-var charstarty = 300;
-var charstartz = 1060;
+var charstartx = 0;
+var charstarty = 6;
+var charstartz = 0;
 
 chardata = {
 	W:1,
@@ -42,9 +42,7 @@ chardata = {
 	x_vel:0,
 	y_vel:0,
 	z_vel:0,
-	x:-1955,
-	y:300,
-	z:1060,
+	y:6,
 	rotationy:0
 };
 var character = new THREE.Object3D();
@@ -104,10 +102,14 @@ function init(){
 	getarrMap1();
 	Charinit(charstartx,charstarty,charstartz);
 
-	 RPosList = gerrubyl();
+	   RPosList = gerrubyl();
+	// }
 	 RubyArr = genruby(RPosList);
-	 CPosList = getcoinl();
-	 CoinArr = gencoin(CPosList);
+	// for(let k = 0;k<5;k++){
+	// 	 tp = new THREE.Vector3(-10*k,5,10*k);
+	    CPosList = getcoinl();
+	// }
+	CoinArr = gencoin(CPosList);
 	 //console.log(RPosList);
 
 
@@ -117,9 +119,8 @@ function init(){
 	}
 
 	SetLight();
-	controls.getObject().position.x = charstartx;
-	controls.getObject().position.y = charstarty;
-	controls.getObject().position.z = charstart;
+
+
 
 
 }
@@ -257,9 +258,9 @@ if(dobj.length != 0){
 }
 	if(chardata.y<-20){
 		DeathCounter= DeathCounter+1;
-		chardata.x=-1955;
-		chardata.y=300;
-		chardata.z=1060;
+		chardata.x=0;
+		chardata.y=6;
+		chardata.z=0;
 		chardata.jump = false;
 		controls.getObject().position.set(charstartx,charstarty,charstartz);
 		//camera.lookAt(0,0,0);
@@ -316,7 +317,8 @@ if(efobj.length != 0){
 		chardata.jump = false;
 		controls.getObject().position.set(charstartx,charstarty,charstartz);
 	}
-}else if(ebobj.length != 0){
+}
+if(ebobj.length != 0){
 	if(ebobj[0].distance < 2){
 		DeathCounter= DeathCounter+1;
 		chardata.x=0;
@@ -325,7 +327,8 @@ if(efobj.length != 0){
 		chardata.jump = false;
 		controls.getObject().position.set(charstartx,charstarty,charstartz);
 	}
-}else if(elobj.length != 0){
+}
+if(elobj.length != 0){
 	if(elobj[0].distance < 2){
 		DeathCounter= DeathCounter+1;
 		chardata.x=0;
@@ -334,7 +337,8 @@ if(efobj.length != 0){
 		chardata.jump = false;
 		controls.getObject().position.set(charstartx,charstarty,charstartz);
 	}
-}else if(erobj.length != 0){
+}
+if(erobj.length != 0){
 	if(erobj[0].distance < 2){
 		DeathCounter= DeathCounter+1;
 		chardata.x=0;

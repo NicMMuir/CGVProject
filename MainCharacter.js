@@ -2,15 +2,21 @@
  var Char;
  var childern = []
  const mixers = []; //holds one AnimationMixer for each model (an Animation Mixer attaches animations to models)
-var action; 
-function Charinit(){
+var action;
+var charstartx;
+var charstarty;
+var charstart;
+function Charinit(csx,csy,csz){
+  charstartx = csx;
+  charstarty = csy;
+  charstartz = csz;
   loadModel();
   renderer.setAnimationLoop(()=>{
     update();
     render();
   })
 }
- 
+
 
 
 function update(){//get elapsed time (delta) since last frame and update mixer
@@ -35,7 +41,7 @@ function loadModel(){
     CharacterBuild = gltf.scene;
     console.log("log gltf model of character", CharacterBuild);
 
- 
+
     //get a reference to the animation clip for loaded model
     const animation = gltf.animations[0];
     //create animation mixer for loaded object (updates model as animation progresses)
@@ -45,8 +51,11 @@ function loadModel(){
     //create animation action for animation clip. animation action controls state of clip (playing, stopped, paused, etc.)
     action = mixer.clipAction(animation);
     controls.getObject().add(CharacterBuild);
+    controls.getObject().position.x = charstartx;
+  	controls.getObject().position.y = charstarty;
+  	controls.getObject().position.z = charstart;
 	  scene.add(controls.getObject());
-   
+
 };
 
 const onError = (errorMessage) => {console.log(errorMessage)};
