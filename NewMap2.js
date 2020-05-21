@@ -1,7 +1,6 @@
 var ObjectsMap1Arr = [];
 var EnemyList = [];
 var End;
-var camera, controls, scene, renderer, stats;
 var Mesh, oceanGeometry, oceanMaterial, clock;
 
 
@@ -35,15 +34,6 @@ directionalLight.position.set( 3000, 1000, -6000 );
 var light = new THREE.PointLight( 0xFFFFFF, 5, 0, 1 );
 light.position.set( 0, 0, 10 );
 
-//const color = 0xFFFFFF;
-//const intensity = 2;
-//const light = new THREE.AmbientLight(color, intensity);
-//scene.add(light);
-
-
-
-
-
 //Textures
 var MainFloortexture = new THREE.TextureLoader().load( 'Textures/Grass.jpg' );
 var lavaRockMaterial = new THREE.MeshBasicMaterial( { map: MainFloortexture, side: THREE.DoubleSide } );
@@ -59,7 +49,7 @@ var lavaRockMaterial = new THREE.MeshBasicMaterial( { map: lavaRockTexture, side
 
 var transMaterial = new THREE.MeshPhongMaterial({
     color: 0x000000,
-    opacity: 0.8,
+    opacity: 0,
     transparent: true,
   });
 
@@ -110,21 +100,8 @@ var texture = new THREE.TextureLoader().load( 'textures/water.jpg' );
 var oceanMesh = new THREE.Mesh( oceanGeometry, oceanMaterial );
 
 
-//Load SandHill Model
-var sandHill = new THREE.Object3D();
-{
-  var loader = new THREE.GLTFLoader();
-  loader.load('./3DObjects/SandHill/scene.gltf', function(gltf){
-
-    sandHill.add(gltf.scene);
-});
-}
-
-
 //Load Short Bridge Model
 var rightBridge1 = new THREE.Object3D();
-var leftBridge1 = new THREE.Object3D();
-var rightBridge2 = new THREE.Object3D();
 var leftBridge2 = new THREE.Object3D();
 {
   var loader = new THREE.GLTFLoader();
@@ -132,12 +109,6 @@ var leftBridge2 = new THREE.Object3D();
 
     var rightWoodBridge1 = gltf.scene;
     rightBridge1.add(rightWoodBridge1);
-
-    var leftWoodBridge1 = gltf.scene.clone();
-    leftBridge1.add(leftWoodBridge1);
-
-    var rightWoodBridge2 = gltf.scene.clone();
-    rightBridge2.add(rightWoodBridge2);
 
     var leftWoodBridge2 = gltf.scene.clone();
     leftBridge2.add(leftWoodBridge2);
@@ -245,15 +216,40 @@ function genarrMap1(){
   scene.fog = new THREE.FogExp2( 0xaaccff, 0.0007 );
   scene.add(oceanMesh)
 
-  enmy = GenEnemey();
-  enmy.position.x = 10;
-  enmy.position.z = 0;
-  enmy.position.y = 0;
-  enmy.scale.x = 3;
-  enmy.scale.y = 3;
-  enmy.scale.z = 3;
-  ObjectsMap1Arr.push(enmy);
-  EnemyList.push(enmy);
+  boxe1 = new getEnemy();
+  boxe1.position.x = 40;
+  boxe1.position.z = -20;
+  boxe1.position.y = 4.1;
+  boxe1.scale.x = 8;
+  boxe1.scale.y = 8;
+  boxe1.scale.z = 8;
+
+  ObjectsMap1Arr.push(boxe1);
+  EnemyList.push(boxe1);
+
+  boxe2 = boxe1.clone();
+  boxe2.position.x = -40;
+  boxe2.position.z = -10;
+  boxe2.position.y = 4.1;
+  boxe2.scale.x = 8;
+  boxe2.scale.y = 8;
+  boxe2.scale.z = 8;
+
+   ObjectsMap1Arr.push(boxe2);
+   EnemyList.push(boxe2);
+
+  enmy1 = new GenEnemey();
+  enmy1.position.x = 0;
+  enmy1.position.z = 45;
+  enmy1.position.y = 4.1;
+  enmy1.scale.x = 8;
+  enmy1.scale.y = 8;
+  enmy1.scale.z = 8;
+
+  ObjectsMap1Arr.push(enmy1);
+  EnemyList.push(enmy1);
+
+
   End = endpad;
   ObjectsMap1Arr.push(endpad);
   ObjectsMap1Arr.push(startpad);
@@ -261,7 +257,6 @@ function genarrMap1(){
   ObjectsMap1Arr.push(NorthEastSeg);
   ObjectsMap1Arr.push(NorthWestSeg);
   ObjectsMap1Arr.push(NorthSeg);
-  // ObjectsMap1Arr.push(sandHill);
 
   ObjectsMap1Arr.push(rightBridge1);
   ObjectsMap1Arr.push(rightTransBox);
@@ -346,8 +341,6 @@ function moveobjectsMap1(){
   SotheSeg.position.y = -10
   NorthEastSeg.position.y = -10
   NorthWestSeg.position.y = -10
-
-
 
   NorthEastSeg.position.z = -260;
   NorthEastSeg.position.x = 250
@@ -552,6 +545,7 @@ function moveobjectsMap1(){
 
 
 }
+
 
 
 function getarrMap1(){

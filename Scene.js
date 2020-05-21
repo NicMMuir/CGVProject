@@ -31,7 +31,7 @@ var camstarty = 15;
 var camstartz = 30;
 
 var charstartx = 0;
-var charstarty = 0;
+var charstarty = 50;
 var charstartz = 0;
 
 chardata = {
@@ -42,9 +42,7 @@ chardata = {
 	x_vel:0,
 	y_vel:0,
 	z_vel:0,
-	x:0,
 	y:50,
-	z:0,
 	rotationy:0
 };
 var character = new THREE.Object3D();
@@ -70,7 +68,7 @@ scene = new THREE.Scene();
 camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 5000 );
 renderer = new THREE.WebGLRenderer({antialias:true, alpha: true});
 camera.position.set(camstartx,camstarty,camstartz);
-camera.lookAt(chardata.x,chardata.y,chardata.z);
+//camera.lookAt(chardata.x,chardata.y,chardata.z);
 camera.updateProjectionMatrix();
 controls = new THREE.PointerLockControls(camera);
 
@@ -115,10 +113,6 @@ function init(){
 	 //console.log(RPosList);
 
 
-
-
-
-
 	for(let k =0 ;k<ObjectsMap1Arr.length;k++){
 		scene.add(ObjectsMap1Arr[k] );
 		Collidables.push(ObjectsMap1Arr[k]);
@@ -127,6 +121,7 @@ function init(){
 	SetLight();
 
 }
+
 
 function animate() {
 
@@ -154,6 +149,9 @@ function render(){
 
 				position.needsUpdate = true;
 	renderer.render(scene,camera);
+	onRender();
+	boxRender(boxe1,40,-20);
+	boxRender(boxe2,-40,-20);
 };
 
 
@@ -226,8 +224,9 @@ loop = function(){
 		// chardata.rotationy += 0.04
 	}
 	if(controller.forward){
-		chardata.z_vel -=0.2;
-	 //need to figure out how controller event listener processes 'keyup' events to call action.stop() when 'W' is released
+		chardata.z_vel -=0.6;//0.1
+		action.play(); //need to figure out how controller event listener processes 'keyup' events to call action.stop() when 'W' is released
+
 	}
 	if(controller.back){
 		chardata.z_vel +=0.06;
@@ -236,7 +235,7 @@ loop = function(){
 	// 	act.enabled = false;
 	// }
 
-	chardata.y_vel -=0.25;//gravity(0.25)
+	chardata.y_vel -=0;//gravity(0.4)
 	chardata.y += chardata.y_vel;
 	chardata.x_vel *= 0.8;//friction
 	chardata.y_vel *= 0.8;//friction

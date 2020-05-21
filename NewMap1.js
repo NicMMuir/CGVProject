@@ -1,18 +1,19 @@
 var ObjectsMap1Arr = [];
 var EnemyList = [];
-var camera, controls, scene, renderer, stats;
 var Mesh, oceanGeometry, oceanMaterial, clock;
+var End;
+
 
 //Skybox
 var enmy = new THREE.Object3D();
 
 let materialArray = [];
-//let texture_ft = new THREE.TextureLoader().load( 'Textures/bay_ft.jpg');
-let texture_bk = new THREE.TextureLoader().load( 'Textures/bay_bk.jpg');
-let texture_up = new THREE.TextureLoader().load( 'Textures/bay_up.jpg');
-let texture_dn = new THREE.TextureLoader().load( 'Textures/bay_dn.jpg');
-let texture_rt = new THREE.TextureLoader().load( 'Textures/bay_rt.jpg');
-let texture_lf = new THREE.TextureLoader().load( 'Textures/bay_lf.jpg');
+let texture_ft = new THREE.TextureLoader().load( 'Textures/tropic_ft.jpg');
+let texture_bk = new THREE.TextureLoader().load( 'Textures/tropic_bk.jpg');
+let texture_up = new THREE.TextureLoader().load( 'Textures/tropic_up.jpg');
+let texture_dn = new THREE.TextureLoader().load( 'Textures/tropic_dn.jpg');
+let texture_rt = new THREE.TextureLoader().load( 'Textures/tropic_rt.jpg');
+let texture_lf = new THREE.TextureLoader().load( 'Textures/tropic_lf.jpg');
 
 materialArray.push(new THREE.MeshBasicMaterial( { map: texture_ft }));
 materialArray.push(new THREE.MeshBasicMaterial( { map: texture_bk }));
@@ -41,9 +42,13 @@ var woodMat = new THREE.MeshBasicMaterial( { map: woodTexture, polygonOffset: tr
 polygonOffsetFactor: 1, side: THREE.DoubleSide } );
 var transMaterial = new THREE.MeshPhongMaterial({
     color: 0x000000,
-    opacity: 0.8,
+    opacity: 0,
     transparent: true,
   });
+
+//Lights
+var directionalLight = new THREE.DirectionalLight( 	0xDBBD8F, 3 );
+directionalLight.position.set( 3000, 1000, 6000 );
 
 
 
@@ -51,6 +56,7 @@ MainFloortexture.wrapS = THREE.RepeatWrapping;
 MainFloortexture.wrapT = THREE.RepeatWrapping;
 //floor geometries
 var startpadgeom = new THREE.BoxGeometry( 5, 2, 5 );
+var endpadgeom = new THREE.BoxGeometry( 10, 10, 10 );
 
 var SouthSegmentgeom = new THREE.BoxGeometry( 1000, 20, 220 );
 var NorthEastSegmentgeom = new THREE.BoxGeometry( 220, 20, 220 );
@@ -62,6 +68,7 @@ var wallGeometry = new THREE.PlaneGeometry(50,50);
 
 //Mesh:
 var startpad = new THREE.Mesh( startpadgeom, Startpadmaterial );
+var endpad = new THREE.Mesh( endpadgeom , Startpadmaterial );
 var SotheSeg = new THREE.Mesh( SouthSegmentgeom , MainFloormaterial );
 var NorthEastSeg = new THREE.Mesh( NorthEastSegmentgeom , MainFloormaterial );
 var NorthWestSeg = new THREE.Mesh( NorthWestSegmentgeom , MainFloormaterial );
@@ -69,7 +76,7 @@ var NorthSeg = new THREE.Mesh( SouthSegmentgeom , MainFloormaterial );
 
 
 
- oceanGeometry = new THREE.PlaneBufferGeometry( 1000, 1000, 128-1, 128-1);
+ oceanGeometry = new THREE.PlaneBufferGeometry( 2000, 2000, 128-1, 128-1);
         oceanGeometry.rotateX( - Math.PI / 2 );
 
         var position = oceanGeometry.attributes.position;
@@ -86,19 +93,8 @@ var texture = new THREE.TextureLoader().load( 'textures/water.jpg' );
         texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
         texture.repeat.set( 5, 5 );
 
- oceanMaterial = new THREE.MeshBasicMaterial( { color: 0x0044ff, map: texture } );
+ oceanMaterial = new THREE.MeshBasicMaterial( { color: '#ADD8E6', map: texture } );
 var oceanMesh = new THREE.Mesh( oceanGeometry, oceanMaterial );
-
-
-//Load SandHill Model
-var sandHill = new THREE.Object3D();
-{
-  var loader = new THREE.GLTFLoader();
-  loader.load('./3DObjects/SandHill/scene.gltf', function(gltf){
-
-    sandHill.add(gltf.scene);
-});
-}
 
 
 //Load Short Bridge Model
@@ -217,10 +213,6 @@ var wallPlane12 = new THREE.Mesh(wallGeometry, woodMat);
 var wallPlane13 = new THREE.Mesh(wallGeometry, woodMat);
 
 
-
-
-
-
 //transparent floor geometry (Goes under the small bridge)
 var transGeometry = new THREE.BoxGeometry(15,20,45);
 var rightTransBox = new THREE.Mesh(transGeometry, transMaterial);
@@ -239,12 +231,37 @@ function genarrMap1(){
   enmy.scale.y = 3;
   enmy.scale.z = 3;
   EnemyList.push(enmy);
+
+
+
+  boxe1 = new getEnemy();
+  boxe1.position.x = 40;
+  boxe1.position.z = -20;
+  boxe1.position.y = 4.1;
+  boxe1.scale.x = 8;
+  boxe1.scale.y = 8;
+  boxe1.scale.z = 8;
+
+  ObjectsMap1Arr.push(boxe1);
+  EnemyList.push(boxe1);
+
+  boxe2 = boxe1.clone();
+  boxe2.position.x = -40;
+  boxe2.position.z = -10;
+  boxe2.position.y = 4.1;
+  boxe2.scale.x = 8;
+  boxe2.scale.y = 8;
+  boxe2.scale.z = 8;
+
+   ObjectsMap1Arr.push(boxe2);
+   EnemyList.push(boxe2);
+  End = endpad;
+  ObjectsMap1Arr.push(endpad);
   ObjectsMap1Arr.push(startpad);
   ObjectsMap1Arr.push(SotheSeg);
   ObjectsMap1Arr.push(NorthEastSeg);
   ObjectsMap1Arr.push(NorthWestSeg);
   ObjectsMap1Arr.push(NorthSeg);
-  // ObjectsMap1Arr.push(sandHill);
 
   ObjectsMap1Arr.push(rightBridge1);
   ObjectsMap1Arr.push(rightTransBox);
@@ -255,6 +272,7 @@ function genarrMap1(){
   ObjectsMap1Arr.push(leftTransBox);
 
   //pushing the platforms:
+  //South Wing
   ObjectsMap1Arr.push(platform1);
   ObjectsMap1Arr.push(highPlatform2);
   ObjectsMap1Arr.push(platform3);
@@ -325,8 +343,9 @@ function genarrMap1(){
   ObjectsMap1Arr.push(palmTree3);
   ObjectsMap1Arr.push(palmTree4);
 
-  ObjectsMap1Arr.push(skybox);
-  // scene.add( skybox );
+  // ObjectsMap1Arr.push(skybox);
+  scene.add( skybox );
+  scene.add( directionalLight );
 
 }
 
@@ -557,7 +576,9 @@ function moveobjectsMap1(){
     palmTree4.position.z = -610;
     palmTree4.scale.set(30,30,30);
 
-
+    endpad.position.x = 297;
+    endpad.position.y = 10;
+    endpad.position.z = -519;
 
 }
 

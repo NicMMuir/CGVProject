@@ -1,6 +1,3 @@
-
-      var inviscube = new THREE.Object3D();
-
       var spikes_pillar = new THREE.Object3D();
 
       var pillar = new THREE.Object3D();
@@ -147,22 +144,35 @@ function GenEnemey(){
      head.add(h_cone5);
      head.add(h_cone6);
 
-     //Add spikes_pillar to inviscube(Make inviscube)
-     //Making Inviscube:
-      var invisBox = new THREE.BoxGeometry(1,5,1);
-      var invisMat = new THREE.MeshPhongMaterial({
-        color: 0x000000,
-        opacity: 0.5,
-        transparent: true,
-        polygonOffset: true,
-        polygonOffsetUnits: 1,
-        polygonOffsetFactor: 1
-      });
-      var invisibleCube = new THREE.Mesh(invisBox, invisMat);
-      //inviscube.add(invisibleCube);
+     onRender = function() {
+        dxPerFrame = 1/2;
+        dzPerFrame = 1/2;
+        dxPerFrame1 = -1/2;
+        dzPerFrame1 = 1/2;
 
-     //Adding S_P to inviscube:
-      //spikes_pillar.add(inviscube);
+        pillar.rotation.y +=0.1;
+
+        //console.log("position.x: "+spikes_pillar.position.x);
+        //console.log("position.z: "+spikes_pillar.position.z);
+
+
+        if (spikes_pillar.position.x < 60 && spikes_pillar.position.z >= 45 ){
+          spikes_pillar.position.x += dxPerFrame;
+        }
+
+        if (spikes_pillar.position.x >= 60 && spikes_pillar.position.z > 15){
+          spikes_pillar.position.z -= dzPerFrame
+        }
+
+        if (spikes_pillar.position.x > - 60 && spikes_pillar.position.z <= 15){
+          spikes_pillar.position.x += dxPerFrame1
+        }
+
+        if (spikes_pillar.position.x <= -60 && spikes_pillar.position.z < 45){
+          spikes_pillar.position.z += dzPerFrame1
+        }
+
+      };
 
      return(spikes_pillar);
    }
