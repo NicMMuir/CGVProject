@@ -98,19 +98,19 @@
       b_box.add(b_spikes3);
       b_box.add(b_spikes4);
 
-    var t = 0;
-
-    boxRender = function(ob,x,y){
-      t += 0.01;
-      console.log("t: "+t);
-      console.log("b.position.x:" +ob.position.x);
-      console.log("b.position.z:" +ob.position.z);
-      ob.rotation.y += 0.05;
-      ob.position.x = 10*Math.cos(t) +x;
-      ob.position.z = 10*Math.sin(t) + y;
-    };
-
-
       return b_box;
 
   }
+
+
+  var t = 0;
+
+function boxRender(ob,x,y){
+    t += 0.01;
+    console.log("t: "+t);
+    console.log("b.position.x:" +ob.position.x);
+    console.log("b.position.z:" +ob.position.z);
+    ob.rotation.y += 0.05;
+    ob.position.x = 10*Math.cos(t) +x;
+    ob.position.z = 10*Math.sin(t) + y;
+  };

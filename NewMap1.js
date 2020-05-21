@@ -227,6 +227,30 @@ function genarrMap1(){
   enmy.scale.y = 3;
   enmy.scale.z = 3;
   EnemyList.push(enmy);
+
+
+
+  boxe1 = new getEnemy();
+  boxe1.position.x = 40;
+  boxe1.position.z = -20;
+  boxe1.position.y = 4.1;
+  boxe1.scale.x = 8;
+  boxe1.scale.y = 8;
+  boxe1.scale.z = 8;
+
+  ObjectsMap1Arr.push(boxe1);
+  EnemyList.push(boxe1);
+
+  boxe2 = boxe1.clone();
+  boxe2.position.x = -40;
+  boxe2.position.z = -10;
+  boxe2.position.y = 4.1;
+  boxe2.scale.x = 8;
+  boxe2.scale.y = 8;
+  boxe2.scale.z = 8;
+
+   ObjectsMap1Arr.push(boxe2);
+   EnemyList.push(boxe2);
   End = endpad;
   ObjectsMap1Arr.push(endpad);
   ObjectsMap1Arr.push(startpad);
