@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!--Intro menu that then routes to the games html page or specific level -->
+    <!--Intro menu that then routes to one of the html pages for specific game levels (maps) -->
     <meta charset="UTF-8">
     <title>CGVProject: Title Screen</title>
     <script src ="js/three.js"></script>
@@ -21,22 +21,6 @@
     window.onload=function(){document.getElementById("startBtn").addEventListener("click", this.startGame ); }
     function startGame(){
     window.location.assign("CGVProject-Map1.html");
-    }
-
-    function enableLevelSelect(){
-        if (lvlSelect){
-            document.getElementById("lvl1Btn").classList.remove("visibleBtn");
-            document.getElementById("lvl1Btn").classList.add("hiddenBtn");
-            lvlSelect = false;
-
-        }
-
-        if (!lvlSelect){
-            document.getElementById("lvl1Btn").classList.add("visibleBtn");
-            document.getElementById("lvl1Btn").classList.remove("hiddenBtn");
-            lvlSelect = true;
-        }
-        
     }
 
     function selectLevel(level){
@@ -68,7 +52,7 @@
             <p type="button" class = "menu-btn" id="startBtn" onclick=startGame()>Start</p>
         </div>
         <div class = "menu-item">
-            <p type = "button" id = "lvlSelectBtn" class = "menu-btn" onclick=enableLevelSelect()>Levels</p>
+            <p type = "button" class = "menu-btn">Levels</p>
         </div>
         <div class = "menu-item">
             <p type = "button" id = "lvl1Btn" class = "menu-btn" onclick = selectLevel(1)>Play Level 1</p>

@@ -1,5 +1,6 @@
+//This Javascript file is used to load the custom character model as a GLTF Model (a more useful format for animations)
+//-----------Setup the scene-----------------//
 var character; 
-//setup scene on intro screen
 const scene  = new THREE.Scene();
 const light = new THREE.DirectionalLight('#ffffff', 0.9);
 
@@ -17,6 +18,9 @@ document.body.appendChild(renderer.domElement);
 const mixers = []; //holds one AnimationMixer for each model (an Animation Mixer attaches animations to models)
 const clock = new THREE.Clock(); //controls timing for animations (a stopwatch that starts running once instantiated)
 
+
+//--------------Load the character model--------------------//
+//call the functions that load and render the character into the game world
 function init(){
     loadModel();
     renderer.setAnimationLoop(()=>{
@@ -26,7 +30,6 @@ function init(){
 }
 
 function loadModel(){
-    //gltfloader
     const gltfLoader = new THREE.GLTFLoader();
     const url = '/Charblender/GLTF/Character.glb';
     
@@ -65,11 +68,8 @@ function loadModel(){
     
     function render(){
     
-    
-    
-      //requestAnimationFrame(render);
       renderer.render(scene, camera);
     }
     
-    
+//------------Render the character into the game world---------------//
     init();

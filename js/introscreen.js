@@ -1,5 +1,5 @@
+//-----------------Scene Setup (camera, renderer, etc.)-----------------//
 var character; 
-//setup scene on intro screen
 const scene  = new THREE.Scene();
 const light = new THREE.DirectionalLight('#ffffff', 0.9);
 
@@ -12,7 +12,8 @@ camera.position.z = 20;
 const renderer = new THREE.WebGLRenderer({alpha:true});//alpha value lets css shine through scene background
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
-//renderer.setClearColorHex( "red", 1 );
+
+//-----------------Loading the character model-------------------------//
 //define object loaders
 const objLoader = new THREE.OBJLoader();
 objLoader.setPath('/Charblender/');
@@ -24,7 +25,7 @@ new Promise((resolve)=>{
     mtlLoader.load('Character.mtl', (materials)=>{//assign a callback function that waits for materials to be fetched, once they load resolve the promise
         resolve(materials);
     })
-}).then((materials)=>{//load the materials and object into the scene
+}).then((materials)=>{//load the materials and character object into the scene
     materials.preload();
     objLoader.setMaterials(materials);
     objLoader.load('Character.obj', (object)=>{
@@ -34,9 +35,9 @@ new Promise((resolve)=>{
     })
 })
 
+//----------------Render the character-------------------------//
 function render(){
     if (character){
-        //character.rotation.x += 0.01;
         character.rotation.y += 0.01;
 
     }

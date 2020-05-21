@@ -1,5 +1,5 @@
 //Quick notes:
-//ground with height differencr of 1 will act as a stair
+//ground with height difference of 1 will act as a stair
 
 //Heightmap
 //orbital controls
@@ -347,7 +347,6 @@ if(efobj.length != 0){
 		}
 	}//end of the level is reached when this block is touched
 	if((controls.getObject().position.x <= (End.position.x+11) && controls.getObject().position.x >= (End.position.x-11) && controls.getObject().position.z >= End.position.z-11 && controls.getObject().position.z <= End.position.z+11)){
-		console.log("End Reached");
 		document.getElementById('menu').style.visibility = 'visible';
 		document.getElementById('scorecard').innerText = "Score: " + PointsCounter;
 		document.getElementById('deathcount').innerText = "Deaths: " + DeathCounter;
