@@ -14,7 +14,7 @@ function Charinit(){
 
 
 function update(){//get elapsed time (delta) since last frame and update mixer
-    const delta = clock.getDelta()*50;
+    const delta = clock.getDelta()*10;
 
     for (const mixer of mixers){//there's only one mixer for one model at current, but this is written to be able to work with multiple models
         mixer.update(delta);

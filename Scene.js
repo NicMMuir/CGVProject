@@ -204,7 +204,6 @@ controller = {
 
 loop = function(){
 
-	//action.stop();
 	checkruby();
 	checkcoin();
 	distanceprev = chardata.y;
@@ -348,10 +347,10 @@ if(erobj.length != 0){
 		chardata.jump = false;
 		controls.getObject().position.set(charstartx,charstarty,charstartz);
 		}
-	}
+	}//end of the level is reached when this block is touched
 	if((controls.getObject().position.x <= (End.position.x+11) && controls.getObject().position.x >= (End.position.x-11) && controls.getObject().position.z >= End.position.z-11 && controls.getObject().position.z <= End.position.z+11)){
-		console.log("End Reached")
-
+		console.log("End Reached");
+		document.getElementById('menu').style.visibility = 'visible';
 	}
 
 	Movechar(chardata.x,chardata.y,chardata.z);
@@ -433,7 +432,7 @@ function checkruby(){
 	for(let k = 0 ; k< RubyArr.length;k++){
 		if((controls.getObject().position.x <= (RPosList[k].x+2) && controls.getObject().position.x >= (RPosList[k].x-2) && controls.getObject().position.z >= RPosList[k].z-2 && controls.getObject().position.z <= RPosList[k].z+2)&& scene.getObjectById(RubyArr[k].id,true) != null ){
 			PointsCounter = PointsCounter+5;
-			scene.remove(RubyArr[k])
+			scene.remove(RubyArr[k]);
 
 		}
 	}
@@ -444,7 +443,7 @@ function checkcoin(){
 	for(let k = 0 ; k< CoinArr.length;k++){
 		if((controls.getObject().position.x <= (CPosList[k].x+2) && controls.getObject().position.x >= (CPosList[k].x-2) && controls.getObject().position.z >= CPosList[k].z-2 && controls.getObject().position.z <= CPosList[k].z+2)&& scene.getObjectById(CoinArr[k].id,true) != null){
 			PointsCounter = PointsCounter+1;
-			scene.remove(CoinArr[k])
+			scene.remove(CoinArr[k]);
 
 		}
 	}

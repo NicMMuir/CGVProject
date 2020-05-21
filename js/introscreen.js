@@ -9,10 +9,10 @@ scene.add(light);
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 camera.position.z = 20;
 
-const renderer = new THREE.WebGLRenderer();
+const renderer = new THREE.WebGLRenderer({alpha:true});//alpha value lets css shine through scene background
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
-
+//renderer.setClearColorHex( "red", 1 );
 //define object loaders
 const objLoader = new THREE.OBJLoader();
 objLoader.setPath('/Charblender/');
