@@ -216,37 +216,38 @@ function genarrMap1(){
   scene.fog = new THREE.FogExp2( 0xaaccff, 0.0007 );
   scene.add(oceanMesh)
 
-  enmy = GenEnemey();
-  enmy.position.x = 10;
-  enmy.position.z = 0;
-  enmy.position.y = 0;
-  enmy.scale.x = 3;
-  enmy.scale.y = 3;
-  enmy.scale.z = 3;
-  ObjectsMap1Arr.push(enmy);
-  EnemyList.push(enmy);
+  boxe1 = new getEnemy();
+  boxe1.position.x = 40;
+  boxe1.position.z = -20;
+  boxe1.position.y = 4.1;
+  boxe1.scale.x = 8;
+  boxe1.scale.y = 8;
+  boxe1.scale.z = 8;
 
+  ObjectsMap1Arr.push(boxe1);
+  EnemyList.push(boxe1);
 
-  enemy = getEnemy();
-  enemy.position.x = -10;
-  enemy.position.z = 0;
-  enemy.position.y = 5;
-  enemy.scale.x = 3;
-  enemy.scale.y = 3;
-  enemy.scale.z = 3;
-  ObjectsMap1Arr.push(enemy);
-  EnemyList.push(enemy);
+  boxe2 = boxe1.clone();
+  boxe2.position.x = -40;
+  boxe2.position.z = -10;
+  boxe2.position.y = 4.1;
+  boxe2.scale.x = 8;
+  boxe2.scale.y = 8;
+  boxe2.scale.z = 8;
 
+   ObjectsMap1Arr.push(boxe2);
+   EnemyList.push(boxe2);
 
+  enmy1 = new GenEnemey();
+  enmy1.position.x = 0;
+  enmy1.position.z = 45;
+  enmy1.position.y = 4.1;
+  enmy1.scale.x = 8;
+  enmy1.scale.y = 8;
+  enmy1.scale.z = 8;
 
-
-
-
-
-
-
-
-
+  ObjectsMap1Arr.push(enmy1);
+  EnemyList.push(enmy1);
 
 
   End = endpad;
