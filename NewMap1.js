@@ -41,7 +41,7 @@ var woodMat = new THREE.MeshBasicMaterial( { map: woodTexture, polygonOffset: tr
 polygonOffsetFactor: 1, side: THREE.DoubleSide } );
 var transMaterial = new THREE.MeshPhongMaterial({
     color: 0x000000,
-    opacity: 0.8,
+    opacity: 0,
     transparent: true,
   });
 
@@ -69,7 +69,7 @@ var NorthSeg = new THREE.Mesh( SouthSegmentgeom , MainFloormaterial );
 
 
 
- oceanGeometry = new THREE.PlaneBufferGeometry( 1000, 1000, 128-1, 128-1);
+ oceanGeometry = new THREE.PlaneBufferGeometry( 7000, 7000, 128-1, 128-1);
         oceanGeometry.rotateX( - Math.PI / 2 );
 
         var position = oceanGeometry.attributes.position;
@@ -86,19 +86,8 @@ var texture = new THREE.TextureLoader().load( 'textures/water.jpg' );
         texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
         texture.repeat.set( 5, 5 );
 
- oceanMaterial = new THREE.MeshBasicMaterial( { color: 0x0044ff, map: texture } );
+ oceanMaterial = new THREE.MeshBasicMaterial( { color: '#ADD8E6', map: texture } );
 var oceanMesh = new THREE.Mesh( oceanGeometry, oceanMaterial );
-
-
-//Load SandHill Model
-var sandHill = new THREE.Object3D();
-{
-  var loader = new THREE.GLTFLoader();
-  loader.load('./3DObjects/SandHill/scene.gltf', function(gltf){
-
-    sandHill.add(gltf.scene);
-});
-}
 
 
 //Load Short Bridge Model
@@ -217,10 +206,6 @@ var wallPlane12 = new THREE.Mesh(wallGeometry, woodMat);
 var wallPlane13 = new THREE.Mesh(wallGeometry, woodMat);
 
 
-
-
-
-
 //transparent floor geometry (Goes under the small bridge)
 var transGeometry = new THREE.BoxGeometry(15,20,45);
 var rightTransBox = new THREE.Mesh(transGeometry, transMaterial);
@@ -244,7 +229,6 @@ function genarrMap1(){
   ObjectsMap1Arr.push(NorthEastSeg);
   ObjectsMap1Arr.push(NorthWestSeg);
   ObjectsMap1Arr.push(NorthSeg);
-  // ObjectsMap1Arr.push(sandHill);
 
   ObjectsMap1Arr.push(rightBridge1);
   ObjectsMap1Arr.push(rightTransBox);
@@ -255,6 +239,7 @@ function genarrMap1(){
   ObjectsMap1Arr.push(leftTransBox);
 
   //pushing the platforms:
+  //South Wing
   ObjectsMap1Arr.push(platform1);
   ObjectsMap1Arr.push(highPlatform2);
   ObjectsMap1Arr.push(platform3);
@@ -556,8 +541,6 @@ function moveobjectsMap1(){
     palmTree4.position.y = 0;
     palmTree4.position.z = -610;
     palmTree4.scale.set(30,30,30);
-
-
 
 }
 
