@@ -8,12 +8,12 @@ var End;
 var enmy = new THREE.Object3D();
 
 let materialArray = [];
-let texture_ft = new THREE.TextureLoader().load( 'Textures/bay_ft.jpg');
-let texture_bk = new THREE.TextureLoader().load( 'Textures/bay_bk.jpg');
-let texture_up = new THREE.TextureLoader().load( 'Textures/bay_up.jpg');
-let texture_dn = new THREE.TextureLoader().load( 'Textures/bay_dn.jpg');
-let texture_rt = new THREE.TextureLoader().load( 'Textures/bay_rt.jpg');
-let texture_lf = new THREE.TextureLoader().load( 'Textures/bay_lf.jpg');
+let texture_ft = new THREE.TextureLoader().load( 'Textures/tropic_ft.jpg');
+let texture_bk = new THREE.TextureLoader().load( 'Textures/tropic_bk.jpg');
+let texture_up = new THREE.TextureLoader().load( 'Textures/tropic_up.jpg');
+let texture_dn = new THREE.TextureLoader().load( 'Textures/tropic_dn.jpg');
+let texture_rt = new THREE.TextureLoader().load( 'Textures/tropic_rt.jpg');
+let texture_lf = new THREE.TextureLoader().load( 'Textures/tropic_lf.jpg');
 
 materialArray.push(new THREE.MeshBasicMaterial( { map: texture_ft }));
 materialArray.push(new THREE.MeshBasicMaterial( { map: texture_bk }));
@@ -45,6 +45,10 @@ var transMaterial = new THREE.MeshPhongMaterial({
     opacity: 0,
     transparent: true,
   });
+
+//Lights
+var directionalLight = new THREE.DirectionalLight( 	0xDBBD8F, 3 );
+directionalLight.position.set( 3000, 1000, 6000 );
 
 
 
@@ -341,6 +345,7 @@ function genarrMap1(){
 
   // ObjectsMap1Arr.push(skybox);
   scene.add( skybox );
+  scene.add( directionalLight );
 
 }
 
