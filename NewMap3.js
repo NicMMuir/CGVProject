@@ -7,12 +7,12 @@ var Mesh, oceanGeometry, oceanMaterial, clock;
 var enmy = new THREE.Object3D();
 
 let materialArray = [];
-let texture_ft = new THREE.TextureLoader().load( 'Textures/bay_ft.jpg');
-let texture_bk = new THREE.TextureLoader().load( 'Textures/bay_bk.jpg');
-let texture_up = new THREE.TextureLoader().load( 'Textures/bay_up.jpg');
-let texture_dn = new THREE.TextureLoader().load( 'Textures/bay_dn.jpg');
-let texture_rt = new THREE.TextureLoader().load( 'Textures/bay_rt.jpg');
-let texture_lf = new THREE.TextureLoader().load( 'Textures/bay_lf.jpg');
+let texture_ft = new THREE.TextureLoader().load( 'Textures/sleepyhollow_ft.jpg');
+let texture_bk = new THREE.TextureLoader().load( 'Textures/sleepyhollow_bk.jpg');
+let texture_up = new THREE.TextureLoader().load( 'Textures/sleepyhollow_up.jpg');
+let texture_dn = new THREE.TextureLoader().load( 'Textures/sleepyhollow_dn.jpg');
+let texture_rt = new THREE.TextureLoader().load( 'Textures/sleepyhollow_rt.jpg');
+let texture_lf = new THREE.TextureLoader().load( 'Textures/sleepyhollow_lf.jpg');
 
 materialArray.push(new THREE.MeshBasicMaterial( { map: texture_ft }));
 materialArray.push(new THREE.MeshBasicMaterial( { map: texture_bk }));
@@ -281,19 +281,19 @@ function genarrMap1(){
   enmy.scale.z = 3;
   ObjectsMap1Arr.push(enmy);
   EnemyList.push(enmy);
-  
+
   ObjectsMap1Arr.push(startpad);
   ObjectsMap1Arr.push(StartSeg);
-  
+
   ObjectsMap1Arr.push(middleFloor);
-  
+
   ObjectsMap1Arr.push(FinalFloor);
-  
+
   ObjectsMap1Arr.push(mushTree);
-  
+
   ObjectsMap1Arr.push(glowFlower1);
   ObjectsMap1Arr.push(glowFlower2);
-  
+
   ObjectsMap1Arr.push(glowMush1);//big ones
   ObjectsMap1Arr.push(glowMush2);
   ObjectsMap1Arr.push(glowMush3);
@@ -303,7 +303,7 @@ function genarrMap1(){
   // ObjectsMap1Arr.push(glowMush7);
   // ObjectsMap1Arr.push(glowMush8);
   // ObjectsMap1Arr.push(glowMush9);
-  
+
   ObjectsMap1Arr.push(redMush1);//Large Mushy
   ObjectsMap1Arr.push(redMush2);
   ObjectsMap1Arr.push(redMush3);
@@ -311,17 +311,17 @@ function genarrMap1(){
 
   ObjectsMap1Arr.push(lowPolyBridge1);
   ObjectsMap1Arr.push(lowPolyBridge2);
- 
+
   ObjectsMap1Arr.push(dragon);
-  
+
   ObjectsMap1Arr.push(dragonEgg1);
   ObjectsMap1Arr.push(dragonEgg2);
   ObjectsMap1Arr.push(dragonEgg3);
   ObjectsMap1Arr.push(dragonEgg4);
   ObjectsMap1Arr.push(dragonEgg5);
-  
+
   ObjectsMap1Arr.push(colloseum);
-  
+
   ObjectsMap1Arr.push(pillar1);
   ObjectsMap1Arr.push(pillar2);
   ObjectsMap1Arr.push(pillar3);
@@ -336,7 +336,7 @@ function genarrMap1(){
 
 
   // ObjectsMap1Arr.push(skybox);
-  // scene.add( skybox )
+   scene.add( skybox )
 }
 
 function moveobjectsMap1(){
@@ -348,7 +348,7 @@ function moveobjectsMap1(){
   middleFloor.position.x = -400;
   middleFloor.position.y = 200;
   middleFloor.position.z = 1000;
-  
+
   FinalFloor.position.x = -300;
   FinalFloor.position.y = -10;
   FinalFloor.position.z = -500;
@@ -357,14 +357,14 @@ function moveobjectsMap1(){
   mushTree.position.y = 300;
   mushTree.position.z = 1000;
   mushTree.scale.set(50,50,50);
-  
+
   glowFlower1.position.x = -1450;
   glowFlower1.position.y = 260;
   glowFlower1.position.z = 1050;
    glowFlower2.position.x = -1550;
   glowFlower2.position.y = 260;
   glowFlower2.position.z = 1000;
-   
+
     glowMush1.position.x = -1070;
   glowMush1.position.y = 255;
   glowMush1.position.z = 1000;
@@ -427,39 +427,39 @@ lowPolyBridge1.position.x = 400;
 lowPolyBridge2.position.x = -1130;
   lowPolyBridge2.position.y = 50;
   lowPolyBridge2.position.z = 1060;
-  lowPolyBridge2.scale.set(1,1,1); 
+  lowPolyBridge2.scale.set(1,1,1);
 
   dragon.position.x = -635;
   dragon.position.y = 200;
   dragon.position.z = 1130;
   dragon.scale.set(4,4,4);
-  dragon.rotation.set(Math.PI/6, 0.349066, 0); 
+  dragon.rotation.set(Math.PI/6, 0.349066, 0);
 
   dragonEgg1.position.x = -580;
   dragonEgg1.position.y = 210;
   dragonEgg1.position.z = 995;
-  dragonEgg1.rotation.set(0, Math.PI, 0); 
+  dragonEgg1.rotation.set(0, Math.PI, 0);
   dragonEgg2.position.x = -420;
   dragonEgg2.position.y = 210;
   dragonEgg2.position.z = 950;
-  dragonEgg2.rotation.set(0, Math.PI/2, 0); 
+  dragonEgg2.rotation.set(0, Math.PI/2, 0);
   dragonEgg3.position.x = -420;
   dragonEgg3.position.y = 210;
   dragonEgg3.position.z = 1060;
-  dragonEgg3.rotation.set(0, Math.PI, 0); 
+  dragonEgg3.rotation.set(0, Math.PI, 0);
   dragonEgg4.position.x = -300;
   dragonEgg4.position.y = 210;
   dragonEgg4.position.z = 1030;
-  dragonEgg4.rotation.set(0, Math.PI/2, 0); 
+  dragonEgg4.rotation.set(0, Math.PI/2, 0);
   dragonEgg5.position.x = -200;
   dragonEgg5.position.y = 210;
   dragonEgg5.position.z = 960;
-  dragonEgg5.rotation.set(0, Math.PI, 0); 
+  dragonEgg5.rotation.set(0, Math.PI, 0);
 
 
-    
+
     oceanMesh.position.y = -10;
-  
+
   colloseum.position.x = -300;
   colloseum.position.y = 0;
   colloseum.position.z = -600;
@@ -496,7 +496,7 @@ palmTree4.position.x = -380;
   palmTree4.position.y = 0;
   palmTree4.position.z = -120;
 
- 
+
 }
 
 
