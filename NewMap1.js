@@ -7,7 +7,7 @@ var Mesh, oceanGeometry, oceanMaterial, clock;
 var enmy = new THREE.Object3D();
 
 let materialArray = [];
-let texture_ft = new THREE.TextureLoader().load( 'Textures/bay_ft.jpg');
+//let texture_ft = new THREE.TextureLoader().load( 'Textures/bay_ft.jpg');
 let texture_bk = new THREE.TextureLoader().load( 'Textures/bay_bk.jpg');
 let texture_up = new THREE.TextureLoader().load( 'Textures/bay_up.jpg');
 let texture_dn = new THREE.TextureLoader().load( 'Textures/bay_dn.jpg');
@@ -24,7 +24,7 @@ materialArray.push(new THREE.MeshBasicMaterial( { map: texture_lf }));
 for (let i = 0; i < 6; i++)
   materialArray[i].side = THREE.BackSide;
 
-let skyboxGeo = new THREE.BoxGeometry( 1000, 1000, 1000);
+let skyboxGeo = new THREE.BoxGeometry( 2000, 1000, 2000);
 let skybox = new THREE.Mesh( skyboxGeo, materialArray );
 
 

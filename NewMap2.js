@@ -1,11 +1,13 @@
 var ObjectsMap1Arr = [];
 var EnemyList = [];
+var End;
 var camera, controls, scene, renderer, stats;
 var Mesh, oceanGeometry, oceanMaterial, clock;
 
-//Skybox
+
 var enmy = new THREE.Object3D();
 
+//Skybox
 let materialArray = [];
 let texture_ft = new THREE.TextureLoader().load( 'Textures/bay_ft.jpg');
 let texture_bk = new THREE.TextureLoader().load( 'Textures/bay_bk.jpg');
@@ -26,6 +28,19 @@ for (let i = 0; i < 6; i++)
 
 let skyboxGeo = new THREE.BoxGeometry( 2000, 1000, 2000);
 let skybox = new THREE.Mesh( skyboxGeo, materialArray );
+
+//Lights
+var directionalLight = new THREE.DirectionalLight( 	0xB07214, 5 );
+directionalLight.position.set( 3000, 1000, -6000 );
+var light = new THREE.PointLight( 0xFFFFFF, 5, 0, 1 );
+light.position.set( 0, 0, 10 );
+
+//const color = 0xFFFFFF;
+//const intensity = 2;
+//const light = new THREE.AmbientLight(color, intensity);
+//scene.add(light);
+
+
 
 
 
@@ -54,6 +69,7 @@ MainFloortexture.wrapS = THREE.RepeatWrapping;
 MainFloortexture.wrapT = THREE.RepeatWrapping;
 //floor geometries
 var startpadgeom = new THREE.BoxGeometry( 5, 2, 5 );
+var endpadgeom = new THREE.BoxGeometry( 10, 10, 10 );
 
 var SouthSegmentgeom = new THREE.BoxGeometry( 1000, 20, 220 );
 var NorthEastSegmentgeom = new THREE.BoxGeometry( 220, 20, 220 );
@@ -65,6 +81,7 @@ var wallGeometry = new THREE.PlaneGeometry(50,50);
 
 //Mesh:
 var startpad = new THREE.Mesh( startpadgeom, Startpadmaterial );
+var endpad = new THREE.Mesh( endpadgeom , Startpadmaterial );
 var SotheSeg = new THREE.Mesh( SouthSegmentgeom , lavaRockMaterial );
 var NorthEastSeg = new THREE.Mesh( NorthEastSegmentgeom , lavaRockMaterial );
 var NorthWestSeg = new THREE.Mesh( NorthWestSegmentgeom , lavaRockMaterial );
@@ -218,6 +235,8 @@ function genarrMap1(){
   enmy.scale.z = 3;
   ObjectsMap1Arr.push(enmy);
   EnemyList.push(enmy);
+  End = endpad;
+  ObjectsMap1Arr.push(endpad);
   ObjectsMap1Arr.push(startpad);
   ObjectsMap1Arr.push(SotheSeg);
   ObjectsMap1Arr.push(NorthEastSeg);
@@ -294,6 +313,9 @@ function genarrMap1(){
   ObjectsMap1Arr.push(platform22);
   ObjectsMap1Arr.push(platform23);
 
+//Adding Lights
+scene.add( directionalLight );
+scene.add( light );
 
   // ObjectsMap1Arr.push(skybox);
   scene.add( skybox )
@@ -500,6 +522,10 @@ function moveobjectsMap1(){
     glowingRock14.position.x = -90;//left-left-bottom
     glowingRock14.position.y = 0;
     glowingRock14.position.z = -505;
+
+    endpad.position.x = 297;
+    endpad.position.y = 10;
+    endpad.position.z = -519;
 
 
 
