@@ -30,9 +30,9 @@ var camstartx = 0;
 var camstarty = 15;
 var camstartz = 30;
 
-var charstartx = 0;
-var charstarty = 50;
-var charstartz = 0;
+var charstartx = -1955;
+var charstarty = 300;
+var charstartz = 1060;
 
 chardata = {
 	W:1,
@@ -42,7 +42,7 @@ chardata = {
 	x_vel:0,
 	y_vel:0,
 	z_vel:0,
-	y:50,
+	y:300,
 	rotationy:0
 };
 var character = new THREE.Object3D();
@@ -224,7 +224,7 @@ loop = function(){
 		// chardata.rotationy += 0.04
 	}
 	if(controller.forward){
-		chardata.z_vel -=0.6;//0.1
+		chardata.z_vel -=0.1;//0.1
 		action.play(); //need to figure out how controller event listener processes 'keyup' events to call action.stop() when 'W' is released
 
 	}
@@ -235,7 +235,7 @@ loop = function(){
 	// 	act.enabled = false;
 	// }
 
-	chardata.y_vel -=0;//gravity(0.4)
+	chardata.y_vel -=0.4;//gravity(0.4)
 	chardata.y += chardata.y_vel;
 	chardata.x_vel *= 0.8;//friction
 	chardata.y_vel *= 0.8;//friction
@@ -255,9 +255,9 @@ if(dobj.length != 0){
 }
 	if(chardata.y<-20){
 		DeathCounter= DeathCounter+1;
-		chardata.x=0;
-		chardata.y=2;
-		chardata.z=0;
+		chardata.x=-1955;
+		chardata.y=300;
+		chardata.z=1060;
 		chardata.jump = false;
 		controls.getObject().position.set(charstartx,charstarty,charstartz);
 		//camera.lookAt(0,0,0);

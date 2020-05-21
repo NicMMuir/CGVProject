@@ -153,15 +153,17 @@ var redMush4 = new THREE.Object3D();
 });
 }
 
-//Load Low Poly Bridge Model
-var lowPolyBridge1 = new THREE.Object3D();
-var lowPolyBridge2 = new THREE.Object3D();
+//Load Rope Bridge Model
+var ropeBridge1 = new THREE.Object3D();
+var ropeBridge2 = new THREE.Object3D();
+var ropeBridge3 = new THREE.Object3D();
 {
   var loader = new THREE.GLTFLoader();
-  loader.load('./3DObjects/LowPolyBridge/scene.gltf', function(gltf){
+  loader.load('./3DObjects/RopeBridge/scene.gltf', function(gltf){
 
-    lowPolyBridge1.add(gltf.scene);
-    lowPolyBridge2.add(gltf.scene.clone());
+    ropeBridge1.add(gltf.scene);
+    ropeBridge2.add(gltf.scene.clone());
+    ropeBridge3.add(gltf.scene.clone());
 });
 }
 
@@ -217,6 +219,7 @@ var colloseum = new THREE.Object3D();
   loader.load('./3DObjects/colloseum/scene.gltf', function(gltf){
     gltf.scene.scale.set(10,10,10);
     colloseum.add(gltf.scene);
+    console.log(dumpObject(gltf.scene).join('\n'));
         } );
 }
 
@@ -261,11 +264,11 @@ var palmTree4 = new THREE.Object3D();
   var loader = new THREE.GLTFLoader();
   loader.load('./3DObjects/FluffyCloud/scene.gltf', function(gltf){
     var cloud = gltf.scene;
-    cloud.scale.set(8, 4, 8);
-    for(i=200; i<=1250; i += 150){
+    cloud.scale.set(8, 3, 8);
+    for(i=350; i<=1250; i += 150){
     for(k=-2400; k<=-400; k += 400){
       cloud.position.x = k;
-    cloud.position.y = 100;
+    cloud.position.y = 140;
   cloud.position.z = i;
       scene.add(cloud.clone());
     }
@@ -348,8 +351,9 @@ function genarrMap1(){
   ObjectsMap1Arr.push(redMush3);
   ObjectsMap1Arr.push(redMush4);
 
-  ObjectsMap1Arr.push(lowPolyBridge1);
-  ObjectsMap1Arr.push(lowPolyBridge2);
+  ObjectsMap1Arr.push(ropeBridge1);
+  ObjectsMap1Arr.push(ropeBridge2);
+  ObjectsMap1Arr.push(ropeBridge3);
 
   ObjectsMap1Arr.push(dragon);
 
@@ -467,15 +471,21 @@ glowMush9.position.x = -1860;
   redMush4.position.z = 1060;
   redMush4.scale.set(10,10,10);
 
-lowPolyBridge1.position.x = 400;
-  lowPolyBridge1.position.y = -600;
-  lowPolyBridge1.position.z = 1100;
-  lowPolyBridge1.scale.set(7,7,15);
-  lowPolyBridge1.rotation.set(0, Math.PI/2, Math.PI/6);
-lowPolyBridge2.position.x = -1130;
-  lowPolyBridge2.position.y = 50;
-  lowPolyBridge2.position.z = 1060;
-  lowPolyBridge2.scale.set(1,1,1);
+ropeBridge1.position.x = -825;//First Rope Bridge after Starting
+  ropeBridge1.position.y = 250;
+  ropeBridge1.position.z = 1000;
+  ropeBridge1.scale.set(200,200,200);
+  ropeBridge1.rotation.set(0, 0, -0.174);//10 degrees
+ropeBridge2.position.x = -300;//Rope Bridge 2 & 3 are connected
+  ropeBridge2.position.y = 153;
+  ropeBridge2.position.z = 645;
+  ropeBridge2.scale.set(250,250,250);
+  ropeBridge2.rotation.set(0, Math.PI/2, -0.349066);//20 degrees
+ropeBridge3.position.x = -300;
+  ropeBridge3.position.y = 53;
+  ropeBridge3.position.z = 205;
+  ropeBridge3.scale.set(250,250,250);
+  ropeBridge3.rotation.set(0, Math.PI/2, -0.191986);
 
   dragon.position.x = -635;
   dragon.position.y = 200;
@@ -556,4 +566,17 @@ palmTree4.position.x = -380;
 function getarrMap1(){
   moveobjectsMap1();
   genarrMap1();
+}
+
+
+function dumpObject(obj, lines = [], isLast = true, prefix = '') {
+  const localPrefix = isLast ? '└─' : '├─';
+  lines.push(`${prefix}${prefix ? localPrefix : ''}${obj.name || '*no-name*'} [${obj.type}]`);
+  const newPrefix = prefix + (isLast ? '  ' : '│ ');
+  const lastNdx = obj.children.length - 1;
+  obj.children.forEach((child, ndx) => {
+    const isLast = ndx === lastNdx;
+    dumpObject(child, lines, isLast, newPrefix);
+  });
+  return lines;
 }
