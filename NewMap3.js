@@ -43,7 +43,9 @@ var seaSandMat = new THREE.MeshBasicMaterial( { map: seaSandTexture } );
 var colloseumTexture = new THREE.TextureLoader().load( 'Textures/collosWall.jpg' );
 var colloseumMat = new THREE.MeshBasicMaterial( { map: colloseumTexture } );
 
-
+//lights
+var directionalLight = new THREE.DirectionalLight( 	0xB4CCE1, 2 );
+directionalLight.position.set( 3000, 1000, -3000 );
 
 MainFloortexture.wrapS = THREE.RepeatWrapping;
 MainFloortexture.wrapT = THREE.RepeatWrapping;
@@ -374,6 +376,7 @@ function genarrMap1(){
 
   // ObjectsMap1Arr.push(skybox);
    scene.add( skybox )
+   scene.add( directionalLight );
 }
 
 function moveobjectsMap1(){
