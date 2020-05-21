@@ -30,9 +30,9 @@ var camstartx = 0;
 var camstarty = 15;
 var camstartz = 30;
 
-var charstartx = 0;
-var charstarty = 2;
-var charstartz = 0;
+var charstartx = -1800;
+var charstarty = 275;
+var charstartz = 1000;
 
 chardata = {
 	W:1,
@@ -43,7 +43,7 @@ chardata = {
 	y_vel:0,
 	z_vel:0,
 	x:0,
-	y:50,
+	y:300,
 	z:0,
 	rotationy:0
 };
@@ -224,7 +224,7 @@ loop = function(){
 		// chardata.rotationy += 0.04
 	}
 	if(controller.forward){
-		chardata.z_vel -=0.1;//0.1
+		chardata.z_vel -=0.6;//0.1
 		action.play(); //need to figure out how controller event listener processes 'keyup' events to call action.stop() when 'W' is released
 
 	}
@@ -235,7 +235,7 @@ loop = function(){
 	// 	act.enabled = false;
 	// }
 
-	chardata.y_vel -=0.4;//gravity(0.25)
+	chardata.y_vel -=0;//gravity(0.4)
 	chardata.y += chardata.y_vel;
 	chardata.x_vel *= 0.8;//friction
 	chardata.y_vel *= 0.8;//friction

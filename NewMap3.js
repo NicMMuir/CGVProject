@@ -1,6 +1,8 @@
 var ObjectsMap1Arr = [];
 var EnemyList = [];
 var Mesh, oceanGeometry, oceanMaterial, clock;
+var End;
+
 
 //Skybox
 var enmy = new THREE.Object3D();
@@ -23,7 +25,7 @@ materialArray.push(new THREE.MeshBasicMaterial( { map: texture_lf }));
 for (let i = 0; i < 6; i++)
   materialArray[i].side = THREE.BackSide;
 
-let skyboxGeo = new THREE.BoxGeometry( 2000, 1000, 2000);
+let skyboxGeo = new THREE.BoxGeometry( 5000, 5000, 5000);
 let skybox = new THREE.Mesh( skyboxGeo, materialArray );
 
 
@@ -49,10 +51,13 @@ var startpadgeom = new THREE.BoxGeometry( 5, 2, 5 );
 var StartFloorGeo = new THREE.BoxGeometry( 1000, 20, 220 );
 var middleFloorGeo = new THREE.BoxGeometry( 520, 20, 240 );
 var FinalFloorGeo = new THREE.BoxGeometry( 750, 20, 1000 );
+var endpadgeom = new THREE.BoxGeometry( 10, 10, 10 );
+
 
 
 //Mesh:
 var startpad = new THREE.Mesh( startpadgeom, Startpadmaterial );
+var endpad = new THREE.Mesh( endpadgeom , Startpadmaterial );
 var StartSeg = new THREE.Mesh( StartFloorGeo , GrassMat );
 var middleFloor = new THREE.Mesh( middleFloorGeo , GrassMat );
 var FinalFloor = new THREE.Mesh( FinalFloorGeo , seaSandMat );
@@ -281,6 +286,8 @@ function genarrMap1(){
   ObjectsMap1Arr.push(enmy);
   EnemyList.push(enmy);
 
+  End = endpad;
+  ObjectsMap1Arr.push(endpad);
   ObjectsMap1Arr.push(startpad);
   ObjectsMap1Arr.push(StartSeg);
 
@@ -494,6 +501,11 @@ palmTree3.position.x = -190;
 palmTree4.position.x = -380;
   palmTree4.position.y = 0;
   palmTree4.position.z = -120;
+
+     endpad.position.x = -300;
+    endpad.position.y = -10;
+    endpad.position.z = -500;
+
 
 
 }
