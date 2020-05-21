@@ -1,6 +1,3 @@
-
-      var inviscube = new THREE.Object3D();
-
       var spikes_pillar = new THREE.Object3D();
 
       var pillar = new THREE.Object3D();
@@ -146,23 +143,6 @@ function GenEnemey(){
      head.add(h_cone4);
      head.add(h_cone5);
      head.add(h_cone6);
-
-     //Add spikes_pillar to inviscube(Make inviscube)
-     //Making Inviscube:
-      var invisBox = new THREE.BoxGeometry(1,5,1);
-      var invisMat = new THREE.MeshPhongMaterial({
-        color: 0x000000,
-        opacity: 0.5,
-        transparent: true,
-        polygonOffset: true,
-        polygonOffsetUnits: 1,
-        polygonOffsetFactor: 1
-      });
-      var invisibleCube = new THREE.Mesh(invisBox, invisMat);
-      //inviscube.add(invisibleCube);
-
-     //Adding S_P to inviscube:
-      //spikes_pillar.add(inviscube);
 
      return(spikes_pillar);
    }

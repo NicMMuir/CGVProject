@@ -2,12 +2,14 @@ var ObjectsMap1Arr = [];
 var EnemyList = [];
 var camera, controls, scene, renderer, stats;
 var Mesh, oceanGeometry, oceanMaterial, clock;
+var End;
+
 
 //Skybox
 var enmy = new THREE.Object3D();
 
 let materialArray = [];
-//let texture_ft = new THREE.TextureLoader().load( 'Textures/bay_ft.jpg');
+let texture_ft = new THREE.TextureLoader().load( 'Textures/bay_ft.jpg');
 let texture_bk = new THREE.TextureLoader().load( 'Textures/bay_bk.jpg');
 let texture_up = new THREE.TextureLoader().load( 'Textures/bay_up.jpg');
 let texture_dn = new THREE.TextureLoader().load( 'Textures/bay_dn.jpg');
@@ -51,6 +53,7 @@ MainFloortexture.wrapS = THREE.RepeatWrapping;
 MainFloortexture.wrapT = THREE.RepeatWrapping;
 //floor geometries
 var startpadgeom = new THREE.BoxGeometry( 5, 2, 5 );
+var endpadgeom = new THREE.BoxGeometry( 10, 10, 10 );
 
 var SouthSegmentgeom = new THREE.BoxGeometry( 1000, 20, 220 );
 var NorthEastSegmentgeom = new THREE.BoxGeometry( 220, 20, 220 );
@@ -62,6 +65,7 @@ var wallGeometry = new THREE.PlaneGeometry(50,50);
 
 //Mesh:
 var startpad = new THREE.Mesh( startpadgeom, Startpadmaterial );
+var endpad = new THREE.Mesh( endpadgeom , Startpadmaterial );
 var SotheSeg = new THREE.Mesh( SouthSegmentgeom , MainFloormaterial );
 var NorthEastSeg = new THREE.Mesh( NorthEastSegmentgeom , MainFloormaterial );
 var NorthWestSeg = new THREE.Mesh( NorthWestSegmentgeom , MainFloormaterial );
@@ -224,6 +228,8 @@ function genarrMap1(){
   enmy.scale.y = 3;
   enmy.scale.z = 3;
   EnemyList.push(enmy);
+  End = endpad;
+  ObjectsMap1Arr.push(endpad);
   ObjectsMap1Arr.push(startpad);
   ObjectsMap1Arr.push(SotheSeg);
   ObjectsMap1Arr.push(NorthEastSeg);
@@ -310,8 +316,8 @@ function genarrMap1(){
   ObjectsMap1Arr.push(palmTree3);
   ObjectsMap1Arr.push(palmTree4);
 
-  ObjectsMap1Arr.push(skybox);
-  // scene.add( skybox );
+  // ObjectsMap1Arr.push(skybox);
+  scene.add( skybox );
 
 }
 
@@ -541,6 +547,10 @@ function moveobjectsMap1(){
     palmTree4.position.y = 0;
     palmTree4.position.z = -610;
     palmTree4.scale.set(30,30,30);
+
+    endpad.position.x = 297;
+    endpad.position.y = 10;
+    endpad.position.z = -519;
 
 }
 
