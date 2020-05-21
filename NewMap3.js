@@ -1,5 +1,6 @@
 var ObjectsMap1Arr = [];
 var EnemyList = [];
+var End;
 var Mesh, oceanGeometry, oceanMaterial, clock;
 
 //Skybox
@@ -45,6 +46,7 @@ var colloseumMat = new THREE.MeshBasicMaterial( { map: colloseumTexture } );
 MainFloortexture.wrapS = THREE.RepeatWrapping;
 MainFloortexture.wrapT = THREE.RepeatWrapping;
 //floor geometries
+var endpadgeom = new THREE.BoxGeometry( 10, 10, 10 );
 var startpadgeom = new THREE.BoxGeometry( 5, 2, 5 );
 var StartFloorGeo = new THREE.BoxGeometry( 1000, 20, 220 );
 var middleFloorGeo = new THREE.BoxGeometry( 520, 20, 240 );
@@ -52,6 +54,7 @@ var FinalFloorGeo = new THREE.BoxGeometry( 750, 20, 1000 );
 
 
 //Mesh:
+var endpad = new THREE.Mesh( endpadgeom , Startpadmaterial );
 var startpad = new THREE.Mesh( startpadgeom, Startpadmaterial );
 var StartSeg = new THREE.Mesh( StartFloorGeo , GrassMat );
 var middleFloor = new THREE.Mesh( middleFloorGeo , GrassMat );
@@ -278,6 +281,14 @@ function genarrMap1(){
   enmy.scale.x = 3;
   enmy.scale.y = 3;
   enmy.scale.z = 3;
+
+
+
+
+  End = endpad;
+  ObjectsMap1Arr.push(endpad);
+
+
   ObjectsMap1Arr.push(enmy);
   EnemyList.push(enmy);
 
@@ -343,6 +354,14 @@ function moveobjectsMap1(){
   StartSeg.position.x = -1500;
   StartSeg.position.y = 250;
   StartSeg.position.z = 1000;
+
+  startpad.position.x = -1800;
+  startpad.position.y = 250;
+  startpad.position.z = 1000;
+
+  endpad.position.x = -300;
+  endpad.position.y = 3;
+  endpad.position.z = -500;
 
   middleFloor.position.x = -400;
   middleFloor.position.y = 200;
