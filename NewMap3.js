@@ -1,6 +1,5 @@
 var ObjectsMap1Arr = [];
 var EnemyList = [];
-var camera, controls, scene, renderer, stats;
 var Mesh, oceanGeometry, oceanMaterial, clock;
 
 //Skybox
