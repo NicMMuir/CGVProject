@@ -1,7 +1,6 @@
 var ObjectsMap1Arr = [];
 var EnemyList = [];
 var End;
-var camera, controls, scene, renderer, stats;
 var Mesh, oceanGeometry, oceanMaterial, clock;
 
 
@@ -34,15 +33,6 @@ var directionalLight = new THREE.DirectionalLight( 	0xB07214, 5 );
 directionalLight.position.set( 3000, 1000, -6000 );
 var light = new THREE.PointLight( 0xFFFFFF, 5, 0, 1 );
 light.position.set( 0, 0, 10 );
-
-//const color = 0xFFFFFF;
-//const intensity = 2;
-//const light = new THREE.AmbientLight(color, intensity);
-//scene.add(light);
-
-
-
-
 
 //Textures
 var MainFloortexture = new THREE.TextureLoader().load( 'Textures/Grass.jpg' );
@@ -235,6 +225,30 @@ function genarrMap1(){
   enmy.scale.z = 3;
   ObjectsMap1Arr.push(enmy);
   EnemyList.push(enmy);
+
+
+  enemy = getEnemy();
+  enemy.position.x = -10;
+  enemy.position.z = 0;
+  enemy.position.y = 5;
+  enemy.scale.x = 3;
+  enemy.scale.y = 3;
+  enemy.scale.z = 3;
+  ObjectsMap1Arr.push(enemy);
+  EnemyList.push(enemy);
+
+
+
+
+
+
+
+
+
+
+
+
+
   End = endpad;
   ObjectsMap1Arr.push(endpad);
   ObjectsMap1Arr.push(startpad);
@@ -530,6 +544,7 @@ function moveobjectsMap1(){
 
 
 }
+
 
 
 function getarrMap1(){

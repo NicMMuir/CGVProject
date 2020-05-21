@@ -31,7 +31,7 @@ var camstarty = 15;
 var camstartz = 30;
 
 var charstartx = 0;
-var charstarty = 0;
+var charstarty = 2;
 var charstartz = 0;
 
 chardata = {
@@ -235,7 +235,7 @@ loop = function(){
 	// 	act.enabled = false;
 	// }
 
-	chardata.y_vel -=0.25;//gravity(0.25)
+	chardata.y_vel -=0.4;//gravity(0.25)
 	chardata.y += chardata.y_vel;
 	chardata.x_vel *= 0.8;//friction
 	chardata.y_vel *= 0.8;//friction
