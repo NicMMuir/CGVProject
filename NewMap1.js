@@ -68,7 +68,7 @@ var NorthSeg = new THREE.Mesh( SouthSegmentgeom , MainFloormaterial );
 
 
 
- oceanGeometry = new THREE.PlaneBufferGeometry( 7000, 7000, 128-1, 128-1);
+ oceanGeometry = new THREE.PlaneBufferGeometry( 2000, 2000, 128-1, 128-1);
         oceanGeometry.rotateX( - Math.PI / 2 );
 
         var position = oceanGeometry.attributes.position;

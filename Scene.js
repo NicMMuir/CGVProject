@@ -31,7 +31,7 @@ var camstarty = 15;
 var camstartz = 30;
 
 var charstartx = 0;
-var charstarty = 2;
+var charstarty = 50;
 var charstartz = 0;
 
 chardata = {
@@ -42,9 +42,7 @@ chardata = {
 	x_vel:0,
 	y_vel:0,
 	z_vel:0,
-	x:0,
 	y:50,
-	z:0,
 	rotationy:0
 };
 var character = new THREE.Object3D();
@@ -70,7 +68,7 @@ scene = new THREE.Scene();
 camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 5000 );
 renderer = new THREE.WebGLRenderer({antialias:true, alpha: true});
 camera.position.set(camstartx,camstarty,camstartz);
-camera.lookAt(chardata.x,chardata.y,chardata.z);
+//camera.lookAt(chardata.x,chardata.y,chardata.z);
 camera.updateProjectionMatrix();
 controls = new THREE.PointerLockControls(camera);
 
