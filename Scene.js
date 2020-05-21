@@ -350,7 +350,9 @@ if(erobj.length != 0){
 	if((controls.getObject().position.x <= (End.position.x+11) && controls.getObject().position.x >= (End.position.x-11) && controls.getObject().position.z >= End.position.z-11 && controls.getObject().position.z <= End.position.z+11)){
 		console.log("End Reached");
 		document.getElementById('menu').style.visibility = 'visible';
-	}
+		document.getElementById('scorecard').innerText = "Score: " + PointsCounter;
+		document.getElementById('deathcount').innerText = "Deaths: " + DeathCounter;
+	}	
 
 	Movechar(chardata.x,chardata.y,chardata.z);
 	render();

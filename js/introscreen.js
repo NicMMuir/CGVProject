@@ -29,6 +29,7 @@ new Promise((resolve)=>{
     objLoader.setMaterials(materials);
     objLoader.load('Character.obj', (object)=>{
         character = object; 
+        character.position.y = -2;
         scene.add(character);
     })
 })

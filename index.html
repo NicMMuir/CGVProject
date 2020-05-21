@@ -1,79 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!--Intro menu that then routes to the games html page or specific level-->
+    <!--Intro menu that then routes to the games html page or specific level -->
     <meta charset="UTF-8">
     <title>CGVProject: Title Screen</title>
     <script src ="js/three.js"></script>
 
     <script src="js/OBJLoader.js"></script>
   <script src="js/MTLLoader.js"></script>
-    <style>
-        body{
-            background-color: #2B2D2F;
-            margin: 0;
-            font-family: 'Nunito','Arial', sans-serif;
-
-        }
-
-        canvas{
-            display: block;
-        }
-
-        #menu {
-            position: absolute;
-            width: 10%;
-            height: 15em;
-            top: 20%; left: 50%;
-            margin: -125px 0 0 -100px;
-            flex: 1;
-            text-align: center;
-
-            border: 3px solid #fff;
-            border-radius: 15px;
-            box-shadow: 2px 10px 5px #888;
-        }
-
-        .menu-btn {
-            width: 80px;
-            height: 25px;
-
-            background-color: #C44032;
-
-            border: 3px solid #fff;
-            border-radius: 5px;
-
-            font-size: 14px;
-            font-weight: bold;
-            color: #fff;
-            transition-duration: 0.4s;
-        }
-
-        .menu-btn:hover{
-            background-color: white;
-            color: orange;
-        }
+  <link rel="stylesheet" type="text/css" href="css/normalize.css">
+  <link rel="stylesheet" type="text/css" href="css/standard.css">
 
 
-
-        h1, h2{
-            color: white;
-            margin: 0 auto;
-            text-align: center;
-            font-weight: normal;
-            text-transform: uppercase;
-
-        }
-
-      </style>
 </head>
 <body>
     <script src = 'js/introscreen.js'></script>
     <!--loads game page-->
     <script>
+    lvlSelect = false;
     window.onload=function(){document.getElementById("startBtn").addEventListener("click", this.startGame ); }
     function startGame(){
-    window.location.assign("CGVProject.html")
+    window.location.assign("CGVProject-Map1.html");
+    }
+
+    function enableLevelSelect(){
+        if (lvlSelect){
+            document.getElementById("lvl1Btn").classList.remove("visibleBtn");
+            document.getElementById("lvl1Btn").classList.add("hiddenBtn");
+            lvlSelect = false;
+
+        }
+
+        if (!lvlSelect){
+            document.getElementById("lvl1Btn").classList.add("visibleBtn");
+            document.getElementById("lvl1Btn").classList.remove("hiddenBtn");
+            lvlSelect = true;
+        }
+        
+    }
+
+    function selectLevel(level){
+        switch(level){
+            case 1:
+            window.location.assign("CGVProject-Map1.html");
+                break;
+            case 2:
+            window.location.assign("CGVProject-Map2.html");
+
+                break;
+            case 3: 
+            window.location.assign("CGVProject-Map3.html");
+
+                break;
+            default:
+            window.location.assign("CGVProject-Map1.html");
+
+
+        }
+
     }
     
     </script>
@@ -83,8 +67,17 @@
         <div class = "menu-item">
             <p type="button" class = "menu-btn" id="startBtn" onclick=startGame()>Start</p>
         </div>
-        <div class = "menu-item"></div>
-            <p class = "menu-btn">Levels</p>
+        <div class = "menu-item">
+            <p type = "button" id = "lvlSelectBtn" class = "menu-btn" onclick=enableLevelSelect()>Levels</p>
+        </div>
+        <div class = "menu-item">
+            <p type = "button" id = "lvl1Btn" class = "menu-btn" onclick = selectLevel(1)>Play Level 1</p>
+        </div>
+        <div class = "menu-item">
+        <p type = "button" id = "lvl2Btn" class = "menu-btn" onclick = selectLevel(2)>Play Level 2</p>
+        </div>
+        <div class = "menu-item">
+        <p type = "button" id = "lvl3Btn" class = "menu-btn" onclick = selectLevel(3)>Play Level 3</p>
         </div>
     </div>
 </body>
