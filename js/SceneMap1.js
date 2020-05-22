@@ -229,7 +229,6 @@ loop = function(){
 
 			 position.needsUpdate = true;
 			 onRender();
-			 boxRender(boxe1,40,-20);
 
 
 
