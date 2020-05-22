@@ -35,9 +35,6 @@ var charstarty = 6;
 var charstartz = 0;
 
 chardata = {
-	W:1,
-	H:1,
-	B:1,
 	jump:true,
 	x_vel:0,
 	y_vel:6,
@@ -356,13 +353,9 @@ if(erobj.length != 0){
 		console.log("End Reached");
 		document.getElementById('menu').style.visibility = 'visible';
 		document.getElementById('scorecard').innerText = "Score: " + PointsCounter;
-<<<<<<< HEAD
-		document.getElementById('deathcount').innerText = "Deaths: " + DeathCounter;
-=======
 		document.getElementById('deathcount').innerText = "DeathsThisOne: " + DeathCounter;
 		await new Promise(r => setTimeout(r, 2000));
 		window.location.assign("index.html");
->>>>>>> 61107f5dbf00a7ab95e622f15c1d6d2cd44f59a2
 
 	}
 
@@ -414,33 +407,11 @@ function Movechar(x1,y1,z1){
 	//
 }
 
-
-
-
-//rotate Vectors
-
-function rotatevec(vec , angle){
-	vector.applyAxisAngle( axis, angle );
-}
-
 function OnMouseDown(event){
 	if(!controls.isLocked){
 		controls.lock();
 	}
 }
-
-function GenCoinList(){
-	for(let k =0 ; k<5;k++){
-		CoinList.push(new gencoin());
-	}
-}
-
-
-
-
-
-
-
 function checkruby(){
 	for(let k = 0 ; k< RubyArr.length;k++){
 		if((controls.getObject().position.x <= (RPosList[k].x+2) && controls.getObject().position.x >= (RPosList[k].x-2) && controls.getObject().position.z >= RPosList[k].z-2 && controls.getObject().position.z <= RPosList[k].z+2)&& scene.getObjectById(RubyArr[k].id,true) != null ){

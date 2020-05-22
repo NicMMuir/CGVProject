@@ -262,13 +262,12 @@ if(dobj.length != 0){
 		chardata.z=1060;
 		chardata.jump = false;
 		controls.getObject().position.set(charstartx,charstarty,charstartz);
-		//camera.lookAt(0,0,0);
 	}
 	if(chardata.jump == false && dobj.length != 0){
 		chardata.jump = false;
 		chardata.y = dobj[0].point.y+0.2;
 }
-	//forward collis
+	//forward collisions
 	if(fobj.length != 0){
 		if(fobj[0].distance < 2){
 			chardata.jump = true;
@@ -278,6 +277,7 @@ if(dobj.length != 0){
 			controls.getObject().position.z = fobj[0].point.z+2.2;
 		}
 	}
+	//back collisions
 	if(bobj.length != 0){
 		if(bobj[0].distance < 2){
 			chardata.jump = true;
@@ -287,6 +287,7 @@ if(dobj.length != 0){
 			controls.getObject().position.z = bobj[0].point.z-2.2;
 		}
 	}
+	//left collisions
 	if(lobj.length != 0){
 		if(lobj[0].distance < 2){
 			chardata.jump = true;
@@ -296,6 +297,7 @@ if(dobj.length != 0){
 			controls.getObject().position.x = lobj[0].point.x+2.2;
 		}
 	}
+	//right collisions
 	if(robj.length != 0){
 		if(robj[0].distance < 2){
 			chardata.jump = true;
@@ -305,8 +307,7 @@ if(dobj.length != 0){
 			controls.getObject().position.x = robj[0].point.x-2.1;
 		}
 	}
-/////////enemy ccollisions
-
+/////////enemy collisions for each direction
 if(efobj.length != 0){
 	if(efobj[0].distance < 2){
 		DeathCounter= DeathCounter+1;
@@ -370,12 +371,14 @@ function colisiondetection(char){
 		rayleft.set(charvec , left);//left
 		rayright.set(charvec , right);//right
 		//.intersectObjects ( objects : Array, recursive : Boolean, optionalTarget : Array ) : Array
+
+		//arrays of all collidable objects in a specific direction
 		fobj = rayforward.intersectObjects(Collidables,true);
 		bobj = raybackward.intersectObjects(Collidables,true);
 		dobj = raydown.intersectObjects(Collidables,true);
 		lobj = rayleft.intersectObjects(Collidables,true);
 		robj = rayright.intersectObjects(Collidables,true);
-
+		//arrays of all collidable objects in a specific direction
 		efobj = rayforward.intersectObjects(EnemyList,true);
 		ebobj = raybackward.intersectObjects(EnemyList,true);
 		edobj = raydown.intersectObjects(EnemyList,true);
@@ -383,7 +386,7 @@ function colisiondetection(char){
 		erobj = rayright.intersectObjects(EnemyList,true);
 };
 
-
+//Sets Custom lights
 function SetLight(){
 	var light = new THREE.AmbientLight(0x404040);
 	scene.add(light);
@@ -395,41 +398,20 @@ function SetLight(){
 	scene.add( directionalLight );
 };
 
-
+//Move Character
 function Movechar(x1,y1,z1){
 	controls.getObject().translateZ(chardata.z_vel);
 	controls.getObject().translateX(chardata.x_vel);
 	controls.getObject().position.y=chardata.y;
-	//
 }
 
-
-
-
-//rotate Vectors
-
-function rotatevec(vec , angle){
-	vector.applyAxisAngle( axis, angle );
-}
-
+//Locks Mouse to screen
 function OnMouseDown(event){
 	if(!controls.isLocked){
 		controls.lock();
 	}
 }
-
-function GenCoinList(){
-	for(let k =0 ; k<5;k++){
-		CoinList.push(new gencoin());
-	}
-}
-
-
-
-
-
-
-
+///Checks collisions with each Ruby
 function checkruby(){
 	for(let k = 0 ; k< RubyArr.length;k++){
 		if((controls.getObject().position.x <= (RPosList[k].x+2) && controls.getObject().position.x >= (RPosList[k].x-2) && controls.getObject().position.z >= RPosList[k].z-2 && controls.getObject().position.z <= RPosList[k].z+2)&& scene.getObjectById(RubyArr[k].id,true) != null ){
@@ -440,7 +422,7 @@ function checkruby(){
 	}
 }
 
-
+///Checks collisions with each coin
 function checkcoin(){
 	for(let k = 0 ; k< CoinArr.length;k++){
 		if((controls.getObject().position.x <= (CPosList[k].x+2) && controls.getObject().position.x >= (CPosList[k].x-2) && controls.getObject().position.z >= CPosList[k].z-2 && controls.getObject().position.z <= CPosList[k].z+2)&& scene.getObjectById(CoinArr[k].id,true) != null){
@@ -453,7 +435,6 @@ function checkcoin(){
 
 
 //Event Listeners:
-
 window.addEventListener("keydown",controller.keyListener);
 window.addEventListener("keyup",controller.keyListener);
 window.addEventListener("mousedown",OnMouseDown,false);

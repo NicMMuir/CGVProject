@@ -35,9 +35,6 @@ var charstarty = 6;
 var charstartz = 0;
 
 chardata = {
-	W:1,
-	H:1,
-	B:1,
 	jump:true,
 	x_vel:0,
 	y_vel:0,
@@ -63,23 +60,20 @@ var raydown = new THREE.Raycaster();
 var rayleft = new THREE.Raycaster();
 var rayright = new THREE.Raycaster();
 
-//Scene and camear etc
+//Scene and camera etc
 scene = new THREE.Scene();
 camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 5000 );
 renderer = new THREE.WebGLRenderer({antialias:true, alpha: true});
 camera.position.set(camstartx,camstarty,camstartz);
-//camera.lookAt(chardata.x,chardata.y,chardata.z);
 camera.updateProjectionMatrix();
 controls = new THREE.PointerLockControls(camera);
 
 var position;//Ocean moveement
 var time;
-
-
 //char Vector3
 var charvec = new THREE.Vector3(chardata.x,chardata.y,chardata.z);
 
-
+//Arrays for each collisions detection output
 var fobj = new Array();
 var bobj= new Array();
 var dobj= new Array();
@@ -90,27 +84,17 @@ var tp = new THREE.Vector3();
 init();
 
 function init(){
-
-	clock = new THREE.Clock();
-
+	clock = new THREE.Clock(); // Sets clock time
 	renderer.setPixelRatio( window.devicePixelRatio );
 	renderer.setSize( window.innerWidth, window.innerHeight );
 	document.body.appendChild(renderer.domElement );
-
-
-
 	getarrMap1();
 	Charinit(charstartx,charstarty,charstartz);
-
-	   RPosList = gerrubyl();
-	// }
-	 RubyArr = genruby(RPosList);
-	// for(let k = 0;k<5;k++){
-	// 	 tp = new THREE.Vector3(-10*k,5,10*k);
-	    CPosList = getcoinl();
-	// }
+	RPosList = gerrubyl();
+	RubyArr = genruby(RPosList);
+	CPosList = getcoinl();
 	CoinArr = gencoin(CPosList);
-	 //console.log(RPosList);
+
 
 
 	for(let k =0 ;k<ObjectsMap1Arr.length;k++){
@@ -119,21 +103,15 @@ function init(){
 	}
 
 	SetLight();
-
-
-
-
 }
 
-
+//Animate and render work hand in hand
 function animate() {
-
 				requestAnimationFrame( animate );
 				render();
 			}
 
 function render(){
-
 	renderer.render(scene,camera);
 
 };
@@ -146,19 +124,15 @@ controller = {
 		right:false,
 		up:false,
 		forwardUP: true,
-		//fowardUP: true,
+
 			keyListener:function(event){
-				//var keystateUP = (event.type == "keyup")?true:false;
 
 				var keystate = (event.type == "keydown")?true:false;
 				switch (event.keyCode){
 					case 87://the "W" key is pressed
 							controller.forward = keystate;
 							console.log("Character has just moved forward...");
-
-							//controller.fowardUP = keystateUP;
 							action.play();
-							//action.stop();
 						break;
 					case 83://the "S" key is pressed
 							controller.back = keystate;
@@ -223,14 +197,10 @@ loop = function(){
 	}
 
 	if(controller.left){
-		// char.rotation.y-=0.04;
-		// chardata.rotationy -= 0.04
 		chardata.x_vel -=0.1;
 	}
 	if(controller.right){
 		chardata.x_vel +=0.1;
-		// char.rotation.y +=0.04;
-		// chardata.rotationy += 0.04
 	}
 	if(controller.forward){
 		chardata.z_vel -=0.12;//0.1
@@ -240,19 +210,12 @@ loop = function(){
 	if(controller.back){
 		chardata.z_vel +=0.06;
 	}
-	// if (!controller.forward){
-	// 	act.enabled = false;
-	// }
 
 	chardata.y_vel -=0.4;//gravity(0.4)
 	chardata.y += chardata.y_vel;
 	chardata.x_vel *= 0.8;//friction
 	chardata.y_vel *= 0.8;//friction
 	chardata.z_vel *= 0.8;//friction
-
-
-
-
 	/////////////////////Normal collisions
 if(dobj.length != 0){
 	if(dobj[0].distance>3){
@@ -269,13 +232,12 @@ if(dobj.length != 0){
 		chardata.z=0;
 		chardata.jump = false;
 		controls.getObject().position.set(charstartx,charstarty,charstartz);
-		//camera.lookAt(0,0,0);
 	}
 	if(chardata.jump == false && dobj.length != 0){
 		chardata.jump = false;
 		chardata.y = dobj[0].point.y+0.2;
 }
-	//forward collis
+	//forward collisions
 	if(fobj.length != 0){
 		if(fobj[0].distance < 2){
 			chardata.jump = true;
@@ -285,6 +247,7 @@ if(dobj.length != 0){
 			controls.getObject().position.z = fobj[0].point.z+2.2;
 		}
 	}
+	//back collisions
 	if(bobj.length != 0){
 		if(bobj[0].distance < 2){
 			chardata.jump = true;
@@ -294,6 +257,7 @@ if(dobj.length != 0){
 			controls.getObject().position.z = bobj[0].point.z-2.2;
 		}
 	}
+	//left collisions
 	if(lobj.length != 0){
 		if(lobj[0].distance < 2){
 			chardata.jump = true;
@@ -303,6 +267,7 @@ if(dobj.length != 0){
 			controls.getObject().position.x = lobj[0].point.x+2.2;
 		}
 	}
+	//right collisions
 	if(robj.length != 0){
 		if(robj[0].distance < 2){
 			chardata.jump = true;
@@ -312,8 +277,7 @@ if(dobj.length != 0){
 			controls.getObject().position.x = robj[0].point.x-2.1;
 		}
 	}
-/////////enemy ccollisions
-
+/////////enemy collisions
 if(efobj.length != 0){
 	if(efobj[0].distance < 1.5){
 		DeathCounter= DeathCounter+1;
@@ -379,6 +343,7 @@ function colisiondetection(char){
 		raydown.set(charvec , downw);//down
 		rayleft.set(charvec , left);//left
 		rayright.set(charvec , right);//right
+
 		//.intersectObjects ( objects : Array, recursive : Boolean, optionalTarget : Array ) : Array
 		fobj = rayforward.intersectObjects(Collidables,true);
 		bobj = raybackward.intersectObjects(Collidables,true);
@@ -405,40 +370,17 @@ function SetLight(){
 	scene.add( directionalLight );
 };
 
-
 function Movechar(x1,y1,z1){
 	controls.getObject().translateZ(chardata.z_vel);
 	controls.getObject().translateX(chardata.x_vel);
 	controls.getObject().position.y=chardata.y;
 	//
 }
-
-
-
-
-//rotate Vectors
-
-function rotatevec(vec , angle){
-	vector.applyAxisAngle( axis, angle );
-}
-
 function OnMouseDown(event){
 	if(!controls.isLocked){
 		controls.lock();
 	}
 }
-
-function GenCoinList(){
-	for(let k =0 ; k<5;k++){
-		CoinList.push(new gencoin());
-	}
-}
-
-
-
-
-
-
 
 function checkruby(){
 	for(let k = 0 ; k< RubyArr.length;k++){
