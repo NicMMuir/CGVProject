@@ -363,9 +363,7 @@ if(erobj.length != 0){
 			window.location.assign("index.html");
 		},
 		 5000);
-		
-		document.getElementById('deathcount').innerText = "Deaths: " + DeathCounter;
-	}
+			}
 
 	Movechar(chardata.x,chardata.y,chardata.z);
 	render();
