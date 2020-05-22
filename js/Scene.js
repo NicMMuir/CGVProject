@@ -350,6 +350,8 @@ if(efobj.length != 0){
 		document.getElementById('menu').style.visibility = 'visible';
 		document.getElementById('scorecard').innerText = "Score: " + PointsCounter;
 		document.getElementById('deathcount').innerText = "Deaths: " + DeathCounter;
+		await new Promise(r => setTimeout(r, 2000));
+		window.location.assign("index.html");
 
 	}
 

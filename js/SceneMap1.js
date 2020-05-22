@@ -356,7 +356,13 @@ if(erobj.length != 0){
 		console.log("End Reached");
 		document.getElementById('menu').style.visibility = 'visible';
 		document.getElementById('scorecard').innerText = "Score: " + PointsCounter;
+<<<<<<< HEAD
 		document.getElementById('deathcount').innerText = "Deaths: " + DeathCounter;
+=======
+		document.getElementById('deathcount').innerText = "DeathsThisOne: " + DeathCounter;
+		await new Promise(r => setTimeout(r, 2000));
+		window.location.assign("index.html");
+>>>>>>> 61107f5dbf00a7ab95e622f15c1d6d2cd44f59a2
 
 	}
 
