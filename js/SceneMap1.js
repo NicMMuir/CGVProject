@@ -351,10 +351,15 @@ if(erobj.length != 0){
 		console.log("End Reached");
 		document.getElementById('menu').style.visibility = 'visible';
 		document.getElementById('scorecard').innerText = "Score: " + PointsCounter;
-		document.getElementById('deathcount').innerText = "DeathsThisOne: " + DeathCounter;
-		await new Promise(r => setTimeout(r, 2000));
-		window.location.assign("index.html");
-
+		document.getElementById('deathcount').innerText = "Deaths: " + DeathCounter;
+		
+		//wait five seconds and then route back to main menu
+		window.setTimeout(function()
+		{
+			window.location.assign("index.html");
+		},
+		 5000);
+		
 	}
 
 	Movechar(chardata.x,chardata.y,chardata.z);
