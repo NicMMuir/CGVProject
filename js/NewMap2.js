@@ -69,7 +69,7 @@ var SouthSegmentgeom = new THREE.BoxGeometry( 1000, 20, 220 );
 var NorthEastSegmentgeom = new THREE.BoxGeometry( 220, 20, 220 );
 var NorthWestSegmentgeom = new THREE.BoxGeometry( 220, 20, 220 );
 var platformGeometry = new THREE.BoxGeometry( 50, 10, 50 );
-var highPlatformGeometry = new THREE.BoxGeometry( 50, 20, 50 );
+var highPlatformGeometry = new THREE.BoxGeometry( 51, 20, 51 );
 var veryHighPlatformGeometry = new THREE.BoxGeometry( 50, 50, 50 );
 var wallGeometry = new THREE.PlaneGeometry(50,50);
 
