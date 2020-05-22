@@ -407,19 +407,8 @@ function Movechar(x1,y1,z1){
 	controls.getObject().translateZ(chardata.z_vel);
 	controls.getObject().translateX(chardata.x_vel);
 	controls.getObject().position.y=chardata.y;
-<<<<<<< HEAD
-=======
 }
 
-
-
-
-//rotate Vectors
-
-function rotatevec(vec , angle){
-	vector.applyAxisAngle( axis, angle );
->>>>>>> eac9fb79ddac9c9e146f79201d69aa7d4d976a5a
-}
 
 //Locks Mouse to screen
 function OnMouseDown(event){
