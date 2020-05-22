@@ -163,7 +163,7 @@ loop = function(){
 	checkruby();
 	checkcoin();
 
-	time = clock.getElapsedTime() * 5;
+	      time = clock.getElapsedTime() * 5;
 
 				position = oceanGeometry.attributes.position;
 
