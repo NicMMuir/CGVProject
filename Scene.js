@@ -106,7 +106,7 @@ function init(){
 
 	 RPosList = gerrubyl();
 	 RubyArr = genruby(RPosList);
-	 CPosList = getcoinl();
+	 CPosList = getcoinl3();
 	 CoinArr = gencoin(CPosList);
 	 //console.log(RPosList);
 

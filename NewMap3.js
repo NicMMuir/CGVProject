@@ -50,7 +50,6 @@ directionalLight.position.set( 3000, 1000, -3000 );
 MainFloortexture.wrapS = THREE.RepeatWrapping;
 MainFloortexture.wrapT = THREE.RepeatWrapping;
 //floor geometries
-var endpadgeom = new THREE.BoxGeometry( 10, 10, 10 );
 var startpadgeom = new THREE.BoxGeometry( 5, 2, 5 );
 var StartFloorGeo = new THREE.BoxGeometry( 1000, 20, 220 );
 var middleFloorGeo = new THREE.BoxGeometry( 520, 20, 240 );
@@ -60,7 +59,6 @@ var endpadgeom = new THREE.BoxGeometry( 10, 10, 10 );
 
 
 //Mesh:
-var endpad = new THREE.Mesh( endpadgeom , Startpadmaterial );
 var startpad = new THREE.Mesh( startpadgeom, Startpadmaterial );
 var endpad = new THREE.Mesh( endpadgeom , Startpadmaterial );
 var StartSeg = new THREE.Mesh( StartFloorGeo , GrassMat );
@@ -322,8 +320,6 @@ function genarrMap1(){
   ObjectsMap1Arr.push(enmy);
   EnemyList.push(enmy);
 
-  End = endpad;
-  ObjectsMap1Arr.push(endpad);
   ObjectsMap1Arr.push(startpad);
   ObjectsMap1Arr.push(StartSeg);
 
@@ -395,7 +391,7 @@ function moveobjectsMap1(){
 
   endpad.position.x = -300;
   endpad.position.y = 3;
-  endpad.position.z = -500;
+  endpad.position.z = -610;
 
   middleFloor.position.x = -400;
   middleFloor.position.y = 200;
@@ -553,12 +549,6 @@ palmTree3.position.x = -190;
 palmTree4.position.x = -380;
   palmTree4.position.y = 0;
   palmTree4.position.z = -120;
-
-     endpad.position.x = -300;
-    endpad.position.y = -10;
-    endpad.position.z = -500;
-
-
 
 }
 
