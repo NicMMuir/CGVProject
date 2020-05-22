@@ -317,7 +317,7 @@ if(efobj.length != 0){
 		controls.getObject().position.set(charstartx,charstarty,charstartz);
 	}
 }else if(ebobj.length != 0){
-	if(ebobj[0].distance < 2){
+	if(ebobj[0].distance < 1.5){
 		DeathCounter= DeathCounter+1;
 		chardata.x=0;
 		chardata.y=2;
@@ -326,7 +326,7 @@ if(efobj.length != 0){
 		controls.getObject().position.set(charstartx,charstarty,charstartz);
 	}
 }else if(elobj.length != 0){
-	if(elobj[0].distance < 2){
+	if(elobj[0].distance < 1.5){
 		DeathCounter= DeathCounter+1;
 		chardata.x=0;
 		chardata.y=2;
@@ -335,7 +335,7 @@ if(efobj.length != 0){
 		controls.getObject().position.set(charstartx,charstarty,charstartz);
 	}
 }else if(erobj.length != 0){
-	if(erobj[0].distance < 2){
+	if(erobj[0].distance < 1.5){
 		DeathCounter= DeathCounter+1;
 		chardata.x=0;
 		chardata.y=2;
@@ -346,10 +346,11 @@ if(efobj.length != 0){
 		controls.getObject().position.set(charstartx,charstarty,charstartz);
 		}
 	}//end of the level is reached when this block is touched
-	if((controls.getObject().position.x <= (End.position.x+11) && controls.getObject().position.x >= (End.position.x-11) && controls.getObject().position.z >= End.position.z-11 && controls.getObject().position.z <= End.position.z+11)){
+	if(((controls.getObject().position.x <= (End.position.x+11)) && (controls.getObject().position.x >= (End.position.x-11)) && (controls.getObject().position.z >= End.position.z-11) && (controls.getObject().position.z <= End.position.z+11))){
 		document.getElementById('menu').style.visibility = 'visible';
 		document.getElementById('scorecard').innerText = "Score: " + PointsCounter;
 		document.getElementById('deathcount').innerText = "Deaths: " + DeathCounter;
+
 	}
 
 	Movechar(chardata.x,chardata.y,chardata.z);

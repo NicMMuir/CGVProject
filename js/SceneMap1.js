@@ -40,7 +40,7 @@ chardata = {
 	B:1,
 	jump:true,
 	x_vel:0,
-	y_vel:0,
+	y_vel:6,
 	z_vel:0,
 	y:6,
 	rotationy:0
@@ -119,9 +119,6 @@ function init(){
 	}
 
 	SetLight();
-
-
-
 
 }
 
@@ -309,7 +306,7 @@ if(dobj.length != 0){
 /////////enemy ccollisions
 
 if(efobj.length != 0){
-	if(efobj[0].distance < 2){
+	if(efobj[0].distance < 1.5){
 		DeathCounter= DeathCounter+1;
 		chardata.x=0;
 		chardata.y=2;
@@ -319,7 +316,7 @@ if(efobj.length != 0){
 	}
 }
 if(ebobj.length != 0){
-	if(ebobj[0].distance < 2){
+	if(ebobj[0].distance < 1.5){
 		DeathCounter= DeathCounter+1;
 		chardata.x=0;
 		chardata.y=2;
@@ -329,7 +326,7 @@ if(ebobj.length != 0){
 	}
 }
 if(elobj.length != 0){
-	if(elobj[0].distance < 2){
+	if(elobj[0].distance < 1.5){
 		DeathCounter= DeathCounter+1;
 		chardata.x=0;
 		chardata.y=2;
@@ -339,7 +336,7 @@ if(elobj.length != 0){
 	}
 }
 if(erobj.length != 0){
-	if(erobj[0].distance < 2){
+	if(erobj[0].distance < 1.5){
 		DeathCounter= DeathCounter+1;
 		chardata.x=0;
 		chardata.y=2;
@@ -355,6 +352,7 @@ if(erobj.length != 0){
 		document.getElementById('menu').style.visibility = 'visible';
 		document.getElementById('scorecard').innerText = "Score: " + PointsCounter;
 		document.getElementById('deathcount').innerText = "Deaths: " + DeathCounter;
+		
 	}
 
 	Movechar(chardata.x,chardata.y,chardata.z);

@@ -107,9 +107,9 @@
 
 function boxRender(ob,x,y){
     t += 0.01;
-    console.log("t: "+t);
-    console.log("b.position.x:" +ob.position.x);
-    console.log("b.position.z:" +ob.position.z);
+    //console.log("t: "+t);
+    //console.log("b.position.x:" +ob.position.x);
+    //console.log("b.position.z:" +ob.position.z);
     ob.rotation.y += 0.05;
     ob.position.x = 10*Math.cos(t) +x;
     ob.position.z = 10*Math.sin(t) + y;
