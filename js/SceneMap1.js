@@ -150,8 +150,34 @@ function render(){
 				position.needsUpdate = true;
 	renderer.render(scene,camera);
 	onRender();
-	boxRender(boxe1,40,-20);
-	boxRender(boxe2,-40,-20);
+	boxRender(boxe1,-40,-20,5,5);
+	boxRender(boxe3,40,30,5,5);
+	boxRender(boxe4,-400,70,5,5);
+	boxRender(boxe5,-400,-50,5,5);
+	boxRender(boxe6,-205,-90,5,5);
+	boxRender(boxe7,-210,70,5,5);
+	boxRender(boxe8,90,-70,5,5);
+	boxRender(boxe9,160,15,5,5);
+	boxRender(boxe10,250,-70,5,5);
+	boxRender(boxe11,210,20,5,5);
+	boxRender(boxe12,370,90,5,5);
+	boxRender(boxe13,370,50,5,5);
+	boxRender(boxe14,460,-70,5,5);
+	boxRender(boxe15,305,-205,5,5);
+	boxRender(boxe16,335,-345,5,5);
+	boxRender(boxe17,315,-325,5,5);
+	boxRender(boxe18,195,-315,5,5);
+	boxRender(boxe19,0,-251,5,5);
+	boxRender(boxe20,-233,-237,5,5);
+	boxRender(boxe21,-342,-298,5,5);
+	boxRender(boxe22,-300,-520,5,5);
+	boxRender(boxe23,-460,-595,5,5);
+	boxRender(boxe24,-460,-450,5,5);
+	boxRender(boxe25,-85,-525,5,5);
+	boxRender(boxe26,-45,-570,5,5);
+	boxRender(boxe27,90,-525,5,5);
+	boxRender(boxe28,295,-435,5,5);
+	boxRender(boxe29,300,-610,5,5);
 };
 
 
