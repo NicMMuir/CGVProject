@@ -6,7 +6,6 @@
       var head= new THREE.Object3D();
 
 
-
 function GenEnemey(){
 
 
@@ -158,18 +157,22 @@ function GenEnemey(){
 
         if (spikes_pillar.position.x < 60 && spikes_pillar.position.z >= 45 ){
           spikes_pillar.position.x += dxPerFrame;
+          //enmymove[0]= true;
         }
 
         if (spikes_pillar.position.x >= 60 && spikes_pillar.position.z > 15){
           spikes_pillar.position.z -= dzPerFrame
+          //enmymove[1]= true;
         }
 
         if (spikes_pillar.position.x > - 60 && spikes_pillar.position.z <= 15){
           spikes_pillar.position.x += dxPerFrame1
+          //enmymove[2]= true;
         }
 
         if (spikes_pillar.position.x <= -60 && spikes_pillar.position.z < 45){
           spikes_pillar.position.z += dzPerFrame1
+          //enmymove[3]= true;
         }
 
       };

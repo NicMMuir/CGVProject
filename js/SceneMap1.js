@@ -35,9 +35,6 @@ var charstarty = 6;
 var charstartz = 0;
 
 chardata = {
-	W:1,
-	H:1,
-	B:1,
 	jump:true,
 	x_vel:0,
 	y_vel:6,
@@ -130,24 +127,7 @@ function animate() {
 			}
 
 function render(){
-	 time = clock.getElapsedTime() * 5;
 
-				 position = oceanGeometry.attributes.position;
-
-				for ( let i = 0; i < position.count; i ++ ) {
-
-					var y = 5 * Math.sin( i / 5 + ( time + i ) / 7 );
-					position.setY( i, y );
-
-				}
-				for(let k = 0;k<CoinArr.length;k++){
-					CoinArr[k].rotateY(0.01);
-				}
-				for(let k = 0;k<RubyArr.length;k++){
-					RubyArr[k].rotateY(0.01);
-				}
-
-				position.needsUpdate = true;
 	renderer.render(scene,camera);
 	onRender();
 	boxRender(boxe1,-40,-20,5,5);
@@ -230,6 +210,30 @@ loop = function(){
 
 	checkruby();
 	checkcoin();
+	time = clock.getElapsedTime() * 5;
+
+				position = oceanGeometry.attributes.position;
+
+			 for ( let i = 0; i < position.count; i ++ ) {
+
+				 var y = 5 * Math.sin( i / 5 + ( time + i ) / 7 );
+				 position.setY( i, y );
+
+			 }
+			 for(let k = 0;k<CoinArr.length;k++){
+				 CoinArr[k].rotateY(0.01);
+			 }
+			 for(let k = 0;k<RubyArr.length;k++){
+				 RubyArr[k].rotateY(0.01);
+			 }
+
+			 position.needsUpdate = true;
+			 onRender();
+			 boxRender(boxe1,40,-20);
+			 boxRender(boxe2,-40,-20);
+
+
+
 	distanceprev = chardata.y;
 	colisiondetection(controls.getObject());
 	if(controller.up && chardata.jump == false){
@@ -374,13 +378,17 @@ if(erobj.length != 0){
 		}
 	}//end of the level is reached when this block is touched
 	if((controls.getObject().position.x <= (End.position.x+11) && controls.getObject().position.x >= (End.position.x-11) && controls.getObject().position.z >= End.position.z-11 && controls.getObject().position.z <= End.position.z+11)){
-		console.log("End Reached");
 		document.getElementById('menu').style.visibility = 'visible';
 		document.getElementById('scorecard').innerText = "Score: " + PointsCounter;
 		document.getElementById('deathcount').innerText = "Deaths: " + DeathCounter;
-		
-	}
 
+		//wait five seconds and then route back to main menu
+		window.setTimeout(function()
+		{
+			window.location.assign("index.html");
+		},
+		 5000);
+			}
 	Movechar(chardata.x,chardata.y,chardata.z);
 	render();
   window.requestAnimationFrame(loop);
@@ -429,33 +437,11 @@ function Movechar(x1,y1,z1){
 	//
 }
 
-
-
-
-//rotate Vectors
-
-function rotatevec(vec , angle){
-	vector.applyAxisAngle( axis, angle );
-}
-
 function OnMouseDown(event){
 	if(!controls.isLocked){
 		controls.lock();
 	}
 }
-
-function GenCoinList(){
-	for(let k =0 ; k<5;k++){
-		CoinList.push(new gencoin());
-	}
-}
-
-
-
-
-
-
-
 function checkruby(){
 	for(let k = 0 ; k< RubyArr.length;k++){
 		if((controls.getObject().position.x <= (RPosList[k].x+2) && controls.getObject().position.x >= (RPosList[k].x-2) && controls.getObject().position.z >= RPosList[k].z-2 && controls.getObject().position.z <= RPosList[k].z+2)&& scene.getObjectById(RubyArr[k].id,true) != null ){

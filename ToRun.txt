@@ -1,4 +1,6 @@
 To Run:
 run a python server at file location:
 -> open terminal al locations and type : python3 -m http.server
-then click the html file and all textures should load.
+this will create a local server at localhost:8000 or whichever specified port
+this should launch the game.
+If files appear select index.html

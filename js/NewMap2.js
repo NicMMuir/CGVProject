@@ -7,6 +7,7 @@ var Mesh, oceanGeometry, oceanMaterial, clock;
 var enmy = new THREE.Object3D();
 
 //Skybox
+//Initialize an array which loads textures
 let materialArray = [];
 let texture_ft = new THREE.TextureLoader().load( 'Textures/bay_ft.jpg');
 let texture_bk = new THREE.TextureLoader().load( 'Textures/bay_bk.jpg');
@@ -24,17 +25,20 @@ materialArray.push(new THREE.MeshBasicMaterial( { map: texture_lf }));
 
 for (let i = 0; i < 6; i++)
   materialArray[i].side = THREE.BackSide;
-
+//Creates cube of set dimensions
 let skyboxGeo = new THREE.BoxGeometry( 2000, 1000, 2000);
 let skybox = new THREE.Mesh( skyboxGeo, materialArray );
 
 //Lights
+//Sets a directional light at a position with colour and intensity
 var directionalLight = new THREE.DirectionalLight( 	0xB07214, 5 );
 directionalLight.position.set( 3000, 1000, -6000 );
+//Creates a point light at origin just for testing
 var light = new THREE.PointLight( 0xFFFFFF, 5, 0, 1 );
 light.position.set( 0, 0, 10 );
 
 //Textures
+//Texture loaders for all the used textures to be called later
 var MainFloortexture = new THREE.TextureLoader().load( 'Textures/Grass.jpg' );
 var lavaRockMaterial = new THREE.MeshBasicMaterial( { map: MainFloortexture, side: THREE.DoubleSide } );
 var Startpadtexture = new THREE.TextureLoader().load( 'Textures/start.jpg' );
@@ -238,6 +242,40 @@ function genarrMap1(){
    ObjectsMap1Arr.push(boxe2);
    EnemyList.push(boxe2);
 
+   boxe3 = boxe1.clone();
+  boxe3.position.x = 320;
+  boxe3.position.z = -200;
+  boxe3.position.y = 4.1;
+  boxe3.scale.x = 8;
+  boxe3.scale.y = 8;
+  boxe3.scale.z = 8;
+
+   ObjectsMap1Arr.push(boxe3);
+   EnemyList.push(boxe3);
+
+   boxe4 = boxe1.clone();
+   boxe4.position.x = 320;
+   boxe4.position.z = -500;
+   boxe4.position.y = 4.1;
+   boxe4.scale.x = 8;
+   boxe4.scale.y = 8;
+   boxe4.scale.z = 8;
+
+    ObjectsMap1Arr.push(boxe4);
+    EnemyList.push(boxe4);
+
+    boxe5 = boxe1.clone();
+    boxe5.position.x = 320;
+    boxe5.position.z = -500;
+    boxe5.position.y = 4.1;
+    boxe5.scale.x = 8;
+    boxe5.scale.y = 8;
+    boxe5.scale.z = 8;
+
+     ObjectsMap1Arr.push(boxe5);
+     EnemyList.push(boxe5);
+
+
   enmy1 = new GenEnemey();
   enmy1.position.x = 0;
   enmy1.position.z = 45;
@@ -332,7 +370,7 @@ function genarrMap1(){
 scene.add( directionalLight );
 scene.add( light );
 
-  // ObjectsMap1Arr.push(skybox);
+  // adding skybox
   scene.add( skybox )
 }
 

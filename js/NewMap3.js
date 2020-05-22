@@ -3,11 +3,11 @@ var EnemyList = [];
 var End;
 var Mesh, oceanGeometry, oceanMaterial, clock;
 var End;
+var enmy = new THREE.Object3D();
 
 
 //Skybox
-var enmy = new THREE.Object3D();
-
+//Initialize an array which loads textures
 let materialArray = [];
 let texture_ft = new THREE.TextureLoader().load( 'Textures/sleepyhollow_ft.jpg');
 let texture_bk = new THREE.TextureLoader().load( 'Textures/sleepyhollow_bk.jpg');
@@ -25,13 +25,14 @@ materialArray.push(new THREE.MeshBasicMaterial( { map: texture_lf }));
 
 for (let i = 0; i < 6; i++)
   materialArray[i].side = THREE.BackSide;
-
+//Creates cube of set dimensions
 let skyboxGeo = new THREE.BoxGeometry( 5000, 5000, 5000);
 let skybox = new THREE.Mesh( skyboxGeo, materialArray );
 
 
 
 //Textures
+//Texture loaders for all the used textures to be called later
 var MainFloortexture = new THREE.TextureLoader().load( 'Textures/Grass.jpg' );
 var GrassMat = new THREE.MeshBasicMaterial( { map: MainFloortexture, side: THREE.DoubleSide } );
 var Startpadtexture = new THREE.TextureLoader().load( 'Textures/start.jpg' );
@@ -44,6 +45,7 @@ var colloseumTexture = new THREE.TextureLoader().load( 'Textures/collosWall.jpg'
 var colloseumMat = new THREE.MeshBasicMaterial( { map: colloseumTexture } );
 
 //lights
+//Sets a directional light at a position with colour and intensity
 var directionalLight = new THREE.DirectionalLight( 	0xB4CCE1, 2 );
 directionalLight.position.set( 3000, 1000, -3000 );
 
@@ -374,7 +376,7 @@ function genarrMap1(){
   ObjectsMap1Arr.push(palmTree4);
 
 
-  // ObjectsMap1Arr.push(skybox);
+  // //Adding Lights and Skybox
    scene.add( skybox )
    scene.add( directionalLight );
 }
