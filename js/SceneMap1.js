@@ -130,28 +130,9 @@ function animate() {
 			}
 
 function render(){
-	 time = clock.getElapsedTime() * 5;
 
-				 position = oceanGeometry.attributes.position;
-
-				for ( let i = 0; i < position.count; i ++ ) {
-
-					var y = 5 * Math.sin( i / 5 + ( time + i ) / 7 );
-					position.setY( i, y );
-
-				}
-				for(let k = 0;k<CoinArr.length;k++){
-					CoinArr[k].rotateY(0.01);
-				}
-				for(let k = 0;k<RubyArr.length;k++){
-					RubyArr[k].rotateY(0.01);
-				}
-
-				position.needsUpdate = true;
 	renderer.render(scene,camera);
-	onRender();
-	boxRender(boxe1,40,-20);
-	boxRender(boxe2,-40,-20);
+
 };
 
 
@@ -204,6 +185,30 @@ loop = function(){
 
 	checkruby();
 	checkcoin();
+	time = clock.getElapsedTime() * 5;
+
+				position = oceanGeometry.attributes.position;
+
+			 for ( let i = 0; i < position.count; i ++ ) {
+
+				 var y = 5 * Math.sin( i / 5 + ( time + i ) / 7 );
+				 position.setY( i, y );
+
+			 }
+			 for(let k = 0;k<CoinArr.length;k++){
+				 CoinArr[k].rotateY(0.01);
+			 }
+			 for(let k = 0;k<RubyArr.length;k++){
+				 RubyArr[k].rotateY(0.01);
+			 }
+
+			 position.needsUpdate = true;
+			 onRender();
+			 boxRender(boxe1,40,-20);
+			 boxRender(boxe2,-40,-20);
+
+
+
 	distanceprev = chardata.y;
 	colisiondetection(controls.getObject());
 	if(controller.up && chardata.jump == false){
@@ -352,7 +357,7 @@ if(erobj.length != 0){
 		document.getElementById('menu').style.visibility = 'visible';
 		document.getElementById('scorecard').innerText = "Score: " + PointsCounter;
 		document.getElementById('deathcount').innerText = "Deaths: " + DeathCounter;
-		
+
 	}
 
 	Movechar(chardata.x,chardata.y,chardata.z);

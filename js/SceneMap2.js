@@ -133,28 +133,9 @@ function animate() {
 			}
 
 function render(){
-	 time = clock.getElapsedTime() * 5;
 
-				 position = oceanGeometry.attributes.position;
-
-				for ( let i = 0; i < position.count; i ++ ) {
-
-					var y = 5 * Math.sin( i / 5 + ( time + i ) / 7 );
-					position.setY( i, y );
-
-				}
-				for(let k = 0;k<CoinArr.length;k++){
-					CoinArr[k].rotateY(0.01);
-				}
-				for(let k = 0;k<RubyArr.length;k++){
-					RubyArr[k].rotateY(0.01);
-				}
-
-				position.needsUpdate = true;
 	renderer.render(scene,camera);
-	onRender();
-	boxRender(boxe1,40,-20);
-	boxRender(boxe2,-40,-20);
+
 };
 
 
@@ -207,6 +188,31 @@ loop = function(){
 
 	checkruby();
 	checkcoin();
+
+	time = clock.getElapsedTime() * 5;
+
+				position = oceanGeometry.attributes.position;
+
+			 for ( let i = 0; i < position.count; i ++ ) {
+
+				 var y = 5 * Math.sin( i / 5 + ( time + i ) / 7 );
+				 position.setY( i, y );
+
+			 }
+			 for(let k = 0;k<CoinArr.length;k++){
+				 CoinArr[k].rotateY(0.01);
+			 }
+			 for(let k = 0;k<RubyArr.length;k++){
+				 RubyArr[k].rotateY(0.01);
+			 }
+
+			 position.needsUpdate = true;
+			 onRender();
+			 boxRender(boxe1,40,-20);
+			 boxRender(boxe2,-40,-20);
+
+
+
 	distanceprev = chardata.y;
 	colisiondetection(controls.getObject());
 	if(controller.up && chardata.jump == false){
@@ -227,7 +233,7 @@ loop = function(){
 		// chardata.rotationy += 0.04
 	}
 	if(controller.forward){
-		chardata.z_vel -=0.1;//0.1
+		chardata.z_vel -=0.12;//0.1
 		action.play(); //need to figure out how controller event listener processes 'keyup' events to call action.stop() when 'W' is released
 
 	}
@@ -242,7 +248,7 @@ loop = function(){
 	chardata.y += chardata.y_vel;
 	chardata.x_vel *= 0.8;//friction
 	chardata.y_vel *= 0.8;//friction
-	chardata.z_vel *= 0.9;//friction
+	chardata.z_vel *= 0.8;//friction
 
 
 
