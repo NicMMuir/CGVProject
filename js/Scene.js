@@ -351,8 +351,12 @@ if(efobj.length != 0){
 		document.getElementById('menu').style.visibility = 'visible';
 		document.getElementById('scorecard').innerText = "Score: " + PointsCounter;
 		document.getElementById('deathcount').innerText = "Deaths: " + DeathCounter;
-		await new Promise(r => setTimeout(r, 2000));
-		window.location.assign("index.html");
+		//wait five seconds and then route back to main menu
+		window.setTimeout(function()
+		{
+			window.location.assign("index.html");
+		},
+		 5000);
 
 	}
 
@@ -403,6 +407,18 @@ function Movechar(x1,y1,z1){
 	controls.getObject().translateZ(chardata.z_vel);
 	controls.getObject().translateX(chardata.x_vel);
 	controls.getObject().position.y=chardata.y;
+<<<<<<< HEAD
+=======
+}
+
+
+
+
+//rotate Vectors
+
+function rotatevec(vec , angle){
+	vector.applyAxisAngle( axis, angle );
+>>>>>>> eac9fb79ddac9c9e146f79201d69aa7d4d976a5a
 }
 
 //Locks Mouse to screen
