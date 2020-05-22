@@ -3,7 +3,6 @@
 
 //Heightmap
 //orbital controls
-
 var scene, camera,raycamera, renderer, loop,char,chardata,controller;
 var mesh, oceanGeometry, material, clock;
 var Collidables = [];
@@ -21,6 +20,7 @@ var CoinArr = [];
 var Direction = new THREE.Vector3();
 var YDirection = new THREE.Vector3(0,1,0);
 
+//Variables for speeds and distances etc
 var distanceprev;
 var frame = 0;
 var xSpeed = 0.5;
@@ -29,15 +29,12 @@ var ySpeed = 0;
 var camstartx = 0;
 var camstarty = 15;
 var camstartz = 30;
-
 var charstartx = -1955;
 var charstarty = 300;
 var charstartz = 1060;
 
+//character data for jump and y height aswell as spawn position etc
 chardata = {
-	W:1,
-	H:1,
-	B:1,
 	jump:true,
 	x_vel:0,
 	y_vel:0,
@@ -78,7 +75,7 @@ var position;//Ocean moveement
 var time;
 
 
-//char Vector3
+//char Vector3 another way to holde currect characters position in a vector
 var charvec = new THREE.Vector3(chardata.x,chardata.y,chardata.z);
 
 
@@ -90,7 +87,7 @@ var robj= new Array();
 var tp = new THREE.Vector3();
 
 init();
-
+//to initialise the map and objects for the initial render(only called once)
 function init(){
 
 	clock = new THREE.Clock();
@@ -124,36 +121,16 @@ function init(){
 
 }
 
-
+//animate and render work hand in hand for rendering specific things
 function animate() {
-
 				requestAnimationFrame( animate );
 				render();
 			}
 
+
 function render(){
-	 time = clock.getElapsedTime() * 5;
-
-				 position = oceanGeometry.attributes.position;
-
-				for ( let i = 0; i < position.count; i ++ ) {
-
-					var y = 5 * Math.sin( i / 5 + ( time + i ) / 7 );
-					position.setY( i, y );
-
-				}
-				for(let k = 0;k<CoinArr.length;k++){
-					CoinArr[k].rotateY(0.01);
-				}
-				for(let k = 0;k<RubyArr.length;k++){
-					RubyArr[k].rotateY(0.01);
-				}
-
-				position.needsUpdate = true;
 	renderer.render(scene,camera);
-	onRender();
-	boxRender(boxe1,40,-20);
-	boxRender(boxe2,-40,-20);
+
 };
 
 
@@ -206,6 +183,29 @@ loop = function(){
 
 	checkruby();
 	checkcoin();
+
+	time = clock.getElapsedTime() * 5;
+
+				position = oceanGeometry.attributes.position;
+
+			 for ( let i = 0; i < position.count; i ++ ) {
+
+				 var y = 5 * Math.sin( i / 5 + ( time + i ) / 7 );
+				 position.setY( i, y );
+
+			 }
+			 for(let k = 0;k<CoinArr.length;k++){
+				 CoinArr[k].rotateY(0.01);
+			 }
+			 for(let k = 0;k<RubyArr.length;k++){
+				 RubyArr[k].rotateY(0.01);
+			 }
+
+			 position.needsUpdate = true;
+ onRender();
+ boxRender(boxe1,40,-20);
+ boxRender(boxe2,-40,-20);
+
 	distanceprev = chardata.y;
 	colisiondetection(controls.getObject());
 	if(controller.up && chardata.jump == false){
