@@ -242,6 +242,40 @@ function genarrMap1(){
    ObjectsMap1Arr.push(boxe2);
    EnemyList.push(boxe2);
 
+   boxe3 = boxe1.clone();
+  boxe3.position.x = 320;
+  boxe3.position.z = -200;
+  boxe3.position.y = 4.1;
+  boxe3.scale.x = 8;
+  boxe3.scale.y = 8;
+  boxe3.scale.z = 8;
+
+   ObjectsMap1Arr.push(boxe3);
+   EnemyList.push(boxe3);
+
+   boxe4 = boxe1.clone();
+   boxe4.position.x = 320;
+   boxe4.position.z = -500;
+   boxe4.position.y = 4.1;
+   boxe4.scale.x = 8;
+   boxe4.scale.y = 8;
+   boxe4.scale.z = 8;
+
+    ObjectsMap1Arr.push(boxe4);
+    EnemyList.push(boxe4);
+
+    boxe5 = boxe1.clone();
+    boxe5.position.x = 320;
+    boxe5.position.z = -500;
+    boxe5.position.y = 4.1;
+    boxe5.scale.x = 8;
+    boxe5.scale.y = 8;
+    boxe5.scale.z = 8;
+
+     ObjectsMap1Arr.push(boxe5);
+     EnemyList.push(boxe5);
+
+
   enmy1 = new GenEnemey();
   enmy1.position.x = 0;
   enmy1.position.z = 45;

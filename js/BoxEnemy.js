@@ -105,12 +105,12 @@
 
   var t = 0;
 
-function boxRender(ob,x,y){
+function boxRender(ob,x,y,s1,s2){
     t += 0.01;
     //console.log("t: "+t);
     //console.log("b.position.x:" +ob.position.x);
     //console.log("b.position.z:" +ob.position.z);
     ob.rotation.y += 0.05;
-    ob.position.x = 10*Math.cos(t) +x;
-    ob.position.z = 10*Math.sin(t) + y;
+    ob.position.x = s1*Math.cos(t) +x;
+    ob.position.z = s2*Math.sin(t) + y;
   };

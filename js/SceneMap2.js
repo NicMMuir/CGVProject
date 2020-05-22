@@ -182,8 +182,11 @@ loop = function(){
 
 			 position.needsUpdate = true;
 			 onRender();
-			 boxRender(boxe1,40,-20);
-			 boxRender(boxe2,-40,-20);
+			boxRender(boxe1,-40,-20,5,5);
+			boxRender(boxe2,40,-20,5,5);
+			boxRender(boxe3,310,-200,44,50);
+			boxRender(boxe4,320,-530,130,80);
+			boxRender(boxe5,-300,-530,120,90);
 
 
 
