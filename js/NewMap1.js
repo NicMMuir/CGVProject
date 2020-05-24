@@ -26,7 +26,7 @@ materialArray.push(new THREE.MeshBasicMaterial( { map: texture_lf }));
 for (let i = 0; i < 6; i++)
   materialArray[i].side = THREE.BackSide;
 //Creates cube of set dimensions
-let skyboxGeo = new THREE.BoxGeometry( 2000, 1000, 2000);
+let skyboxGeo = new THREE.BoxGeometry( 2500, 1000, 2500);
 let skybox = new THREE.Mesh( skyboxGeo, materialArray );
 
 
@@ -42,6 +42,8 @@ var waterMat = new THREE.MeshBasicMaterial( { map: waterTexture } );
 var woodTexture = new THREE.TextureLoader().load( 'Textures/wood.jpg' );
 var woodMat = new THREE.MeshBasicMaterial( { map: woodTexture, polygonOffset: true, polygonOffsetUnits: 1,
 polygonOffsetFactor: 1, side: THREE.DoubleSide } );
+var woodenBoxTex = new THREE.TextureLoader().load( 'Textures/woodenbox.jpg' );
+var woodenBoxMat = new THREE.MeshBasicMaterial( { map: woodenBoxTex } );
 var transMaterial = new THREE.MeshPhongMaterial({
     color: 0x000000,
     opacity: 0,
@@ -66,7 +68,7 @@ var NorthEastSegmentgeom = new THREE.BoxGeometry( 220, 20, 220 );
 var NorthWestSegmentgeom = new THREE.BoxGeometry( 220, 20, 220 );
 var platformGeometry = new THREE.BoxGeometry( 50, 10, 50 );
 var highPlatformGeometry = new THREE.BoxGeometry( 51, 20, 51 );
-var veryHighPlatformGeometry = new THREE.BoxGeometry( 50, 50, 50 );
+var veryHighPlatformGeometry = new THREE.BoxGeometry( 50, 25, 50 );
 var wallGeometry = new THREE.PlaneGeometry(50,50);
 
 //Mesh:
@@ -143,7 +145,117 @@ loader.load('./3DObjects/palmTree/scene.gltf', function(gltf){
     palmTree4.add(gltf.scene.clone());
 });
 
+  
+//Load WaterFall Model
+  var loader = new THREE.GLTFLoader();
+  loader.load('./3DObjects/FloatIsland/scene.gltf', function(gltf){
+    
+    var model = gltf.scene;
+    model.scale.set(1000,1000,1000);
+    model.position.x =1500;
+    model.position.y =150 ;
+    model.position.z =-1000 ;
+    model.rotation.set(0, -Math.PI/3, 0);
 
+        scene.add( model );
+
+        mixer = new THREE.AnimationMixer( model ); //This animates the clouds in waterfall model
+        mixer.clipAction( gltf.animations[ 0 ] ).play();
+
+        animate();//calls the animate function 
+
+        } );
+
+  //Load Shark Model
+  var loader = new THREE.GLTFLoader();
+  loader.load('./3DObjects/JumpShark/scene.gltf', function(gltf){
+    
+    var sharkModel = gltf.scene;
+    sharkModel.scale.set(0.1,0.1,0.1);
+    sharkModel.position.x = 200 ;
+    sharkModel.position.y = -22 ;
+    sharkModel.position.z = -130 ;
+    sharkModel.rotation.set(0, 0, 0);
+
+        scene.add( sharkModel );
+
+     mixer1 = new THREE.AnimationMixer( sharkModel ); //This animates the shark model
+    mixer1.clipAction( gltf.animations[ 0 ] ).play();
+
+    animate();//calls the animate function 
+
+    //Here we use Tween to move the shark between four points,
+    //the shark moves from its current position to the targetPosition
+    var targetPosition1 = new THREE.Vector3( -395, -22, -130 );
+    var targetPosition2 = new THREE.Vector3( -395, -22, -390 );
+    var targetPosition3 = new THREE.Vector3( 395, -22, -390 );
+    var targetPosition4 = new THREE.Vector3( 395, -22, -130 );
+    
+    var tween1 = new TWEEN.Tween( sharkModel.position ).to( targetPosition1, 20000 );//10000 = 10sec, time.. 
+    var tween2 = new TWEEN.Tween( sharkModel.position ).to( targetPosition2, 10000 );//..it takes to move.. 
+    var tween3 = new TWEEN.Tween( sharkModel.position ).to( targetPosition3, 20000 );//..between a point
+    var tween4 = new TWEEN.Tween( sharkModel.position ).to( targetPosition4, 10000 );
+    
+    tween1.chain( tween2 );
+    tween2.chain( tween3 );
+    tween3.chain( tween4 );
+    tween4.chain( tween1 );
+
+    //We also rotate the shark model depending in which direction its moving
+    //
+    var tweenRot1 = new TWEEN.Tween(sharkModel.rotation)
+                .to({ y: "-" + Math.PI/2}, 1000) // relative animation
+                .delay(20000)
+                .onComplete(function() {
+                  // Check that the full 360 degrees of rotation, 
+                  // and calculate the remainder of the division to avoid overflow.
+                    if (Math.abs(sharkModel.rotation.y)>=2*Math.PI) {
+                        sharkModel.rotation.y = sharkModel.rotation.y % (2*Math.PI);
+                    }
+                })
+
+    var tweenRot2 = new TWEEN.Tween(sharkModel.rotation)
+                .to({ y: "-" + Math.PI/2}, 1000) // relative animation
+                .delay(8000)
+                .onComplete(function() {
+                  // Check that the full 360 degrees of rotation, 
+                  // and calculate the remainder of the division to avoid overflow.
+                    if (Math.abs(sharkModel.rotation.y)>=2*Math.PI) {
+                        sharkModel.rotation.y = sharkModel.rotation.y % (2*Math.PI);
+                    }
+                })
+
+    var tweenRot3 = new TWEEN.Tween(sharkModel.rotation)
+                .to({ y: "-" + Math.PI/2}, 1000) // relative animation
+                .delay(20000)
+                .onComplete(function() {
+                  // Check that the full 360 degrees of rotation, 
+                  // and calculate the remainder of the division to avoid overflow.
+                    if (Math.abs(sharkModel.rotation.y)>=2*Math.PI) {
+                        sharkModel.rotation.y = sharkModel.rotation.y % (2*Math.PI);
+                    }
+                })
+
+    var tweenRot4 = new TWEEN.Tween(sharkModel.rotation)
+                .to({ y: "-" + Math.PI/2}, 1000) // relative animation
+                .delay(8000)
+                .onComplete(function() {
+                  // Check that the full 360 degrees of rotation, 
+                  // and calculate the remainder of the division to avoid overflow.
+                    if (Math.abs(sharkModel.rotation.y)>=2*Math.PI) {
+                        sharkModel.rotation.y = sharkModel.rotation.y % (2*Math.PI);
+                    }
+                })
+    
+    tweenRot1.chain( tweenRot2 );
+    tweenRot2.chain( tweenRot3 );
+    tweenRot3.chain( tweenRot4 );
+    tweenRot4.chain( tweenRot1 );
+    
+    tween1.start(); //This begins the chain movement between the four positions
+    tweenRot1.start(); //This begins the rotation of the shark
+
+        } );
 
 
 //Creating a few platforms XD:
@@ -158,10 +270,10 @@ var platform7 = new THREE.Mesh( platformGeometry , woodMat );
 var highPlatform8 = new THREE.Mesh( highPlatformGeometry , woodMat );
 var platform9 = new THREE.Mesh( platformGeometry , woodMat );
 
-var veryHighPlatform1 = new THREE.Mesh(veryHighPlatformGeometry, woodMat);
-var veryHighPlatform2 = new THREE.Mesh(veryHighPlatformGeometry, woodMat);
-var veryHighPlatform3 = new THREE.Mesh(veryHighPlatformGeometry, woodMat);
-var veryHighPlatform4 = new THREE.Mesh(veryHighPlatformGeometry, woodMat);
+var veryHighPlatform1 = new THREE.Mesh(veryHighPlatformGeometry, woodenBoxMat);
+var veryHighPlatform2 = new THREE.Mesh(veryHighPlatformGeometry, woodenBoxMat);
+var veryHighPlatform3 = new THREE.Mesh(veryHighPlatformGeometry, woodenBoxMat);
+var veryHighPlatform4 = new THREE.Mesh(veryHighPlatformGeometry, woodenBoxMat);
 
 var wallPlane1 = new THREE.Mesh(wallGeometry, woodMat);
 var wallPlane2 = new THREE.Mesh(wallGeometry, woodMat);
@@ -173,16 +285,16 @@ var wallPlane6 = new THREE.Mesh(wallGeometry, woodMat);
 
 
 //West Wing platforms
-var veryHighPlatform5 = new THREE.Mesh(veryHighPlatformGeometry, woodMat);
-var veryHighPlatform6 = new THREE.Mesh(veryHighPlatformGeometry, woodMat);
+var veryHighPlatform5 = new THREE.Mesh(veryHighPlatformGeometry, woodenBoxMat);
+var veryHighPlatform6 = new THREE.Mesh(veryHighPlatformGeometry, woodenBoxMat);
 
 var wallPlane7 = new THREE.Mesh(wallGeometry, woodMat);
 var wallPlane8 = new THREE.Mesh(wallGeometry, woodMat);
 var wallPlane9 = new THREE.Mesh(wallGeometry, woodMat);
 
 //East Wing Platforms
-var veryHighPlatform7 = new THREE.Mesh(veryHighPlatformGeometry, woodMat);
-var veryHighPlatform8 = new THREE.Mesh(veryHighPlatformGeometry, woodMat);
+var veryHighPlatform7 = new THREE.Mesh(veryHighPlatformGeometry, woodenBoxMat);
+var veryHighPlatform8 = new THREE.Mesh(veryHighPlatformGeometry, woodenBoxMat);
 
 var platform10 = new THREE.Mesh( platformGeometry , woodMat );
 var platform11 = new THREE.Mesh( platformGeometry , woodMat );
@@ -201,16 +313,16 @@ var platform20 = new THREE.Mesh( platformGeometry , woodMat );
 var platform21 = new THREE.Mesh( platformGeometry , woodMat );
 
 //North Wing Centre Piece:
-var veryHighPlatform9 = new THREE.Mesh(veryHighPlatformGeometry, woodMat);
-var veryHighPlatform10 = new THREE.Mesh(veryHighPlatformGeometry, woodMat);
+var veryHighPlatform9 = new THREE.Mesh(veryHighPlatformGeometry, woodenBoxMat);
+var veryHighPlatform10 = new THREE.Mesh(veryHighPlatformGeometry, woodenBoxMat);
 
 var wallPlane10 = new THREE.Mesh(wallGeometry, woodMat);
 var wallPlane11 = new THREE.Mesh(wallGeometry, woodMat);
 
-var veryHighPlatform11 = new THREE.Mesh(veryHighPlatformGeometry, woodMat);
-var veryHighPlatform12 = new THREE.Mesh(veryHighPlatformGeometry, woodMat);
-var veryHighPlatform13 = new THREE.Mesh(veryHighPlatformGeometry, woodMat);
-var veryHighPlatform14 = new THREE.Mesh(veryHighPlatformGeometry, woodMat);
+var veryHighPlatform11 = new THREE.Mesh(veryHighPlatformGeometry, woodenBoxMat);
+var veryHighPlatform12 = new THREE.Mesh(veryHighPlatformGeometry, woodenBoxMat);
+var veryHighPlatform13 = new THREE.Mesh(veryHighPlatformGeometry, woodenBoxMat);
+var veryHighPlatform14 = new THREE.Mesh(veryHighPlatformGeometry, woodenBoxMat);
 
 var wallPlane12 = new THREE.Mesh(wallGeometry, woodMat);
 var wallPlane13 = new THREE.Mesh(wallGeometry, woodMat);
@@ -602,16 +714,16 @@ function moveobjectsMap1(){
     platform9.position.z = -70;
 
     veryHighPlatform1.position.x = -210;
-    veryHighPlatform1.position.y = 0;
+    veryHighPlatform1.position.y = 12.5;
     veryHighPlatform1.position.z = 20;
     veryHighPlatform2.position.x = 210;
-    veryHighPlatform2.position.y = 0;
+    veryHighPlatform2.position.y = 12.5;
     veryHighPlatform2.position.z = 20;
     veryHighPlatform3.position.x = -400;
-    veryHighPlatform3.position.y = 0;
+    veryHighPlatform3.position.y = 12.5;
     veryHighPlatform3.position.z = 0;
     veryHighPlatform4.position.x = 370;
-    veryHighPlatform4.position.y = 0;
+    veryHighPlatform4.position.y = 12.5;
     veryHighPlatform4.position.z = 0;
 
     wallPlane1.position.x = -70;
@@ -638,10 +750,10 @@ function moveobjectsMap1(){
 
     //West Wing Platforms:
     veryHighPlatform5.position.x = -300;
-    veryHighPlatform5.position.y = 0;
+    veryHighPlatform5.position.y = 12.5;
     veryHighPlatform5.position.z = -300;
     veryHighPlatform6.position.x = -200;
-    veryHighPlatform6.position.y = 0;
+    veryHighPlatform6.position.y = 12.5;
     veryHighPlatform6.position.z = -200;
 
     wallPlane7.position.x = -300;
@@ -657,10 +769,10 @@ function moveobjectsMap1(){
 
     //East Wing Platforms:
     veryHighPlatform7.position.x = 275;
-    veryHighPlatform7.position.y = 0;
+    veryHighPlatform7.position.y = 12.5;
     veryHighPlatform7.position.z = -285;
     veryHighPlatform8.position.x = 225;
-    veryHighPlatform8.position.y = 0;
+    veryHighPlatform8.position.y = 12.5;
     veryHighPlatform8.position.z = -235;
 
     platform10.position.x = 195;
@@ -704,10 +816,10 @@ function moveobjectsMap1(){
 
     //North Wing Centre Piece
     veryHighPlatform9.position.x = 40;
-    veryHighPlatform9.position.y = 0;
+    veryHighPlatform9.position.y = 12.5;
     veryHighPlatform9.position.z = -570;
     veryHighPlatform10.position.x = -40;
-    veryHighPlatform10.position.y = 0;
+    veryHighPlatform10.position.y = 12.5;
     veryHighPlatform10.position.z = -480;
 
     wallPlane10.position.x = 40;
@@ -718,16 +830,16 @@ function moveobjectsMap1(){
     wallPlane11.position.z =-595;
 
     veryHighPlatform11.position.x = 90;
-    veryHighPlatform11.position.y = 0;
+    veryHighPlatform11.position.y = 12.5;
     veryHighPlatform11.position.z = -570;
     veryHighPlatform12.position.x = 90;
-    veryHighPlatform12.position.y = 0;
+    veryHighPlatform12.position.y = 12.5;
     veryHighPlatform12.position.z = -480;
     veryHighPlatform13.position.x = -90;
-    veryHighPlatform13.position.y = 0;
+    veryHighPlatform13.position.y = 12.5;
     veryHighPlatform13.position.z = -570;
     veryHighPlatform14.position.x = -90;
-    veryHighPlatform14.position.y = 0;
+    veryHighPlatform14.position.y = 12.5;
     veryHighPlatform14.position.z = -480;
 
     wallPlane12.position.x = 90;

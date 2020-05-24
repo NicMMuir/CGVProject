@@ -213,15 +213,21 @@ var dragonEgg5 = new THREE.Object3D();
 }
 
  //Load Colloseum Model
-var colloseum = new THREE.Object3D();
-{
+var colloseum
+
   var loader = new THREE.GLTFLoader();
   loader.load('./3DObjects/colloseum/scene.gltf', function(gltf){
-    gltf.scene.scale.set(10,10,10);
-    colloseum.add(gltf.scene);
-    console.log(dumpObject(gltf.scene).join('\n'));
-        } );
-}
+    colloseum = gltf.scene;
+      colloseum.position.x = -300;
+  colloseum.position.y = 0;
+  colloseum.position.z = -600;
+  colloseum.scale.set(10,10,10);
+         
+   scene.add(colloseum);
+
+    console.log(dumpObject(colloseum).join('\n'));
+});
+
 
 //Load Colloseum Pillar Model
 var pillar1 = new THREE.Object3D();
@@ -243,7 +249,7 @@ var pillar6 = new THREE.Object3D();
         } );
 }
 
-//Load Colloseum Pillar Model
+//Load Palm Tree Model
 var palmTree1 = new THREE.Object3D();
 var palmTree2 = new THREE.Object3D();
 var palmTree3 = new THREE.Object3D();
@@ -259,7 +265,8 @@ var palmTree4 = new THREE.Object3D();
         } );
 }
 
-//Load Fluffy Cloud Pillar Model
+
+//Load Fluffy Cloud Model
 
   var loader = new THREE.GLTFLoader();
   loader.load('./3DObjects/FluffyCloud/scene.gltf', function(gltf){
@@ -273,10 +280,44 @@ var palmTree4 = new THREE.Object3D();
       scene.add(cloud.clone());
     }
   }
-    // palmTree2.add(gltf.scene.clone());
-    // palmTree3.add(gltf.scene.clone());
-    // palmTree4.add(gltf.scene.clone());
         } );
+
+//Load woof box Model
+var woodbox
+{
+  var loader = new THREE.GLTFLoader();
+  loader.load('./3DObjects/Crate/scene.gltf', function(gltf){
+    woodbox = gltf.scene;
+    woodbox.position.x = -1900;
+    woodbox.position.y = 260;
+    woodbox.position.z =1000;
+    woodbox.scale.set(2,2,2);
+
+    woodbox.traverse( function ( child ) {
+
+          if(child instanceof THREE.Mesh) 
+            woodbox.getObjectByName( "handcrate" ).children[0].material 
+            = new THREE.MeshBasicMaterial({map: colloseumTexture});
+          
+            
+        } ); 
+    
+   scene.add(woodbox);
+       console.log(dumpObject(woodbox).join('\n'));
+
+        } );
+}
+ 
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -361,7 +402,7 @@ function genarrMap1(){
   ObjectsMap1Arr.push(dragonEgg4);
   ObjectsMap1Arr.push(dragonEgg5);
 
-  ObjectsMap1Arr.push(colloseum);
+  // ObjectsMap1Arr.push(colloseum);
 
   ObjectsMap1Arr.push(pillar1);
   ObjectsMap1Arr.push(pillar2);
@@ -377,7 +418,7 @@ function genarrMap1(){
 
 
   // //Adding Lights and Skybox
-   scene.add( skybox )
+   // scene.add( skybox )
    scene.add( directionalLight );
 }
 
@@ -516,9 +557,9 @@ ropeBridge3.position.x = -300;
 
     oceanMesh.position.y = -10;
 
-  colloseum.position.x = -300;
-  colloseum.position.y = 0;
-  colloseum.position.z = -600;
+  // colloseum.position.x = -300;
+  // colloseum.position.y = 0;
+  // colloseum.position.z = -600;
 
 pillar1.position.x = -205;
   pillar1.position.y = 0;

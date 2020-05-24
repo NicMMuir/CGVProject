@@ -65,7 +65,7 @@ var rayright = new THREE.Raycaster();
 //Scene and camear etc
 scene = new THREE.Scene();
 camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 5000 );
-renderer = new THREE.WebGLRenderer({antialias:true, alpha: true});
+renderer = new THREE.WebGLRenderer({antialias:true, alpha: false});
 camera.position.set(camstartx,camstarty,camstartz);
 //camera.lookAt(chardata.x,chardata.y,chardata.z);
 camera.updateProjectionMatrix();
@@ -85,6 +85,9 @@ var dobj= new Array();
 var lobj= new Array();
 var robj= new Array();
 var tp = new THREE.Vector3();
+
+//Load crate test Model
+// var cratebox = new THREE.Object3D();
 
 init();
 //to initialise the map and objects for the initial render(only called once)
@@ -130,6 +133,7 @@ function animate() {
 
 function render(){
 	renderer.render(scene,camera);
+
 
 };
 
@@ -226,7 +230,7 @@ loop = function(){
 		// chardata.rotationy += 0.04
 	}
 	if(controller.forward){
-		chardata.z_vel -=0.1;//0.1
+		chardata.z_vel -=0.6;//0.1
 		action.play(); //need to figure out how controller event listener processes 'keyup' events to call action.stop() when 'W' is released
 
 	}

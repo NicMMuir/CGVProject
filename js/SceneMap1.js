@@ -8,6 +8,8 @@ var scene, camera,raycamera, renderer, loop,char,chardata,controller;
 var mesh, oceanGeometry, material, clock;
 var Collidables = [];
 
+var mixer, mixer1, TWEEN;
+
 var PauseState = false;
 
 var DeathCounter = 0;
@@ -123,7 +125,14 @@ function init(){
 function animate() {
 
 				requestAnimationFrame( animate );
+
+				var delta = clock.getDelta();
+				mixer.update( delta );
+				mixer1.update( delta );
+				TWEEN.update();
+
 				render();
+
 			}
 
 function render(){
@@ -158,6 +167,8 @@ function render(){
 	boxRender(boxe27,90,-525,5,5);
 	boxRender(boxe28,295,-435,5,5);
 	boxRender(boxe29,300,-610,5,5);
+
+
 };
 
 
