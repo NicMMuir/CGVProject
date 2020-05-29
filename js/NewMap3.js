@@ -10,6 +10,16 @@ var enmy = new THREE.Object3D();
 sphereCamera = new THREE.CubeCamera(1,1000,500);
         sphereCamera.position.set(-300,213,-910);
 
+//Loading screen using css and Threejs LoadingManager
+  const loadingManager = new THREE.LoadingManager( () => {
+  
+    const loadingScreen = document.getElementById( 'loading-screen' );
+    loadingScreen.classList.add( 'fade-out' );
+    
+    // optional: remove loader from DOM via event listener
+    loadingScreen.addEventListener( 'transitionend', onTransitionEnd );
+    
+  } );
 
 
 //Skybox
@@ -276,7 +286,9 @@ var fantasyRing = new THREE.Object3D();
 }
 
   //Load Curved Spiky Enemy Model
-var loader = new THREE.GLTFLoader();
+  //loadingManager is called here
+  //Once this enemy model is loaded, then only is the loading screen removed 
+var loader = new THREE.GLTFLoader( loadingManager );
 loader.load('./3DObjects/Enemy/scene.gltf', function(gltf){
     var poison1 = gltf.scene.getObjectByName("mesh_0");
     var poison2 = gltf.scene.getObjectByName("mesh_2");

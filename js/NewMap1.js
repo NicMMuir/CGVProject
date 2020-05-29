@@ -8,8 +8,17 @@ var End;
   //Placing a camera inside the start/end pad to create a reflection
 let sphereCamera = new THREE.CubeCamera(1,3000,500);
         sphereCamera.position.set(297,13,-519);
-        
-
+  
+  //Loading screen using css and Threejs LoadingManager
+  const loadingManager = new THREE.LoadingManager( () => {
+  
+    const loadingScreen = document.getElementById( 'loading-screen' );
+    loadingScreen.classList.add( 'fade-out' );
+    
+    // optional: remove loader from DOM via event listener
+    loadingScreen.addEventListener( 'transitionend', onTransitionEnd );
+    
+  } );
 
 
 var enmy = new THREE.Object3D();
@@ -127,8 +136,10 @@ var leftBridge2 = new THREE.Object3D();
 }
 
 //Load Long Bridge Model
+//loadingManager is called here
+//Once this bridge model is loaded, then only is the loading screen removed
 var centreBridge = new THREE.Object3D();
-var loader = new THREE.GLTFLoader();
+var loader = new THREE.GLTFLoader( loadingManager );
 loader.load('./3DObjects/LongBridge/scene.gltf', function(gltf){
     centreBridge.add(gltf.scene);
 });

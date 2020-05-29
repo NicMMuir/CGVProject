@@ -411,6 +411,13 @@ function checkcoin(){
 	}
 }
 
+//Used with loading screen
+function onTransitionEnd( event ) {
+
+	const element = event.target;
+	element.remove();
+	
+}
 
 //Event Listeners:
 
