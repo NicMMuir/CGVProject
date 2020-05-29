@@ -1,3 +1,6 @@
+// Coin Coordinates for NewMap1 and NewMap2
+//Pushes coordinates into a coin list (cl[]) which is then
+//called in NewMap1.js + NewMap2.js
 function getcoinl(){
   cl = []
   var tp = new THREE.Vector3(-43,7,-70);
@@ -22,31 +25,283 @@ function getcoinl(){
   cl.push(tp);
   tp = new THREE.Vector3(-199,2,-392);
   cl.push(tp);
-
+  tp = new THREE.Vector3( -475.7282776808039
+, 3
+, -78.79415295335926);
+  cl.push(tp);
+  tp = new THREE.Vector3( -402.9982066936152
+, 3
+, -34.62203846725538);
+  cl.push(tp);
+  tp = new THREE.Vector3( -394.81750839973114
+, 3
+, 83.660334622785);
+  cl.push(tp);
+  tp = new THREE.Vector3( -482.4730393906615
+, 3
+, 100.03195108818552);
+  cl.push(tp);
+  tp = new THREE.Vector3( -294.1679982239653
+, 3
+, 73.11463352091893);
+  cl.push(tp);
+  tp = new THREE.Vector3( -278.00050214391507
+, 3
+, -107.0335115858942);
+  cl.push(tp);
+  tp = new THREE.Vector3( -213.05757237129282
+, 3
+, -35.57535708175861);
+  cl.push(tp);
+  tp = new THREE.Vector3( -212.9941085609948
+, 13
+, 89.23398408603914);
+  cl.push(tp);
+  tp = new THREE.Vector3( -142.40365580872066
+, 3
+, 0.7923148726886973);
+  cl.push(tp);
+  tp = new THREE.Vector3( -75.56714040862296
+, 3
+, 30.27408090913735);
+  cl.push(tp);
+  tp = new THREE.Vector3( 0.9911598114666658
+, 3
+, 105.33725932058022);
+  cl.push(tp);
+  tp = new THREE.Vector3( 46.95373904350231
+, 3
+, 61.816695454470185
+);
+  cl.push(tp);
+  tp = new THREE.Vector3( 168.26580350909674
+, 3
+, 22.79268638520617);
+  cl.push(tp);
+  tp = new THREE.Vector3( 132.68258838151547
+, 3
+, -106.41876875239507);
+  cl.push(tp);
+  tp = new THREE.Vector3( 163.28827710187562
+, 8
+, 66.04939422248482);
+  cl.push(tp);
+  tp = new THREE.Vector3( 251.59052294537835
+, 8
+, 68.86361056902363);
+  cl.push(tp);
+  tp = new THREE.Vector3( 212.62574965463662
+, 13
+, 72.38639290578897);
+  cl.push(tp);
+  tp = new THREE.Vector3( 365.3912749452247
+, 3
+, 41.37473174739666);
+  cl.push(tp);
+  tp = new THREE.Vector3( 317.3903722176574
+, 3
+, -15.147125512665676);
+  cl.push(tp);
+  tp = new THREE.Vector3( 485.02873347847725
+, 3
+, -93.47517958679694);
+  cl.push(tp);
+  tp = new THREE.Vector3( 171.9577545619992
+, 3
+, -178.43654325474333);
+  cl.push(tp);
+  tp = new THREE.Vector3( 171.69194060479052
+, 3
+, -254.68147758142283);
+  cl.push(tp);
+  tp = new THREE.Vector3( 231.06845453236988
+, 3
+, -278.0767556886258);
+  cl.push(tp);
+  tp = new THREE.Vector3( 349.175451674515
+, 3
+, -260.93803892037147);
+  cl.push(tp);
+  tp = new THREE.Vector3( -164.79531916589428
+, 3
+, -325.0284555976684);
+  cl.push(tp);
+  tp = new THREE.Vector3( -235.430581040694
+, 3
+, -325.9613894910148 );
+  cl.push(tp);
+  tp = new THREE.Vector3( -341.0034926880634
+, 3
+, -344.609156202188);
+  cl.push(tp);
+  tp = new THREE.Vector3( -336.6426292639296
+, 3
+, -254.58824955181655);
+  cl.push(tp);
+  tp = new THREE.Vector3( -250.59946055854695
+, 3
+, -254.77839355409998);
+  cl.push(tp);
+  tp = new THREE.Vector3( -198.70855237068096
+, 3
+, -232.77498892426726);
+  cl.push(tp);
+  tp = new THREE.Vector3( -270.5501016428292
+, 3
+, -206.2047691867316);
+  cl.push(tp);
+  tp = new THREE.Vector3( -199.74037635175932
+, 3
+, -154.68061072676818);
+  cl.push(tp);
+  tp = new THREE.Vector3( -356.89846455164167
+, 3
+, -152.27652847542248);
+  cl.push(tp);
+  tp = new THREE.Vector3( 158.6564043462228
+, 3
+, -51.37887276303544);
+  cl.push(tp);
+  tp = new THREE.Vector3( -210.66800170813158
+, 3
+, -286.65485893406156);
+  cl.push(tp);
+  tp = new THREE.Vector3( -243.412202626982
+, 3
+, -464.1752007924836);
+  cl.push(tp);
+  tp = new THREE.Vector3( -491.9311266636469
+, 3
+, -417.32306823970396);
+  cl.push(tp);
+  tp = new THREE.Vector3( -456.2008761269446
+, 3
+, -511.55836855817296);
+  cl.push(tp);
+  tp = new THREE.Vector3( -491.8076923756984
+, 3
+, -620.8699636688742);
+  cl.push(tp);
+  tp = new THREE.Vector3( -351.7007592246317
+, 8
+, -524.459764490761);
+  cl.push(tp);
+  tp = new THREE.Vector3( -300.1198980971877
+, 8
+, -472.1415410218996);
+  cl.push(tp);
+  tp = new THREE.Vector3( -299.25492031525744
+, 8
+, -565.9173096500425);
+  cl.push(tp);
+  tp = new THREE.Vector3( -249.1151303930622
+, 8
+, -520.3198407848854);
+  cl.push(tp);
+  tp = new THREE.Vector3( -87.97577738293657
+, 3
+, -612.8841757574949);
+  cl.push(tp);
+  tp = new THREE.Vector3( -39.90140480807405
+, 3
+, -529.5989951460853);
+  cl.push(tp);
+  tp = new THREE.Vector3( -56.73937680749746
+, 3
+, -583.0060886782104);
+  cl.push(tp);
+  tp = new THREE.Vector3( 57.24641792621292
+, 3
+, -463.80796253274946);
+  cl.push(tp);
+  tp = new THREE.Vector3( 37.19725710522756
+, 3
+, -525.8402674806783);
+  cl.push(tp);
+  tp = new THREE.Vector3( -64.91170143903909
+, 3
+, -432.18860508887013);
+  cl.push(tp);
+  tp = new THREE.Vector3( 57.068491364566356
+, 3
+, -432.89976492695297);
+  cl.push(tp);
+  tp = new THREE.Vector3( 78.02299409724272
+, 3
+, -613.988021842248);
+  cl.push(tp);
+  tp = new THREE.Vector3( 177.75718137673266
+, 3
+, -518.0879593651482);
+  cl.push(tp);
+  tp = new THREE.Vector3( 491.8460404123538
+, 3
+, -417.44633938268856);
+  cl.push(tp);
+  tp = new THREE.Vector3( 495.1457715506338
+, 3
+, -626.2549760026919);
+  cl.push(tp);
+  tp = new THREE.Vector3( 384.47012417950486
+, 3
+, -519.4642836085959);
+  cl.push(tp);
+  tp = new THREE.Vector3( 350.978871824024
+, 8
+, -520.0337797876741);
+  cl.push(tp);
+  tp = new THREE.Vector3( 297.58827044779906
+, 8
+, -575.9720015812148);
+  cl.push(tp);
+  tp = new THREE.Vector3( 249.48524778679192
+, 8
+, -519.0245237289715);
+  cl.push(tp);
+  tp = new THREE.Vector3( 297.2210293731017
+, 8
+, -470.0477146486847);
+  cl.push(tp);
+  tp = new THREE.Vector3( -177.98235807087084
+, 3
+, -587.8796912386669);
+  cl.push(tp);
+  tp = new THREE.Vector3( -164.97886236584773
+, 3
+, -480.84011341791484);
+  cl.push(tp);
+    tp = new THREE.Vector3( -218.40351019631032
+, 13
+, 54.38348702297572);
+  cl.push(tp);
+    tp = new THREE.Vector3( -169.88083392271602
+, 8
+, 67.70370995174969);
+  cl.push(tp);
+    tp = new THREE.Vector3( -256.1208247698344
+, 8
+, 72.07106493646825);
+  cl.push(tp);
+    tp = new THREE.Vector3( -303.1453465912472
+, 3
+, -40.29634149667836);
+  cl.push(tp);
+    tp = new THREE.Vector3( -292.8482251562999
+, 3
+, 9.47389314169064);
+  cl.push(tp);
 
   return(cl)
 
-
 }
 
-function gerrubyl(){
-  cl = []
-  var tp = new THREE.Vector3(-0.9,12,-70);
-  cl.push(tp);
-   tp = new THREE.Vector3(-446,2,-13);
-  cl.push(tp);
-   tp = new THREE.Vector3(409,2,-10);
-  cl.push(tp);
-   tp = new THREE.Vector3(-311,2,-222);
-  cl.push(tp);
-   tp = new THREE.Vector3(-300,12,-513);
-  cl.push(tp);
-  return(cl)
-}
 
-function getcoinl3(){ // Coin Coordinates for NewMap3
-  cl = []
-
+// Coin Coordinates for NewMap3
+//Pushes coordinates into a coin list (cl[]) which is then
+//called in NewMap3.js
+function getcoinl3(){ 
+  cl = []             
+                      
   //Coin coordinates for Start floor
   var tp = new THREE.Vector3( -1891.3422057052514
 , 262
@@ -361,217 +616,344 @@ function getcoinl3(){ // Coin Coordinates for NewMap3
 , 962.7864417020958);
   cl.push(tp);
 
-  //Third(final) floor coin coordinates (still Map 3)
-  tp = new THREE.Vector3( -6.275384855830007
-, 3
-, -1.9565089615289657);
+  //Bridge + Final floor(Ring) coin coordinates (still Map 3)
+  tp = new THREE.Vector3( -320.8436525979217
+, 213
+, 720.970862028136);
   cl.push(tp);
-  tp = new THREE.Vector3( -102.72993746929244
-, 3
-, -3.5623500877327223);
+  tp = new THREE.Vector3( -283.0508648267947
+, 213
+, 635.703402520972);
   cl.push(tp);
-  tp = new THREE.Vector3( -225.79318114560982
-, 3
-, -4.549139646644981);
+  tp = new THREE.Vector3( -297.6890614700544
+, 213
+, 567.0638237498969);
   cl.push(tp);
-  tp = new THREE.Vector3( -358.80622919888515
-, 3
-, -10.790119577296455);
+  tp = new THREE.Vector3( -275.9485079219138
+, 213
+, 513.5017596834496);
   cl.push(tp);
-  tp = new THREE.Vector3( -483.4242471680148
-, 3
-, -3.149627710419316);
+  tp = new THREE.Vector3( -313.41723988148715
+, 213
+, 469.0562440809303);
   cl.push(tp);
-  tp = new THREE.Vector3( -571.1259517882329
-, 3
-, -100.86362632080423);
+  tp = new THREE.Vector3( -300.8762273524697
+, 213
+, 398.36402438028466);
   cl.push(tp);
-  tp = new THREE.Vector3( -449.88324730281147
-, 3
-, -144.91578271015135);
+  tp = new THREE.Vector3( -276.7685893714112
+, 213
+, 304.077584311553);
   cl.push(tp);
-  tp = new THREE.Vector3( -357.61937128429844
-, 3
-, -122.7632816242944);
+  tp = new THREE.Vector3( -314.7009828206713
+, 213
+, 227.70998965936272);
   cl.push(tp);
-  tp = new THREE.Vector3( -251.27548959065945
-, 3
-, -167.93189000555228);
+  tp = new THREE.Vector3( -268.9248080007499
+, 213
+, 139.1112928706916);
   cl.push(tp);
-  tp = new THREE.Vector3( -191.00770521694784
-, 3
-, -118.12645718181922);
+  tp = new THREE.Vector3( -329.0773347252905
+, 213
+, 32.81094263747358);
   cl.push(tp);
-  tp = new THREE.Vector3( -88.46670947446216
-, 3
-, -141.35511518099491);
+  tp = new THREE.Vector3( -301.7607762188956
+, 213
+, -54.043143175004694);
   cl.push(tp);
-  tp = new THREE.Vector3( 73.5999857601736
-, 3
-, -82.05536528863918);
+  tp = new THREE.Vector3( -216.3588557512089
+, 213
+, -133.54424728042846);
   cl.push(tp);
-  tp = new THREE.Vector3( 72.88260749384038
-, 3
-, -290.3072807018062);
+  tp = new THREE.Vector3( -104.90951381599096
+, 213
+, -166.03175565756032);
   cl.push(tp);
-  tp = new THREE.Vector3( -60.31340911112588
-, 3
-, -247.0971285868261);
+  tp = new THREE.Vector3( -58.191280294751216
+, 213
+, -229.906685344212
+);
   cl.push(tp);
-  tp = new THREE.Vector3( -205.58811096091188
-, 3
-, -339.8617430186657);
+  tp = new THREE.Vector3( -11.311663226495567
+, 213
+, -262.71924632982666);
   cl.push(tp);
-  tp = new THREE.Vector3( -301.6502800387499
-, 3
-, -271.2046427014091);
+  tp = new THREE.Vector3( 74.6469406358824
+, 213
+, -385.9803132031371);
   cl.push(tp);
-  tp = new THREE.Vector3( -392.89617960174996
-, 3
-, -337.5186224776282);
+  tp = new THREE.Vector3( 73.30057817351229
+, 213
+, -486.4042929988403);
   cl.push(tp);
-  tp = new THREE.Vector3( -507.2026407072973
-, 3
-, -275.5267565420861);
+  tp = new THREE.Vector3( 69.97230864195609
+, 213
+, -665.507194162306);
   cl.push(tp);
-  tp = new THREE.Vector3( -593.9094277386254
-, 3
-, -247.42452394472957);
+  tp = new THREE.Vector3( -2.0674280375813314
+, 213
+, -776.1305050123518);
   cl.push(tp);
-  tp = new THREE.Vector3( -672.7079241246208
-, 3
-, -323.49486726558933);
+  tp = new THREE.Vector3( -118.70790721135144
+, 213
+, -879.8932429283684);
   cl.push(tp);
-  tp = new THREE.Vector3( -630.5560667891286
-, 3
-, -409.77417103623577);
+  tp = new THREE.Vector3( -229.31991205140423
+, 213
+, -903.9447799236608);
   cl.push(tp);
-  tp = new THREE.Vector3( -553.2278610606713
-, 3
-, -495.699951249552);
+  tp = new THREE.Vector3( -390.54091428295663
+, 213
+, -145.60389405437488);
   cl.push(tp);
-  tp = new THREE.Vector3( -656.2525354135283
-, 3
-, -576.0815805498368);
+  tp = new THREE.Vector3( -529.4908456645553
+, 213
+, -209.84294501250824);
   cl.push(tp);
-  tp = new THREE.Vector3( -413.04731797762145
-, 3
-, -406.5730849510506);
+  tp = new THREE.Vector3( -662.4496332165584
+, 213
+, -332.6310711309307);
   cl.push(tp);
-  tp = new THREE.Vector3( -163.20292608287903
-, 3
-, -400.89715768942614);
+  tp = new THREE.Vector3( -700.1461354196516
+, 213
+, -491.5055300467934);
   cl.push(tp);
-  tp = new THREE.Vector3( -50.219899424681905
-, 3
-, -522.1353215332788);
+  tp = new THREE.Vector3( -665.5224280003166
+, 213
+, -567.3234402122403);
   cl.push(tp);
-  tp = new THREE.Vector3( 72.47383577143503
-, 3
-, -438.4179583518409);
+  tp = new THREE.Vector3( -627.8128813645944
+, 213
+, -732.2427908997184);
   cl.push(tp);
-  tp = new THREE.Vector3( -32.24487784655307
-, 3
-, -442.19855265932193);
+  tp = new THREE.Vector3( -441.390977199012
+, 213
+, -875.751098277553);
   cl.push(tp);
-  tp = new THREE.Vector3( -195.69285204825428
-, 5.4823847445616396
-, -420.16074737149813);
-  cl.push(tp);
-  tp = new THREE.Vector3( -210.2358882400411
-, 5.467525356594611
-, -459.638742263214);
-  cl.push(tp);
-  tp = new THREE.Vector3( -242.65144337205385
-, 5.3582729380024334
-, -439.0401311469102);
-  cl.push(tp);
-  tp = new THREE.Vector3( -272.4481976873223
-, 5.4411594676664636
-, -455.89904032782647);
-  cl.push(tp);
-  tp = new THREE.Vector3( -280.47988687492034
-, 10
-, -438.79138312800126);
-  cl.push(tp);
-  tp = new THREE.Vector3( -289.96707826789185
-, 5.1709148452383547
-, -403.5280385972357);
-  cl.push(tp);
-  tp = new THREE.Vector3( -361.2045242463195
-, 5.390833107080799
-, -448.0817906479175);
-  cl.push(tp);
-  tp = new THREE.Vector3( -408.70950801236506
-, 5.518875124741105
-, -462.09906820123064);
-  cl.push(tp);
-  tp = new THREE.Vector3( -386.58624134109255
-, 5.7933933433953912
-, -508.96794443892105);
-  cl.push(tp);
-  tp = new THREE.Vector3( -335.56616512270944
-, 5.62882348872638
-, -485.6316146691791);
-  cl.push(tp);
-  tp = new THREE.Vector3( -294.3311318333666
-, 5.620776227994118
-, -496.12926848952884);
-  cl.push(tp);
-  tp = new THREE.Vector3( -217.53751605474145
-, 5.5080991763895186
-, -517.6521290575748);
-  cl.push(tp);
-  tp = new THREE.Vector3( -147.7605334020096
-, 5.9076290294329015
-, -542.240236426364);
-  cl.push(tp);
-  tp = new THREE.Vector3( -230.32380322875926
-, 5.568692248415549
-, -580.3552062908041);
-  cl.push(tp);
-  tp = new THREE.Vector3( -266.32788816649156
-, 5.5098246334188916
-, -611.3622235177652);
-  cl.push(tp);
-  tp = new THREE.Vector3( -375.386352559445
-, 5.626948068274854
-, -598.7622044783504);
-  cl.push(tp);
-  tp = new THREE.Vector3( -457.0982509772236
-, 5.5331725065264523
-, -597.7954232298415);
-  cl.push(tp);
-  tp = new THREE.Vector3( -426.9456186676175
-, 5.7429267750596624
-, -690.6666001467826);
-  cl.push(tp);
-  tp = new THREE.Vector3( -360.3557451655465
-, 5.407737132225141
-, -725.099492588025);
-  cl.push(tp);
-  tp = new THREE.Vector3( -313.4863131342797
-, 5.4777060934653905
-, -680.508981285826);
-  cl.push(tp);
-  tp = new THREE.Vector3( -257.98235046098364
-, 5.4544156474487666
-, -732.3333090542087);
-  cl.push(tp);
-  tp = new THREE.Vector3( -234.84028186786657
-, 5.6922666473658667
-, -667.3064968595453);
-  cl.push(tp);
-  tp = new THREE.Vector3( -172.13702751071722
-, 5.3048580511780203
-, -701.2937265084288);
-  cl.push(tp);
-
-
-
 
 
   return(cl)
 
 
+}
+
+//Gen a ruby coordinate list for map one:
+function gerrubyl1(){ 
+  cl = []
+  var tp = new THREE.Vector3(-0.9,30,-70);
+  cl.push(tp);
+   tp = new THREE.Vector3(-446,20,-13);
+  cl.push(tp);
+   tp = new THREE.Vector3(409,20,-10);
+  cl.push(tp);
+   tp = new THREE.Vector3(-311,20,-222);
+  cl.push(tp);
+   tp = new THREE.Vector3(-300,30,-513);
+  cl.push(tp);
+   tp = new THREE.Vector3( 193.99570330852956
+, 30
+, -322.18233779570573);
+  cl.push(tp);
+  tp = new THREE.Vector3( -142.05348174879128
+, 20
+, -367.8336658743106);
+  cl.push(tp);  
+  tp = new THREE.Vector3( 0
+, 20
+, -250.2317204569856);
+  cl.push(tp);
+  tp = new THREE.Vector3( -27.190908721444266
+, 20
+, -625.8868009335572);
+  cl.push(tp);
+  tp = new THREE.Vector3( 497.26461703780393
+, 20
+, -513.3937805535154);
+  cl.push(tp);
+  tp = new THREE.Vector3( 209.84133792732493
+, 40
+, 20.356062821541055);
+  cl.push(tp);
+  tp = new THREE.Vector3( -209.7084619395244
+, 40
+, 20.933374667323672);
+  cl.push(tp);
+
+  return(cl)
+}
+
+//Gen a ruby coordinate list for map two:
+function gerrubyl2(){ 
+  cl = []
+  var tp = new THREE.Vector3(-0.9,30,-70);
+  cl.push(tp);
+   tp = new THREE.Vector3(-446,20,-13);
+  cl.push(tp);
+   tp = new THREE.Vector3(409,20,-10);
+  cl.push(tp);
+   tp = new THREE.Vector3(-311,20,-222);
+  cl.push(tp);
+   tp = new THREE.Vector3(-300,30,-513);
+  cl.push(tp);
+   tp = new THREE.Vector3( 193.99570330852956
+, 30
+, -322.18233779570573);
+  cl.push(tp);
+  tp = new THREE.Vector3( 261.87655537861195
+, 25
+, -267.1454060153083);
+  cl.push(tp);  
+  tp = new THREE.Vector3( -142.05348174879128
+, 20
+, -367.8336658743106);
+  cl.push(tp);
+  tp = new THREE.Vector3( 0
+, 20
+, -250.2317204569856);
+  cl.push(tp);
+  tp = new THREE.Vector3( -27.190908721444266
+, 20
+, -625.8868009335572);
+  cl.push(tp);
+  tp = new THREE.Vector3( 497.26461703780393
+, 20
+, -513.3937805535154);
+  cl.push(tp);
+
+
+  return(cl)
+}
+
+
+function gerrubyl3(){ //Ruby coordinates for NewMap3
+  cl = []
+  
+  //Ruby coordinates for Start floor
+  var tp = new THREE.Vector3( -1853.1228231402367
+, 272
+, 962.3303370074167
+);
+  cl.push(tp);
+  var tp = new THREE.Vector3( -1722.9649933281394
+, 272
+, 957.9523730428081);
+  cl.push(tp);
+  var tp = new THREE.Vector3( -1644.378897552875
+, 272
+, 1036.4901141367284);
+  cl.push(tp);
+  var tp = new THREE.Vector3( -1485.9388023045178
+, 272
+, 1073.8999029556626);
+  cl.push(tp);
+  var tp = new THREE.Vector3( -1445
+, 275
+, 964.8143409780525);
+  cl.push(tp);
+  var tp = new THREE.Vector3( -1310.489126555672
+, 272
+, 1006.6854465154398);
+  cl.push(tp);
+  var tp = new THREE.Vector3( -1226.0360730538234
+, 272
+, 936.0326012426498);
+  cl.push(tp);
+  var tp = new THREE.Vector3( -1183.7555298529421
+, 272
+, 981.0076698010364);
+  cl.push(tp);
+  var tp = new THREE.Vector3( -1106.2876631711704
+, 272
+, 1089.8575378322562);
+  cl.push(tp);
+  var tp = new THREE.Vector3( -1056.0115567297282
+, 272
+, 1004.5213543613224);
+  cl.push(tp);
+  var tp = new THREE.Vector3( -847.2847131132961
+, 225
+, 1000.7081397813781);
+  cl.push(tp);
+
+  //Floor two rubys (Dragons Den)
+  var tp = new THREE.Vector3( -581.617909645002
+, 230
+, 1095.9741570029457);
+  cl.push(tp);
+  var tp = new THREE.Vector3( -599.9814260933773
+, 230
+, 988.9038674351067);
+  cl.push(tp);
+  var tp = new THREE.Vector3( -400.2958363594205
+, 230
+, 935.8278368680321);
+  cl.push(tp);
+  var tp = new THREE.Vector3( -422.3041007559012
+, 230
+, 1087.9790555836594);
+  cl.push(tp);
+  var tp = new THREE.Vector3( -291.36743891754946
+, 230
+, 1009.3129143558776);
+  cl.push(tp);
+  var tp = new THREE.Vector3( -199.43304451694613
+, 230
+, 938.0110371349808);
+  cl.push(tp);
+
+  //Final Floor Rubies (Bridge + Fantasy Ring)
+  var tp = new THREE.Vector3( -306.480348476107
+, 230
+, 688.295186160052);
+  cl.push(tp);
+  var tp = new THREE.Vector3( -300.48352842511093
+, 230
+, 147.60977934596292);
+  cl.push(tp);
+  var tp = new THREE.Vector3( -302.6762704310617
+, 230
+, -138.68568675229366);
+  cl.push(tp);
+  var tp = new THREE.Vector3( -459.51760703778615
+, 230
+, -168.64331659782016);
+  cl.push(tp);
+  var tp = new THREE.Vector3( -565.3686705946847
+, 230
+, -263.299450837795);
+  cl.push(tp);
+  var tp = new THREE.Vector3( -674.3235570964977
+, 230
+, -432.88706503130174);
+  cl.push(tp);
+  var tp = new THREE.Vector3( -657.1520414197663
+, 230
+, -675.012025122925);
+  cl.push(tp);
+  var tp = new THREE.Vector3( -567.8449949511512
+, 230
+, -833.0456871494456);
+  cl.push(tp);
+  var tp = new THREE.Vector3( -299.96834108836896
+, 230
+, -933.5661297953765);
+  cl.push(tp);
+  var tp = new THREE.Vector3( -56.5546098844357
+, 230
+, -809.4800087298712);
+  cl.push(tp);
+  var tp = new THREE.Vector3( 73.06176347438526
+, 230
+, -590.8339143075793);
+  cl.push(tp);
+  var tp = new THREE.Vector3( 35.65034250941031
+, 230
+, -336.41064653814584);
+  cl.push(tp);
+  var tp = new THREE.Vector3( -162.2128422747424
+, 230
+, -166.47467327015698);
+  cl.push(tp);
+  
+  return(cl)
 }

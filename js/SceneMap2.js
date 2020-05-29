@@ -90,7 +90,7 @@ function init(){
 	document.body.appendChild(renderer.domElement );
 	getarrMap1();
 	Charinit(charstartx,charstarty,charstartz);
-	RPosList = gerrubyl();
+	RPosList = gerrubyl2();
 	RubyArr = genruby(RPosList);
 	CPosList = getcoinl();
 	CoinArr = gencoin(CPosList);
@@ -107,12 +107,19 @@ function init(){
 
 //Animate and render work hand in hand
 function animate() {
-				requestAnimationFrame( animate );
-				render();
+		requestAnimationFrame( animate );
+		sphereCamera.update(renderer,scene);
+		render();
 			}
 
 function render(){
 	renderer.render(scene,camera);
+			boxRender(boxe1,370,0,100,100);
+			boxRender(boxe2,-400,0,100,100);
+			boxRender(boxe3,305,-205,44,50);
+			boxRender(boxe4,320,-530,130,80);
+			boxRender(boxe5,-300,-530,120,90);
+			boxRender(boxe6,0,30,90,60);
 
 };
 
@@ -182,11 +189,6 @@ loop = function(){
 
 			 position.needsUpdate = true;
 			 onRender();
-			boxRender(boxe1,-40,-20,5,5);
-			boxRender(boxe2,40,-20,5,5);
-			boxRender(boxe3,310,-200,44,50);
-			boxRender(boxe4,320,-530,130,80);
-			boxRender(boxe5,-300,-530,120,90);
 
 
 
@@ -206,7 +208,7 @@ loop = function(){
 		chardata.x_vel +=0.1;
 	}
 	if(controller.forward){
-		chardata.z_vel -=0.12;//0.1
+		chardata.z_vel -=0.12;//0.12
 		action.play(); //need to figure out how controller event listener processes 'keyup' events to call action.stop() when 'W' is released
 
 	}
@@ -218,7 +220,7 @@ loop = function(){
 	chardata.y += chardata.y_vel;
 	chardata.x_vel *= 0.8;//friction
 	chardata.y_vel *= 0.8;//friction
-	chardata.z_vel *= 0.8;//friction
+	chardata.z_vel *= 0.9;//friction
 	/////////////////////Normal collisions
 if(dobj.length != 0){
 	if(dobj[0].distance>3){

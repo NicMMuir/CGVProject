@@ -6,6 +6,7 @@ function coininit(){
 
   var loader = new THREE.GLTFLoader();
   loader.load('/Charblender/Points/coin.glb', function(gltf){
+  gltf.scene.scale.set(1.5,1.5,1.5);
   Coin = gltf.scene;
 
   for(let k = 0;k<PosCoinList.length;k++){

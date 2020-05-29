@@ -65,7 +65,7 @@ var rayright = new THREE.Raycaster();
 //Scene and camear etc
 scene = new THREE.Scene();
 camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 5000 );
-renderer = new THREE.WebGLRenderer({antialias:true, alpha: false});
+renderer = new THREE.WebGLRenderer({antialias:true, alpha: true});
 camera.position.set(camstartx,camstarty,camstartz);
 //camera.lookAt(chardata.x,chardata.y,chardata.z);
 camera.updateProjectionMatrix();
@@ -104,7 +104,7 @@ function init(){
 	getarrMap1();
 	Charinit(charstartx,charstarty,charstartz);
 
-	 RPosList = gerrubyl();
+	 RPosList = gerrubyl3();
 	 RubyArr = genruby(RPosList);
 	 CPosList = getcoinl3();
 	 CoinArr = gencoin(CPosList);
@@ -127,7 +127,10 @@ function init(){
 //animate and render work hand in hand for rendering specific things
 function animate() {
 				requestAnimationFrame( animate );
+				var delta = clock.getDelta();
+				mixer.update( delta );
 				render();
+				sphereCamera.update(renderer,scene);
 			}
 
 
@@ -230,7 +233,7 @@ loop = function(){
 		// chardata.rotationy += 0.04
 	}
 	if(controller.forward){
-		chardata.z_vel -=0.6;//0.1
+		chardata.z_vel -=0.12;//0.12
 		action.play(); //need to figure out how controller event listener processes 'keyup' events to call action.stop() when 'W' is released
 
 	}
@@ -315,36 +318,36 @@ if(dobj.length != 0){
 if(efobj.length != 0){
 	if(efobj[0].distance < 2){
 		DeathCounter= DeathCounter+1;
-		chardata.x=0;
-		chardata.y=2;
-		chardata.z=0;
+		chardata.x=-1955;
+		chardata.y=300;
+		chardata.z=1060;
 		chardata.jump = false;
 		controls.getObject().position.set(charstartx,charstarty,charstartz);
 	}
 }else if(ebobj.length != 0){
 	if(ebobj[0].distance < 1.5){
 		DeathCounter= DeathCounter+1;
-		chardata.x=0;
-		chardata.y=2;
-		chardata.z=0;
+		chardata.x=-1955;
+		chardata.y=300;
+		chardata.z=1060;
 		chardata.jump = false;
 		controls.getObject().position.set(charstartx,charstarty,charstartz);
 	}
 }else if(elobj.length != 0){
 	if(elobj[0].distance < 1.5){
 		DeathCounter= DeathCounter+1;
-		chardata.x=0;
-		chardata.y=2;
-		chardata.z=0;
+		chardata.x=-1955;
+		chardata.y=300;
+		chardata.z=1060;
 		chardata.jump = false;
 		controls.getObject().position.set(charstartx,charstarty,charstartz);
 	}
 }else if(erobj.length != 0){
 	if(erobj[0].distance < 1.5){
 		DeathCounter= DeathCounter+1;
-		chardata.x=0;
-		chardata.y=2;
-		chardata.z=0;
+		chardata.x=-1955;
+		chardata.y=300;
+		chardata.z=1060;
 		chardata.z_vel = 0;
 		chardata.x_vel = 0;
 		chardata.jump = false;

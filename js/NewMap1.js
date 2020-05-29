@@ -1,7 +1,14 @@
 var ObjectsMap1Arr = [];
 var EnemyList = [];
 var Mesh, oceanGeometry, oceanMaterial, clock;
+var sphereMaterial;
 var End;
+
+
+  //Placing a camera inside the start/end pad to create a reflection
+let sphereCamera = new THREE.CubeCamera(1,3000,500);
+        sphereCamera.position.set(297,13,-519);
+        
 
 
 
@@ -30,13 +37,12 @@ let skyboxGeo = new THREE.BoxGeometry( 2500, 1000, 2500);
 let skybox = new THREE.Mesh( skyboxGeo, materialArray );
 
 
-
 //Textures
 //Texture loaders for all the used textures to be called later
 var MainFloortexture = new THREE.TextureLoader().load( 'Textures/Grass.jpg' );
 var MainFloormaterial = new THREE.MeshBasicMaterial( { map: MainFloortexture, side: THREE.DoubleSide } );
 var Startpadtexture = new THREE.TextureLoader().load( 'Textures/start.jpg' );
-var Startpadmaterial = new THREE.MeshBasicMaterial( { map: Startpadtexture, side: THREE.DoubleSide } );
+var Startpadmaterial = new THREE.MeshBasicMaterial( { map: Startpadtexture } );
 var waterTexture = new THREE.TextureLoader().load( 'Textures/water.jpg' );
 var waterMat = new THREE.MeshBasicMaterial( { map: waterTexture } );
 var woodTexture = new THREE.TextureLoader().load( 'Textures/wood.jpg' );
@@ -44,6 +50,9 @@ var woodMat = new THREE.MeshBasicMaterial( { map: woodTexture, polygonOffset: tr
 polygonOffsetFactor: 1, side: THREE.DoubleSide } );
 var woodenBoxTex = new THREE.TextureLoader().load( 'Textures/woodenbox.jpg' );
 var woodenBoxMat = new THREE.MeshBasicMaterial( { map: woodenBoxTex } );
+sphereMaterial = new THREE.MeshBasicMaterial({
+          envMap: sphereCamera.renderTarget
+        });
 var transMaterial = new THREE.MeshPhongMaterial({
     color: 0x000000,
     opacity: 0,
@@ -60,7 +69,7 @@ directionalLight.position.set( 3000, 1000, 6000 );
 MainFloortexture.wrapS = THREE.RepeatWrapping;
 MainFloortexture.wrapT = THREE.RepeatWrapping;
 //floor geometries
-var startpadgeom = new THREE.BoxGeometry( 5, 2, 5 );
+var startpadgeom = new THREE.BoxGeometry( 5,2,5 );
 var endpadgeom = new THREE.BoxGeometry( 10, 10, 10 );
 
 var SouthSegmentgeom = new THREE.BoxGeometry( 1000, 20, 220 );
@@ -73,7 +82,7 @@ var wallGeometry = new THREE.PlaneGeometry(50,50);
 
 //Mesh:
 var startpad = new THREE.Mesh( startpadgeom, Startpadmaterial );
-var endpad = new THREE.Mesh( endpadgeom , Startpadmaterial );
+var endpad = new THREE.Mesh( endpadgeom , sphereMaterial );
 var SotheSeg = new THREE.Mesh( SouthSegmentgeom , MainFloormaterial );
 var NorthEastSeg = new THREE.Mesh( NorthEastSegmentgeom , MainFloormaterial );
 var NorthWestSeg = new THREE.Mesh( NorthWestSegmentgeom , MainFloormaterial );
@@ -104,8 +113,6 @@ var oceanMesh = new THREE.Mesh( oceanGeometry, oceanMaterial );
 
 //Load Short Bridge Model
 var rightBridge1 = new THREE.Object3D();
-var leftBridge1 = new THREE.Object3D();
-var rightBridge2 = new THREE.Object3D();
 var leftBridge2 = new THREE.Object3D();
 {
   var loader = new THREE.GLTFLoader();
@@ -113,12 +120,6 @@ var leftBridge2 = new THREE.Object3D();
 
     var rightWoodBridge1 = gltf.scene;
     rightBridge1.add(rightWoodBridge1);
-
-    var leftWoodBridge1 = gltf.scene.clone();
-    leftBridge1.add(leftWoodBridge1);
-
-    var rightWoodBridge2 = gltf.scene.clone();
-    rightBridge2.add(rightWoodBridge2);
 
     var leftWoodBridge2 = gltf.scene.clone();
     leftBridge2.add(leftWoodBridge2);
@@ -154,7 +155,7 @@ loader.load('./3DObjects/palmTree/scene.gltf', function(gltf){
     model.scale.set(1000,1000,1000);
     model.position.x =1500;
     model.position.y =150 ;
-    model.position.z =-1000 ;
+    model.position.z =-1070 ;
     model.rotation.set(0, -Math.PI/3, 0);
 
         scene.add( model );
@@ -162,22 +163,43 @@ loader.load('./3DObjects/palmTree/scene.gltf', function(gltf){
         mixer = new THREE.AnimationMixer( model ); //This animates the clouds in waterfall model
         mixer.clipAction( gltf.animations[ 0 ] ).play();
 
-        animate();//calls the animate function 
-
         } );
+
+  //Load Curved Spiky Enemy Model
+var loader = new THREE.GLTFLoader();
+loader.load('./3DObjects/Enemy/scene.gltf', function(gltf){
+    var poison1 = gltf.scene.getObjectByName("mesh_0");
+    var poison2 = gltf.scene.getObjectByName("mesh_2");
+    var poison3 = gltf.scene.getObjectByName("mesh_4");
+    var poison4 = gltf.scene.getObjectByName("mesh_5");
+
+    var parent1 = poison4.parent;
+    parent1.remove( poison1 );
+    parent1.remove( poison2 );
+    parent1.remove( poison3 );
+    parent1.remove( poison4 );
+
+    var curveEnemy = gltf.scene;
+    curveEnemy.position.y = -2;
+    curveEnemy.scale.set(2,2,2);
+    
+    scene.add(curveEnemy);
+    EnemyList.push(curveEnemy);
+});
 
   //Load Shark Model
   var loader = new THREE.GLTFLoader();
   loader.load('./3DObjects/JumpShark/scene.gltf', function(gltf){
     
     var sharkModel = gltf.scene;
-    sharkModel.scale.set(0.1,0.1,0.1);
-    sharkModel.position.x = 200 ;
-    sharkModel.position.y = -22 ;
+    sharkModel.scale.set(0.15,0.15,0.15);
+    sharkModel.position.x = 390 ;
+    sharkModel.position.y = -28 ;
     sharkModel.position.z = -130 ;
     sharkModel.rotation.set(0, 0, 0);
 
         scene.add( sharkModel );
+        EnemyList.push(sharkModel);
 
      mixer1 = new THREE.AnimationMixer( sharkModel ); //This animates the shark model
     mixer1.clipAction( gltf.animations[ 0 ] ).play();
@@ -186,10 +208,10 @@ loader.load('./3DObjects/palmTree/scene.gltf', function(gltf){
 
     //Here we use Tween to move the shark between four points,
     //the shark moves from its current position to the targetPosition
-    var targetPosition1 = new THREE.Vector3( -395, -22, -130 );
-    var targetPosition2 = new THREE.Vector3( -395, -22, -390 );
-    var targetPosition3 = new THREE.Vector3( 395, -22, -390 );
-    var targetPosition4 = new THREE.Vector3( 395, -22, -130 );
+    var targetPosition1 = new THREE.Vector3( -395, -28, -130 );
+    var targetPosition2 = new THREE.Vector3( -395, -28, -390 );
+    var targetPosition3 = new THREE.Vector3( 395, -28, -390 );
+    var targetPosition4 = new THREE.Vector3( 395, -28, -130 );
     
     var tween1 = new TWEEN.Tween( sharkModel.position ).to( targetPosition1, 20000 );//10000 = 10sec, time.. 
     var tween2 = new TWEEN.Tween( sharkModel.position ).to( targetPosition2, 10000 );//..it takes to move.. 
@@ -336,215 +358,49 @@ var leftTransBox = new THREE.Mesh(transGeometry, transMaterial);
 
 
 function genarrMap1(){
-  scene.add(oceanMesh)
+  scene.add(oceanMesh);
+  scene.add(sphereCamera);
 
-  enmy = GenEnemey();
-  enmy.position.x = 10;
-  enmy.position.z = 0;
-  enmy.position.y = 0;
-  enmy.scale.x = 3;
-  enmy.scale.y = 3;
-  enmy.scale.z = 3;
-  EnemyList.push(enmy);
+  // enmy = GenEnemey();
+  // enmy.position.x = 10;
+  // enmy.position.z = 0;
+  // enmy.position.y = 0;
+  // enmy.scale.x = 3;
+  // enmy.scale.y = 3;
+  // enmy.scale.z = 3;
+  // EnemyList.push(enmy);
 
-
-
+                                                                                                                                                                                                                                                                                
   boxe1 = new getEnemy();
-  boxe1.position.x = -40;
-  boxe1.position.z = -10;
+  boxe1.position.x = 40;
+  boxe1.position.z = -20;
   boxe1.position.y = 4.1;
-  boxe1.scale.set(8,8,8);
+  boxe1.scale.x = 8;
+  boxe1.scale.y = 8;
+  boxe1.scale.z = 8;
+
   ObjectsMap1Arr.push(boxe1);
   EnemyList.push(boxe1);
 
-  boxe3 = boxe1.clone();
-    boxe3.position.x = 40;
-    boxe3.position.z = 30;
-    boxe3.position.y = 4.1;
-  ObjectsMap1Arr.push(boxe3);
-  EnemyList.push(boxe3);
+  boxe2 = boxe1.clone();
+   ObjectsMap1Arr.push(boxe2);
+   EnemyList.push(boxe2);
 
-  boxe4 = boxe1.clone();
-    boxe4.position.x = -400;
-    boxe4.position.z = 70;
-    boxe4.position.y = 4.1;
-  ObjectsMap1Arr.push(boxe4);
-  EnemyList.push(boxe4);
+   boxe3 = boxe1.clone();
+   ObjectsMap1Arr.push(boxe3);
+   EnemyList.push(boxe3);
 
-  boxe5 = boxe1.clone();
-    boxe5.position.x = -400;
-    boxe5.position.z = -50;
-    boxe5.position.y = 4.1;
-  ObjectsMap1Arr.push(boxe5);
-  EnemyList.push(boxe5);
+   boxe4 = boxe1.clone();
+    ObjectsMap1Arr.push(boxe4);
+    EnemyList.push(boxe4);
 
-  boxe6 = boxe1.clone();
-    boxe6.position.x = -205;
-    boxe6.position.z = -90;
-    boxe6.position.y = 4.1;
-  ObjectsMap1Arr.push(boxe6);
-  EnemyList.push(boxe6);
+    boxe5 = boxe1.clone();
+     ObjectsMap1Arr.push(boxe5);
+     EnemyList.push(boxe5);
 
-  boxe7 = boxe1.clone();
-    boxe7.position.x = -210;
-    boxe7.position.z = 70;
-    boxe7.position.y = 14.1;
-  ObjectsMap1Arr.push(boxe7);
-  EnemyList.push(boxe7);
-
-  boxe8 = boxe1.clone();
-    boxe8.position.x = 90;
-    boxe8.position.z = -70;
-    boxe8.position.y = 4.1;
-  ObjectsMap1Arr.push(boxe8);
-  EnemyList.push(boxe8);
-
-  boxe9 = boxe1.clone();
-    boxe9.position.x = 160;
-    boxe9.position.z = 15;
-    boxe9.position.y = 4.1;
-  ObjectsMap1Arr.push(boxe9);
-  EnemyList.push(boxe9);
-
-  boxe10 = boxe1.clone();
-    boxe10.position.x = 250;
-    boxe10.position.z = -70;
-    boxe10.position.y = 4.1;
-  ObjectsMap1Arr.push(boxe10);
-  EnemyList.push(boxe10);
-
-  boxe11 = boxe1.clone();
-    boxe11.position.x = 210;
-    boxe11.position.z = 20;
-    boxe11.position.y = 29.1;
-  ObjectsMap1Arr.push(boxe11);
-  EnemyList.push(boxe11);
-
-  boxe12 = boxe1.clone();
-    boxe12.position.x = 370;
-    boxe12.position.z = 90;
-    boxe12.position.y = 4.1;
-  ObjectsMap1Arr.push(boxe12);
-  EnemyList.push(boxe12);
-
-  boxe13 = boxe1.clone();
-    boxe13.position.x = 370;
-    boxe13.position.z = 50;
-    boxe13.position.y = 4.1;
-  ObjectsMap1Arr.push(boxe13);
-  EnemyList.push(boxe13);
-
-  boxe14 = boxe1.clone();
-    boxe14.position.x = 460;
-    boxe14.position.z = -70;
-    boxe14.position.y = 4.1;
-  ObjectsMap1Arr.push(boxe14);
-  EnemyList.push(boxe14);
-
-  boxe15 = boxe1.clone();
-    boxe15.position.x = 305;
-    boxe15.position.z = -205;
-    boxe15.position.y = 10.1;
-  ObjectsMap1Arr.push(boxe15);
-  EnemyList.push(boxe15);
-
-  boxe16 = boxe1.clone();
-    boxe16.position.x = 335;
-    boxe16.position.z = -345;
-    boxe16.position.y = 4.1;
-  ObjectsMap1Arr.push(boxe16);
-  EnemyList.push(boxe16);
-
-  boxe17 = boxe1.clone();
-    boxe17.position.x = 315;
-    boxe17.position.z = -325;
-    boxe17.position.y = 4.1;
-  ObjectsMap1Arr.push(boxe17);
-  EnemyList.push(boxe17);
-
-  boxe18 = boxe1.clone();
-    boxe18.position.x = 195;
-    boxe18.position.z = -315;
-    boxe18.position.y = 10.1;
-  ObjectsMap1Arr.push(boxe18);
-  EnemyList.push(boxe18);
-
-  boxe19 = boxe1.clone();
-    boxe19.position.x = 0;
-    boxe19.position.z = -251;
-    boxe19.position.y = 7.1;
-  ObjectsMap1Arr.push(boxe19);
-  EnemyList.push(boxe19);
-
-  boxe20 = boxe1.clone();
-    boxe20.position.x = -233;
-    boxe20.position.z = -237;
-    boxe20.position.y = 4.1;
-  ObjectsMap1Arr.push(boxe20);
-  EnemyList.push(boxe20);
-
-  boxe21 = boxe1.clone();
-    boxe21.position.x = -342;
-    boxe21.position.z = -298;
-    boxe21.position.y = 4.1;
-  ObjectsMap1Arr.push(boxe21);
-  EnemyList.push(boxe21);
-
-  boxe22 = boxe1.clone();
-    boxe22.position.x = -300;
-    boxe22.position.z = -520;
-    boxe22.position.y = 14.1;
-  ObjectsMap1Arr.push(boxe22);
-  EnemyList.push(boxe22);
-
-  boxe23 = boxe1.clone();
-    boxe23.position.x = -460;
-    boxe23.position.z = -595;
-    boxe23.position.y = 4.1;
-  ObjectsMap1Arr.push(boxe23);
-  EnemyList.push(boxe23);
-
-  boxe24 = boxe1.clone();
-    boxe24.position.x = -460;
-    boxe24.position.z = -450;
-    boxe24.position.y = 4.1;
-  ObjectsMap1Arr.push(boxe24);
-  EnemyList.push(boxe24);
-
-  boxe25 = boxe1.clone();
-    boxe25.position.x = -85;
-    boxe25.position.z = -525;
-    boxe25.position.y = 4.1;
-  ObjectsMap1Arr.push(boxe25);
-  EnemyList.push(boxe25);
-
-  boxe26 = boxe1.clone();
-    boxe26.position.x = -45;
-    boxe26.position.z = -570;
-    boxe26.position.y = 4.1;
-  ObjectsMap1Arr.push(boxe26);
-  EnemyList.push(boxe26);
-
-  boxe27 = boxe1.clone();
-    boxe27.position.x = 90;
-    boxe27.position.z = -525;
-    boxe27.position.y = 4.1;
-  ObjectsMap1Arr.push(boxe27);
-  EnemyList.push(boxe27);
-
-  boxe28 = boxe1.clone();
-    boxe28.position.x = 295;
-    boxe28.position.z = -435;
-    boxe28.position.y = 4.1;
-  ObjectsMap1Arr.push(boxe28);
-  EnemyList.push(boxe28);
-
-  boxe29 = boxe1.clone();
-    boxe29.position.x = 300;
-    boxe29.position.z = -610;
-    boxe29.position.y = 4.1;
-  ObjectsMap1Arr.push(boxe29);
-  EnemyList.push(boxe29);
+    boxe6 = boxe1.clone();
+     ObjectsMap1Arr.push(boxe6);
+     EnemyList.push(boxe6);
         
 
   End = endpad;
@@ -642,7 +498,7 @@ function genarrMap1(){
 }
 
 function moveobjectsMap1(){
-  // startpad.position.y = 2;
+
   SotheSeg.position.y = -10
   NorthEastSeg.position.y = -10
   NorthWestSeg.position.y = -10
@@ -873,7 +729,6 @@ function moveobjectsMap1(){
     endpad.position.z = -519;
 
 }
-
 
 function getarrMap1(){
   moveobjectsMap1();
