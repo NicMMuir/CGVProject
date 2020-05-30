@@ -15,6 +15,11 @@ function rubyinit(){
     temp.position.x = PosRubyList[k].x ;
     temp.position.y = PosRubyList[k].y;
     temp.position.z = PosRubyList[k].z;
+
+    temp.children[2].material.metalness = 0;    
+    temp.children[2].children[0].material.metalness = 0;    
+    temp.children[2].children[0].children[0].material.metalness = 0;    
+
     RubyArray.push(temp);
     scene.add(temp);
   }
