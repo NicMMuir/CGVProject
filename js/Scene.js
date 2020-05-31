@@ -108,6 +108,8 @@ function init(){
 	 RubyArr = genruby(RPosList);
 	 CPosList = getcoinl3();
 	 CoinArr = gencoin(CPosList);
+	 CurvyMap3();
+	 SPillarMap3();
 	 //console.log(RPosList);
 
 
@@ -138,6 +140,8 @@ function animate() {
 function render(){
 	renderer.render(scene,camera);
 
+	boxRender(boxe1,40,-20);
+ 	boxRender(boxe2,-40,-20);
 
 };
 
@@ -210,9 +214,8 @@ loop = function(){
 			 }
 
 			 position.needsUpdate = true;
- onRender();
- boxRender(boxe1,40,-20);
- boxRender(boxe2,-40,-20);
+ // onRender();
+
 
 	distanceprev = chardata.y;
 	colisiondetection(controls.getObject());

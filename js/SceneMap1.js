@@ -98,7 +98,8 @@ function init(){
 	document.body.appendChild(renderer.domElement );
 
 
-
+	CurvyMap1(); //This funct contains all the curvedEnemy data from Curvy.js 
+	SPillarMap12(); //This funct contains all the spikes_pillar Enemy data from SPillarList.js
 	getarrMap1();
 	Charinit(charstartx,charstarty,charstartz);
 
@@ -111,7 +112,6 @@ function init(){
 	// }
 	CoinArr = gencoin(CPosList);
 	 //console.log(RPosList);
-
 
 	for(let k =0 ;k<ObjectsMap1Arr.length;k++){
 		scene.add(ObjectsMap1Arr[k] );
@@ -149,7 +149,8 @@ function render(){
 			boxRender(boxe4,320,-530,130,80);
 			boxRender(boxe5,-300,-530,120,90);
 			boxRender(boxe6,0,30,90,60);
-		  spikesRender_z(trap1,-150,40);
+		    
+		    spikesRender_z(trap1,-150,40);
 			spikesRender_z(trap_2,-413,40);
 			spikesRender_x(trap_3,-130,270);
 
