@@ -258,16 +258,6 @@ loader.load('./3DObjects/Enemy/scene.gltf', function(gltf){
     CurvyEnemi.push(curveEnemy7);
 
 
-    trap1 = new getTrap();
-    trap1.position.x = 196;
-    trap1.position.z = -120;
-    trap1.position.y = 0.6;
-    trap1.scale.x = 8;
-    trap1.scale.y = 8;
-    trap1.scale.z = 8;
-    scene.add(trap1);
-    EnemyList.push(trap1);
-
     trap2 = trap1.clone();
     trap2.position.x = -203;
     trap2.position.z = -380;
@@ -275,8 +265,8 @@ loader.load('./3DObjects/Enemy/scene.gltf', function(gltf){
     trap2.scale.x = 8;
     trap2.scale.y = 8;
     trap2.scale.z = 8;
-    scene.add(trap2);
-    EnemyList.push(trap2);
+  //  scene.add(trap2);
+  //  EnemyList.push(trap2);
 
     trap3 = trap1.clone();
     trap3.position.x = 0;
@@ -286,8 +276,8 @@ loader.load('./3DObjects/Enemy/scene.gltf', function(gltf){
     trap3.scale.x = 13;
     trap3.scale.y = 13;
     trap3.scale.z = 13;
-    scene.add(trap3);
-    EnemyList.push(trap3);
+    //scene.add(trap3);
+    //EnemyList.push(trap3);
 
 
 //For each curvedEnemy in the CurvyEnemi list, move them between two points
@@ -535,6 +525,53 @@ function genarrMap1(){
     boxe6 = boxe1.clone();
      ObjectsMap1Arr.push(boxe6);
      EnemyList.push(boxe6);
+
+     trap1 = new getTrap();
+     trap1.position.x = 196;
+     trap1.position.z = -150;
+     trap1.position.y = 0.2;
+     trap1.scale.x = 8;
+     trap1.scale.y = 8;
+     trap1.scale.z = 8;
+     ObjectsMap1Arr.push(trap1);
+     EnemyList.push(trap1);
+
+     trap_2 = trap1.clone();
+     trap_2.position.x = -203;
+     trap_2.position.z = -413;
+     trap_2.position.y = 0.2;
+     //trap2.scale.x = 8;
+    // trap2.scale.y = 8;
+     //trap2.scale.z = 8;
+     ObjectsMap1Arr.push(trap_2);
+     EnemyList.push(trap_2);
+
+     trap_3 = trap1.clone();
+     trap_3.position.x = -130;
+     trap_3.position.z = -245;
+     trap_3.position.y = 1.3;
+     trap_3.rotateZ(Math.PI/2);
+     trap_3.scale.x = 13;
+     trap_3.scale.y = 13;
+     trap_3.scale.z = 13;
+
+     ObjectsMap1Arr.push(trap_3);
+     EnemyList.push(trap_3);
+
+
+     /*var j ;
+     //for (j=0;j<100;j++){
+       console.log(j);
+
+       var targetPosition1 = new THREE.Vector3(196,0.6,-110);
+       var targetPosition2 = new THREE.Vector3(196,0.6,-120);
+       var tween1 = new TWEEN.Tween(trap1.position).to( targetPosition1,10 );
+       var tween2 = new TWEEN.Tween(trap1.position).to( targetPosition2,10 );//10000 = 10sec, time..
+      // tween1.chain(tween2)
+       tween1.start();
+       console.log(trap1.position.z);*/
+    // }
+
 
 
   End = endpad;

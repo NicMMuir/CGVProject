@@ -149,6 +149,11 @@ function render(){
 			boxRender(boxe4,320,-530,130,80);
 			boxRender(boxe5,-300,-530,120,90);
 			boxRender(boxe6,0,30,90,60);
+		  spikesRender_z(trap1,-150,40);
+			spikesRender_z(trap_2,-413,40);
+			spikesRender_x(trap_3,-130,270);
+
+
 
 
 };
@@ -458,7 +463,7 @@ function onTransitionEnd( event ) {
 
 	const element = event.target;
 	element.remove();
-	
+
 }
 
 

@@ -1,5 +1,6 @@
 var trap = new THREE.Object3D();
 
+
 function getTrap(){
   //Adding box to d pillar
 
@@ -62,29 +63,39 @@ function getTrap(){
 
 
 }
+var f =0.1;
+function spikesRender_z(obj,z,dz) {
+  obj.position.z +=f;
+  console.log("frame is: "+f);
+  console.log(obj.position.z);
+  if(obj.position.z > z+dz){
+    console.log("yes")
+    f = -0.1
+  }
 
-var frame = 0.1;
-/*spikesRender = function(obj,z,dz) {
+  if(obj.position.z < z){
+    console.log("yes")
+    f = 0.1
+  }
+//  console.log("f is: "+frame)
 
-  console.log(obj.position.z > (z+dz));
-  console.log(obj.position.z < -(dz-z));
-  var l = Boolean(obj.position.z > z+dz);
-  var r = Boolean(obj.position.z < -(z+dz));
-  console.log(!(l && r));
+};
 
-    if(l){
-      console.log("first loop");
-      frame = -0.1;
-    }
+var fr = 5;
 
-    if(r){
-      console.log("second loop");
-      frame = 0.1;
-    }
+function spikesRender_x(obj,x,dx) {
+  console.log("frame is: "+fr);
+  console.log("x+dx: "+ (x+dx));
+  console.log(obj.position.x);
+  obj.position.x +=fr;
 
-    if(!(l && r)){
-      obj.position.z+=1;
-    }
+  if(obj.position.x > x+dx){
+    fr = -5
+  }
 
+  if(obj.position.x < x){
+    fr = 5
+  }
+//  console.log("f is: "+frame)
 
-};*/
+};
