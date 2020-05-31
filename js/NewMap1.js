@@ -9,16 +9,16 @@ var End;
   //Placing a camera inside the start/end pad to create a reflection
 let sphereCamera = new THREE.CubeCamera(1,3000,500);
         sphereCamera.position.set(297,13,-519);
-  
+
   //Loading screen using css and Threejs LoadingManager
   const loadingManager = new THREE.LoadingManager( () => {
-  
+
     const loadingScreen = document.getElementById( 'loading-screen' );
     loadingScreen.classList.add( 'fade-out' );
-    
+
     // optional: remove loader from DOM via event listener
     loadingScreen.addEventListener( 'transitionend', onTransitionEnd );
-    
+
   } );
 
 
@@ -158,11 +158,11 @@ loader.load('./3DObjects/palmTree/scene.gltf', function(gltf){
     palmTree4.add(gltf.scene.clone());
 });
 
-  
+
 //Load WaterFall Model
   var loader = new THREE.GLTFLoader();
   loader.load('./3DObjects/FloatIsland/scene.gltf', function(gltf){
-    
+
     var model = gltf.scene;
     model.scale.set(1000,1000,1000);
     model.position.x =1500;
@@ -198,7 +198,7 @@ loader.load('./3DObjects/Enemy/scene.gltf', function(gltf){
     curveEnemy1.position.x = -315;
     curveEnemy1.position.y = -2;
     curveEnemy1.position.z = 0;
-    
+
     scene.add(curveEnemy1);
     EnemyList.push(curveEnemy1);
     CurvyEnemi.push(curveEnemy1);
@@ -207,7 +207,7 @@ loader.load('./3DObjects/Enemy/scene.gltf', function(gltf){
     curveEnemy2.position.x = 315;
     curveEnemy2.position.y = -2;
     curveEnemy2.position.z = 0;
-    
+
     scene.add(curveEnemy2);
     EnemyList.push(curveEnemy2);
     CurvyEnemi.push(curveEnemy2);
@@ -216,7 +216,7 @@ loader.load('./3DObjects/Enemy/scene.gltf', function(gltf){
     curveEnemy3.position.x = 165;
     curveEnemy3.position.y = -2;
     curveEnemy3.position.z = -260;
-    
+
     scene.add(curveEnemy3);
     EnemyList.push(curveEnemy3);
     CurvyEnemi.push(curveEnemy3);
@@ -225,7 +225,7 @@ loader.load('./3DObjects/Enemy/scene.gltf', function(gltf){
     curveEnemy4.position.x = -230;
     curveEnemy4.position.y = -2;
     curveEnemy4.position.z = -260;
-    
+
     scene.add(curveEnemy4);
     EnemyList.push(curveEnemy4);
     CurvyEnemi.push(curveEnemy4);
@@ -234,7 +234,7 @@ loader.load('./3DObjects/Enemy/scene.gltf', function(gltf){
     curveEnemy5.position.x = 500;
     curveEnemy5.position.y = -2;
     curveEnemy5.position.z = -520;
-    
+
     scene.add(curveEnemy5);
     EnemyList.push(curveEnemy5);
     CurvyEnemi.push(curveEnemy5);
@@ -243,7 +243,7 @@ loader.load('./3DObjects/Enemy/scene.gltf', function(gltf){
     curveEnemy6.position.x = 10;
     curveEnemy6.position.y = -2;
     curveEnemy6.position.z = -520;
-    
+
     scene.add(curveEnemy6);
     EnemyList.push(curveEnemy6);
     CurvyEnemi.push(curveEnemy6);
@@ -252,10 +252,42 @@ loader.load('./3DObjects/Enemy/scene.gltf', function(gltf){
     curveEnemy7.position.x = -145;
     curveEnemy7.position.y = -2;
     curveEnemy7.position.z = -520;
-    
+
     scene.add(curveEnemy7);
     EnemyList.push(curveEnemy7);
     CurvyEnemi.push(curveEnemy7);
+
+
+    trap1 = new getTrap();
+    trap1.position.x = 196;
+    trap1.position.z = -120;
+    trap1.position.y = 0.6;
+    trap1.scale.x = 8;
+    trap1.scale.y = 8;
+    trap1.scale.z = 8;
+    scene.add(trap1);
+    EnemyList.push(trap1);
+
+    trap2 = trap1.clone();
+    trap2.position.x = -203;
+    trap2.position.z = -380;
+    trap2.position.y = 0.6;
+    trap2.scale.x = 8;
+    trap2.scale.y = 8;
+    trap2.scale.z = 8;
+    scene.add(trap2);
+    EnemyList.push(trap2);
+
+    trap3 = trap1.clone();
+    trap3.position.x = 0;
+    trap3.position.z = -245;
+    trap3.position.y = 2.9;
+    trap3.rotateZ(Math.PI/2);
+    trap3.scale.x = 13;
+    trap3.scale.y = 13;
+    trap3.scale.z = 13;
+    scene.add(trap3);
+    EnemyList.push(trap3);
 
 
 //For each curvedEnemy in the CurvyEnemi list, move them between two points
@@ -268,13 +300,13 @@ for (i=0; i<CurvyEnemi.length; i++){
 
 var targetPosition1 = new THREE.Vector3(  CurvyEnemi[i].position, -2, targetPositionZ );
     var targetPosition2 = new THREE.Vector3( CurvyEnemi[i].position, -2, targetPositionNZ );
-    
-    var tween1 = new TWEEN.Tween( CurvyEnemi[i].position ).to( targetPosition1, 20000 ).easing(TWEEN.Easing.Elastic.InOut);//10000 = 10sec, time.. 
-    var tween2 = new TWEEN.Tween( CurvyEnemi[i].position ).to( targetPosition2, 10000 ).easing(TWEEN.Easing.Elastic.InOut);//..it takes to move.. 
-    
+
+    var tween1 = new TWEEN.Tween( CurvyEnemi[i].position ).to( targetPosition1, 20000 ).easing(TWEEN.Easing.Elastic.InOut);//10000 = 10sec, time..
+    var tween2 = new TWEEN.Tween( CurvyEnemi[i].position ).to( targetPosition2, 10000 ).easing(TWEEN.Easing.Elastic.InOut);//..it takes to move..
+
     tween1.chain( tween2 );
     tween2.chain( tween1 );
-    
+
     tween1.start();
 }
 });
@@ -282,7 +314,7 @@ var targetPosition1 = new THREE.Vector3(  CurvyEnemi[i].position, -2, targetPosi
   //Load Shark Model
   var loader = new THREE.GLTFLoader();
   loader.load('./3DObjects/JumpShark/scene.gltf', function(gltf){
-    
+
     var sharkModel = gltf.scene;
     sharkModel.scale.set(0.15,0.15,0.15);
     sharkModel.position.x = 390 ;
@@ -296,7 +328,7 @@ var targetPosition1 = new THREE.Vector3(  CurvyEnemi[i].position, -2, targetPosi
      mixer1 = new THREE.AnimationMixer( sharkModel ); //This animates the shark model
     mixer1.clipAction( gltf.animations[ 0 ] ).play();
 
-    animate();//calls the animate function 
+    animate();//calls the animate function
 
     //Here we use Tween to move the shark between four points,
     //the shark moves from its current position to the targetPosition
@@ -304,12 +336,12 @@ var targetPosition1 = new THREE.Vector3(  CurvyEnemi[i].position, -2, targetPosi
     var targetPosition2 = new THREE.Vector3( -395, -28, -390 );
     var targetPosition3 = new THREE.Vector3( 395, -28, -390 );
     var targetPosition4 = new THREE.Vector3( 395, -28, -130 );
-    
-    var tween1 = new TWEEN.Tween( sharkModel.position ).to( targetPosition1, 20000 );//10000 = 10sec, time.. 
-    var tween2 = new TWEEN.Tween( sharkModel.position ).to( targetPosition2, 10000 );//..it takes to move.. 
+
+    var tween1 = new TWEEN.Tween( sharkModel.position ).to( targetPosition1, 20000 );//10000 = 10sec, time..
+    var tween2 = new TWEEN.Tween( sharkModel.position ).to( targetPosition2, 10000 );//..it takes to move..
     var tween3 = new TWEEN.Tween( sharkModel.position ).to( targetPosition3, 20000 );//..between a point
     var tween4 = new TWEEN.Tween( sharkModel.position ).to( targetPosition4, 10000 );
-    
+
     tween1.chain( tween2 );
     tween2.chain( tween3 );
     tween3.chain( tween4 );
@@ -321,7 +353,7 @@ var targetPosition1 = new THREE.Vector3(  CurvyEnemi[i].position, -2, targetPosi
                 .to({ y: "-" + Math.PI/2}, 1000) // relative animation
                 .delay(20000)
                 .onComplete(function() {
-                  // Check that the full 360 degrees of rotation, 
+                  // Check that the full 360 degrees of rotation,
                   // and calculate the remainder of the division to avoid overflow.
                     if (Math.abs(sharkModel.rotation.y)>=2*Math.PI) {
                         sharkModel.rotation.y = sharkModel.rotation.y % (2*Math.PI);
@@ -332,7 +364,7 @@ var targetPosition1 = new THREE.Vector3(  CurvyEnemi[i].position, -2, targetPosi
                 .to({ y: "-" + Math.PI/2}, 1000) // relative animation
                 .delay(8000)
                 .onComplete(function() {
-                  // Check that the full 360 degrees of rotation, 
+                  // Check that the full 360 degrees of rotation,
                   // and calculate the remainder of the division to avoid overflow.
                     if (Math.abs(sharkModel.rotation.y)>=2*Math.PI) {
                         sharkModel.rotation.y = sharkModel.rotation.y % (2*Math.PI);
@@ -343,7 +375,7 @@ var targetPosition1 = new THREE.Vector3(  CurvyEnemi[i].position, -2, targetPosi
                 .to({ y: "-" + Math.PI/2}, 1000) // relative animation
                 .delay(20000)
                 .onComplete(function() {
-                  // Check that the full 360 degrees of rotation, 
+                  // Check that the full 360 degrees of rotation,
                   // and calculate the remainder of the division to avoid overflow.
                     if (Math.abs(sharkModel.rotation.y)>=2*Math.PI) {
                         sharkModel.rotation.y = sharkModel.rotation.y % (2*Math.PI);
@@ -354,18 +386,18 @@ var targetPosition1 = new THREE.Vector3(  CurvyEnemi[i].position, -2, targetPosi
                 .to({ y: "-" + Math.PI/2}, 1000) // relative animation
                 .delay(8000)
                 .onComplete(function() {
-                  // Check that the full 360 degrees of rotation, 
+                  // Check that the full 360 degrees of rotation,
                   // and calculate the remainder of the division to avoid overflow.
                     if (Math.abs(sharkModel.rotation.y)>=2*Math.PI) {
                         sharkModel.rotation.y = sharkModel.rotation.y % (2*Math.PI);
                     }
                 })
-    
+
     tweenRot1.chain( tweenRot2 );
     tweenRot2.chain( tweenRot3 );
     tweenRot3.chain( tweenRot4 );
     tweenRot4.chain( tweenRot1 );
-    
+
     tween1.start(); //This begins the chain movement between the four positions
     tweenRot1.start(); //This begins the rotation of the shark
 
@@ -376,7 +408,7 @@ var targetPosition1 = new THREE.Vector3(  CurvyEnemi[i].position, -2, targetPosi
 
 
 
- 
+
 
 
 
@@ -472,7 +504,7 @@ function genarrMap1(){
   // enmy.scale.z = 3;
   // EnemyList.push(enmy);
 
-                                                                                                                                                                                                                                                                                
+
   boxe1 = new getEnemy();
   boxe1.position.x = 40;
   boxe1.position.z = -20;
@@ -503,7 +535,7 @@ function genarrMap1(){
     boxe6 = boxe1.clone();
      ObjectsMap1Arr.push(boxe6);
      EnemyList.push(boxe6);
-        
+
 
   End = endpad;
   ObjectsMap1Arr.push(endpad);
