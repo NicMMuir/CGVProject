@@ -4,7 +4,7 @@
 //Heightmap
 //orbital controls
 var scene, camera,raycamera, renderer, loop,char,chardata,controller;
-var mesh, oceanGeometry, material, clock;
+var mesh, oceanGeometry, material, clock, TWEEN;
 var Collidables = [];
 
 var PauseState = false;
@@ -129,8 +129,9 @@ function animate() {
 				requestAnimationFrame( animate );
 				var delta = clock.getDelta();
 				mixer.update( delta );
-				render();
+				TWEEN.update();
 				sphereCamera.update(renderer,scene);
+				render();
 			}
 
 

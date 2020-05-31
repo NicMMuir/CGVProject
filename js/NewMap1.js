@@ -2,6 +2,7 @@ var ObjectsMap1Arr = [];
 var EnemyList = [];
 var Mesh, oceanGeometry, oceanMaterial, clock;
 var sphereMaterial;
+var tween, tweenBack;
 var End;
 
 
@@ -177,6 +178,7 @@ loader.load('./3DObjects/palmTree/scene.gltf', function(gltf){
         } );
 
   //Load Curved Spiky Enemy Model
+  var CurvyEnemi = [];
 var loader = new THREE.GLTFLoader();
 loader.load('./3DObjects/Enemy/scene.gltf', function(gltf){
     var poison1 = gltf.scene.getObjectByName("mesh_0");
@@ -190,12 +192,91 @@ loader.load('./3DObjects/Enemy/scene.gltf', function(gltf){
     parent1.remove( poison3 );
     parent1.remove( poison4 );
 
-    var curveEnemy = gltf.scene;
-    curveEnemy.position.y = -2;
-    curveEnemy.scale.set(2,2,2);
+    gltf.scene.scale.set(2,2,2);
+
+    var curveEnemy1 = gltf.scene;
+    curveEnemy1.position.x = -315;
+    curveEnemy1.position.y = -2;
+    curveEnemy1.position.z = 0;
     
-    scene.add(curveEnemy);
-    EnemyList.push(curveEnemy);
+    scene.add(curveEnemy1);
+    EnemyList.push(curveEnemy1);
+    CurvyEnemi.push(curveEnemy1);
+
+    var curveEnemy2 = gltf.scene.clone();
+    curveEnemy2.position.x = 315;
+    curveEnemy2.position.y = -2;
+    curveEnemy2.position.z = 0;
+    
+    scene.add(curveEnemy2);
+    EnemyList.push(curveEnemy2);
+    CurvyEnemi.push(curveEnemy2);
+
+    var curveEnemy3 = gltf.scene.clone();
+    curveEnemy3.position.x = 165;
+    curveEnemy3.position.y = -2;
+    curveEnemy3.position.z = -260;
+    
+    scene.add(curveEnemy3);
+    EnemyList.push(curveEnemy3);
+    CurvyEnemi.push(curveEnemy3);
+
+    var curveEnemy4 = gltf.scene.clone();
+    curveEnemy4.position.x = -230;
+    curveEnemy4.position.y = -2;
+    curveEnemy4.position.z = -260;
+    
+    scene.add(curveEnemy4);
+    EnemyList.push(curveEnemy4);
+    CurvyEnemi.push(curveEnemy4);
+
+    var curveEnemy5 = gltf.scene.clone();
+    curveEnemy5.position.x = 500;
+    curveEnemy5.position.y = -2;
+    curveEnemy5.position.z = -520;
+    
+    scene.add(curveEnemy5);
+    EnemyList.push(curveEnemy5);
+    CurvyEnemi.push(curveEnemy5);
+
+    var curveEnemy6 = gltf.scene.clone();
+    curveEnemy6.position.x = 10;
+    curveEnemy6.position.y = -2;
+    curveEnemy6.position.z = -520;
+    
+    scene.add(curveEnemy6);
+    EnemyList.push(curveEnemy6);
+    CurvyEnemi.push(curveEnemy6);
+
+    var curveEnemy7 = gltf.scene.clone();
+    curveEnemy7.position.x = -145;
+    curveEnemy7.position.y = -2;
+    curveEnemy7.position.z = -520;
+    
+    scene.add(curveEnemy7);
+    EnemyList.push(curveEnemy7);
+    CurvyEnemi.push(curveEnemy7);
+
+
+//For each curvedEnemy in the CurvyEnemi list, move them between two points
+//We use the tween function and the elastic in-out easing motion
+//TargetPositionZ is the positive Z axis motion + point stop one
+//TargetPositionNZ is the negative Z axis motion + point stop two
+for (i=0; i<CurvyEnemi.length; i++){
+   var  targetPositionZ = CurvyEnemi[i].position.z += 93;
+  var  targetPositionNZ = CurvyEnemi[i].position.z += -170;
+
+var targetPosition1 = new THREE.Vector3(  CurvyEnemi[i].position, -2, targetPositionZ );
+    var targetPosition2 = new THREE.Vector3( CurvyEnemi[i].position, -2, targetPositionNZ );
+    
+    var tween1 = new TWEEN.Tween( CurvyEnemi[i].position ).to( targetPosition1, 20000 ).easing(TWEEN.Easing.Elastic.InOut);//10000 = 10sec, time.. 
+    var tween2 = new TWEEN.Tween( CurvyEnemi[i].position ).to( targetPosition2, 10000 ).easing(TWEEN.Easing.Elastic.InOut);//..it takes to move.. 
+    
+    tween1.chain( tween2 );
+    tween2.chain( tween1 );
+    
+    tween1.start();
+}
 });
 
   //Load Shark Model
@@ -291,6 +372,17 @@ loader.load('./3DObjects/Enemy/scene.gltf', function(gltf){
         } );
 
 
+
+
+
+
+ 
+
+
+
+
+
+
 //Creating a few platforms XD:
 // Start floor
 var platform1 = new THREE.Mesh( platformGeometry , woodMat );
@@ -365,7 +457,6 @@ var wallPlane13 = new THREE.Mesh(wallGeometry, woodMat);
 var transGeometry = new THREE.BoxGeometry(15,20,45);
 var rightTransBox = new THREE.Mesh(transGeometry, transMaterial);
 var leftTransBox = new THREE.Mesh(transGeometry, transMaterial);
-
 
 
 function genarrMap1(){

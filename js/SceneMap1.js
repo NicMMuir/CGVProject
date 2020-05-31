@@ -7,6 +7,7 @@
 var scene, camera,raycamera, renderer, loop,char,chardata,controller;
 var mesh, oceanGeometry, material, clock;
 var Collidables = [];
+var curveEnemy;
 
 var mixer, mixer1, TWEEN;
 
@@ -118,6 +119,8 @@ function init(){
 	}
 
 	SetLight();
+
+
 
 }
 
