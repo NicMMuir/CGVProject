@@ -109,7 +109,6 @@ function init(){
 	 CPosList = getcoinl3();
 	 CoinArr = gencoin(CPosList);
 	 CurvyMap3();
-	 SPillarMap3();
 	 //console.log(RPosList);
 
 

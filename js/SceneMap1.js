@@ -99,7 +99,6 @@ function init(){
 
 
 	CurvyMap1(); //This funct contains all the curvedEnemy data from Curvy.js
-	SPillarMap12(); //This funct contains all the spikes_pillar Enemy data from SPillarList.js
 	getarrMap1();
 	Charinit(charstartx,charstarty,charstartz);
 
@@ -132,7 +131,7 @@ function animate() {
 				var delta = clock.getDelta();
 				mixer.update( delta*2 );
 				mixer1.update( delta*2 );
-				//TWEEN.update();
+				TWEEN.update();
 				sphereCamera.update(renderer,scene);
 
 				render();
@@ -256,7 +255,7 @@ loop = function(){
 		// chardata.rotationy += 0.04
 	}
 	if(controller.forward){
-		chardata.z_vel -=0.8;//0.12
+		chardata.z_vel -=0.12;//0.12
 		action.play(); //need to figure out how controller event listener processes 'keyup' events to call action.stop() when 'W' is released
 
 	}
