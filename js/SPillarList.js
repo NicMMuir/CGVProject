@@ -10,7 +10,6 @@ function SPillarMap12(){
      spikes_pillar.position.y = 0;
      spikes_pillar.position.z = 0;
      spikes_pillar.scale.set(4,4,4);
-     // spikes_pillar.rotation.y += 0.1;
      scene.add(spikes_pillar);
      spikeEnemy.push(spikes_pillar);
      EnemyList.push(spikes_pillar);
@@ -48,7 +47,7 @@ var targetPos1 = new THREE.Vector3(  targetPosX, spikeEnemy[i].position, spikeEn
     var tween4 = new TWEEN.Tween( spikeEnemy[i].position ).to( targetPos4, 10000 );
 
     //We also rotate the Enemy model
-    var tweenRot = new TWEEN.Tween(spikeEnemy[i].rotation)
+    var tweenRot = new TWEEN.Tween(pillar.rotation)
                 .to({ y: "-" + Math.PI}) // relative animation
     
     tween1.chain( tween2 );
@@ -64,6 +63,27 @@ var targetPos1 = new THREE.Vector3(  targetPosX, spikeEnemy[i].position, spikeEn
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //Spike Pillar postion and movement for map 3
 function SPillarMap3(){
 
@@ -74,7 +94,6 @@ function SPillarMap3(){
      spikes_pillar.position.y = 260;
      spikes_pillar.position.z = 1000;
      spikes_pillar.scale.set(4,4,4);
-     // spikes_pillar.rotation.y += 0.1;
      scene.add(spikes_pillar);
      spikeEnemy3.push(spikes_pillar);
      EnemyList.push(spikes_pillar);

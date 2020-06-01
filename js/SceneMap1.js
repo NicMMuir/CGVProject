@@ -130,7 +130,7 @@ function animate() {
 				requestAnimationFrame( animate );
 
 				var delta = clock.getDelta();
-				mixer.update( delta );
+				mixer.update( delta*2 );
 				mixer1.update( delta*2 );
 				TWEEN.update();
 				sphereCamera.update(renderer,scene);
