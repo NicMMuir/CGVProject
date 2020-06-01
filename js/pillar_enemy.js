@@ -149,10 +149,10 @@ function pillEnemey(){
 
 function pillRender(obj,x,z,dx,dz) {
   childs = obj.children;
-   dxPerFrame = 0.8;
-   dzPerFrame = 0.8;
-   dxPerFrame1 = -0.8;
-   dzPerFrame1 = 0.8;
+   dxPerFrame = 1;
+   dzPerFrame = 1;
+   dxPerFrame1 = -1;
+   dzPerFrame1 = 1;
 
    childs[1].rotation.y +=0.35;
 
