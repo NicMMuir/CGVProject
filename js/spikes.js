@@ -83,8 +83,8 @@ var fr = 5;
 function spikesRender_x(obj,x,dx) {
 /*  console.log("frame is: "+fr);
   console.log("x+dx: "+ (x+dx));
-  console.log(obj.position.x);
-  obj.position.x +=fr;*/
+  console.log(obj.position.x);*/
+  obj.position.x +=fr;
 
   if(obj.position.x > x+dx){
     fr = -5
