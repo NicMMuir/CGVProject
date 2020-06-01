@@ -66,8 +66,7 @@ function getTrap(){
 var f =0.1;
 function spikesRender_z(obj,z,dz) {
   obj.position.z +=f;
-  console.log("frame is: "+f);
-  console.log(obj.position.z);
+
   if(obj.position.z > z+dz){
     console.log("yes")
     f = -0.1
@@ -84,10 +83,10 @@ function spikesRender_z(obj,z,dz) {
 var fr = 5;
 
 function spikesRender_x(obj,x,dx) {
-  console.log("frame is: "+fr);
+/*  console.log("frame is: "+fr);
   console.log("x+dx: "+ (x+dx));
   console.log(obj.position.x);
-  obj.position.x +=fr;
+  obj.position.x +=fr;*/
 
   if(obj.position.x > x+dx){
     fr = -5

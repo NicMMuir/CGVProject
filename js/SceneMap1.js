@@ -98,7 +98,7 @@ function init(){
 	document.body.appendChild(renderer.domElement );
 
 
-	CurvyMap1(); //This funct contains all the curvedEnemy data from Curvy.js 
+	CurvyMap1(); //This funct contains all the curvedEnemy data from Curvy.js
 	SPillarMap12(); //This funct contains all the spikes_pillar Enemy data from SPillarList.js
 	getarrMap1();
 	Charinit(charstartx,charstarty,charstartz);
@@ -132,7 +132,7 @@ function animate() {
 				var delta = clock.getDelta();
 				mixer.update( delta*2 );
 				mixer1.update( delta*2 );
-				TWEEN.update();
+				//TWEEN.update();
 				sphereCamera.update(renderer,scene);
 
 				render();
@@ -149,10 +149,14 @@ function render(){
 			boxRender(boxe4,320,-530,130,80);
 			boxRender(boxe5,-300,-530,120,90);
 			boxRender(boxe6,0,30,90,60);
-		    
-		    spikesRender_z(trap1,-150,40);
+
+		  spikesRender_z(trap1,-150,40);
 			spikesRender_z(trap_2,-413,40);
 			spikesRender_x(trap_3,-130,270);
+
+			 pillRender(p_e1,0,45,40,5);
+			// pillRender(p_e2,0,-10,20,15);
+			pillRender(p_e3,80,-10,15,10);
 
 
 

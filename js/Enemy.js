@@ -143,6 +143,10 @@ function GenEnemey(){
      head.add(h_cone4);
      head.add(h_cone5);
      head.add(h_cone6);
-
+   
      return spikes_pillar;
+    }
+
+    function pillarRender(){
+      pillar.rotation.y +=0.1;
     }

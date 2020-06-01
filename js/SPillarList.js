@@ -10,11 +10,11 @@ function SPillarMap12(){
      spikes_pillar.position.y = 0;
      spikes_pillar.position.z = 0;
      spikes_pillar.scale.set(4,4,4);
-     scene.add(spikes_pillar);
-     spikeEnemy.push(spikes_pillar);
-     EnemyList.push(spikes_pillar);
+     //scene.add(spikes_pillar);
+     //spikeEnemy.push(spikes_pillar);
+     //EnemyList.push(spikes_pillar);
 
-     spikes_pillar2 = spikes_pillar.clone();
+  /*   spikes_pillar2 = spikes_pillar.clone();
      spikes_pillar2.position.set(50,0,0);
      scene.add(spikes_pillar2);
       spikeEnemy.push(spikes_pillar2);
@@ -24,7 +24,7 @@ function SPillarMap12(){
      spikes_pillar3.position.set(-100,0,-50);
      scene.add(spikes_pillar3);
       spikeEnemy.push(spikes_pillar3);
-     EnemyList.push(spikes_pillar3);
+     EnemyList.push(spikes_pillar3); */
 
           //Add more Spikes_pillars here
 
@@ -40,8 +40,8 @@ var targetPos1 = new THREE.Vector3(  targetPosX, spikeEnemy[i].position, spikeEn
     var targetPos2 = new THREE.Vector3( spikeEnemy[i].position, spikeEnemy[i].position, targetPosNZ );
     var targetPos3 = new THREE.Vector3( targetPosNX, spikeEnemy[i].position, spikeEnemy[i].position );
     var targetPos4 = new THREE.Vector3( spikeEnemy[i].position, spikeEnemy[i].position, targetPosZ );
-    
-    var tween1 = new TWEEN.Tween( spikeEnemy[i].position ).to( targetPos1, 10000 ); 
+
+    var tween1 = new TWEEN.Tween( spikeEnemy[i].position ).to( targetPos1, 10000 );
     var tween2 = new TWEEN.Tween( spikeEnemy[i].position ).to( targetPos2, 10000 );
     var tween3 = new TWEEN.Tween( spikeEnemy[i].position ).to( targetPos3, 10000 );
     var tween4 = new TWEEN.Tween( spikeEnemy[i].position ).to( targetPos4, 10000 );
@@ -49,14 +49,14 @@ var targetPos1 = new THREE.Vector3(  targetPosX, spikeEnemy[i].position, spikeEn
     //We also rotate the Enemy model
     var tweenRot = new TWEEN.Tween(pillar.rotation)
                 .to({ y: "-" + Math.PI}) // relative animation
-    
+
     tween1.chain( tween2 );
     tween2.chain( tween3 );
     tween3.chain( tween4 );
     tween4.chain( tween1 );
-    
+
     tween1.start();
-    tweenRot.start();         //Comment these 2 lines to stop rotation  
+    tweenRot.start();         //Comment these 2 lines to stop rotation
     tweenRot.repeat(Infinity);//Comment these 2 lines to stop rotation
 }
 
@@ -121,8 +121,8 @@ var targetPos1 = new THREE.Vector3(  targetPosX, spikeEnemy3[i].position, spikeE
     var targetPos2 = new THREE.Vector3( spikeEnemy3[i].position, spikeEnemy3[i].position, targetPosNZ );
     var targetPos3 = new THREE.Vector3( targetPosNX, spikeEnemy3[i].position, spikeEnemy3[i].position );
     var targetPos4 = new THREE.Vector3( spikeEnemy3[i].position, spikeEnemy3[i].position, targetPosZ );
-    
-    var tween1 = new TWEEN.Tween( spikeEnemy3[i].position ).to( targetPos1, 10000 ); 
+
+    var tween1 = new TWEEN.Tween( spikeEnemy3[i].position ).to( targetPos1, 10000 );
     var tween2 = new TWEEN.Tween( spikeEnemy3[i].position ).to( targetPos2, 10000 );
     var tween3 = new TWEEN.Tween( spikeEnemy3[i].position ).to( targetPos3, 10000 );
     var tween4 = new TWEEN.Tween( spikeEnemy3[i].position ).to( targetPos4, 10000 );
@@ -130,14 +130,14 @@ var targetPos1 = new THREE.Vector3(  targetPosX, spikeEnemy3[i].position, spikeE
     //We also rotate the Enemy model
     var tweenRot = new TWEEN.Tween(spikeEnemy3[i].rotation)
                 .to({ y: "-" + Math.PI}) // relative animation
-    
+
     tween1.chain( tween2 );
     tween2.chain( tween3 );
     tween3.chain( tween4 );
     tween4.chain( tween1 );
-    
+
     tween1.start();
-    tweenRot.start();         //Comment these 2 lines to stop rotation  
+    tweenRot.start();         //Comment these 2 lines to stop rotation
     tweenRot.repeat(Infinity);//Comment these 2 lines to stop rotation
 }
 

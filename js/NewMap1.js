@@ -353,6 +353,30 @@ function genarrMap1(){
   scene.add(oceanMesh);
   scene.add(sphereCamera);
 
+  p_e1= new pillEnemey() ;
+  p_e1.position.x = 0;
+  p_e1.position.z = 45;
+  p_e1.position.y = 4.1;
+  p_e1.scale.x = 8;
+  p_e1.scale.y = 8;
+  p_e1.scale.z = 8;
+  ObjectsMap1Arr.push(p_e1);
+  EnemyList.push(p_e1);
+
+  p_e2 = p_e1.clone();
+  p_e2.position.x = 0;
+  p_e2.position.z = -10;
+  p_e2.position.y = 4.1;
+  ObjectsMap1Arr.push(p_e2);
+  EnemyList.push(p_e2);
+
+  p_e3 = p_e1.clone();
+  p_e3.position.x = 80;
+  p_e3.position.z = -10;
+  p_e3.position.y = 4.1;
+  ObjectsMap1Arr.push(p_e3);
+  EnemyList.push(p_e3);
+
   boxe1 = new getEnemy();
   boxe1.position.x = 40;
   boxe1.position.z = -20;
@@ -501,7 +525,7 @@ function genarrMap1(){
   ObjectsMap1Arr.push(palmTree2);
   ObjectsMap1Arr.push(palmTree3);
   ObjectsMap1Arr.push(palmTree4);
-  
+
   ObjectsMap1Arr.push(highPlatform11);
   ObjectsMap1Arr.push(highPlatform12);
 
