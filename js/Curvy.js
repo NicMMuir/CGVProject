@@ -3,6 +3,11 @@
 //This js file is called in init()
 
 
+//For each curvedEnemy in the CurvyEnemi2 list, move them between two points
+//We use the tween function and the elastic in-out easing motion
+//TargetPositionZ is the positive Z axis motion + point stop one
+//TargetPositionNZ is the negative Z axis motion + point stop two
+
 function CurvyMap1() { //Curved enemy data for Map 1
 
  //Load Curved Spiky Enemy Model
@@ -77,7 +82,7 @@ loader.load('./3DObjects/Enemy/scene.gltf', function(gltf){
     CurvyEnemi1.push(curveEnemy6);
 
     var curveEnemy7 = gltf.scene.clone();
-    curveEnemy7.position.x = -145;
+    curveEnemy7.position.x = -160;
     curveEnemy7.position.y = -2;
     curveEnemy7.position.z = -520;
     
@@ -193,32 +198,6 @@ loader.load('./3DObjects/Enemy/scene.gltf', function(gltf){
     EnemyList.push(curveEnemy7);
     CurvyEnemi2.push(curveEnemy7);
 
-    var curveEnemy8 = gltf.scene.clone();
-    curveEnemy8.position.x = 0;
-    curveEnemy8.position.y = 1;
-    curveEnemy8.position.z = -260;
-    
-    scene.add(curveEnemy8);
-    EnemyList.push(curveEnemy8);
-    CurvyEnemiShort2.push(curveEnemy8);
-
-    var curveEnemy9 = gltf.scene.clone();
-    curveEnemy9.position.x = 215;
-    curveEnemy9.position.y = -2;
-    curveEnemy9.position.z = -140;
-    
-    scene.add(curveEnemy9);
-    EnemyList.push(curveEnemy9);
-    CurvyEnemiShort2.push(curveEnemy9);
-
-    var curveEnemy10 = gltf.scene.clone();
-    curveEnemy10.position.x = -185;
-    curveEnemy10.position.y = -2;
-    curveEnemy10.position.z = -400;
-    
-    scene.add(curveEnemy10);
-    EnemyList.push(curveEnemy10);
-    CurvyEnemiShort2.push(curveEnemy10);
 
 
 //For each curvedEnemy in the CurvyEnemi2 list, move them between two points

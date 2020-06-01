@@ -338,6 +338,10 @@ var veryHighPlatform14 = new THREE.Mesh(veryHighPlatformGeometry, woodenBoxMat);
 var wallPlane12 = new THREE.Mesh(wallGeometry, woodMat);
 var wallPlane13 = new THREE.Mesh(wallGeometry, woodMat);
 
+var highPlatform11 = new THREE.Mesh( highPlatformGeometry , woodMat );
+var highPlatform12 = new THREE.Mesh( highPlatformGeometry , woodMat );
+
+
 
 //transparent floor geometry (Goes under the small bridge)
 var transGeometry = new THREE.BoxGeometry(15,20,45);
@@ -497,6 +501,9 @@ function genarrMap1(){
   ObjectsMap1Arr.push(palmTree2);
   ObjectsMap1Arr.push(palmTree3);
   ObjectsMap1Arr.push(palmTree4);
+  
+  ObjectsMap1Arr.push(highPlatform11);
+  ObjectsMap1Arr.push(highPlatform12);
 
   //Add the skybox and lights instead of pushing
   scene.add( skybox );
@@ -711,6 +718,13 @@ function moveobjectsMap1(){
     wallPlane13.position.y =25;
     wallPlane13.position.z =-520;
     wallPlane13.rotation.set(Math.PI/2, 0, 0);
+
+    highPlatform11.position.x = -140;
+    highPlatform11.position.y = 0;
+    highPlatform11.position.z = -570;
+    highPlatform12.position.x = 140;
+    highPlatform12.position.y = 0;
+    highPlatform12.position.z = -480;
 
     palmTree1.position.x = -480;
     palmTree1.position.y = 0;

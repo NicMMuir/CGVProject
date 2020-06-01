@@ -108,7 +108,7 @@ function init(){
 	 RubyArr = genruby(RPosList);
 	// for(let k = 0;k<5;k++){
 	// 	 tp = new THREE.Vector3(-10*k,5,10*k);
-	    CPosList = getcoinl();
+	    CPosList = getcoinl1();
 	// }
 	CoinArr = gencoin(CPosList);
 	 //console.log(RPosList);
@@ -250,7 +250,7 @@ loop = function(){
 		// chardata.rotationy += 0.04
 	}
 	if(controller.forward){
-		chardata.z_vel -=0.12;//0.12
+		chardata.z_vel -=0.8;//0.12
 		action.play(); //need to figure out how controller event listener processes 'keyup' events to call action.stop() when 'W' is released
 
 	}
