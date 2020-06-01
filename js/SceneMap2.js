@@ -123,6 +123,16 @@ function render(){
 			boxRender(boxe5,-300,-530,120,90);
 			boxRender(boxe6,0,30,90,60);
 
+			spikesRender_z(trap1,-150,40);
+			spikesRender_z(trap_2,-413,40);
+			spikesRender_x(trap_3,-130,270);
+
+			pillRender(p_e1,0,45,60,15);
+			pillRender(p_e2,205,105,80,68);
+			pillRender(p_e3,-198,-155,45,50);
+			pillRender(p_e4,-205,105,80,68);
+			pillRender(p_e5,-300,-275,40,45);
+
 };
 
 
@@ -418,7 +428,7 @@ function onTransitionEnd( event ) {
 
 	const element = event.target;
 	element.remove();
-	
+
 }
 
 //Event Listeners:

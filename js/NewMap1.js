@@ -426,14 +426,14 @@ function genarrMap1(){
      trap1.position.x = 196;
      trap1.position.z = -150;
      trap1.position.y = 0.2;
-     trap1.scale.x = 8;
-     trap1.scale.y = 8;
-     trap1.scale.z = 8;
+     trap1.scale.x = 10;
+     trap1.scale.y = 10;
+     trap1.scale.z = 10;
      ObjectsMap1Arr.push(trap1);
      EnemyList.push(trap1);
 
      trap_2 = trap1.clone();
-     trap_2.position.x = -203;
+     trap_2.position.x = -204;
      trap_2.position.z = -413;
      trap_2.position.y = 0.2;
      ObjectsMap1Arr.push(trap_2);
@@ -441,16 +441,15 @@ function genarrMap1(){
 
      trap_3 = trap1.clone();
      trap_3.position.x = -130;
-     trap_3.position.z = -245;
+     trap_3.position.z = -243;
      trap_3.position.y = 1.3;
      trap_3.rotateZ(Math.PI/2);
-     trap_3.scale.x = 13;
-     trap_3.scale.y = 13;
-     trap_3.scale.z = 13;
+     trap_3.scale.x = 19;
+     trap_3.scale.y = 19;
+     trap_3.scale.z = 19;
 
      ObjectsMap1Arr.push(trap_3);
      EnemyList.push(trap_3);
-
 
   End = endpad;
   ObjectsMap1Arr.push(endpad);

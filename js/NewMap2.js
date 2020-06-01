@@ -12,13 +12,13 @@ sphereCamera = new THREE.CubeCamera(1,2000,500);
 
 //Loading screen using css and Threejs LoadingManager
   const loadingManager = new THREE.LoadingManager( () => {
-  
+
     const loadingScreen = document.getElementById( 'loading-screen' );
     loadingScreen.classList.add( 'fade-out' );
-    
+
     // optional: remove loader from DOM via event listener
     loadingScreen.addEventListener( 'transitionend', onTransitionEnd );
-    
+
   } );
 
 
@@ -282,6 +282,73 @@ function genarrMap1(){
     boxe6 = boxe1.clone();
      ObjectsMap1Arr.push(boxe6);
      EnemyList.push(boxe6);
+
+     p_e1= new pillEnemey() ;
+     p_e1.position.x = 0;
+     p_e1.position.z = 45;
+     p_e1.position.y = 4.1;
+     p_e1.scale.x = 8;
+     p_e1.scale.y = 8;
+     p_e1.scale.z = 8;
+     ObjectsMap1Arr.push(p_e1);
+     EnemyList.push(p_e1);
+
+     p_e2 = p_e1.clone();
+     p_e2.position.x = 200;
+     p_e2.position.z = 105;
+     p_e2.position.y = 4.1;
+     ObjectsMap1Arr.push(p_e2);
+     EnemyList.push(p_e2);
+
+     p_e3 = p_e1.clone();
+     p_e3.position.x = -198;
+     p_e3.position.z = -155;
+     p_e3.position.y = 4.1;
+     ObjectsMap1Arr.push(p_e3);
+     EnemyList.push(p_e3);
+
+     p_e4 = p_e1.clone();
+     p_e4.position.x = -205;
+     p_e4.position.z = 105;
+     p_e4.position.y = 4.1;
+     ObjectsMap1Arr.push(p_e4);
+     EnemyList.push(p_e4);
+
+     p_e5 = p_e1.clone();
+     p_e5.position.x = -300;
+     p_e5.position.z = -275;
+     p_e5.position.y = 4.1;
+     ObjectsMap1Arr.push(p_e5);
+     EnemyList.push(p_e5);
+
+     trap1 = new getTrap();
+     trap1.position.x = 196;
+     trap1.position.z = -150;
+     trap1.position.y = 0.2;
+     trap1.scale.x = 10;
+     trap1.scale.y = 10;
+     trap1.scale.z = 10;
+     ObjectsMap1Arr.push(trap1);
+     EnemyList.push(trap1);
+
+     trap_2 = trap1.clone();
+     trap_2.position.x = -204;
+     trap_2.position.z = -413;
+     trap_2.position.y = 0.2;
+     ObjectsMap1Arr.push(trap_2);
+     EnemyList.push(trap_2);
+
+     trap_3 = trap1.clone();
+     trap_3.position.x = -130;
+     trap_3.position.z = -243;
+     trap_3.position.y = 1.3;
+     trap_3.rotateZ(Math.PI/2);
+     trap_3.scale.x = 19;
+     trap_3.scale.y = 19;
+     trap_3.scale.z = 19;
+
+     ObjectsMap1Arr.push(trap_3);
+     EnemyList.push(trap_3);
 
 
   End = endpad;

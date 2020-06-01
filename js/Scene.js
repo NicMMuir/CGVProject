@@ -453,7 +453,7 @@ function onTransitionEnd( event ) {
 
 	const element = event.target;
 	element.remove();
-	
+
 }
 
 //Event Listeners:
