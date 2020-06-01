@@ -155,8 +155,10 @@ function render(){
 			spikesRender_x(trap_3,-130,270);
 
 			pillRender(p_e1,0,45,60,15);
-		  pillRender(p_e2,0,-10,20,15);
-			pillRender(p_e3,80,-10,10,10);
+			pillRender(p_e2,200,105,80,65);
+			pillRender(p_e3,-200,-155,35,40);
+			pillRender(p_e4,-200,105,80,65);
+			pillRender(p_e5,-300,-260,35,40);
 
 
 

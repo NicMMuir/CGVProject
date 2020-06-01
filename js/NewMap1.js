@@ -364,18 +364,32 @@ function genarrMap1(){
   EnemyList.push(p_e1);
 
   p_e2 = p_e1.clone();
-  p_e2.position.x = 0;
-  p_e2.position.z = -10;
+  p_e2.position.x = 200;
+  p_e2.position.z = 105;
   p_e2.position.y = 4.1;
   ObjectsMap1Arr.push(p_e2);
   EnemyList.push(p_e2);
 
   p_e3 = p_e1.clone();
-  p_e3.position.x = 80;
-  p_e3.position.z = -10;
+  p_e3.position.x = -200;
+  p_e3.position.z = -155;
   p_e3.position.y = 4.1;
   ObjectsMap1Arr.push(p_e3);
   EnemyList.push(p_e3);
+
+  p_e4 = p_e1.clone();
+  p_e4.position.x = -200;
+  p_e4.position.z = 105;
+  p_e4.position.y = 4.1;
+  ObjectsMap1Arr.push(p_e4);
+  EnemyList.push(p_e4);
+
+  p_e5 = p_e1.clone();
+  p_e5.position.x = -300;
+  p_e5.position.z = -260;
+  p_e5.position.y = 4.1;
+  ObjectsMap1Arr.push(p_e5);
+  EnemyList.push(p_e5);
 
   boxe1 = new getEnemy();
   boxe1.position.x = 40;

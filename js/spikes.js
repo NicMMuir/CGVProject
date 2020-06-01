@@ -68,12 +68,10 @@ function spikesRender_z(obj,z,dz) {
   obj.position.z +=f;
 
   if(obj.position.z > z+dz){
-    console.log("yes")
     f = -0.1
   }
 
   if(obj.position.z < z){
-    console.log("yes")
     f = 0.1
   }
 //  console.log("f is: "+frame)
