@@ -95,8 +95,6 @@ function init(){
 	CPosList = getcoinl2();
 	CoinArr = gencoin(CPosList);
 	CurvyMap2(); //This funct contains all the curvedEnemy data from Curvy.js
-	SPillarMap12(); //This funct contains all the spikes_pillar Enemy data from SPillarList.js
-
 
 
 
