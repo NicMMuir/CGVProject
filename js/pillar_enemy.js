@@ -156,26 +156,33 @@ function pillRender(obj,x,z,dx,dz) {
 
    childs[1].rotation.y +=0.35;
 
+
+
    if (obj.position.x < (x+dx) && obj.position.z >= z ){
      obj.position.x += dxPerFrame;
      //enmymove[0]= true;
    }
 
    if (obj.position.x >= (x+dx) && obj.position.z > (z-2*dz)){
-     obj.position.z -= dzPerFrame
+     obj.position.z -= dzPerFrame;
      //enmymove[1]= true;
    }
-
-   if (obj.position.x > - (x+dx) && obj.position.z <=(z-2*dz)){
-     obj.position.x += dxPerFrame1
-     //enmymove[2]= true;
+   if(x==0){
+     if (obj.position.x > - (x+dx) && obj.position.z <=(z-2*dz)){
+       obj.position.x += dxPerFrame1;
+     }
+     if (obj.position.x <= -(x+dx) && obj.position.z < z){
+       obj.position.z += dzPerFrame1;
+     }
    }
 
-   if (obj.position.x <= -(x+dx) && obj.position.z < z){
-     obj.position.z += dzPerFrame1
-     //enmymove[3]= true;
+   if(x>0){
+     if (obj.position.x > x-dx && obj.position.z <=(z-2*dz)){
+       obj.position.x += dxPerFrame1;
+     }
+     if (obj.position.x <= x-dx && obj.position.z < z){
+       obj.position.z += dzPerFrame1;
+     }
    }
 
  };
-
- 
