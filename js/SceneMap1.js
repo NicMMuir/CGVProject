@@ -9,7 +9,7 @@ var mesh, oceanGeometry, material, clock;
 var Collidables = [];
 var curveEnemy;
 
-var mixer, mixer1, TWEEN;
+var mixer, mixer1, mixer2, TWEEN;
 
 var PauseState = false;
 
@@ -131,6 +131,7 @@ function animate() {
 				var delta = clock.getDelta();
 				mixer.update( delta*2 );
 				mixer1.update( delta*2 );
+				mixer2.update( delta );
 				TWEEN.update();
 				sphereCamera.update(renderer,scene);
 

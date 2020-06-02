@@ -475,7 +475,7 @@ ropeBridge1.position.x = -825;//First Rope Bridge after Starting
   ropeBridge1.scale.set(200,200,200);
   ropeBridge1.rotation.set(0, 0, -0.174);//10 degrees
 
-fantasyBridge.position.x = -300;
+fantasyBridge.position.x = -300;//Long wooden bridge in clouds
   fantasyBridge.position.y = 179;
   fantasyBridge.position.z = 380;
   fantasyBridge.scale.set(0.2,0.2,0.2);
