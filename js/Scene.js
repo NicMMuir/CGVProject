@@ -139,8 +139,9 @@ function animate() {
 function render(){
 	renderer.render(scene,camera);
 
-	boxRender(boxe1,40,-20);
- 	boxRender(boxe2,-40,-20);
+	mushRender(mush_e1,-1860,955,35,35);
+	mushRender(mush_e2,-1730,940,35,35);
+	mushRender(mush_e3,-1662,1030,35,35);
 
 };
 
@@ -236,7 +237,7 @@ loop = function(){
 		// chardata.rotationy += 0.04
 	}
 	if(controller.forward){
-		chardata.z_vel -=0.12;//0.12
+		chardata.z_vel -=1;//0.12
 		action.play(); //need to figure out how controller event listener processes 'keyup' events to call action.stop() when 'W' is released
 
 	}
