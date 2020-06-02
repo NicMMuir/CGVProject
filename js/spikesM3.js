@@ -77,22 +77,46 @@ function getTrapM3(){
   spikes_7 = spikes.clone();
   spikes_7.position.set(-1.1,-0.8,0);
 
-  //spikes.add(plane);
+  spikes_8 = spikes.clone();
+      spikes_8.scale.set(2.2,2.1,2.1);
+      spikes_8.rotateZ(-Math.PI/2);
+      spikes_8.position.set(-1.3,1.2,0);
+
+      spikes_9 = spikes_8.clone();
+      spikes_9.position.set(-0.9,1.2,0);
+
+      spikes_10 = spikes_8.clone();
+      spikes_10.position.set(-0.4,1.2,0);
+
+      spikes_11 = spikes_8.clone();
+      spikes_11.position.set(0.1,1.2,0);
+
+      spikes_12 = spikes_8.clone();
+      spikes_12.position.set(0.7,1.2,0);
+
+      spikes_13 = spikes_8.clone();
+      spikes_13.position.set(1.2,1.2,0);
+
+      //spikes.add(plane);
 
 
-  trap.add(plane);
-  trap.add(spikes);
-  trap.add(spikes_2);
-  trap.add(spikes_3);
-  trap.add(spikes_4);
-  trap.add(spikes_5);
-  trap.add(spikes_6);
-  trap.add(spikes_7);
-  trap.rotateX(Math.PI/2);
+      trap.add(plane);
+      trap.add(spikes);
+      trap.add(spikes_2);
+      trap.add(spikes_3);
+      trap.add(spikes_4);
+      trap.add(spikes_5);
+      trap.add(spikes_6);
+      trap.add(spikes_7);
+      trap.add(spikes_8);
+      trap.add(spikes_9);
+      trap.add(spikes_10);
+      trap.add(spikes_11);
+      trap.add(spikes_12);
+      trap.add(spikes_13);
+      trap.rotateX(Math.PI/2);
 
-  return trap;
-
-
+      return trap;
 }
 
 var fra = -1;
