@@ -159,7 +159,6 @@ loader.load('./3DObjects/palmTree/scene.gltf', function(gltf){
 
 
 //Load WaterFall Model
-var wf = new THREE.Object3D();
   var loader = new THREE.GLTFLoader();
   loader.load('./3DObjects/FloatIsland/scene.gltf', function(gltf){
 
@@ -170,43 +169,12 @@ var wf = new THREE.Object3D();
     model.position.z =-1070 ;
     model.rotation.set(0, -Math.PI/3, 0);
 
-        wf.add( model );
+        scene.add( model );
 
         mixer1 = new THREE.AnimationMixer( model ); //This animates the clouds in waterfall model
         mixer1.clipAction( gltf.animations[ 0 ] ).play();
 
         } );
-
-//Load Water Simulation Model
-//Used to make a waterfall animation
-  var loader = new THREE.GLTFLoader();
-  loader.load('./3DObjects/WaterSim/scene.gltf', function(gltf){
-
-    //here we remove the sand and palm tree model cause it gets in the way
-    var ground = gltf.scene.getObjectByName("Ground");
-    var tree1 = gltf.scene.getObjectByName("Tree01");
-    var tree2 = gltf.scene.getObjectByName("Tree02");
-    var parent1 = ground.parent;
-    var parent2 = tree1.parent;
-    var parent3 = tree2.parent;
-    parent1.remove( ground );
-    parent2.remove( tree1 );
-    parent2.remove( tree2 );
-
-    var waterSim = gltf.scene;
-    waterSim.scale.set(3,2,1);
-    waterSim.position.x =579;
-    waterSim.position.y =50 ;
-    waterSim.position.z =-921
-     ;
-    waterSim.rotation.set(0, Math.PI/6, Math.PI/2);
-
-        scene.add( waterSim );
-
-        mixer2 = new THREE.AnimationMixer( waterSim ); //This animates the water in model
-        mixer2.clipAction( gltf.animations[ 0 ] ).play();
-
-        } );  
 
   //Load Shark Model
   var loader = new THREE.GLTFLoader();
@@ -577,8 +545,6 @@ function genarrMap1(){
   //Add the skybox and lights instead of pushing
   scene.add( skybox );
   scene.add( directionalLight );
-  ObjectsMap1Arr.push(wf);
-
 }
 
 function moveobjectsMap1(){

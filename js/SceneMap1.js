@@ -99,6 +99,7 @@ function init(){
 
 
 	CurvyMap1(); //This funct contains all the curvedEnemy data from Curvy.js
+	SpinTopMap1(); //This funct contains all the curvedEnemy data from spintop.js
 	getarrMap1();
 	Charinit(charstartx,charstarty,charstartz);
 
@@ -131,7 +132,6 @@ function animate() {
 				var delta = clock.getDelta();
 				mixer.update( delta*2 );
 				mixer1.update( delta*2 );
-				mixer2.update( delta );
 				TWEEN.update();
 				sphereCamera.update(renderer,scene);
 
