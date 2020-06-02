@@ -1,3 +1,7 @@
+//CharacCred.js creates the character and scene 
+//The character is displayed in the Rolling credits 
+//Serves the same purpose as introscreen.js but with diff position and scale
+
 //-----------------Scene Setup (camera, renderer, etc.)-----------------//
 var character; 
 const scene  = new THREE.Scene();
@@ -30,8 +34,8 @@ new Promise((resolve)=>{
     objLoader.setMaterials(materials);
     objLoader.load('Character.obj', (object)=>{
         character = object; 
-        character.position.x = -5;
-        character.position.y = -5;
+        character.position.x = -10;
+        character.position.y = -3;
         character.scale.set(3,3,3);
         scene.add(character);
     })

@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<!-- HTML credits list for the 3D Models and textures downloaded -->
 <canvas id="canvas"></canvas>
 
 <head>
     <meta charset="UTF-8">
        
-    <script src ="js/three.js"></script>
-    <script src="js/OBJLoader.js"></script>
-    <script src="js/MTLLoader.js"></script>
-
-    <link rel="stylesheet" type="text/css" href="css/credits.css">
+    <script src ="js/three.js"></script> <!--js files needed for character display-->
+    <script src="js/OBJLoader.js"></script> <!--js files needed for character display-->
+    <script src="js/MTLLoader.js"></script> <!--js files needed for character display-->
+    <link rel="stylesheet" type="text/css" href="css/credits.css"> <!--css for credits-->
+    <link rel="stylesheet" type="text/css" href="css/normalize.css"> <!--css for button-->
+    <link rel="stylesheet" type="text/css" href="css/creditsStand.css"> <!--css for button-->
 
 </head>
 
@@ -239,6 +241,12 @@
   </div>
 </div>
   <!-- END Scroller -->
+
+  <div id="menu">
+        <div class = "menu-item">
+        <p type = "button" id = "creditsBtn" class = "menu-btn" onclick ="history.back()">Menu</p>
+        </div>
+    </div>
 </main>
 <!-- END Content-->
 

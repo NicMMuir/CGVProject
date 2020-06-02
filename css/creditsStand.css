@@ -1,0 +1,73 @@
+/*CSS containing design of menu button for Rolling credits */
+/*Same as standard.css but with different width and height*/
+
+body{
+    background-color: #2B2D2F;
+    margin: 0;
+    font-family: 'Nunito','Arial', sans-serif;
+
+}
+
+canvas{
+    display: block;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.hiddenBtn{
+    visibility: hidden;
+    cursor: not-allowed;
+}
+
+.visibleBtn{
+    visibility: visible;
+    cursor: pointer;
+}
+
+#menu {
+    position: absolute;
+    width: 7.75%;
+    height: 1.95em;
+    top: 30%; left: 20%;
+    margin: -125px 0 0 -100px;
+    flex: 1;
+    text-align: center;
+
+    border: 3px solid #fff;
+    border-radius: 15px;
+    box-shadow: 2px 10px 5px #888;
+}
+
+
+.menu-btn {
+    width: 100px;
+    height: 25px;
+
+    background-color: #C44032;
+
+    border: 3px solid #fff;
+    border-radius: 5px;
+
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    transition-duration: 0.4s;
+}
+
+.menu-btn:hover{
+    background-color: white;
+    color: orange;
+}
+
+
+
+h1, h2{
+    color: white;
+    margin: 0 auto;
+    text-align: center;
+    font-weight: normal;
+    text-transform: uppercase;
+
+}
