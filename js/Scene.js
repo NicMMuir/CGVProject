@@ -139,8 +139,11 @@ function animate() {
 function render(){
 	renderer.render(scene,camera);
 
-	boxRender(boxe1,40,-20);
- 	boxRender(boxe2,-40,-20);
+	mushRender(mush_e1,-1860,955,35,35);
+	mushRender(mush_e2,-1730,940,35,35);
+	mushRender(mush_e3,-1662,1030,35,35);
+
+	spikesRender_y(trapm3_1,300,80);
 
 };
 

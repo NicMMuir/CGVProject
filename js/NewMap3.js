@@ -11,13 +11,13 @@ sphereCamera = new THREE.CubeCamera(1,1000,500);
 
 //Loading screen using css and Threejs LoadingManager
   const loadingManager = new THREE.LoadingManager( () => {
-  
+
     const loadingScreen = document.getElementById( 'loading-screen' );
     loadingScreen.classList.add( 'fade-out' );
-    
+
     // optional: remove loader from DOM via event listener
     loadingScreen.addEventListener( 'transitionend', onTransitionEnd );
-    
+
   } );
 
 
@@ -277,7 +277,7 @@ var fantasyRing = new THREE.Object3D();
     mixer = new THREE.AnimationMixer( energySphere ); //This animates the Energy Sphere model
         mixer.clipAction( gltf.animations[ 0 ] ).play();
 
-        animate();//calls the animate function 
+        animate();//calls the animate function
 
         } );
 }
@@ -307,6 +307,43 @@ function genarrMap1(){
 
    ObjectsMap1Arr.push(boxe2);
    EnemyList.push(boxe2);
+
+   mush_e1 = new mushEnemy();
+   mush_e1.position.x = -1860;
+   mush_e1.position.z = 955;
+   mush_e1.position.y = 256;
+   mush_e1.scale.x = 8;
+   mush_e1.scale.y = 8;
+   mush_e1.scale.z = 8;
+
+    ObjectsMap1Arr.push(mush_e1);
+    EnemyList.push(mush_e1);
+
+    mush_e2 = mush_e1.clone();
+    mush_e2.position.x = -1730;
+    mush_e2.position.z = 940;
+    mush_e2.position.y = 256;
+     ObjectsMap1Arr.push(mush_e2);
+     EnemyList.push(mush_e2);
+
+     mush_e3 = mush_e1.clone();
+     mush_e3.position.x = -1662;
+     mush_e3.position.z = 1030;
+     mush_e3.position.y = 256;
+      ObjectsMap1Arr.push(mush_e3);
+      EnemyList.push(mush_e3);
+
+      trapm3_1 = new getTrapM3();
+      trapm3_1.position.x = -845;
+      trapm3_1.position.z = 998;
+      trapm3_1.position.y = 300;
+      trapm3_1.scale.x = 8;
+      trapm3_1.scale.y = 8;
+      trapm3_1.scale.z = 8;
+
+       ObjectsMap1Arr.push(trapm3_1);
+       EnemyList.push(trapm3_1);
+
 
 
   End = endpad;
