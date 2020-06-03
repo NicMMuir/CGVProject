@@ -99,7 +99,6 @@ function init(){
 
 
 	CurvyMap1(); //This funct contains all the curvedEnemy data from Curvy.js
-	SpinTopMap1(); //This funct contains all the curvedEnemy data from spintop.js
 	getarrMap1();
 	Charinit(charstartx,charstarty,charstartz);
 

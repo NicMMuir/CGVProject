@@ -7,6 +7,7 @@
 var scene, camera,raycamera, renderer, loop,char,chardata,controller;
 var mesh, oceanGeometry, material, clock, TWEEN;
 var Collidables = [];
+var tops;
 
 var PauseState = false;
 
@@ -89,6 +90,8 @@ function init(){
 	renderer.setSize( window.innerWidth, window.innerHeight );
 	document.body.appendChild(renderer.domElement );
 	getarrMap1();
+	tops = SpinTopMap2();
+
 	Charinit(charstartx,charstarty,charstartz);
 	RPosList = gerrubyl2();
 	RubyArr = genruby(RPosList);
@@ -132,6 +135,8 @@ function render(){
 			pillRender(p_e4,-205,105,80,68);
 			pillRender(p_e5,-300,-275,40,45);
 
+
+
 };
 
 
@@ -167,7 +172,7 @@ controller = {
 					case 82: //the 'R' key is pressed
 							window.location.assign("CGVProject-Map2.html");
 						break;
-				}		
+				}
 
 				if (controller.forward == false){
 					action.stop();
