@@ -199,7 +199,11 @@ controller = {
 					case 32://the spacebar is pressed
 							controller.up = keystate;
 						break;
+					case 82: //the 'R' key is pressed
+							window.location.assign("CGVProject-Map1.html");
+						break;
 				}
+				
 
 				if (controller.forward == false){
 					action.stop();
