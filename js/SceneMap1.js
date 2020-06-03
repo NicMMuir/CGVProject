@@ -256,11 +256,7 @@ loop = function(){
 		// chardata.rotationy += 0.04
 	}
 	if(controller.forward){
-<<<<<<< HEAD
-		chardata.z_vel -=0.3;//0.1
-=======
 		chardata.z_vel -=0.12;//0.12
->>>>>>> b4976b3ea123f8086571146d31d7177de37e6eb3
 		action.play(); //need to figure out how controller event listener processes 'keyup' events to call action.stop() when 'W' is released
 
 	}
