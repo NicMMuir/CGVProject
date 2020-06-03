@@ -391,36 +391,6 @@ function genarrMap1(){
   ObjectsMap1Arr.push(p_e5);
   EnemyList.push(p_e5);
 
-  boxe1 = new getEnemy();
-  boxe1.position.x = 40;
-  boxe1.position.z = -20;
-  boxe1.position.y = 4.1;
-  boxe1.scale.x = 8;
-  boxe1.scale.y = 8;
-  boxe1.scale.z = 8;
-
-  ObjectsMap1Arr.push(boxe1);
-  EnemyList.push(boxe1);
-
-  boxe2 = boxe1.clone();
-   ObjectsMap1Arr.push(boxe2);
-   EnemyList.push(boxe2);
-
-   boxe3 = boxe1.clone();
-   ObjectsMap1Arr.push(boxe3);
-   EnemyList.push(boxe3);
-
-   boxe4 = boxe1.clone();
-    ObjectsMap1Arr.push(boxe4);
-    EnemyList.push(boxe4);
-
-    boxe5 = boxe1.clone();
-     ObjectsMap1Arr.push(boxe5);
-     EnemyList.push(boxe5);
-
-    boxe6 = boxe1.clone();
-     ObjectsMap1Arr.push(boxe6);
-     EnemyList.push(boxe6);
 
      trap1 = new getTrap();
      trap1.position.x = 196;
@@ -439,7 +409,7 @@ function genarrMap1(){
      ObjectsMap1Arr.push(trap_2);
      EnemyList.push(trap_2);
 
-    
+
 
   End = endpad;
   ObjectsMap1Arr.push(endpad);

@@ -143,12 +143,6 @@ function animate() {
 function render(){
 	renderer.render(scene,camera);
 	// onRender();
-			boxRender(boxe1,370,0,50,50);
-			boxRender(boxe2,-400,0,50,50);
-			boxRender(boxe3,305,-205,44,50);
-			boxRender(boxe4,320,-530,130,80);
-			boxRender(boxe5,-300,-530,120,90);
-			boxRender(boxe6,0,30,90,60);
 
 		  spikesRender_z1(trap1,-150,40);
 			spikesRender_z2(trap_2,-413,43);
@@ -203,7 +197,7 @@ controller = {
 							window.location.assign("CGVProject-Map1.html");
 						break;
 				}
-				
+
 
 				if (controller.forward == false){
 					action.stop();
