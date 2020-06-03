@@ -143,7 +143,9 @@ function render(){
 	mushRender(mush_e2,-1730,940,35,35);
 	mushRender(mush_e3,-1662,1030,35,35);
 
-	spikesRender_y(trapm3_1,300,85);
+	spikesRender_y1(trapm3_1,300,85);
+	spikesRender_y2(trapm3_2,300,85);
+	spikesRender_y3(trapm3_3,300,85);
 
 };
 
@@ -180,9 +182,6 @@ controller = {
 						break;
 					case 32://the spacebar is pressed
 							controller.up = keystate;
-						break;
-					case 82: //the 'R' key is pressed
-							window.location.assign("CGVProject-Map3.html");
 						break;
 				}
 
