@@ -9,7 +9,7 @@ var head= new THREE.Object3D();
 function mushEnemy(){
 
 //Adding cylinder(mush_Pillar) to spiked mush_Pillar
-var texture = new THREE.TextureLoader().load( 'Textures/tribal.jpg' );
+var texture = new THREE.TextureLoader().load( 'Textures/redstripe.jfif' );
 var material = new THREE.MeshBasicMaterial( { map: texture } );
 var geometry = new THREE.CylinderGeometry( 1, 0.8, 3.5, 22 );
 var cylinder = new THREE.Mesh( geometry, material );
@@ -130,7 +130,7 @@ return mush_en;
 }
 
 function mushRender(ob,x,z,s1,s2){
-    t += 0.1;
+    t += 0.01;
     //console.log("t: "+t);
     //console.log("b.position.x:" +ob.position.x);
     //console.log("b.position.z:" +ob.position.z);
