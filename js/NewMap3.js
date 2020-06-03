@@ -333,6 +333,16 @@ function genarrMap1(){
       ObjectsMap1Arr.push(mush_e3);
       EnemyList.push(mush_e3);
 
+      mush_e4 = mush_e1.clone();
+      mush_e4.position.x = -280;
+      mush_e4.position.z = -500;
+      mush_e4.position.y = 195;
+      mush_e4.scale.x = 18;
+      mush_e4.scale.y = 18;
+      mush_e4.scale.z = 18;
+       ObjectsMap1Arr.push(mush_e4);
+       EnemyList.push(mush_e4);
+
       trapm3_1 = new getTrapM3();
       trapm3_1.position.x = -845;
       trapm3_1.position.z = 998;

@@ -142,6 +142,8 @@ function render(){
 	mushRender(mush_e1,-1860,955,35,35);
 	mushRender(mush_e2,-1730,940,35,35);
 	mushRender(mush_e3,-1662,1030,35,35);
+	mushRender(mush_e4,-280,-500,360,360);
+
 
 	spikesRender_y1(trapm3_1,300,85);
 	spikesRender_y2(trapm3_2,300,85);
