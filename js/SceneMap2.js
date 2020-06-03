@@ -5,7 +5,7 @@
 //orbital controls
 
 var scene, camera,raycamera, renderer, loop,char,chardata,controller;
-var mesh, oceanGeometry, material, clock;
+var mesh, oceanGeometry, material, clock, TWEEN;
 var Collidables = [];
 
 var PauseState = false;
@@ -90,10 +90,11 @@ function init(){
 	document.body.appendChild(renderer.domElement );
 	getarrMap1();
 	Charinit(charstartx,charstarty,charstartz);
-	RPosList = gerrubyl();
+	RPosList = gerrubyl2();
 	RubyArr = genruby(RPosList);
-	CPosList = getcoinl();
+	CPosList = getcoinl2();
 	CoinArr = gencoin(CPosList);
+	CurvyMap2(); //This funct contains all the curvedEnemy data from Curvy.js
 
 
 
@@ -107,12 +108,30 @@ function init(){
 
 //Animate and render work hand in hand
 function animate() {
-				requestAnimationFrame( animate );
-				render();
+		requestAnimationFrame( animate );
+		TWEEN.update();
+		sphereCamera.update(renderer,scene);
+		render();
 			}
 
 function render(){
 	renderer.render(scene,camera);
+			boxRender(boxe1,370,0,100,100);
+			boxRender(boxe2,-400,0,100,100);
+			boxRender(boxe3,305,-205,44,50);
+			boxRender(boxe4,320,-530,130,80);
+			boxRender(boxe5,-300,-530,120,90);
+			boxRender(boxe6,0,30,90,60);
+
+			spikesRender_z(trap1,-150,40);
+			spikesRender_z(trap_2,-413,40);
+			spikesRender_x(trap_3,-130,270);
+
+			pillRender(p_e1,0,45,60,15);
+			pillRender(p_e2,205,105,80,68);
+			pillRender(p_e3,-198,-155,45,50);
+			pillRender(p_e4,-205,105,80,68);
+			pillRender(p_e5,-300,-275,40,45);
 
 };
 
@@ -181,12 +200,7 @@ loop = function(){
 			 }
 
 			 position.needsUpdate = true;
-			 onRender();
-			boxRender(boxe1,-40,-20,5,5);
-			boxRender(boxe2,40,-20,5,5);
-			boxRender(boxe3,310,-200,44,50);
-			boxRender(boxe4,320,-530,130,80);
-			boxRender(boxe5,-300,-530,120,90);
+			 // onRender();
 
 
 
@@ -206,7 +220,11 @@ loop = function(){
 		chardata.x_vel +=0.1;
 	}
 	if(controller.forward){
+<<<<<<< HEAD
 		chardata.z_vel -=0.3;//0.1
+=======
+		chardata.z_vel -=0.12;//0.12
+>>>>>>> b4976b3ea123f8086571146d31d7177de37e6eb3
 		action.play(); //need to figure out how controller event listener processes 'keyup' events to call action.stop() when 'W' is released
 
 	}
@@ -218,7 +236,7 @@ loop = function(){
 	chardata.y += chardata.y_vel;
 	chardata.x_vel *= 0.8;//friction
 	chardata.y_vel *= 0.8;//friction
-	chardata.z_vel *= 0.8;//friction
+	chardata.z_vel *= 0.9;//friction
 	/////////////////////Normal collisions
 if(dobj.length != 0){
 	if(dobj[0].distance>3){
@@ -409,6 +427,13 @@ function checkcoin(){
 	}
 }
 
+//Used with loading screen
+function onTransitionEnd( event ) {
+
+	const element = event.target;
+	element.remove();
+
+}
 
 //Event Listeners:
 

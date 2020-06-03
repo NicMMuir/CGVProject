@@ -2,15 +2,17 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>CGVProject: Level 1</title>
+        <title>CGVProject: Level 2</title>
 
         <link rel="stylesheet" type="text/css" href="css/normalize.css">
         <link rel="stylesheet" type="text/css" href="css/standard.css">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
     </head>
 <body>
   <script src ="js/three.js"></script>
   <script src="js/OrbitControls.js"></script>
   <script src="js/GLTFLoader.js"></script>
+  <script src="js/Tween.js"></script>
   <script src="js/OBJLoader.js"></script>
   <script src="js/MTLLoader.js"></script>
   <script src="js/PointerLockControls.js"></script>
@@ -20,8 +22,16 @@
   <script src="js/MainCharacter.js"></script>
   <script src ="js/Enemy.js"></script>
   <script src ="js/BoxEnemy.js"></script>
-   <script src ="js/NewMap2.js"></script>
+  <script src ="js/pillar_enemy.js"></script>
+  <script src ="js/spikes.js"></script>
+  <script src ="js/NewMap2.js"></script>
+  <script src ="js/Curvy.js"></script>
   <script src ="js/SceneMap2.js"></script>
+
+  //Loading screen loader;
+  <section id="loading-screen">
+  <div id="loader"></div>
+</section>
 
   <!--End-game scorecard-->
   <div id="menu" class = "hidden">

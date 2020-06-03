@@ -1,11 +1,27 @@
 var ObjectsMap1Arr = [];
 var EnemyList = [];
 var Mesh, oceanGeometry, oceanMaterial, clock;
+var sphereMaterial;
+var tween, tweenBack;
 var End;
 
 
+  //Placing a camera inside the start/end pad to create a reflection
+let sphereCamera = new THREE.CubeCamera(1,3000,500);
+        sphereCamera.position.set(297,13,-519);
 
-var enmy = new THREE.Object3D();
+  //Loading screen using css and Threejs LoadingManager
+  const loadingManager = new THREE.LoadingManager( () => {
+
+    const loadingScreen = document.getElementById( 'loading-screen' );
+    loadingScreen.classList.add( 'fade-out' );
+
+    // optional: remove loader from DOM via event listener
+    loadingScreen.addEventListener( 'transitionend', onTransitionEnd );
+
+  } );
+
+
 //Skybox
 //Initialize an array which loads textures
 let materialArray = [];
@@ -26,9 +42,8 @@ materialArray.push(new THREE.MeshBasicMaterial( { map: texture_lf }));
 for (let i = 0; i < 6; i++)
   materialArray[i].side = THREE.BackSide;
 //Creates cube of set dimensions
-let skyboxGeo = new THREE.BoxGeometry( 2000, 1000, 2000);
+let skyboxGeo = new THREE.BoxGeometry( 2500, 1000, 2500);
 let skybox = new THREE.Mesh( skyboxGeo, materialArray );
-
 
 
 //Textures
@@ -36,12 +51,17 @@ let skybox = new THREE.Mesh( skyboxGeo, materialArray );
 var MainFloortexture = new THREE.TextureLoader().load( 'Textures/Grass.jpg' );
 var MainFloormaterial = new THREE.MeshBasicMaterial( { map: MainFloortexture, side: THREE.DoubleSide } );
 var Startpadtexture = new THREE.TextureLoader().load( 'Textures/start.jpg' );
-var Startpadmaterial = new THREE.MeshBasicMaterial( { map: Startpadtexture, side: THREE.DoubleSide } );
+var Startpadmaterial = new THREE.MeshBasicMaterial( { map: Startpadtexture } );
 var waterTexture = new THREE.TextureLoader().load( 'Textures/water.jpg' );
 var waterMat = new THREE.MeshBasicMaterial( { map: waterTexture } );
 var woodTexture = new THREE.TextureLoader().load( 'Textures/wood.jpg' );
 var woodMat = new THREE.MeshBasicMaterial( { map: woodTexture, polygonOffset: true, polygonOffsetUnits: 1,
 polygonOffsetFactor: 1, side: THREE.DoubleSide } );
+var woodenBoxTex = new THREE.TextureLoader().load( 'Textures/woodenbox.jpg' );
+var woodenBoxMat = new THREE.MeshBasicMaterial( { map: woodenBoxTex } );
+sphereMaterial = new THREE.MeshBasicMaterial({
+          envMap: sphereCamera.renderTarget
+        });
 var transMaterial = new THREE.MeshPhongMaterial({
     color: 0x000000,
     opacity: 0,
@@ -58,7 +78,7 @@ directionalLight.position.set( 3000, 1000, 6000 );
 MainFloortexture.wrapS = THREE.RepeatWrapping;
 MainFloortexture.wrapT = THREE.RepeatWrapping;
 //floor geometries
-var startpadgeom = new THREE.BoxGeometry( 5, 2, 5 );
+var startpadgeom = new THREE.BoxGeometry( 5,2,5 );
 var endpadgeom = new THREE.BoxGeometry( 10, 10, 10 );
 
 var SouthSegmentgeom = new THREE.BoxGeometry( 1000, 20, 220 );
@@ -66,12 +86,12 @@ var NorthEastSegmentgeom = new THREE.BoxGeometry( 220, 20, 220 );
 var NorthWestSegmentgeom = new THREE.BoxGeometry( 220, 20, 220 );
 var platformGeometry = new THREE.BoxGeometry( 50, 10, 50 );
 var highPlatformGeometry = new THREE.BoxGeometry( 51, 20, 51 );
-var veryHighPlatformGeometry = new THREE.BoxGeometry( 50, 50, 50 );
+var veryHighPlatformGeometry = new THREE.BoxGeometry( 50, 25, 50 );
 var wallGeometry = new THREE.PlaneGeometry(50,50);
 
 //Mesh:
 var startpad = new THREE.Mesh( startpadgeom, Startpadmaterial );
-var endpad = new THREE.Mesh( endpadgeom , Startpadmaterial );
+var endpad = new THREE.Mesh( endpadgeom , sphereMaterial );
 var SotheSeg = new THREE.Mesh( SouthSegmentgeom , MainFloormaterial );
 var NorthEastSeg = new THREE.Mesh( NorthEastSegmentgeom , MainFloormaterial );
 var NorthWestSeg = new THREE.Mesh( NorthWestSegmentgeom , MainFloormaterial );
@@ -102,8 +122,6 @@ var oceanMesh = new THREE.Mesh( oceanGeometry, oceanMaterial );
 
 //Load Short Bridge Model
 var rightBridge1 = new THREE.Object3D();
-var leftBridge1 = new THREE.Object3D();
-var rightBridge2 = new THREE.Object3D();
 var leftBridge2 = new THREE.Object3D();
 {
   var loader = new THREE.GLTFLoader();
@@ -112,20 +130,16 @@ var leftBridge2 = new THREE.Object3D();
     var rightWoodBridge1 = gltf.scene;
     rightBridge1.add(rightWoodBridge1);
 
-    var leftWoodBridge1 = gltf.scene.clone();
-    leftBridge1.add(leftWoodBridge1);
-
-    var rightWoodBridge2 = gltf.scene.clone();
-    rightBridge2.add(rightWoodBridge2);
-
     var leftWoodBridge2 = gltf.scene.clone();
     leftBridge2.add(leftWoodBridge2);
   });
 }
 
 //Load Long Bridge Model
+//loadingManager is called here
+//Once this bridge model is loaded, then only is the loading screen removed
 var centreBridge = new THREE.Object3D();
-var loader = new THREE.GLTFLoader();
+var loader = new THREE.GLTFLoader( loadingManager );
 loader.load('./3DObjects/LongBridge/scene.gltf', function(gltf){
     centreBridge.add(gltf.scene);
 });
@@ -144,6 +158,115 @@ loader.load('./3DObjects/palmTree/scene.gltf', function(gltf){
 });
 
 
+//Load WaterFall Model
+  var loader = new THREE.GLTFLoader();
+  loader.load('./3DObjects/FloatIsland/scene.gltf', function(gltf){
+
+    var model = gltf.scene;
+    model.scale.set(1000,1000,1000);
+    model.position.x =1500;
+    model.position.y =150 ;
+    model.position.z =-1070 ;
+    model.rotation.set(0, -Math.PI/3, 0);
+
+        scene.add( model );
+
+        mixer1 = new THREE.AnimationMixer( model ); //This animates the clouds in waterfall model
+        mixer1.clipAction( gltf.animations[ 0 ] ).play();
+
+        } );
+
+  //Load Shark Model
+  var loader = new THREE.GLTFLoader();
+  loader.load('./3DObjects/JumpShark/scene.gltf', function(gltf){
+
+    var sharkModel = gltf.scene;
+    sharkModel.scale.set(0.15,0.15,0.15);
+    sharkModel.position.x = 390 ;
+    sharkModel.position.y = -28 ;
+    sharkModel.position.z = -130 ;
+    sharkModel.rotation.set(0, 0, 0);
+
+        scene.add( sharkModel );
+        EnemyList.push(sharkModel);
+
+     mixer = new THREE.AnimationMixer( sharkModel ); //This animates the shark model
+    mixer.clipAction( gltf.animations[ 0 ] ).play();
+
+    animate();//calls the animate function
+
+    //Here we use Tween to move the shark between four points,
+    //the shark moves from its current position to the targetPosition
+    var targetPosition1 = new THREE.Vector3( -395, -28, -130 );
+    var targetPosition2 = new THREE.Vector3( -395, -28, -390 );
+    var targetPosition3 = new THREE.Vector3( 395, -28, -390 );
+    var targetPosition4 = new THREE.Vector3( 395, -28, -130 );
+
+    var tween1 = new TWEEN.Tween( sharkModel.position ).to( targetPosition1, 20000 );//10000 = 10sec, time..
+    var tween2 = new TWEEN.Tween( sharkModel.position ).to( targetPosition2, 10000 );//..it takes to move..
+    var tween3 = new TWEEN.Tween( sharkModel.position ).to( targetPosition3, 20000 );//..between a point
+    var tween4 = new TWEEN.Tween( sharkModel.position ).to( targetPosition4, 10000 );
+
+    tween1.chain( tween2 );
+    tween2.chain( tween3 );
+    tween3.chain( tween4 );
+    tween4.chain( tween1 );
+
+    //We also rotate the shark model depending in which direction its moving
+    //
+    var tweenRot1 = new TWEEN.Tween(sharkModel.rotation)
+                .to({ y: "-" + Math.PI/2}, 1000) // relative animation
+                .delay(20000)
+                .onComplete(function() {
+                  // Check that the full 360 degrees of rotation,
+                  // and calculate the remainder of the division to avoid overflow.
+                    if (Math.abs(sharkModel.rotation.y)>=2*Math.PI) {
+                        sharkModel.rotation.y = sharkModel.rotation.y % (2*Math.PI);
+                    }
+                })
+
+    var tweenRot2 = new TWEEN.Tween(sharkModel.rotation)
+                .to({ y: "-" + Math.PI/2}, 1000) // relative animation
+                .delay(8000)
+                .onComplete(function() {
+                  // Check that the full 360 degrees of rotation,
+                  // and calculate the remainder of the division to avoid overflow.
+                    if (Math.abs(sharkModel.rotation.y)>=2*Math.PI) {
+                        sharkModel.rotation.y = sharkModel.rotation.y % (2*Math.PI);
+                    }
+                })
+
+    var tweenRot3 = new TWEEN.Tween(sharkModel.rotation)
+                .to({ y: "-" + Math.PI/2}, 1000) // relative animation
+                .delay(20000)
+                .onComplete(function() {
+                  // Check that the full 360 degrees of rotation,
+                  // and calculate the remainder of the division to avoid overflow.
+                    if (Math.abs(sharkModel.rotation.y)>=2*Math.PI) {
+                        sharkModel.rotation.y = sharkModel.rotation.y % (2*Math.PI);
+                    }
+                })
+
+    var tweenRot4 = new TWEEN.Tween(sharkModel.rotation)
+                .to({ y: "-" + Math.PI/2}, 1000) // relative animation
+                .delay(8000)
+                .onComplete(function() {
+                  // Check that the full 360 degrees of rotation,
+                  // and calculate the remainder of the division to avoid overflow.
+                    if (Math.abs(sharkModel.rotation.y)>=2*Math.PI) {
+                        sharkModel.rotation.y = sharkModel.rotation.y % (2*Math.PI);
+                    }
+                })
+
+    tweenRot1.chain( tweenRot2 );
+    tweenRot2.chain( tweenRot3 );
+    tweenRot3.chain( tweenRot4 );
+    tweenRot4.chain( tweenRot1 );
+
+    tween1.start(); //This begins the chain movement between the four positions
+    tweenRot1.start(); //This begins the rotation of the shark
+
+        } );
 
 
 //Creating a few platforms XD:
@@ -158,10 +281,10 @@ var platform7 = new THREE.Mesh( platformGeometry , woodMat );
 var highPlatform8 = new THREE.Mesh( highPlatformGeometry , woodMat );
 var platform9 = new THREE.Mesh( platformGeometry , woodMat );
 
-var veryHighPlatform1 = new THREE.Mesh(veryHighPlatformGeometry, woodMat);
-var veryHighPlatform2 = new THREE.Mesh(veryHighPlatformGeometry, woodMat);
-var veryHighPlatform3 = new THREE.Mesh(veryHighPlatformGeometry, woodMat);
-var veryHighPlatform4 = new THREE.Mesh(veryHighPlatformGeometry, woodMat);
+var veryHighPlatform1 = new THREE.Mesh(veryHighPlatformGeometry, woodenBoxMat);
+var veryHighPlatform2 = new THREE.Mesh(veryHighPlatformGeometry, woodenBoxMat);
+var veryHighPlatform3 = new THREE.Mesh(veryHighPlatformGeometry, woodenBoxMat);
+var veryHighPlatform4 = new THREE.Mesh(veryHighPlatformGeometry, woodenBoxMat);
 
 var wallPlane1 = new THREE.Mesh(wallGeometry, woodMat);
 var wallPlane2 = new THREE.Mesh(wallGeometry, woodMat);
@@ -173,16 +296,16 @@ var wallPlane6 = new THREE.Mesh(wallGeometry, woodMat);
 
 
 //West Wing platforms
-var veryHighPlatform5 = new THREE.Mesh(veryHighPlatformGeometry, woodMat);
-var veryHighPlatform6 = new THREE.Mesh(veryHighPlatformGeometry, woodMat);
+var veryHighPlatform5 = new THREE.Mesh(veryHighPlatformGeometry, woodenBoxMat);
+var veryHighPlatform6 = new THREE.Mesh(veryHighPlatformGeometry, woodenBoxMat);
 
 var wallPlane7 = new THREE.Mesh(wallGeometry, woodMat);
 var wallPlane8 = new THREE.Mesh(wallGeometry, woodMat);
 var wallPlane9 = new THREE.Mesh(wallGeometry, woodMat);
 
 //East Wing Platforms
-var veryHighPlatform7 = new THREE.Mesh(veryHighPlatformGeometry, woodMat);
-var veryHighPlatform8 = new THREE.Mesh(veryHighPlatformGeometry, woodMat);
+var veryHighPlatform7 = new THREE.Mesh(veryHighPlatformGeometry, woodenBoxMat);
+var veryHighPlatform8 = new THREE.Mesh(veryHighPlatformGeometry, woodenBoxMat);
 
 var platform10 = new THREE.Mesh( platformGeometry , woodMat );
 var platform11 = new THREE.Mesh( platformGeometry , woodMat );
@@ -201,19 +324,23 @@ var platform20 = new THREE.Mesh( platformGeometry , woodMat );
 var platform21 = new THREE.Mesh( platformGeometry , woodMat );
 
 //North Wing Centre Piece:
-var veryHighPlatform9 = new THREE.Mesh(veryHighPlatformGeometry, woodMat);
-var veryHighPlatform10 = new THREE.Mesh(veryHighPlatformGeometry, woodMat);
+var veryHighPlatform9 = new THREE.Mesh(veryHighPlatformGeometry, woodenBoxMat);
+var veryHighPlatform10 = new THREE.Mesh(veryHighPlatformGeometry, woodenBoxMat);
 
 var wallPlane10 = new THREE.Mesh(wallGeometry, woodMat);
 var wallPlane11 = new THREE.Mesh(wallGeometry, woodMat);
 
-var veryHighPlatform11 = new THREE.Mesh(veryHighPlatformGeometry, woodMat);
-var veryHighPlatform12 = new THREE.Mesh(veryHighPlatformGeometry, woodMat);
-var veryHighPlatform13 = new THREE.Mesh(veryHighPlatformGeometry, woodMat);
-var veryHighPlatform14 = new THREE.Mesh(veryHighPlatformGeometry, woodMat);
+var veryHighPlatform11 = new THREE.Mesh(veryHighPlatformGeometry, woodenBoxMat);
+var veryHighPlatform12 = new THREE.Mesh(veryHighPlatformGeometry, woodenBoxMat);
+var veryHighPlatform13 = new THREE.Mesh(veryHighPlatformGeometry, woodenBoxMat);
+var veryHighPlatform14 = new THREE.Mesh(veryHighPlatformGeometry, woodenBoxMat);
 
 var wallPlane12 = new THREE.Mesh(wallGeometry, woodMat);
 var wallPlane13 = new THREE.Mesh(wallGeometry, woodMat);
+
+var highPlatform11 = new THREE.Mesh( highPlatformGeometry , woodMat );
+var highPlatform12 = new THREE.Mesh( highPlatformGeometry , woodMat );
+
 
 
 //transparent floor geometry (Goes under the small bridge)
@@ -222,218 +349,107 @@ var rightTransBox = new THREE.Mesh(transGeometry, transMaterial);
 var leftTransBox = new THREE.Mesh(transGeometry, transMaterial);
 
 
-
 function genarrMap1(){
-  scene.add(oceanMesh)
+  scene.add(oceanMesh);
+  scene.add(sphereCamera);
 
-  enmy = GenEnemey();
-  enmy.position.x = 10;
-  enmy.position.z = 0;
-  enmy.position.y = 0;
-  enmy.scale.x = 3;
-  enmy.scale.y = 3;
-  enmy.scale.z = 3;
-  EnemyList.push(enmy);
+  p_e1= new pillEnemey() ;
+  p_e1.position.x = 0;
+  p_e1.position.z = 45;
+  p_e1.position.y = 4.1;
+  p_e1.scale.x = 8;
+  p_e1.scale.y = 8;
+  p_e1.scale.z = 8;
+  ObjectsMap1Arr.push(p_e1);
+  EnemyList.push(p_e1);
 
+  p_e2 = p_e1.clone();
+  p_e2.position.x = 200;
+  p_e2.position.z = 105;
+  p_e2.position.y = 4.1;
+  ObjectsMap1Arr.push(p_e2);
+  EnemyList.push(p_e2);
 
+  p_e3 = p_e1.clone();
+  p_e3.position.x = -200;
+  p_e3.position.z = -155;
+  p_e3.position.y = 4.1;
+  ObjectsMap1Arr.push(p_e3);
+  EnemyList.push(p_e3);
+
+  p_e4 = p_e1.clone();
+  p_e4.position.x = -200;
+  p_e4.position.z = 105;
+  p_e4.position.y = 4.1;
+  ObjectsMap1Arr.push(p_e4);
+  EnemyList.push(p_e4);
+
+  p_e5 = p_e1.clone();
+  p_e5.position.x = -300;
+  p_e5.position.z = -260;
+  p_e5.position.y = 4.1;
+  ObjectsMap1Arr.push(p_e5);
+  EnemyList.push(p_e5);
 
   boxe1 = new getEnemy();
-  boxe1.position.x = -40;
-  boxe1.position.z = -10;
+  boxe1.position.x = 40;
+  boxe1.position.z = -20;
   boxe1.position.y = 4.1;
-  boxe1.scale.set(8,8,8);
+  boxe1.scale.x = 8;
+  boxe1.scale.y = 8;
+  boxe1.scale.z = 8;
+
   ObjectsMap1Arr.push(boxe1);
   EnemyList.push(boxe1);
 
-  boxe3 = boxe1.clone();
-    boxe3.position.x = 40;
-    boxe3.position.z = 30;
-    boxe3.position.y = 4.1;
-  ObjectsMap1Arr.push(boxe3);
-  EnemyList.push(boxe3);
+  boxe2 = boxe1.clone();
+   ObjectsMap1Arr.push(boxe2);
+   EnemyList.push(boxe2);
 
-  boxe4 = boxe1.clone();
-    boxe4.position.x = -400;
-    boxe4.position.z = 70;
-    boxe4.position.y = 4.1;
-  ObjectsMap1Arr.push(boxe4);
-  EnemyList.push(boxe4);
+   boxe3 = boxe1.clone();
+   ObjectsMap1Arr.push(boxe3);
+   EnemyList.push(boxe3);
 
-  boxe5 = boxe1.clone();
-    boxe5.position.x = -400;
-    boxe5.position.z = -50;
-    boxe5.position.y = 4.1;
-  ObjectsMap1Arr.push(boxe5);
-  EnemyList.push(boxe5);
+   boxe4 = boxe1.clone();
+    ObjectsMap1Arr.push(boxe4);
+    EnemyList.push(boxe4);
 
-  boxe6 = boxe1.clone();
-    boxe6.position.x = -205;
-    boxe6.position.z = -90;
-    boxe6.position.y = 4.1;
-  ObjectsMap1Arr.push(boxe6);
-  EnemyList.push(boxe6);
+    boxe5 = boxe1.clone();
+     ObjectsMap1Arr.push(boxe5);
+     EnemyList.push(boxe5);
 
-  boxe7 = boxe1.clone();
-    boxe7.position.x = -210;
-    boxe7.position.z = 70;
-    boxe7.position.y = 14.1;
-  ObjectsMap1Arr.push(boxe7);
-  EnemyList.push(boxe7);
+    boxe6 = boxe1.clone();
+     ObjectsMap1Arr.push(boxe6);
+     EnemyList.push(boxe6);
 
-  boxe8 = boxe1.clone();
-    boxe8.position.x = 90;
-    boxe8.position.z = -70;
-    boxe8.position.y = 4.1;
-  ObjectsMap1Arr.push(boxe8);
-  EnemyList.push(boxe8);
+     trap1 = new getTrap();
+     trap1.position.x = 196;
+     trap1.position.z = -150;
+     trap1.position.y = 0.2;
+     trap1.scale.x = 10;
+     trap1.scale.y = 10;
+     trap1.scale.z = 10;
+     ObjectsMap1Arr.push(trap1);
+     EnemyList.push(trap1);
 
-  boxe9 = boxe1.clone();
-    boxe9.position.x = 160;
-    boxe9.position.z = 15;
-    boxe9.position.y = 4.1;
-  ObjectsMap1Arr.push(boxe9);
-  EnemyList.push(boxe9);
+     trap_2 = trap1.clone();
+     trap_2.position.x = -204;
+     trap_2.position.z = -413;
+     trap_2.position.y = 0.2;
+     ObjectsMap1Arr.push(trap_2);
+     EnemyList.push(trap_2);
 
-  boxe10 = boxe1.clone();
-    boxe10.position.x = 250;
-    boxe10.position.z = -70;
-    boxe10.position.y = 4.1;
-  ObjectsMap1Arr.push(boxe10);
-  EnemyList.push(boxe10);
+     trap_3 = trap1.clone();
+     trap_3.position.x = -130;
+     trap_3.position.z = -243;
+     trap_3.position.y = 1.3;
+     trap_3.rotateZ(Math.PI/2);
+     trap_3.scale.x = 19;
+     trap_3.scale.y = 19;
+     trap_3.scale.z = 19;
 
-  boxe11 = boxe1.clone();
-    boxe11.position.x = 210;
-    boxe11.position.z = 20;
-    boxe11.position.y = 29.1;
-  ObjectsMap1Arr.push(boxe11);
-  EnemyList.push(boxe11);
-
-  boxe12 = boxe1.clone();
-    boxe12.position.x = 370;
-    boxe12.position.z = 90;
-    boxe12.position.y = 4.1;
-  ObjectsMap1Arr.push(boxe12);
-  EnemyList.push(boxe12);
-
-  boxe13 = boxe1.clone();
-    boxe13.position.x = 370;
-    boxe13.position.z = 50;
-    boxe13.position.y = 4.1;
-  ObjectsMap1Arr.push(boxe13);
-  EnemyList.push(boxe13);
-
-  boxe14 = boxe1.clone();
-    boxe14.position.x = 460;
-    boxe14.position.z = -70;
-    boxe14.position.y = 4.1;
-  ObjectsMap1Arr.push(boxe14);
-  EnemyList.push(boxe14);
-
-  boxe15 = boxe1.clone();
-    boxe15.position.x = 305;
-    boxe15.position.z = -205;
-    boxe15.position.y = 10.1;
-  ObjectsMap1Arr.push(boxe15);
-  EnemyList.push(boxe15);
-
-  boxe16 = boxe1.clone();
-    boxe16.position.x = 335;
-    boxe16.position.z = -345;
-    boxe16.position.y = 4.1;
-  ObjectsMap1Arr.push(boxe16);
-  EnemyList.push(boxe16);
-
-  boxe17 = boxe1.clone();
-    boxe17.position.x = 315;
-    boxe17.position.z = -325;
-    boxe17.position.y = 4.1;
-  ObjectsMap1Arr.push(boxe17);
-  EnemyList.push(boxe17);
-
-  boxe18 = boxe1.clone();
-    boxe18.position.x = 195;
-    boxe18.position.z = -315;
-    boxe18.position.y = 10.1;
-  ObjectsMap1Arr.push(boxe18);
-  EnemyList.push(boxe18);
-
-  boxe19 = boxe1.clone();
-    boxe19.position.x = 0;
-    boxe19.position.z = -251;
-    boxe19.position.y = 7.1;
-  ObjectsMap1Arr.push(boxe19);
-  EnemyList.push(boxe19);
-
-  boxe20 = boxe1.clone();
-    boxe20.position.x = -233;
-    boxe20.position.z = -237;
-    boxe20.position.y = 4.1;
-  ObjectsMap1Arr.push(boxe20);
-  EnemyList.push(boxe20);
-
-  boxe21 = boxe1.clone();
-    boxe21.position.x = -342;
-    boxe21.position.z = -298;
-    boxe21.position.y = 4.1;
-  ObjectsMap1Arr.push(boxe21);
-  EnemyList.push(boxe21);
-
-  boxe22 = boxe1.clone();
-    boxe22.position.x = -300;
-    boxe22.position.z = -520;
-    boxe22.position.y = 14.1;
-  ObjectsMap1Arr.push(boxe22);
-  EnemyList.push(boxe22);
-
-  boxe23 = boxe1.clone();
-    boxe23.position.x = -460;
-    boxe23.position.z = -595;
-    boxe23.position.y = 4.1;
-  ObjectsMap1Arr.push(boxe23);
-  EnemyList.push(boxe23);
-
-  boxe24 = boxe1.clone();
-    boxe24.position.x = -460;
-    boxe24.position.z = -450;
-    boxe24.position.y = 4.1;
-  ObjectsMap1Arr.push(boxe24);
-  EnemyList.push(boxe24);
-
-  boxe25 = boxe1.clone();
-    boxe25.position.x = -85;
-    boxe25.position.z = -525;
-    boxe25.position.y = 4.1;
-  ObjectsMap1Arr.push(boxe25);
-  EnemyList.push(boxe25);
-
-  boxe26 = boxe1.clone();
-    boxe26.position.x = -45;
-    boxe26.position.z = -570;
-    boxe26.position.y = 4.1;
-  ObjectsMap1Arr.push(boxe26);
-  EnemyList.push(boxe26);
-
-  boxe27 = boxe1.clone();
-    boxe27.position.x = 90;
-    boxe27.position.z = -525;
-    boxe27.position.y = 4.1;
-  ObjectsMap1Arr.push(boxe27);
-  EnemyList.push(boxe27);
-
-  boxe28 = boxe1.clone();
-    boxe28.position.x = 295;
-    boxe28.position.z = -435;
-    boxe28.position.y = 4.1;
-  ObjectsMap1Arr.push(boxe28);
-  EnemyList.push(boxe28);
-
-  boxe29 = boxe1.clone();
-    boxe29.position.x = 300;
-    boxe29.position.z = -610;
-    boxe29.position.y = 4.1;
-  ObjectsMap1Arr.push(boxe29);
-  EnemyList.push(boxe29);
-        
+     ObjectsMap1Arr.push(trap_3);
+     EnemyList.push(trap_3);
 
   End = endpad;
   ObjectsMap1Arr.push(endpad);
@@ -523,19 +539,19 @@ function genarrMap1(){
   ObjectsMap1Arr.push(palmTree3);
   ObjectsMap1Arr.push(palmTree4);
 
+  ObjectsMap1Arr.push(highPlatform11);
+  ObjectsMap1Arr.push(highPlatform12);
+
   //Add the skybox and lights instead of pushing
   scene.add( skybox );
   scene.add( directionalLight );
-
 }
 
 function moveobjectsMap1(){
-  // startpad.position.y = 2;
+
   SotheSeg.position.y = -10
   NorthEastSeg.position.y = -10
   NorthWestSeg.position.y = -10
-
-
 
   NorthEastSeg.position.z = -260;
   NorthEastSeg.position.x = 250
@@ -602,16 +618,16 @@ function moveobjectsMap1(){
     platform9.position.z = -70;
 
     veryHighPlatform1.position.x = -210;
-    veryHighPlatform1.position.y = 0;
+    veryHighPlatform1.position.y = 12.5;
     veryHighPlatform1.position.z = 20;
     veryHighPlatform2.position.x = 210;
-    veryHighPlatform2.position.y = 0;
+    veryHighPlatform2.position.y = 12.5;
     veryHighPlatform2.position.z = 20;
     veryHighPlatform3.position.x = -400;
-    veryHighPlatform3.position.y = 0;
+    veryHighPlatform3.position.y = 12.5;
     veryHighPlatform3.position.z = 0;
     veryHighPlatform4.position.x = 370;
-    veryHighPlatform4.position.y = 0;
+    veryHighPlatform4.position.y = 12.5;
     veryHighPlatform4.position.z = 0;
 
     wallPlane1.position.x = -70;
@@ -638,10 +654,10 @@ function moveobjectsMap1(){
 
     //West Wing Platforms:
     veryHighPlatform5.position.x = -300;
-    veryHighPlatform5.position.y = 0;
+    veryHighPlatform5.position.y = 12.5;
     veryHighPlatform5.position.z = -300;
     veryHighPlatform6.position.x = -200;
-    veryHighPlatform6.position.y = 0;
+    veryHighPlatform6.position.y = 12.5;
     veryHighPlatform6.position.z = -200;
 
     wallPlane7.position.x = -300;
@@ -657,10 +673,10 @@ function moveobjectsMap1(){
 
     //East Wing Platforms:
     veryHighPlatform7.position.x = 275;
-    veryHighPlatform7.position.y = 0;
+    veryHighPlatform7.position.y = 12.5;
     veryHighPlatform7.position.z = -285;
     veryHighPlatform8.position.x = 225;
-    veryHighPlatform8.position.y = 0;
+    veryHighPlatform8.position.y = 12.5;
     veryHighPlatform8.position.z = -235;
 
     platform10.position.x = 195;
@@ -704,10 +720,10 @@ function moveobjectsMap1(){
 
     //North Wing Centre Piece
     veryHighPlatform9.position.x = 40;
-    veryHighPlatform9.position.y = 0;
+    veryHighPlatform9.position.y = 12.5;
     veryHighPlatform9.position.z = -570;
     veryHighPlatform10.position.x = -40;
-    veryHighPlatform10.position.y = 0;
+    veryHighPlatform10.position.y = 12.5;
     veryHighPlatform10.position.z = -480;
 
     wallPlane10.position.x = 40;
@@ -718,16 +734,16 @@ function moveobjectsMap1(){
     wallPlane11.position.z =-595;
 
     veryHighPlatform11.position.x = 90;
-    veryHighPlatform11.position.y = 0;
+    veryHighPlatform11.position.y = 12.5;
     veryHighPlatform11.position.z = -570;
     veryHighPlatform12.position.x = 90;
-    veryHighPlatform12.position.y = 0;
+    veryHighPlatform12.position.y = 12.5;
     veryHighPlatform12.position.z = -480;
     veryHighPlatform13.position.x = -90;
-    veryHighPlatform13.position.y = 0;
+    veryHighPlatform13.position.y = 12.5;
     veryHighPlatform13.position.z = -570;
     veryHighPlatform14.position.x = -90;
-    veryHighPlatform14.position.y = 0;
+    veryHighPlatform14.position.y = 12.5;
     veryHighPlatform14.position.z = -480;
 
     wallPlane12.position.x = 90;
@@ -738,6 +754,13 @@ function moveobjectsMap1(){
     wallPlane13.position.y =25;
     wallPlane13.position.z =-520;
     wallPlane13.rotation.set(Math.PI/2, 0, 0);
+
+    highPlatform11.position.x = -140;
+    highPlatform11.position.y = 0;
+    highPlatform11.position.z = -570;
+    highPlatform12.position.x = 140;
+    highPlatform12.position.y = 0;
+    highPlatform12.position.z = -480;
 
     palmTree1.position.x = -480;
     palmTree1.position.y = 0;
@@ -761,7 +784,6 @@ function moveobjectsMap1(){
     endpad.position.z = -519;
 
 }
-
 
 function getarrMap1(){
   moveobjectsMap1();

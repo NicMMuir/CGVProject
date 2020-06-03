@@ -2,9 +2,25 @@ var ObjectsMap1Arr = [];
 var EnemyList = [];
 var End;
 var Mesh, oceanGeometry, oceanMaterial, clock;
+var tween, tweenBack;
+var sphereCamera;
+var spikeEnemy = [];
 
+//Placing a camera inside the start/end pad to create a reflection
+sphereCamera = new THREE.CubeCamera(1,2000,500);
+        sphereCamera.position.set(297,13,-519);
 
-var enmy = new THREE.Object3D();
+//Loading screen using css and Threejs LoadingManager
+  const loadingManager = new THREE.LoadingManager( () => {
+
+    const loadingScreen = document.getElementById( 'loading-screen' );
+    loadingScreen.classList.add( 'fade-out' );
+
+    // optional: remove loader from DOM via event listener
+    loadingScreen.addEventListener( 'transitionend', onTransitionEnd );
+
+  } );
+
 
 //Skybox
 //Initialize an array which loads textures
@@ -50,6 +66,9 @@ var mountRockMat = new THREE.MeshBasicMaterial( { map: mountRockTexture, polygon
 polygonOffsetFactor: 1, side: THREE.DoubleSide } );
 var lavaRockTexture = new THREE.TextureLoader().load( 'Textures/lavaRock.jpg' );
 var lavaRockMaterial = new THREE.MeshBasicMaterial( { map: lavaRockTexture, side: THREE.DoubleSide } );
+let sphereMaterial = new THREE.MeshBasicMaterial({
+          envMap: sphereCamera.renderTarget
+        });
 
 var transMaterial = new THREE.MeshPhongMaterial({
     color: 0x000000,
@@ -75,7 +94,7 @@ var wallGeometry = new THREE.PlaneGeometry(50,50);
 
 //Mesh:
 var startpad = new THREE.Mesh( startpadgeom, Startpadmaterial );
-var endpad = new THREE.Mesh( endpadgeom , Startpadmaterial );
+var endpad = new THREE.Mesh( endpadgeom , sphereMaterial );
 var SotheSeg = new THREE.Mesh( SouthSegmentgeom , lavaRockMaterial );
 var NorthEastSeg = new THREE.Mesh( NorthEastSegmentgeom , lavaRockMaterial );
 var NorthWestSeg = new THREE.Mesh( NorthWestSegmentgeom , lavaRockMaterial );
@@ -124,6 +143,7 @@ var centreBridge = new THREE.Object3D();
 var loader = new THREE.GLTFLoader();
 loader.load('./3DObjects/LongBridge/scene.gltf', function(gltf){
     centreBridge.add(gltf.scene);
+    animate();
 });
 
 //Load Glowing Rock Model
@@ -160,6 +180,18 @@ loader.load('./3DObjects/GlowingRock/scene.gltf', function(gltf){
     glowingRock14.add(gltf.scene.clone());
 });
 
+//Load Hell Mountain Model
+//loadingManager is called here
+//Once this mountain model is loaded, then only is the loading screen removed
+var loader = new THREE.GLTFLoader( loadingManager );
+loader.load('./3DObjects/HellMount/scene.gltf', function(gltf){
+  var hellMount = gltf.scene;
+  hellMount.position.x = 0;
+  hellMount.position.y = 130;
+  hellMount.position.z = 1600;
+  hellMount.scale.set(0.2,0.2,0.2);
+  scene.add(hellMount);
+});
 
 
 
@@ -232,60 +264,91 @@ function genarrMap1(){
   EnemyList.push(boxe1);
 
   boxe2 = boxe1.clone();
-  boxe2.position.x = -40;
-  boxe2.position.z = -10;
-  boxe2.position.y = 4.1;
-  boxe2.scale.x = 8;
-  boxe2.scale.y = 8;
-  boxe2.scale.z = 8;
-
    ObjectsMap1Arr.push(boxe2);
    EnemyList.push(boxe2);
 
    boxe3 = boxe1.clone();
-  boxe3.position.x = 320;
-  boxe3.position.z = -200;
-  boxe3.position.y = 4.1;
-  boxe3.scale.x = 8;
-  boxe3.scale.y = 8;
-  boxe3.scale.z = 8;
-
    ObjectsMap1Arr.push(boxe3);
    EnemyList.push(boxe3);
 
    boxe4 = boxe1.clone();
-   boxe4.position.x = 320;
-   boxe4.position.z = -500;
-   boxe4.position.y = 4.1;
-   boxe4.scale.x = 8;
-   boxe4.scale.y = 8;
-   boxe4.scale.z = 8;
-
     ObjectsMap1Arr.push(boxe4);
     EnemyList.push(boxe4);
 
     boxe5 = boxe1.clone();
-    boxe5.position.x = 320;
-    boxe5.position.z = -500;
-    boxe5.position.y = 4.1;
-    boxe5.scale.x = 8;
-    boxe5.scale.y = 8;
-    boxe5.scale.z = 8;
-
      ObjectsMap1Arr.push(boxe5);
      EnemyList.push(boxe5);
 
+    boxe6 = boxe1.clone();
+     ObjectsMap1Arr.push(boxe6);
+     EnemyList.push(boxe6);
 
-  enmy1 = new GenEnemey();
-  enmy1.position.x = 0;
-  enmy1.position.z = 45;
-  enmy1.position.y = 4.1;
-  enmy1.scale.x = 8;
-  enmy1.scale.y = 8;
-  enmy1.scale.z = 8;
+     p_e1= new pillEnemey() ;
+     p_e1.position.x = 0;
+     p_e1.position.z = 45;
+     p_e1.position.y = 4.1;
+     p_e1.scale.x = 8;
+     p_e1.scale.y = 8;
+     p_e1.scale.z = 8;
+     ObjectsMap1Arr.push(p_e1);
+     EnemyList.push(p_e1);
 
-  ObjectsMap1Arr.push(enmy1);
-  EnemyList.push(enmy1);
+     p_e2 = p_e1.clone();
+     p_e2.position.x = 200;
+     p_e2.position.z = 105;
+     p_e2.position.y = 4.1;
+     ObjectsMap1Arr.push(p_e2);
+     EnemyList.push(p_e2);
+
+     p_e3 = p_e1.clone();
+     p_e3.position.x = -198;
+     p_e3.position.z = -155;
+     p_e3.position.y = 4.1;
+     ObjectsMap1Arr.push(p_e3);
+     EnemyList.push(p_e3);
+
+     p_e4 = p_e1.clone();
+     p_e4.position.x = -205;
+     p_e4.position.z = 105;
+     p_e4.position.y = 4.1;
+     ObjectsMap1Arr.push(p_e4);
+     EnemyList.push(p_e4);
+
+     p_e5 = p_e1.clone();
+     p_e5.position.x = -300;
+     p_e5.position.z = -275;
+     p_e5.position.y = 4.1;
+     ObjectsMap1Arr.push(p_e5);
+     EnemyList.push(p_e5);
+
+     trap1 = new getTrap();
+     trap1.position.x = 196;
+     trap1.position.z = -150;
+     trap1.position.y = 0.2;
+     trap1.scale.x = 10;
+     trap1.scale.y = 10;
+     trap1.scale.z = 10;
+     ObjectsMap1Arr.push(trap1);
+     EnemyList.push(trap1);
+
+     trap_2 = trap1.clone();
+     trap_2.position.x = -204;
+     trap_2.position.z = -413;
+     trap_2.position.y = 0.2;
+     ObjectsMap1Arr.push(trap_2);
+     EnemyList.push(trap_2);
+
+     trap_3 = trap1.clone();
+     trap_3.position.x = -130;
+     trap_3.position.z = -243;
+     trap_3.position.y = 1.3;
+     trap_3.rotateZ(Math.PI/2);
+     trap_3.scale.x = 19;
+     trap_3.scale.y = 19;
+     trap_3.scale.z = 19;
+
+     ObjectsMap1Arr.push(trap_3);
+     EnemyList.push(trap_3);
 
 
   End = endpad;
@@ -372,6 +435,9 @@ scene.add( light );
 
   // adding skybox
   scene.add( skybox )
+
+//Adding reflective camera
+  scene.add(sphereCamera);
 }
 
 function moveobjectsMap1(){
@@ -391,11 +457,13 @@ function moveobjectsMap1(){
 
   oceanMesh.position.y = -10;
 
+  //First small bridge
   rightBridge1.position.x = 200;
   rightBridge1.position.y = -7;
   rightBridge1.position.z = -150;
   rightBridge1.scale.set(0.07,0.07,0.07);
 
+  //Second small bridge
   leftBridge2.position.x = -200;
   leftBridge2.position.y = -7;
   leftBridge2.position.z = -410;

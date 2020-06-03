@@ -7,6 +7,9 @@
 var scene, camera,raycamera, renderer, loop,char,chardata,controller;
 var mesh, oceanGeometry, material, clock;
 var Collidables = [];
+var curveEnemy;
+
+var mixer, mixer1, mixer2, TWEEN;
 
 var PauseState = false;
 
@@ -24,7 +27,7 @@ var YDirection = new THREE.Vector3(0,1,0);
 var distanceprev;
 var frame = 0;
 var xSpeed = 0.5;
-var zSpeed = 0.5;
+var zSpeed = 0;
 var ySpeed = 0;
 var camstartx = 0;
 var camstarty = 15;
@@ -95,20 +98,20 @@ function init(){
 	document.body.appendChild(renderer.domElement );
 
 
-
+	CurvyMap1(); //This funct contains all the curvedEnemy data from Curvy.js
+	SpinTopMap1(); //This funct contains all the curvedEnemy data from spintop.js
 	getarrMap1();
 	Charinit(charstartx,charstarty,charstartz);
 
-	   RPosList = gerrubyl();
+	   RPosList = gerrubyl1();
 	// }
 	 RubyArr = genruby(RPosList);
 	// for(let k = 0;k<5;k++){
 	// 	 tp = new THREE.Vector3(-10*k,5,10*k);
-	    CPosList = getcoinl();
+	    CPosList = getcoinl1();
 	// }
 	CoinArr = gencoin(CPosList);
 	 //console.log(RPosList);
-
 
 	for(let k =0 ;k<ObjectsMap1Arr.length;k++){
 		scene.add(ObjectsMap1Arr[k] );
@@ -117,47 +120,49 @@ function init(){
 
 	SetLight();
 
+
+
 }
 
 
 function animate() {
 
 				requestAnimationFrame( animate );
+
+				var delta = clock.getDelta();
+				mixer.update( delta*2 );
+				mixer1.update( delta*2 );
+				TWEEN.update();
+				sphereCamera.update(renderer,scene);
+
 				render();
+
+
 			}
 
 function render(){
-
 	renderer.render(scene,camera);
-	onRender();
-	boxRender(boxe1,-40,-20,5,5);
-	boxRender(boxe3,40,30,5,5);
-	boxRender(boxe4,-400,70,5,5);
-	boxRender(boxe5,-400,-50,5,5);
-	boxRender(boxe6,-205,-90,5,5);
-	boxRender(boxe7,-210,70,5,5);
-	boxRender(boxe8,90,-70,5,5);
-	boxRender(boxe9,160,15,5,5);
-	boxRender(boxe10,250,-70,5,5);
-	boxRender(boxe11,210,20,5,5);
-	boxRender(boxe12,370,90,5,5);
-	boxRender(boxe13,370,50,5,5);
-	boxRender(boxe14,460,-70,5,5);
-	boxRender(boxe15,305,-205,5,5);
-	boxRender(boxe16,335,-345,5,5);
-	boxRender(boxe17,315,-325,5,5);
-	boxRender(boxe18,195,-315,5,5);
-	boxRender(boxe19,0,-251,5,5);
-	boxRender(boxe20,-233,-237,5,5);
-	boxRender(boxe21,-342,-298,5,5);
-	boxRender(boxe22,-300,-520,5,5);
-	boxRender(boxe23,-460,-595,5,5);
-	boxRender(boxe24,-460,-450,5,5);
-	boxRender(boxe25,-85,-525,5,5);
-	boxRender(boxe26,-45,-570,5,5);
-	boxRender(boxe27,90,-525,5,5);
-	boxRender(boxe28,295,-435,5,5);
-	boxRender(boxe29,300,-610,5,5);
+	// onRender();
+			boxRender(boxe1,370,0,50,50);
+			boxRender(boxe2,-400,0,50,50);
+			boxRender(boxe3,305,-205,44,50);
+			boxRender(boxe4,320,-530,130,80);
+			boxRender(boxe5,-300,-530,120,90);
+			boxRender(boxe6,0,30,90,60);
+
+		  spikesRender_z(trap1,-150,40);
+			spikesRender_z(trap_2,-413,40);
+			spikesRender_x(trap_3,-130,270);
+
+			pillRender(p_e1,0,45,60,15);
+			pillRender(p_e2,200,105,80,65);
+			pillRender(p_e3,-200,-155,35,40);
+			pillRender(p_e4,-200,105,80,65);
+			pillRender(p_e5,-300,-260,35,40);
+
+
+
+
 };
 
 
@@ -228,8 +233,7 @@ loop = function(){
 			 }
 
 			 position.needsUpdate = true;
-			 onRender();
-
+			 // onRender();
 
 
 	distanceprev = chardata.y;
@@ -252,7 +256,11 @@ loop = function(){
 		// chardata.rotationy += 0.04
 	}
 	if(controller.forward){
+<<<<<<< HEAD
 		chardata.z_vel -=0.3;//0.1
+=======
+		chardata.z_vel -=0.12;//0.12
+>>>>>>> b4976b3ea123f8086571146d31d7177de37e6eb3
 		action.play(); //need to figure out how controller event listener processes 'keyup' events to call action.stop() when 'W' is released
 
 	}
@@ -459,6 +467,14 @@ function checkcoin(){
 
 		}
 	}
+}
+
+//Used with loading screen
+function onTransitionEnd( event ) {
+
+	const element = event.target;
+	element.remove();
+
 }
 
 

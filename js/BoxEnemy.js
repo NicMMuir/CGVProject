@@ -21,7 +21,7 @@
       //scene.add( cube );
 
       //Adding flat plane for b_spikes
-      var texture = new THREE.TextureLoader().load( 'Textures/lavasp.jpg' );
+      var texture = new THREE.TextureLoader().load( 'Textures/lavaRock.jpg' );
       var geometry = new THREE.PlaneGeometry( 2, 10, 22 );
       var material = new THREE.MeshBasicMaterial( { map: texture } );
       var plane = new THREE.Mesh( geometry, material );

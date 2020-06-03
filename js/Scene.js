@@ -4,7 +4,7 @@
 //Heightmap
 //orbital controls
 var scene, camera,raycamera, renderer, loop,char,chardata,controller;
-var mesh, oceanGeometry, material, clock;
+var mesh, oceanGeometry, material, clock, TWEEN;
 var Collidables = [];
 
 var PauseState = false;
@@ -86,6 +86,9 @@ var lobj= new Array();
 var robj= new Array();
 var tp = new THREE.Vector3();
 
+//Load crate test Model
+// var cratebox = new THREE.Object3D();
+
 init();
 //to initialise the map and objects for the initial render(only called once)
 function init(){
@@ -101,10 +104,11 @@ function init(){
 	getarrMap1();
 	Charinit(charstartx,charstarty,charstartz);
 
-	 RPosList = gerrubyl();
+	 RPosList = gerrubyl3();
 	 RubyArr = genruby(RPosList);
 	 CPosList = getcoinl3();
 	 CoinArr = gencoin(CPosList);
+	 CurvyMap3();
 	 //console.log(RPosList);
 
 
@@ -124,12 +128,22 @@ function init(){
 //animate and render work hand in hand for rendering specific things
 function animate() {
 				requestAnimationFrame( animate );
+				var delta = clock.getDelta();
+				mixer.update( delta );
+				TWEEN.update();
+				sphereCamera.update(renderer,scene);
 				render();
 			}
 
 
 function render(){
 	renderer.render(scene,camera);
+
+	mushRender(mush_e1,-1860,955,35,35);
+	mushRender(mush_e2,-1730,940,35,35);
+	mushRender(mush_e3,-1662,1030,35,35);
+
+	spikesRender_y(trapm3_1,300,85);
 
 };
 
@@ -202,9 +216,8 @@ loop = function(){
 			 }
 
 			 position.needsUpdate = true;
- onRender();
- boxRender(boxe1,40,-20);
- boxRender(boxe2,-40,-20);
+ // onRender();
+
 
 	distanceprev = chardata.y;
 	colisiondetection(controls.getObject());
@@ -226,7 +239,11 @@ loop = function(){
 		// chardata.rotationy += 0.04
 	}
 	if(controller.forward){
+<<<<<<< HEAD
 		chardata.z_vel -=0.3;//0.1
+=======
+		chardata.z_vel -=0.12;//0.12
+>>>>>>> b4976b3ea123f8086571146d31d7177de37e6eb3
 		action.play(); //need to figure out how controller event listener processes 'keyup' events to call action.stop() when 'W' is released
 
 	}
@@ -311,36 +328,36 @@ if(dobj.length != 0){
 if(efobj.length != 0){
 	if(efobj[0].distance < 2){
 		DeathCounter= DeathCounter+1;
-		chardata.x=0;
-		chardata.y=2;
-		chardata.z=0;
+		chardata.x=-1955;
+		chardata.y=300;
+		chardata.z=1060;
 		chardata.jump = false;
 		controls.getObject().position.set(charstartx,charstarty,charstartz);
 	}
 }else if(ebobj.length != 0){
 	if(ebobj[0].distance < 1.5){
 		DeathCounter= DeathCounter+1;
-		chardata.x=0;
-		chardata.y=2;
-		chardata.z=0;
+		chardata.x=-1955;
+		chardata.y=300;
+		chardata.z=1060;
 		chardata.jump = false;
 		controls.getObject().position.set(charstartx,charstarty,charstartz);
 	}
 }else if(elobj.length != 0){
 	if(elobj[0].distance < 1.5){
 		DeathCounter= DeathCounter+1;
-		chardata.x=0;
-		chardata.y=2;
-		chardata.z=0;
+		chardata.x=-1955;
+		chardata.y=300;
+		chardata.z=1060;
 		chardata.jump = false;
 		controls.getObject().position.set(charstartx,charstarty,charstartz);
 	}
 }else if(erobj.length != 0){
 	if(erobj[0].distance < 1.5){
 		DeathCounter= DeathCounter+1;
-		chardata.x=0;
-		chardata.y=2;
-		chardata.z=0;
+		chardata.x=-1955;
+		chardata.y=300;
+		chardata.z=1060;
 		chardata.z_vel = 0;
 		chardata.x_vel = 0;
 		chardata.jump = false;
@@ -438,6 +455,13 @@ function checkcoin(){
 	}
 }
 
+//Used with loading screen
+function onTransitionEnd( event ) {
+
+	const element = event.target;
+	element.remove();
+
+}
 
 //Event Listeners:
 window.addEventListener("keydown",controller.keyListener);

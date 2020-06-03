@@ -2,8 +2,23 @@ var ObjectsMap1Arr = [];
 var EnemyList = [];
 var End;
 var Mesh, oceanGeometry, oceanMaterial, clock;
+var sphereCamera;
 var End;
-var enmy = new THREE.Object3D();
+
+//Placing a camera inside the start/end pad to create a reflection
+sphereCamera = new THREE.CubeCamera(1,1000,500);
+        sphereCamera.position.set(-300,213,-910);
+
+//Loading screen using css and Threejs LoadingManager
+  const loadingManager = new THREE.LoadingManager( () => {
+
+    const loadingScreen = document.getElementById( 'loading-screen' );
+    loadingScreen.classList.add( 'fade-out' );
+
+    // optional: remove loader from DOM via event listener
+    loadingScreen.addEventListener( 'transitionend', onTransitionEnd );
+
+  } );
 
 
 //Skybox
@@ -41,8 +56,16 @@ var waterTexture = new THREE.TextureLoader().load( 'Textures/water.jpg' );
 var waterMat = new THREE.MeshBasicMaterial( { map: waterTexture } );
 var seaSandTexture = new THREE.TextureLoader().load( 'Textures/seasand.jpg' );
 var seaSandMat = new THREE.MeshBasicMaterial( { map: seaSandTexture } );
-var colloseumTexture = new THREE.TextureLoader().load( 'Textures/collosWall.jpg' );
-var colloseumMat = new THREE.MeshBasicMaterial( { map: colloseumTexture } );
+let sphereMaterial = new THREE.MeshBasicMaterial({
+          envMap: sphereCamera.renderTarget
+        });
+
+var transMaterial = new THREE.MeshPhongMaterial({
+    color: 0x000000,
+    opacity: 0,
+    transparent: true,
+  });
+
 
 //lights
 //Sets a directional light at a position with colour and intensity
@@ -55,17 +78,18 @@ MainFloortexture.wrapT = THREE.RepeatWrapping;
 var startpadgeom = new THREE.BoxGeometry( 5, 2, 5 );
 var StartFloorGeo = new THREE.BoxGeometry( 1000, 20, 220 );
 var middleFloorGeo = new THREE.BoxGeometry( 520, 20, 240 );
-var FinalFloorGeo = new THREE.BoxGeometry( 750, 20, 1000 );
 var endpadgeom = new THREE.BoxGeometry( 10, 10, 10 );
+var transGeometry = new THREE.BoxGeometry(75,20,1000);
+
 
 
 
 //Mesh:
 var startpad = new THREE.Mesh( startpadgeom, Startpadmaterial );
-var endpad = new THREE.Mesh( endpadgeom , Startpadmaterial );
+var endpad = new THREE.Mesh( endpadgeom , sphereMaterial );
 var StartSeg = new THREE.Mesh( StartFloorGeo , GrassMat );
 var middleFloor = new THREE.Mesh( middleFloorGeo , GrassMat );
-var FinalFloor = new THREE.Mesh( FinalFloorGeo , seaSandMat );
+var transBox = new THREE.Mesh( transGeometry , transMaterial );
 
 
 
@@ -100,19 +124,7 @@ var mushTree = new THREE.Object3D();
 });
 }
 
-//Load Glow Flower Model
-var glowFlower1 = new THREE.Object3D();
-var glowFlower2 = new THREE.Object3D();
-{
-  var loader = new THREE.GLTFLoader();
-  loader.load('./3DObjects/GlowFlower/scene.gltf', function(gltf){
-    gltf.scene.scale.set(2,2,2);
-
-    glowFlower1.add(gltf.scene);
-    glowFlower2.add(gltf.scene.clone());
-});
-
-}//Load Glow Mushroom Model
+//Load Glow Mushroom Model
 var glowMush1 = new THREE.Object3D();
 var glowMush2 = new THREE.Object3D();
 var glowMush3 = new THREE.Object3D();
@@ -155,15 +167,21 @@ var redMush4 = new THREE.Object3D();
 
 //Load Rope Bridge Model
 var ropeBridge1 = new THREE.Object3D();
-var ropeBridge2 = new THREE.Object3D();
-var ropeBridge3 = new THREE.Object3D();
 {
   var loader = new THREE.GLTFLoader();
   loader.load('./3DObjects/RopeBridge/scene.gltf', function(gltf){
 
     ropeBridge1.add(gltf.scene);
-    ropeBridge2.add(gltf.scene.clone());
-    ropeBridge3.add(gltf.scene.clone());
+});
+}
+
+//Load FantasyBridge Model
+var fantasyBridge = new THREE.Object3D();
+{
+  var loader = new THREE.GLTFLoader();
+  loader.load('./3DObjects/FantasyBridge/scene.gltf', function(gltf){
+
+    fantasyBridge.add(gltf.scene);
 });
 }
 
@@ -212,85 +230,61 @@ var dragonEgg5 = new THREE.Object3D();
         } );
 }
 
- //Load Colloseum Model
-var colloseum = new THREE.Object3D();
+//Load Ship In Cloud Model
+  var loader = new THREE.GLTFLoader();
+  loader.load('./3DObjects/ShipClouds/scene.gltf', function(gltf){
+    gltf.scene.scale.set(0.8,0.8,0.8);
+
+    //here we remove the outer sphere of the cloud model cause it gets in the way
+    var outSphere = gltf.scene.getObjectByName("Sky");
+    var parent = outSphere.parent;
+    parent.remove( outSphere );
+
+    shipInCloud = gltf.scene;
+    shipInCloud.position.x = -230;
+    shipInCloud.position.y = 260;
+    shipInCloud.position.z = 380;
+    shipInCloud.rotation.set(0,Math.PI/2,0);
+
+    scene.add(shipInCloud);
+
+        } );
+
+   //Load Fantasy Ring Model
+   //Final Platform
+var fantasyRing = new THREE.Object3D();
 {
   var loader = new THREE.GLTFLoader();
-  loader.load('./3DObjects/colloseum/scene.gltf', function(gltf){
-    gltf.scene.scale.set(10,10,10);
-    colloseum.add(gltf.scene);
-    console.log(dumpObject(gltf.scene).join('\n'));
+  loader.load('./3DObjects/FantasyRing/scene.gltf', function(gltf){
+    gltf.scene.scale.set(500,500,500);
+    fantasyRing.add(gltf.scene);
+
         } );
 }
 
-//Load Colloseum Pillar Model
-var pillar1 = new THREE.Object3D();
-var pillar2 = new THREE.Object3D();
-var pillar3 = new THREE.Object3D();
-var pillar4 = new THREE.Object3D();
-var pillar5 = new THREE.Object3D();
-var pillar6 = new THREE.Object3D();
+//Load Energy Sphere Model
+//Final Platform
 {
   var loader = new THREE.GLTFLoader();
-  loader.load('./3DObjects/Pillar/scene.gltf', function(gltf){
-    gltf.scene.scale.set(0.15,0.15,0.15);
-    pillar1.add(gltf.scene);
-    pillar2.add(gltf.scene.clone());
-    pillar3.add(gltf.scene.clone());
-    pillar4.add(gltf.scene.clone());
-    pillar5.add(gltf.scene.clone());
-    pillar6.add(gltf.scene.clone());
+  loader.load('./3DObjects/EnergySphere/scene.gltf', function(gltf){
+    gltf.scene.scale.set(250,250,250);
+    energySphere = gltf.scene;
+    energySphere.position.x = -300;
+    energySphere.position.y = 117;
+    energySphere.position.z = -525;
+    scene.add(energySphere);
+
+    mixer = new THREE.AnimationMixer( energySphere ); //This animates the Energy Sphere model
+        mixer.clipAction( gltf.animations[ 0 ] ).play();
+
+        animate();//calls the animate function
+
         } );
 }
-
-//Load Colloseum Pillar Model
-var palmTree1 = new THREE.Object3D();
-var palmTree2 = new THREE.Object3D();
-var palmTree3 = new THREE.Object3D();
-var palmTree4 = new THREE.Object3D();
-{
-  var loader = new THREE.GLTFLoader();
-  loader.load('./3DObjects/PalmTree/scene.gltf', function(gltf){
-    gltf.scene.scale.set(25,25,25);
-    palmTree1.add(gltf.scene);
-    palmTree2.add(gltf.scene.clone());
-    palmTree3.add(gltf.scene.clone());
-    palmTree4.add(gltf.scene.clone());
-        } );
-}
-
-//Load Fluffy Cloud Pillar Model
-
-  var loader = new THREE.GLTFLoader();
-  loader.load('./3DObjects/FluffyCloud/scene.gltf', function(gltf){
-    var cloud = gltf.scene;
-    cloud.scale.set(8, 3, 8);
-    for(i=350; i<=1250; i += 150){
-    for(k=-2400; k<=-400; k += 400){
-      cloud.position.x = k;
-    cloud.position.y = 140;
-  cloud.position.z = i;
-      scene.add(cloud.clone());
-    }
-  }
-    // palmTree2.add(gltf.scene.clone());
-    // palmTree3.add(gltf.scene.clone());
-    // palmTree4.add(gltf.scene.clone());
-        } );
-
 
 
 function genarrMap1(){
-  // scene.fog = new THREE.FogExp2( 0xaaccff, 0.0007 );
-  scene.add(oceanMesh)
-
-  enmy = GenEnemey();
-  enmy.position.x = 10;
-  enmy.position.z = 0;
-  enmy.position.y = 0;
-  enmy.scale.x = 3;
-  enmy.scale.y = 3;
-  enmy.scale.z = 3;
+  scene.add(oceanMesh);
 
   boxe1 = new getEnemy();
   boxe1.position.x = 40;
@@ -314,44 +308,70 @@ function genarrMap1(){
    ObjectsMap1Arr.push(boxe2);
    EnemyList.push(boxe2);
 
+   mush_e1 = new mushEnemy();
+   mush_e1.position.x = -1860;
+   mush_e1.position.z = 955;
+   mush_e1.position.y = 256;
+   mush_e1.scale.x = 8;
+   mush_e1.scale.y = 8;
+   mush_e1.scale.z = 8;
+
+    ObjectsMap1Arr.push(mush_e1);
+    EnemyList.push(mush_e1);
+
+    mush_e2 = mush_e1.clone();
+    mush_e2.position.x = -1730;
+    mush_e2.position.z = 940;
+    mush_e2.position.y = 256;
+     ObjectsMap1Arr.push(mush_e2);
+     EnemyList.push(mush_e2);
+
+     mush_e3 = mush_e1.clone();
+     mush_e3.position.x = -1662;
+     mush_e3.position.z = 1030;
+     mush_e3.position.y = 256;
+      ObjectsMap1Arr.push(mush_e3);
+      EnemyList.push(mush_e3);
+
+      trapm3_1 = new getTrapM3();
+      trapm3_1.position.x = -845;
+      trapm3_1.position.z = 998;
+      trapm3_1.position.y = 300;
+      trapm3_1.scale.x = 8;
+      trapm3_1.scale.y = 8;
+      trapm3_1.scale.z = 8;
+
+       ObjectsMap1Arr.push(trapm3_1);
+       EnemyList.push(trapm3_1);
+
+
 
   End = endpad;
   ObjectsMap1Arr.push(endpad);
-
-
-  ObjectsMap1Arr.push(enmy);
-  EnemyList.push(enmy);
 
   ObjectsMap1Arr.push(startpad);
   ObjectsMap1Arr.push(StartSeg);
 
   ObjectsMap1Arr.push(middleFloor);
 
-  ObjectsMap1Arr.push(FinalFloor);
+  ObjectsMap1Arr.push(fantasyRing);//FinalFloor
 
   ObjectsMap1Arr.push(mushTree);
-
-  ObjectsMap1Arr.push(glowFlower1);
-  ObjectsMap1Arr.push(glowFlower2);
 
   ObjectsMap1Arr.push(glowMush1);//big ones
   ObjectsMap1Arr.push(glowMush2);
   ObjectsMap1Arr.push(glowMush3);
   ObjectsMap1Arr.push(glowMush4);
   ObjectsMap1Arr.push(glowMush5);
-  // ObjectsMap1Arr.push(glowMush6);//from 6 is the small ones
-  // ObjectsMap1Arr.push(glowMush7);
-  // ObjectsMap1Arr.push(glowMush8);
-  // ObjectsMap1Arr.push(glowMush9);
 
   ObjectsMap1Arr.push(redMush1);//Large Mushy
   ObjectsMap1Arr.push(redMush2);
   ObjectsMap1Arr.push(redMush3);
   ObjectsMap1Arr.push(redMush4);
 
-  ObjectsMap1Arr.push(ropeBridge1);
-  ObjectsMap1Arr.push(ropeBridge2);
-  ObjectsMap1Arr.push(ropeBridge3);
+  ObjectsMap1Arr.push(ropeBridge1); //First bridge after start floor
+  ObjectsMap1Arr.push(fantasyBridge);//Connects to Fantasy Ring
+  ObjectsMap1Arr.push(transBox);//Goes under Fantasy Bridge
 
   ObjectsMap1Arr.push(dragon);
 
@@ -361,59 +381,39 @@ function genarrMap1(){
   ObjectsMap1Arr.push(dragonEgg4);
   ObjectsMap1Arr.push(dragonEgg5);
 
-  ObjectsMap1Arr.push(colloseum);
-
-  ObjectsMap1Arr.push(pillar1);
-  ObjectsMap1Arr.push(pillar2);
-  ObjectsMap1Arr.push(pillar3);
-  ObjectsMap1Arr.push(pillar4);
-  ObjectsMap1Arr.push(pillar5);
-  ObjectsMap1Arr.push(pillar6);
-
-  ObjectsMap1Arr.push(palmTree1);
-  ObjectsMap1Arr.push(palmTree2);
-  ObjectsMap1Arr.push(palmTree3);
-  ObjectsMap1Arr.push(palmTree4);
-
-
   // //Adding Lights and Skybox
-   scene.add( skybox )
+   scene.add( skybox );
    scene.add( directionalLight );
+
+  //Adding reflective camera
+  scene.add(sphereCamera);
 }
 
 function moveobjectsMap1(){
-  //startpad.position.y = 2;
   StartSeg.position.x = -1500;
   StartSeg.position.y = 250;
   StartSeg.position.z = 1000;
 
-  startpad.position.x = -1800;
-  startpad.position.y = 250;
-  startpad.position.z = 1000;
+  startpad.position.x = -1955;
+  startpad.position.y = 260;
+  startpad.position.z = 1060;
 
   endpad.position.x = -300;
-  endpad.position.y = 3;
-  endpad.position.z = -610;
+  endpad.position.y = 210;
+  endpad.position.z = -910;
 
   middleFloor.position.x = -400;
   middleFloor.position.y = 200;
   middleFloor.position.z = 1000;
 
-  FinalFloor.position.x = -300;
-  FinalFloor.position.y = -10;
-  FinalFloor.position.z = -500;
+  fantasyRing.position.x = -300;
+  fantasyRing.position.y = 117;
+  fantasyRing.position.z = -525;
 
   mushTree.position.x = -1500;
   mushTree.position.y = 300;
   mushTree.position.z = 1000;
   mushTree.scale.set(50,50,50);
-
-  glowFlower1.position.x = -1450;
-  glowFlower1.position.y = 260;
-  glowFlower1.position.z = 1050;
-   glowFlower2.position.x = -1550;
-  glowFlower2.position.y = 260;
-  glowFlower2.position.z = 1000;
 
     glowMush1.position.x = -1070;
   glowMush1.position.y = 255;
@@ -474,21 +474,21 @@ ropeBridge1.position.x = -825;//First Rope Bridge after Starting
   ropeBridge1.position.z = 1000;
   ropeBridge1.scale.set(200,200,200);
   ropeBridge1.rotation.set(0, 0, -0.174);//10 degrees
-ropeBridge2.position.x = -300;//Rope Bridge 2 & 3 are connected
-  ropeBridge2.position.y = 153;
-  ropeBridge2.position.z = 645;
-  ropeBridge2.scale.set(250,250,250);
-  ropeBridge2.rotation.set(0, Math.PI/2, -0.349066);//20 degrees
-ropeBridge3.position.x = -300;
-  ropeBridge3.position.y = 53;
-  ropeBridge3.position.z = 205;
-  ropeBridge3.scale.set(250,250,250);
-  ropeBridge3.rotation.set(0, Math.PI/2, -0.191986);
 
-  dragon.position.x = -635;
-  dragon.position.y = 200;
-  dragon.position.z = 1130;
-  dragon.scale.set(4,4,4);
+fantasyBridge.position.x = -300;//Long wooden bridge in clouds
+  fantasyBridge.position.y = 179;
+  fantasyBridge.position.z = 380;
+  fantasyBridge.scale.set(0.2,0.2,0.2);
+  fantasyBridge.rotation.set(0, Math.PI/2,0);
+
+  transBox.position.x = -300;
+  transBox.position.y = 200;
+  transBox.position.z = 390;
+
+  dragon.position.x = -583;
+  dragon.position.y = 177;
+  dragon.position.z = 1150;
+  dragon.scale.set(10,10,10);
   dragon.rotation.set(Math.PI/6, 0.349066, 0);
 
   dragonEgg1.position.x = -580;
@@ -512,45 +512,7 @@ ropeBridge3.position.x = -300;
   dragonEgg5.position.z = 960;
   dragonEgg5.rotation.set(0, Math.PI, 0);
 
-
-
     oceanMesh.position.y = -10;
-
-  colloseum.position.x = -300;
-  colloseum.position.y = 0;
-  colloseum.position.z = -600;
-
-pillar1.position.x = -205;
-  pillar1.position.y = 0;
-  pillar1.position.z = -360;
-pillar2.position.x = -395;
-  pillar2.position.y = 0;
-  pillar2.position.z = -360;
-pillar3.position.x = -205;
-  pillar3.position.y = 0;
-  pillar3.position.z = -200;
-pillar4.position.x = -395;
-  pillar4.position.y = 0;
-  pillar4.position.z = -200;
-pillar5.position.x = -205;
-  pillar5.position.y = 0;
-  pillar5.position.z = -40;
-pillar6.position.x = -395;
-  pillar6.position.y = 0;
-  pillar6.position.z = -40;
-
-  palmTree1.position.x = -190;
-  palmTree1.position.y = 0;
-  palmTree1.position.z = -280;
-palmTree2.position.x = -380;
-  palmTree2.position.y = 0;
-  palmTree2.position.z = -280;
-palmTree3.position.x = -190;
-  palmTree3.position.y = 0;
-  palmTree3.position.z = -120;
-palmTree4.position.x = -380;
-  palmTree4.position.y = 0;
-  palmTree4.position.z = -120;
 
 }
 
@@ -558,17 +520,4 @@ palmTree4.position.x = -380;
 function getarrMap1(){
   moveobjectsMap1();
   genarrMap1();
-}
-
-
-function dumpObject(obj, lines = [], isLast = true, prefix = '') {
-  const localPrefix = isLast ? '└─' : '├─';
-  lines.push(`${prefix}${prefix ? localPrefix : ''}${obj.name || '*no-name*'} [${obj.type}]`);
-  const newPrefix = prefix + (isLast ? '  ' : '│ ');
-  const lastNdx = obj.children.length - 1;
-  obj.children.forEach((child, ndx) => {
-    const isLast = ndx === lastNdx;
-    dumpObject(child, lines, isLast, newPrefix);
-  });
-  return lines;
 }
