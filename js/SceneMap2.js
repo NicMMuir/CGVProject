@@ -123,9 +123,8 @@ function render(){
 			boxRender(boxe5,-300,-530,120,90);
 			boxRender(boxe6,0,30,90,60);
 
-			spikesRender_z(trap1,-150,40);
-			spikesRender_z(trap_2,-413,40);
-			spikesRender_x(trap_3,-130,270);
+			spikesRender_z1(trap1,-150,40);
+			spikesRender_z2(trap_2,-413,43);
 
 			pillRender(p_e1,0,45,60,15);
 			pillRender(p_e2,205,105,80,68);

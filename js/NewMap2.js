@@ -338,18 +338,6 @@ function genarrMap1(){
      ObjectsMap1Arr.push(trap_2);
      EnemyList.push(trap_2);
 
-     trap_3 = trap1.clone();
-     trap_3.position.x = -130;
-     trap_3.position.z = -243;
-     trap_3.position.y = 1.3;
-     trap_3.rotateZ(Math.PI/2);
-     trap_3.scale.x = 19;
-     trap_3.scale.y = 19;
-     trap_3.scale.z = 19;
-
-     ObjectsMap1Arr.push(trap_3);
-     EnemyList.push(trap_3);
-
 
   End = endpad;
   ObjectsMap1Arr.push(endpad);

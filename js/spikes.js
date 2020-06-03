@@ -63,22 +63,41 @@ function getTrap(){
 
 
 }
-var f =0.1;
-function spikesRender_z(obj,z,dz) {
-  obj.position.z +=f;
+
+f1 = 0.6;
+
+function spikesRender_z1(obj,z,dz) {
+
+  obj.position.z +=f1;
 
   if(obj.position.z > z+dz){
-    f = -0.1
+    f1 = -0.6;
   }
 
   if(obj.position.z < z){
-    f = 0.1
+    f1 = 0.6;
   }
 //  console.log("f is: "+frame)
 
 };
 
-var fr = 5;
+f2 = 0.6;
+function spikesRender_z2(obj,z,dz) {
+
+  obj.position.z +=f2;
+
+  if(obj.position.z > z+dz){
+    f2 = -0.6;
+  }
+
+  if(obj.position.z < z){
+    f2 = 0.6;
+  }
+//  console.log("f is: "+frame)
+
+};
+
+var fr = 4;
 
 function spikesRender_x(obj,x,dx) {
 /*  console.log("frame is: "+fr);
@@ -87,11 +106,11 @@ function spikesRender_x(obj,x,dx) {
   obj.position.x +=fr;
 
   if(obj.position.x > x+dx){
-    fr = -5
+    fr = -4;
   }
 
   if(obj.position.x < x){
-    fr = 5
+    fr = 4;
   }
 //  console.log("f is: "+frame)
 
