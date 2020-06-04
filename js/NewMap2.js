@@ -338,6 +338,30 @@ function genarrMap1(){
      ObjectsMap1Arr.push(trap_2);
      EnemyList.push(trap_2);
 
+     top1 = getTop();
+     top1.position.x = 0;
+     top1.position.z = -68;
+     top1.position.y = 14;
+     top1.scale.x = 4;
+     top1.scale.y = 4;
+     top1.scale.z = 4;
+     ObjectsMap1Arr.push(top1);
+     EnemyList.push(top1);
+
+     top2 = top1.clone();
+     top2.position.x = 190;
+     top2.position.z = -320;
+     top2.position.y = 10;
+     ObjectsMap1Arr.push(top2);
+     EnemyList.push(top2);
+
+     top3 = top1.clone();
+     top3.position.x = -300;
+     top3.position.z = -520;
+     top3.position.y = 14;
+     ObjectsMap1Arr.push(top3);
+     EnemyList.push(top3);
+
 
   End = endpad;
   ObjectsMap1Arr.push(endpad);

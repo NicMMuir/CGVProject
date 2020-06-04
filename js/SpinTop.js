@@ -4,6 +4,10 @@
 var spinTop1;
 var spinTop2;
 var spinTop3;
+var t = 0;
+
+var store = []
+
 
 function SpinTopMap2() { //Spintop enemy data for Map 1
 
@@ -48,27 +52,21 @@ loader.load('./3DObjects/Enemy/scene.gltf', function(gltf){
 
     scene.add(spinTop3);
     EnemyList.push(spinTop3);
+    var t =t+0.1;
+    var targetPosition1 = new THREE.Vector3( 2*Math.cos(t) +3, 10,s2*Math.sin(t) + 3 );
+    var tween1 = new TWEEN.Tween( spinTop1.position ).to( targetPosition1, 1000 );
+    tween1.start();
 
-    spinToplist1.push(spinTop1);
-    spinToplist1.push(spinTop2);
-    spinToplist1.push(spinTop3);
 
     });
 
-
-    return spinToplist1;
-
 }
 
-var t1 = 0;
+var t1 = 0
+function spinRender(ob){
+    t1 += 0.01;
 
-function topRender1(top){
-  t1 += 0.01;
-  console.log(top);
-  //console.log("t: "+t);
-  //console.log("b.position.x:" +ob.position.x);
-  //console.log("b.position.z:" +ob.position.z);
-  //spinTop1.rotation.y += 0.05;
-  top.position.x = 5*Math.cos(t1) +5;
-  top.position.z = 5*Math.sin(t1) + 5;
-};
+    ob.rotation.y += 0.05;
+    ob.position.x = 1*Math.cos(t1) +2;
+    ob.position.z = 1*Math.sin(t1) +2;
+  };

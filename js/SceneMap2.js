@@ -90,7 +90,7 @@ function init(){
 	renderer.setSize( window.innerWidth, window.innerHeight );
 	document.body.appendChild(renderer.domElement );
 	getarrMap1();
-	tops = SpinTopMap2();
+  //SpinTopMap2();
 
 	Charinit(charstartx,charstarty,charstartz);
 	RPosList = gerrubyl2();
@@ -134,6 +134,12 @@ function render(){
 			pillRender(p_e3,-198,-155,45,50);
 			pillRender(p_e4,-205,105,80,68);
 			pillRender(p_e5,-300,-275,40,45);
+
+			topRender1(top1,0,-68,6,6);
+			topRender2(top2,190,-320,6,6);
+			topRender3(top3,-300,-520,6,6);
+
+
 
 
 
