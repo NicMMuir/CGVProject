@@ -149,6 +149,19 @@ function render(){
 	spikesRender_y2(trapm3_2,300,85);
 	spikesRender_y3(trapm3_3,300,85);
 
+	topRender1(top1,-1329,1000,16,16);
+	topRender2(top2,-1239,939,16,16);
+
+	mushRender_zp1(mush_e5,890,200);
+	mushRender_zp2(mush_e6,890,215);
+	mushRender_zp3(mush_e7,890,215);
+	mushRender_zp3(mush_e8,890,215);
+
+	mushRender_zn1(mush_e9,1116,215);
+	mushRender_zn2(mush_e10,1116,215);
+	mushRender_zn3(mush_e11,1116,215);
+
+
 };
 
 

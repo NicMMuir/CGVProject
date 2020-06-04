@@ -343,6 +343,58 @@ function genarrMap1(){
        ObjectsMap1Arr.push(mush_e4);
        EnemyList.push(mush_e4);
 
+       mush_e5 = mush_e1.clone();
+       mush_e5.position.x = -617;
+       mush_e5.position.z = 890;
+       mush_e5.position.y = 205;
+       ObjectsMap1Arr.push(mush_e5);
+       EnemyList.push(mush_e5);
+
+       mush_e6 = mush_e1.clone();
+       mush_e6.position.x = -523;
+       mush_e6.position.z = 890;
+       mush_e6.position.y = 205;
+       ObjectsMap1Arr.push(mush_e6);
+       EnemyList.push(mush_e6);
+
+       mush_e7 = mush_e1.clone();
+       mush_e7.position.x = -389;
+       mush_e7.position.z = 890;
+       mush_e7.position.y = 205;
+       ObjectsMap1Arr.push(mush_e7);
+       EnemyList.push(mush_e7);
+
+       mush_e8 = mush_e1.clone();
+       mush_e8.position.x = -243;
+       mush_e8.position.z = 890;
+       mush_e8.position.y = 205;
+       ObjectsMap1Arr.push(mush_e8);
+       EnemyList.push(mush_e8);
+
+       mush_e9 = mush_e1.clone();
+       mush_e9.position.x = -473;
+       mush_e9.position.z = 1116;
+       mush_e9.position.y = 205;
+       ObjectsMap1Arr.push(mush_e9);
+       EnemyList.push(mush_e9);
+
+       mush_e10 = mush_e1.clone();
+       mush_e10.position.x = -347;
+       mush_e10.position.z = 1116;
+       mush_e10.position.y = 205;
+       ObjectsMap1Arr.push(mush_e10);
+       EnemyList.push(mush_e10);
+
+       mush_e11 = mush_e1.clone();
+       mush_e11.position.x = -164;
+       mush_e11.position.z = 1116;
+       mush_e11.position.y = 205;
+       ObjectsMap1Arr.push(mush_e11);
+       EnemyList.push(mush_e11);
+
+
+
+
       trapm3_1 = new getTrapM3();
       trapm3_1.position.x = -845;
       trapm3_1.position.z = 998;
@@ -369,9 +421,24 @@ function genarrMap1(){
         trapm3_3.position.x = -300;
         trapm3_3.position.z = 146;
         trapm3_3.position.y = 300;
-        trapm3_3.scale.x = 8;
-        trapm3_3.scale.y = 8;
-        trapm3_3.scale.z = 8;
+        trapm3_3.scale.x = 5;
+        trapm3_3.scale.y = 5;
+        trapm3_3.scale.z = 5;
+
+        top1 = getTop();
+        top1.position.x = -1329;
+        top1.position.z = 1000;
+        top1.position.y = 261;
+        ObjectsMap1Arr.push(top1);
+        EnemyList.push(top1);
+
+        top2 = top1.clone();
+        top2.position.x = -1239;
+        top2.position.z = 939;
+        top2.position.y = 267;
+        ObjectsMap1Arr.push(top2);
+        EnemyList.push(top2);
+
 
          ObjectsMap1Arr.push(trapm3_3);
          EnemyList.push(trapm3_3);
