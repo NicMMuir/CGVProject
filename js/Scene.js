@@ -146,8 +146,6 @@ function render(){
 	mushRender(mush_e2,-1730,940,35,35);
 	mushRender(mush_e3,-1662,1030,35,35);
 	mushRender(mush_e4,-300,-527,390,390);
-	mushRender(mush_e5,-580,995,35,35);
-	mushRender(mush_e5,-300,1030,35,35);
 
 	spikesRender_y1(trapm3_1,300,85);
 	spikesRender_y2(trapm3_2,300,85);
@@ -158,6 +156,17 @@ function render(){
 	if (spinTop3) spinTop3.rotation.y += 0.05;
 	if (spinTop4) spinTop4.rotation.y += 0.05;
 	if (spinTop5) spinTop5.rotation.y += 0.05;
+
+	topRender1(top1,-1239,939,16,16);
+
+	mushRender_zp1(mush_e5,890,200);
+	mushRender_zp2(mush_e6,890,215);
+	mushRender_zp3(mush_e7,890,215);
+	mushRender_zp3(mush_e8,890,215);
+
+	mushRender_zn1(mush_e9,1116,215);
+	mushRender_zn2(mush_e10,1116,215);
+	mushRender_zn3(mush_e11,1116,215);
 
 };
 
