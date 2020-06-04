@@ -286,28 +286,6 @@ var fantasyRing = new THREE.Object3D();
 function genarrMap1(){
   scene.add(oceanMesh);
 
-  boxe1 = new getEnemy();
-  boxe1.position.x = 40;
-  boxe1.position.z = -20;
-  boxe1.position.y = 4.1;
-  boxe1.scale.x = 8;
-  boxe1.scale.y = 8;
-  boxe1.scale.z = 8;
-
-  ObjectsMap1Arr.push(boxe1);
-  EnemyList.push(boxe1);
-
-  boxe2 = boxe1.clone();
-  boxe2.position.x = -40;
-  boxe2.position.z = -10;
-  boxe2.position.y = 4.1;
-  boxe2.scale.x = 8;
-  boxe2.scale.y = 8;
-  boxe2.scale.z = 8;
-
-   ObjectsMap1Arr.push(boxe2);
-   EnemyList.push(boxe2);
-
    mush_e1 = new mushEnemy();
    mush_e1.position.x = -1860;
    mush_e1.position.z = 955;
@@ -320,28 +298,30 @@ function genarrMap1(){
     EnemyList.push(mush_e1);
 
     mush_e2 = mush_e1.clone();
-    mush_e2.position.x = -1730;
-    mush_e2.position.z = 940;
-    mush_e2.position.y = 256;
      ObjectsMap1Arr.push(mush_e2);
      EnemyList.push(mush_e2);
 
      mush_e3 = mush_e1.clone();
-     mush_e3.position.x = -1662;
-     mush_e3.position.z = 1030;
-     mush_e3.position.y = 256;
       ObjectsMap1Arr.push(mush_e3);
       EnemyList.push(mush_e3);
 
       mush_e4 = mush_e1.clone();
-      mush_e4.position.x = -280;
-      mush_e4.position.z = -500;
-      mush_e4.position.y = 195;
+      mush_e4.position.y = 200;
       mush_e4.scale.x = 18;
       mush_e4.scale.y = 18;
       mush_e4.scale.z = 18;
        ObjectsMap1Arr.push(mush_e4);
-       EnemyList.push(mush_e4);
+       EnemyList.push(mush_e4); 
+
+      mush_e5 = mush_e1.clone();
+      mush_e5.position.y = 210;
+       ObjectsMap1Arr.push(mush_e5);
+       EnemyList.push(mush_e5);
+
+      mush_e6 = mush_e1.clone();
+      mush_e6.position.y = 210;
+       ObjectsMap1Arr.push(mush_e6);
+       EnemyList.push(mush_e6);
 
       trapm3_1 = new getTrapM3();
       trapm3_1.position.x = -845;
@@ -358,9 +338,6 @@ function genarrMap1(){
        trapm3_2.position.x = -308;
        trapm3_2.position.z = 683;
        trapm3_2.position.y = 300;
-       trapm3_2.scale.x = 8;
-       trapm3_2.scale.y = 8;
-       trapm3_2.scale.z = 8;
 
         ObjectsMap1Arr.push(trapm3_2);
         EnemyList.push(trapm3_2);
@@ -369,9 +346,6 @@ function genarrMap1(){
         trapm3_3.position.x = -300;
         trapm3_3.position.z = 146;
         trapm3_3.position.y = 300;
-        trapm3_3.scale.x = 8;
-        trapm3_3.scale.y = 8;
-        trapm3_3.scale.z = 8;
 
          ObjectsMap1Arr.push(trapm3_3);
          EnemyList.push(trapm3_3);
@@ -465,22 +439,6 @@ function moveobjectsMap1(){
   glowMush5.position.y = 255;
   glowMush5.position.z = 960;
   glowMush5.scale.set(10,10,10);
-glowMush6.position.x = -1860;
-  glowMush6.position.y = 255;
-  glowMush6.position.z = 960;
-  glowMush6.scale.set(10,10,10);
-glowMush7.position.x = -1860;
-  glowMush7.position.y = 255;
-  glowMush7.position.z = 960;
-  glowMush7.scale.set(10,10,10);
-glowMush8.position.x = -1860;
-  glowMush8.position.y = 255;
-  glowMush8.position.z = 960;
-  glowMush8.scale.set(10,10,10);
-glowMush9.position.x = -1860;
-  glowMush9.position.y = 255;
-  glowMush9.position.z = 960;
-  glowMush9.scale.set(10,10,10);
 
   redMush1.position.x = -1730;
   redMush1.position.y = 255;

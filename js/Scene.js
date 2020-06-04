@@ -6,6 +6,8 @@
 var scene, camera,raycamera, renderer, loop,char,chardata,controller;
 var mesh, oceanGeometry, material, clock, TWEEN;
 var Collidables = [];
+var spinToplist3 = [];
+var spinTop1, spinTop2, spinTop3, spinTop4, spinTop5;
 
 var PauseState = false;
 
@@ -109,6 +111,7 @@ function init(){
 	 CPosList = getcoinl3();
 	 CoinArr = gencoin(CPosList);
 	 CurvyMap3();
+	 SpinTopMap3();
 	 //console.log(RPosList);
 
 
@@ -142,12 +145,19 @@ function render(){
 	mushRender(mush_e1,-1860,955,35,35);
 	mushRender(mush_e2,-1730,940,35,35);
 	mushRender(mush_e3,-1662,1030,35,35);
-	mushRender(mush_e4,-280,-500,360,360);
-
+	mushRender(mush_e4,-300,-527,390,390);
+	mushRender(mush_e5,-580,995,35,35);
+	mushRender(mush_e5,-300,1030,35,35);
 
 	spikesRender_y1(trapm3_1,300,85);
 	spikesRender_y2(trapm3_2,300,85);
 	spikesRender_y3(trapm3_3,300,85);
+
+	if (spinTop1) spinTop1.rotation.y += 0.05;
+	if (spinTop2) spinTop2.rotation.y += 0.05;
+	if (spinTop3) spinTop3.rotation.y += 0.05;
+	if (spinTop4) spinTop4.rotation.y += 0.05;
+	if (spinTop5) spinTop5.rotation.y += 0.05;
 
 };
 

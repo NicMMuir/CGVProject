@@ -212,6 +212,8 @@ loader.load('./3DObjects/palmTree/scene.gltf', function(gltf){
     tween3.chain( tween4 );
     tween4.chain( tween1 );
 
+    tween1.start(); //This begins the chain movement between the four positions
+
     //We also rotate the shark model depending in which direction its moving
     //
     var tweenRot1 = new TWEEN.Tween(sharkModel.rotation)
@@ -263,7 +265,6 @@ loader.load('./3DObjects/palmTree/scene.gltf', function(gltf){
     tweenRot3.chain( tweenRot4 );
     tweenRot4.chain( tweenRot1 );
 
-    tween1.start(); //This begins the chain movement between the four positions
     tweenRot1.start(); //This begins the rotation of the shark
 
         } );
