@@ -10,10 +10,11 @@ var Collidables = [];
 var curveEnemy;
 
 var mixer, mixer1, mixer2, TWEEN;
+var mapCamera, mapWidth = 240, mapHeight = 160; // w/h should match div dimensions
 
 var PauseState = false;
 
-var DeathCounter = 0;
+var DeathCounter = -1;
 var PointsCounter = 0;
 
 var RPosList = [];
@@ -72,13 +73,23 @@ camera.position.set(camstartx,camstarty,camstartz);
 camera.updateProjectionMatrix();
 controls = new THREE.PointerLockControls(camera);
 
+// orthographic cameras
+	mapCamera = new THREE.OrthographicCamera(
+    -520,		// Left
+    520,		// Right
+    650,		// Top
+    -130,	// Bottom
+    -5000,            			// Near 
+    10000 );           			// Far 
+	mapCamera.up = new THREE.Vector3(0,0,-1);
+	mapCamera.lookAt( new THREE.Vector3(0,-1,0) );
+	scene.add(mapCamera);
+
 var position;//Ocean moveement
 var time;
 
-
 //char Vector3
 var charvec = new THREE.Vector3(chardata.x,chardata.y,chardata.z);
-
 
 var fobj = new Array();
 var bobj= new Array();
@@ -88,6 +99,7 @@ var robj= new Array();
 var tp = new THREE.Vector3();
 
 init();
+
 
 function init(){
 
@@ -119,42 +131,55 @@ function init(){
 
 	SetLight();
 
-
-
 }
 
 
 function animate() {
-
 				requestAnimationFrame( animate );
-
-				var delta = clock.getDelta();
-				mixer.update( delta*2 );
-				mixer1.update( delta*2 );
 				TWEEN.update();
+				var delta = clock.getDelta();
+				mixer1.update( delta*2 );
+				mixer.update( delta*2 );
 				sphereCamera.update(renderer,scene);
+				
+	//EVENTS ()
+	THREEx.WindowResize(renderer, camera);
+	THREEx.FullScreen.bindKey({ charCode : 'm'.charCodeAt(0) });
+	
 
 				render();
-
-
 			}
 
 function render(){
-	renderer.render(scene,camera);
-	// onRender();
 
-		  spikesRender_z1(trap1,-150,40);
+	var w = window.innerWidth, h = window.innerHeight;
+
+	// setViewport parameters:
+	//  lower_left_x, lower_left_y, viewport_width, viewport_height
+	renderer.setViewport( 0, 0, w, h );	
+	renderer.clear();
+	
+	// full display
+	// renderer.setViewport( 0, 0, SCREEN_WIDTH - 2, 0.5 * SCREEN_HEIGHT - 2 );
+	renderer.render( scene, camera );
+	
+	// minimap (overhead orthogonal camera)
+	//  lower_left_x, lower_left_y, viewport_width, viewport_height
+	renderer.setViewport( 10, h - mapHeight - 10, mapWidth, mapHeight );
+	renderer.render( scene, mapCamera );
+
+	// renderer.setSize( window.innerWidth, window.innerHeight );
+	// renderer.setClearColor( 0x000000, 1 );
+	renderer.autoClear = false;
+
+			spikesRender_z1(trap1,-150,40);
 			spikesRender_z2(trap_2,-413,43);
-
 
 			pillRender(p_e1,0,45,60,15);
 			pillRender(p_e2,200,105,80,65);
 			pillRender(p_e3,-200,-155,35,40);
 			pillRender(p_e4,-200,105,80,65);
 			pillRender(p_e5,-300,-260,35,40);
-
-
-
 
 };
 
@@ -209,7 +234,6 @@ controller = {
 
 
 loop = function(){
-
 	checkruby();
 	checkcoin();
 	time = clock.getElapsedTime() * 5;

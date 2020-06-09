@@ -1,4 +1,4 @@
-//CharacCred.js creates the character and scene 
+//CharacCred.js creates the character and scene to add to the Credits page
 //The character is displayed in the Rolling credits 
 //Serves the same purpose as introscreen.js but with diff position and scale
 
