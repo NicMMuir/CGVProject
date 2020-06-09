@@ -11,7 +11,7 @@ var tops;
 
 var PauseState = false;
 
-var DeathCounter = 0;
+var DeathCounter = -1;
 var PointsCounter = 0;
 
 var RPosList = [];

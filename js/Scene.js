@@ -11,7 +11,7 @@ var spinTop1, spinTop2, spinTop3, spinTop4, spinTop5;
 
 var PauseState = false;
 
-var DeathCounter = 0;
+var DeathCounter = -1.;
 var PointsCounter = 0;
 
 var RPosList = [];
