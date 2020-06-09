@@ -87,6 +87,12 @@ var lobj= new Array();
 var robj= new Array();
 var tp = new THREE.Vector3();
 
+
+
+
+
+
+
 init();
 
 function init(){
@@ -445,6 +451,7 @@ function checkruby(){
 	for(let k = 0 ; k< RubyArr.length;k++){
 		if((controls.getObject().position.x <= (RPosList[k].x+2) && controls.getObject().position.x >= (RPosList[k].x-2) && controls.getObject().position.z >= RPosList[k].z-2 && controls.getObject().position.z <= RPosList[k].z+2)&& scene.getObjectById(RubyArr[k].id,true) != null ){
 			PointsCounter = PointsCounter+5;
+			genaudio();
 			scene.remove(RubyArr[k]);
 
 		}
@@ -456,6 +463,7 @@ function checkcoin(){
 	for(let k = 0 ; k< CoinArr.length;k++){
 		if((controls.getObject().position.x <= (CPosList[k].x+2) && controls.getObject().position.x >= (CPosList[k].x-2) && controls.getObject().position.z >= CPosList[k].z-2 && controls.getObject().position.z <= CPosList[k].z+2)&& scene.getObjectById(CoinArr[k].id,true) != null){
 			PointsCounter = PointsCounter+1;
+			genaudio();
 			scene.remove(CoinArr[k]);
 
 		}

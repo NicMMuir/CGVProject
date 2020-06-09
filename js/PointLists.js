@@ -628,9 +628,9 @@ function getcoinl2(){ //called in NewMap2.js
 // Coin Coordinates for NewMap3
 //Pushes coordinates into a coin list (cl[]) which is then
 //called in NewMap3.js
-function getcoinl3(){ 
-  cl = []             
-                      
+function getcoinl3(){
+  cl = []
+
   //Coin coordinates for Start floor
   var tp = new THREE.Vector3( -1891.3422057052514
 , 262
@@ -1067,9 +1067,9 @@ function getcoinl3(){
 }
 
 //Gen a ruby coordinate list for map one:
-function gerrubyl1(){ 
+function gerrubyl1(){
   cl = []
-  var tp = new THREE.Vector3(-0.9,30,-70);
+  var tp = new THREE.Vector3(-0.9,14,-70);
   cl.push(tp);
    tp = new THREE.Vector3(-446,20,-13);
   cl.push(tp);
@@ -1077,34 +1077,34 @@ function gerrubyl1(){
   cl.push(tp);
    tp = new THREE.Vector3(-311,20,-222);
   cl.push(tp);
-   tp = new THREE.Vector3(-300,30,-513);
+   tp = new THREE.Vector3(-300,14,-513);
   cl.push(tp);
    tp = new THREE.Vector3( 193.99570330852956
-, 30
+, 14
 , -322.18233779570573);
   cl.push(tp);
   tp = new THREE.Vector3( -142.05348174879128
-, 20
+, 10
 , -367.8336658743106);
-  cl.push(tp);  
+  cl.push(tp);
   tp = new THREE.Vector3( 0
-, 20
+, 10
 , -250.2317204569856);
   cl.push(tp);
   tp = new THREE.Vector3( -27.190908721444266
-, 20
+, 10
 , -625.8868009335572);
   cl.push(tp);
   tp = new THREE.Vector3( 497.26461703780393
-, 20
+, 10
 , -513.3937805535154);
   cl.push(tp);
   tp = new THREE.Vector3( 209.84133792732493
-, 40
+, 30
 , 20.356062821541055);
   cl.push(tp);
   tp = new THREE.Vector3( -209.7084619395244
-, 40
+, 30
 , 20.933374667323672);
   cl.push(tp);
 
@@ -1112,7 +1112,7 @@ function gerrubyl1(){
 }
 
 //Gen a ruby coordinate list for map two:
-function gerrubyl2(){ 
+function gerrubyl2(){
   cl = []
   var tp = new THREE.Vector3(-0.9,30,-70);
   cl.push(tp);
@@ -1131,7 +1131,7 @@ function gerrubyl2(){
   tp = new THREE.Vector3( 261.87655537861195
 , 25
 , -267.1454060153083);
-  cl.push(tp);  
+  cl.push(tp);
   tp = new THREE.Vector3( -142.05348174879128
 , 20
 , -367.8336658743106);
@@ -1156,7 +1156,7 @@ function gerrubyl2(){
 
 function gerrubyl3(){ //Ruby coordinates for NewMap3
   cl = []
-  
+
   //Ruby coordinates for Start floor
   var tp = new THREE.Vector3( -1853.1228231402367
 , 272
@@ -1283,6 +1283,6 @@ function gerrubyl3(){ //Ruby coordinates for NewMap3
 , 230
 , -166.47467327015698);
   cl.push(tp);
-  
+
   return(cl)
 }

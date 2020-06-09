@@ -88,8 +88,7 @@ var lobj= new Array();
 var robj= new Array();
 var tp = new THREE.Vector3();
 
-//Load crate test Model
-// var cratebox = new THREE.Object3D();
+
 
 init();
 //to initialise the map and objects for the initial render(only called once)
@@ -262,11 +261,7 @@ loop = function(){
 		// chardata.rotationy += 0.04
 	}
 	if(controller.forward){
-<<<<<<< HEAD
-		chardata.z_vel -=0.3;//0.1
-=======
 		chardata.z_vel -=0.12;//0.12
->>>>>>> b4976b3ea123f8086571146d31d7177de37e6eb3
 		action.play(); //need to figure out how controller event listener processes 'keyup' events to call action.stop() when 'W' is released
 
 	}
@@ -461,6 +456,7 @@ function checkruby(){
 	for(let k = 0 ; k< RubyArr.length;k++){
 		if((controls.getObject().position.x <= (RPosList[k].x+2) && controls.getObject().position.x >= (RPosList[k].x-2) && controls.getObject().position.z >= RPosList[k].z-2 && controls.getObject().position.z <= RPosList[k].z+2)&& scene.getObjectById(RubyArr[k].id,true) != null ){
 			PointsCounter = PointsCounter+5;
+			genaudio();
 			scene.remove(RubyArr[k]);
 
 		}
@@ -472,6 +468,7 @@ function checkcoin(){
 	for(let k = 0 ; k< CoinArr.length;k++){
 		if((controls.getObject().position.x <= (CPosList[k].x+2) && controls.getObject().position.x >= (CPosList[k].x-2) && controls.getObject().position.z >= CPosList[k].z-2 && controls.getObject().position.z <= CPosList[k].z+2)&& scene.getObjectById(CoinArr[k].id,true) != null){
 			PointsCounter = PointsCounter+1;
+			genaudio();
 			scene.remove(CoinArr[k]);
 
 		}
