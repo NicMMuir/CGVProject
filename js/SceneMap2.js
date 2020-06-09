@@ -7,6 +7,7 @@
 var scene, camera,raycamera, renderer, loop,char,chardata,controller;
 var mesh, oceanGeometry, material, clock, TWEEN;
 var Collidables = [];
+var tops;
 
 var PauseState = false;
 
@@ -89,6 +90,8 @@ function init(){
 	renderer.setSize( window.innerWidth, window.innerHeight );
 	document.body.appendChild(renderer.domElement );
 	getarrMap1();
+  //SpinTopMap2();
+
 	Charinit(charstartx,charstarty,charstartz);
 	RPosList = gerrubyl2();
 	RubyArr = genruby(RPosList);
@@ -123,15 +126,22 @@ function render(){
 			boxRender(boxe5,-300,-530,120,90);
 			boxRender(boxe6,0,30,90,60);
 
-			spikesRender_z(trap1,-150,40);
-			spikesRender_z(trap_2,-413,40);
-			spikesRender_x(trap_3,-130,270);
+			spikesRender_z1(trap1,-150,40);
+			spikesRender_z2(trap_2,-413,43);
 
 			pillRender(p_e1,0,45,60,15);
 			pillRender(p_e2,205,105,80,68);
 			pillRender(p_e3,-198,-155,45,50);
 			pillRender(p_e4,-205,105,80,68);
 			pillRender(p_e5,-300,-275,40,45);
+
+			topRender1(top1,0,-68,6,6);
+			topRender2(top2,190,-320,6,6);
+			topRender3(top3,-300,-520,6,6);
+
+
+
+
 
 };
 
@@ -164,6 +174,9 @@ controller = {
 						break;
 					case 32://the spacebar is pressed
 							controller.up = keystate;
+						break;
+					case 82: //the 'R' key is pressed
+							window.location.assign("CGVProject-Map2.html");
 						break;
 				}
 

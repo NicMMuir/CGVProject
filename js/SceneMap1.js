@@ -99,7 +99,6 @@ function init(){
 
 
 	CurvyMap1(); //This funct contains all the curvedEnemy data from Curvy.js
-	SpinTopMap1(); //This funct contains all the curvedEnemy data from spintop.js
 	getarrMap1();
 	Charinit(charstartx,charstarty,charstartz);
 
@@ -143,16 +142,10 @@ function animate() {
 function render(){
 	renderer.render(scene,camera);
 	// onRender();
-			boxRender(boxe1,370,0,50,50);
-			boxRender(boxe2,-400,0,50,50);
-			boxRender(boxe3,305,-205,44,50);
-			boxRender(boxe4,320,-530,130,80);
-			boxRender(boxe5,-300,-530,120,90);
-			boxRender(boxe6,0,30,90,60);
 
-		  spikesRender_z(trap1,-150,40);
-			spikesRender_z(trap_2,-413,40);
-			spikesRender_x(trap_3,-130,270);
+		  spikesRender_z1(trap1,-150,40);
+			spikesRender_z2(trap_2,-413,43);
+
 
 			pillRender(p_e1,0,45,60,15);
 			pillRender(p_e2,200,105,80,65);
@@ -199,7 +192,11 @@ controller = {
 					case 32://the spacebar is pressed
 							controller.up = keystate;
 						break;
+					case 82: //the 'R' key is pressed
+							window.location.assign("CGVProject-Map1.html");
+						break;
 				}
+
 
 				if (controller.forward == false){
 					action.stop();

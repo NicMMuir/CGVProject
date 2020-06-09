@@ -119,20 +119,56 @@ function getTrapM3(){
       return trap;
 }
 
-var fra = -1;
+var fra1 = -1;
 
-function spikesRender_y(obj,y,dy) {
+function spikesRender_y1(obj,y,dy) {
 /*  console.log("frame is: "+fr);
   console.log("x+dx: "+ (x+dx));
   console.log(obj.position.x);*/
-  obj.position.y +=fra;
+  obj.position.y +=fra1;
 
   if(obj.position.y < y-dy){
-    fra = 1;
+    fra1 = 1;
   }
 
   if(obj.position.y > y){
-    fra = -1
+    fra1 = -1
+  }
+//  console.log("f is: "+frame)
+
+};
+
+var fra2 =1
+function spikesRender_y2(obj,y,dy) {
+/*  console.log("frame is: "+fr);
+  console.log("x+dx: "+ (x+dx));
+  console.log(obj.position.x);*/
+  obj.position.y +=fra2;
+
+  if(obj.position.y < y-dy){
+    fra2 = 1;
+  }
+
+  if(obj.position.y > y){
+    fra2 = -1
+  }
+//  console.log("f is: "+frame)
+
+};
+
+var fra3 =1
+function spikesRender_y3(obj,y,dy) {
+/*  console.log("frame is: "+fr);
+  console.log("x+dx: "+ (x+dx));
+  console.log(obj.position.x);*/
+  obj.position.y +=fra3;
+
+  if(obj.position.y < y-dy){
+    fra3 = 1;
+  }
+
+  if(obj.position.y > y){
+    fra3 = -1
   }
 //  console.log("f is: "+frame)
 

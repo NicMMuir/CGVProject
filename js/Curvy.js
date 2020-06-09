@@ -274,15 +274,6 @@ loader.load('./3DObjects/Enemy/scene.gltf', function(gltf){
     EnemyList.push(curveEnemy1);
     CurvyEnemi3.push(curveEnemy1);
 
-    var curveEnemy2 = gltf.scene.clone();
-    curveEnemy2.position.x = -1690;
-    curveEnemy2.position.y = 258;
-    curveEnemy2.position.z = 1000;
-    
-    scene.add(curveEnemy2);
-    EnemyList.push(curveEnemy2);
-    CurvyEnemi3.push(curveEnemy2);
-
     var curveEnemy3 = gltf.scene.clone();
     curveEnemy3.position.x = -1600;
     curveEnemy3.position.y = 258;
@@ -291,15 +282,6 @@ loader.load('./3DObjects/Enemy/scene.gltf', function(gltf){
     scene.add(curveEnemy3);
     EnemyList.push(curveEnemy3);
     CurvyEnemi3.push(curveEnemy3);
-
-    var curveEnemy4 = gltf.scene.clone();
-    curveEnemy4.position.x = -1390;
-    curveEnemy4.position.y = 258;
-    curveEnemy4.position.z = 1000;
-    
-    scene.add(curveEnemy4);
-    EnemyList.push(curveEnemy4);
-    CurvyEnemi3.push(curveEnemy4);
 
     var curveEnemy5 = gltf.scene.clone();
     curveEnemy5.position.x = -1290;
@@ -310,15 +292,6 @@ loader.load('./3DObjects/Enemy/scene.gltf', function(gltf){
     EnemyList.push(curveEnemy5);
     CurvyEnemi3.push(curveEnemy5);
 
-    var curveEnemy6 = gltf.scene.clone();
-    curveEnemy6.position.x = -1200;
-    curveEnemy6.position.y = 258;
-    curveEnemy6.position.z = 1000;
-    
-    scene.add(curveEnemy6);
-    EnemyList.push(curveEnemy6);
-    CurvyEnemi3.push(curveEnemy6);
-
     var curveEnemy7 = gltf.scene.clone();
     curveEnemy7.position.x = -1100;
     curveEnemy7.position.y = 258;
@@ -327,15 +300,6 @@ loader.load('./3DObjects/Enemy/scene.gltf', function(gltf){
     scene.add(curveEnemy7);
     EnemyList.push(curveEnemy7);
     CurvyEnemi3.push(curveEnemy7);
-
-    var curveEnemy8 = gltf.scene.clone();
-    curveEnemy8.position.x = -1000;
-    curveEnemy8.position.y = 258;
-    curveEnemy8.position.z = 1000;
-    
-    scene.add(curveEnemy8);
-    EnemyList.push(curveEnemy8);
-    CurvyEnemi3.push(curveEnemy8);
 
     var curveEnemy9 = gltf.scene.clone();
     curveEnemy9.position.x = -500;
@@ -346,15 +310,6 @@ loader.load('./3DObjects/Enemy/scene.gltf', function(gltf){
     EnemyList.push(curveEnemy9);
     CurvyEnemi3.push(curveEnemy9);
 
-    var curveEnemy10 = gltf.scene.clone();
-    curveEnemy10.position.x = -340;
-    curveEnemy10.position.y = 208;
-    curveEnemy10.position.z = 1000;
-    
-    scene.add(curveEnemy10);
-    EnemyList.push(curveEnemy10);
-    CurvyEnemi3.push(curveEnemy10);
-
     var curveEnemy11 = gltf.scene.clone();
     curveEnemy11.position.x = -240;
     curveEnemy11.position.y = 208;
@@ -363,15 +318,6 @@ loader.load('./3DObjects/Enemy/scene.gltf', function(gltf){
     scene.add(curveEnemy11);
     EnemyList.push(curveEnemy11);
     CurvyEnemi3.push(curveEnemy11);
-
-    var curveEnemy12 = gltf.scene.clone();
-    curveEnemy12.position.x = -140;
-    curveEnemy12.position.y = 208;
-    curveEnemy12.position.z = 1000;
-    
-    scene.add(curveEnemy12);
-    EnemyList.push(curveEnemy12);
-    CurvyEnemi3.push(curveEnemy12);
 
     //curveEnemy 13 to 20 move along x-axis
     var curveEnemy13 = gltf.scene.clone();

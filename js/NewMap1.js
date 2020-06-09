@@ -212,6 +212,8 @@ loader.load('./3DObjects/palmTree/scene.gltf', function(gltf){
     tween3.chain( tween4 );
     tween4.chain( tween1 );
 
+    tween1.start(); //This begins the chain movement between the four positions
+
     //We also rotate the shark model depending in which direction its moving
     //
     var tweenRot1 = new TWEEN.Tween(sharkModel.rotation)
@@ -263,7 +265,6 @@ loader.load('./3DObjects/palmTree/scene.gltf', function(gltf){
     tweenRot3.chain( tweenRot4 );
     tweenRot4.chain( tweenRot1 );
 
-    tween1.start(); //This begins the chain movement between the four positions
     tweenRot1.start(); //This begins the rotation of the shark
 
         } );
@@ -391,36 +392,6 @@ function genarrMap1(){
   ObjectsMap1Arr.push(p_e5);
   EnemyList.push(p_e5);
 
-  boxe1 = new getEnemy();
-  boxe1.position.x = 40;
-  boxe1.position.z = -20;
-  boxe1.position.y = 4.1;
-  boxe1.scale.x = 8;
-  boxe1.scale.y = 8;
-  boxe1.scale.z = 8;
-
-  ObjectsMap1Arr.push(boxe1);
-  EnemyList.push(boxe1);
-
-  boxe2 = boxe1.clone();
-   ObjectsMap1Arr.push(boxe2);
-   EnemyList.push(boxe2);
-
-   boxe3 = boxe1.clone();
-   ObjectsMap1Arr.push(boxe3);
-   EnemyList.push(boxe3);
-
-   boxe4 = boxe1.clone();
-    ObjectsMap1Arr.push(boxe4);
-    EnemyList.push(boxe4);
-
-    boxe5 = boxe1.clone();
-     ObjectsMap1Arr.push(boxe5);
-     EnemyList.push(boxe5);
-
-    boxe6 = boxe1.clone();
-     ObjectsMap1Arr.push(boxe6);
-     EnemyList.push(boxe6);
 
      trap1 = new getTrap();
      trap1.position.x = 196;
@@ -439,17 +410,7 @@ function genarrMap1(){
      ObjectsMap1Arr.push(trap_2);
      EnemyList.push(trap_2);
 
-     trap_3 = trap1.clone();
-     trap_3.position.x = -130;
-     trap_3.position.z = -243;
-     trap_3.position.y = 1.3;
-     trap_3.rotateZ(Math.PI/2);
-     trap_3.scale.x = 19;
-     trap_3.scale.y = 19;
-     trap_3.scale.z = 19;
 
-     ObjectsMap1Arr.push(trap_3);
-     EnemyList.push(trap_3);
 
   End = endpad;
   ObjectsMap1Arr.push(endpad);

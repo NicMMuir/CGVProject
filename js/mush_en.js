@@ -9,7 +9,7 @@ var head= new THREE.Object3D();
 function mushEnemy(){
 
 //Adding cylinder(mush_Pillar) to spiked mush_Pillar
-var texture = new THREE.TextureLoader().load( 'Textures/tribal.jpg' );
+var texture = new THREE.TextureLoader().load( 'Textures/redstripe.jfif' );
 var material = new THREE.MeshBasicMaterial( { map: texture } );
 var geometry = new THREE.CylinderGeometry( 1, 0.8, 3.5, 22 );
 var cylinder = new THREE.Mesh( geometry, material );
@@ -29,7 +29,7 @@ cone.rotateZ(-Math.PI/2);
 
 var cone1 = cone.clone();
 var cone2 = cone.clone();
-cone1.position.set(0,-0.6,0);
+cone1.position.set(0,-1,0);
 cone2.position.set(0,-1.2,0);
 
 
@@ -130,7 +130,7 @@ return mush_en;
 }
 
 function mushRender(ob,x,z,s1,s2){
-    t += 0.1;
+    t += 0.01;
     //console.log("t: "+t);
     //console.log("b.position.x:" +ob.position.x);
     //console.log("b.position.z:" +ob.position.z);
@@ -138,3 +138,129 @@ function mushRender(ob,x,z,s1,s2){
     ob.position.x = s1*Math.cos(t) +x;
     ob.position.z = s2*Math.sin(t) + z;
   };
+
+ var f1 = 1;
+  function mushRender_zp1(obj,z,dz) {
+
+    obj.rotation.y += 5;
+
+    obj.position.z +=f1;
+
+    if(obj.position.z > z+dz){
+      f1 = -1;
+    }
+
+    if(obj.position.z < z){
+      f1 = 1;
+    }
+
+
+  };
+
+  var f2 = 1;
+   function mushRender_zp2(obj,z,dz) {
+
+     obj.rotation.y += 5;
+
+     obj.position.z +=f2;
+
+     if(obj.position.z > z+dz){
+       f2 = -1;
+     }
+
+     if(obj.position.z < z){
+       f2 = 1;
+     }
+
+
+   };
+
+   var f3 = 1;
+    function mushRender_zp3(obj,z,dz) {
+
+      obj.rotation.y += 5;
+
+      obj.position.z +=f3;
+
+      if(obj.position.z > z+dz){
+        f3 = -1;
+      }
+
+      if(obj.position.z < z){
+        f3 = 1;
+      }
+
+
+    };
+
+    var f4 = 1;
+     function mushRender_zp4(obj,z,dz) {
+
+       obj.rotation.y += 5;
+
+       obj.position.z +=f4;
+
+       if(obj.position.z > z+dz){
+         f4 = -1;
+       }
+
+       if(obj.position.z < z){
+         f4 = 1;
+       }
+
+
+     };
+
+     var f5 = -1;
+      function mushRender_zn1(obj,z,dz) {
+
+        obj.rotation.y += 5;
+
+        obj.position.z +=f5;
+
+        if(obj.position.z < z-dz){
+          f5 = 1;
+        }
+
+        if(obj.position.z > z){
+          f5 = -1;
+        }
+
+
+      };
+
+      var f6 = -1;
+       function mushRender_zn2(obj,z,dz) {
+
+         obj.rotation.y += 5;
+
+         obj.position.z +=f6;
+
+         if(obj.position.z < z-dz){
+           f6 = 1;
+         }
+
+         if(obj.position.z > z){
+           f6 = -1;
+         }
+
+
+       };
+
+       var f7 = -1;
+        function mushRender_zn3(obj,z,dz) {
+
+          obj.rotation.y += 5;
+
+          obj.position.z +=f7;
+
+          if(obj.position.z < z-dz){
+            f7 = 1;
+          }
+
+          if(obj.position.z > z){
+            f7 = -1;
+          }
+
+
+        };
