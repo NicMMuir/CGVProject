@@ -270,7 +270,7 @@ loop = function(){
 		chardata.x_vel +=0.1;
 	}
 	if(controller.forward){
-		chardata.z_vel -=0.12;//0.12
+		chardata.z_vel -=0.8;//0.12
 		action.play(); //need to figure out how controller event listener processes 'keyup' events to call action.stop() when 'W' is released
 
 	}

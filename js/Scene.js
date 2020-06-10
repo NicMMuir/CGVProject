@@ -285,7 +285,7 @@ loop = function(){
 	if(controller.up && chardata.jump == false){
 
 		//must be a mutiple of the gravity
-		chardata.y_vel +=10;
+		chardata.y_vel +=50;
 		chardata.jump = true;
 	}
 
@@ -300,7 +300,7 @@ loop = function(){
 		// chardata.rotationy += 0.04
 	}
 	if(controller.forward){
-		chardata.z_vel -=0.12;//0.12
+		chardata.z_vel -=1.2;//0.12
 		action.play(); //need to figure out how controller event listener processes 'keyup' events to call action.stop() when 'W' is released
 
 	}

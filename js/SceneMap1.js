@@ -8,6 +8,7 @@ var scene, camera,raycamera, renderer, loop,char,chardata,controller;
 var mesh, oceanGeometry, material, clock;
 var Collidables = [];
 var curveEnemy;
+var renderer2;
 
 var mixer, mixer1, mixer2, TWEEN;
 var mapCamera, mapWidth = 240, mapHeight = 160; // w/h should match div dimensions
@@ -83,7 +84,7 @@ controls = new THREE.PointerLockControls(camera);
     10000 );           			// Far 
 	mapCamera.up = new THREE.Vector3(0,0,-1);
 	mapCamera.lookAt( new THREE.Vector3(0,-1,0) );
-	scene.add(mapCamera);
+	// scene.add(mapCamera);
 
 var position;//Ocean moveement
 var time;
@@ -109,6 +110,10 @@ function init(){
 	renderer.setSize( window.innerWidth, window.innerHeight );
 	document.body.appendChild(renderer.domElement );
 
+	renderer2 = new THREE.WebGLRenderer();
+	renderer2.setPixelRatio( window.devicePixelRatio );
+	renderer2.setSize( window.innerWidth, window.innerHeight );
+	document.body.appendChild( renderer2.domElement );
 
 	CurvyMap1(); //This funct contains all the curvedEnemy data from Curvy.js
 	getarrMap1();
@@ -140,10 +145,10 @@ function animate() {
 				var delta = clock.getDelta();
 				mixer1.update( delta*2 );
 				mixer.update( delta*2 );
-				sphereCamera.update(renderer,scene);
+				sphereCamera.update(renderer1,scene);
 				
 	//EVENTS (Allows game to scale when screen size is changed)
-	THREEx.WindowResize(renderer, camera);	
+	// THREEx.WindowResize(renderer, camera);	
 
 	render();
 			}
@@ -155,7 +160,7 @@ function render(){
 	// setViewport parameters:
 	//  lower_left_x, lower_left_y, viewport_width, viewport_height
 	renderer.setViewport( 0, 0, w, h );	
-	renderer.clear();
+	// renderer.clear();
 	
 	// full display
 	// renderer.setViewport( 0, 0, SCREEN_WIDTH - 2, 0.5 * SCREEN_HEIGHT - 2 );
@@ -163,12 +168,12 @@ function render(){
 	
 	// minimap (overhead orthogonal camera)
 	//  lower_left_x, lower_left_y, viewport_width, viewport_height
-	renderer.setViewport( 10, h - mapHeight - 10, mapWidth, mapHeight );
-	renderer.render( scene, mapCamera );
+	renderer2.setViewport( 10, h - mapHeight - 10, mapWidth, mapHeight );
+	renderer2.render( scene, mapCamera );
 
 	// renderer.setSize( window.innerWidth, window.innerHeight );
 	// renderer.setClearColor( 0x000000, 1 );
-	renderer.autoClear = false;
+	renderer2.autoClear = false;
 
 			spikesRender_z1(trap1,-150,40);
 			spikesRender_z2(trap_2,-413,43);
@@ -275,7 +280,7 @@ loop = function(){
 		// chardata.rotationy += 0.04
 	}
 	if(controller.forward){
-		chardata.z_vel -=0.12;//0.12
+		chardata.z_vel -=0.8;//0.12
 		action.play(); //need to figure out how controller event listener processes 'keyup' events to call action.stop() when 'W' is released
 
 	}
