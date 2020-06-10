@@ -244,12 +244,10 @@ var targetPosition1 = new THREE.Vector3(  CurvyEnemiShort2[i].position, CurvyEne
 
 function CurvyMap3 (){ //Curved enemy data for Map 3
 	//Load Curved Spiky Enemy Model
-  //loadingManager is called here
-  //Once this enemy model is loaded, then only is the loading screen removed 
   var CurvyEnemi3 = [];
   var CurvyEnemiShort3 = [];
   var CurvyEnemiLong3 = [];
-var loader = new THREE.GLTFLoader( loadingManager );
+var loader = new THREE.GLTFLoader();
 loader.load('./3DObjects/Enemy/scene.gltf', function(gltf){
     var poison1 = gltf.scene.getObjectByName("mesh_0");
     var poison2 = gltf.scene.getObjectByName("mesh_2");

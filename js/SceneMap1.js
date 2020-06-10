@@ -216,7 +216,7 @@ controller = {
 							controller.up = keystate;
 						break;
 					case 82: //the 'R' key is pressed
-							window.location.assign("CGVProject-Map1.html");
+							window.location.assign("index.html");
 						break;
 				}
 

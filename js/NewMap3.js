@@ -231,7 +231,9 @@ var dragonEgg5 = new THREE.Object3D();
 }
 
 //Load Ship In Cloud Model
-  var loader = new THREE.GLTFLoader();
+  //loadingManager is called here
+  //Once this ShipCloud model is loaded, then only is the loading screen removed 
+  var loader = new THREE.GLTFLoader(loadingManager);
   loader.load('./3DObjects/ShipClouds/scene.gltf', function(gltf){
     gltf.scene.scale.set(0.8,0.8,0.8);
 
