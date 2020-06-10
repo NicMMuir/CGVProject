@@ -142,12 +142,10 @@ function animate() {
 				mixer.update( delta*2 );
 				sphereCamera.update(renderer,scene);
 				
-	//EVENTS ()
-	THREEx.WindowResize(renderer, camera);
-	THREEx.FullScreen.bindKey({ charCode : 'm'.charCodeAt(0) });
-	
+	//EVENTS (Allows game to scale when screen size is changed)
+	THREEx.WindowResize(renderer, camera);	
 
-				render();
+	render();
 			}
 
 function render(){

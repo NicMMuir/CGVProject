@@ -1,44 +1,49 @@
-body {
-  background: #333333;
-  margin: 0;
-  height: 100vh;
-  display: grid;
-  justify-items: center;
-  align-items: center;
-  font-family: "Nunito", "sans-serif";
+.wrapper {
+    position: absolute;
+    width: 7.75%;
+    height: 1.95em;
+    top: 5%; left: 75%;
+    flex: 0;
+    text-align: center;
+    font-family: 'Nunito', 'sans-serif';
 }
-
+/*Small circle (not yet enlarged)(Excluding letter 'i'):*/
 .inner {
   background: #0099ff;
   padding: 1em;
   border-radius: 10px;
   width: 250px;
   clip-path: circle(10% at 90% 20%);
-  transition: all 0.5s ease-in-out;
+  transition: all .5s ease-in-out;
   cursor: pointer;
 }
+/*Enlarged hover card showing info:*/
 .inner:hover {
   clip-path: circle(75%);
-  background: #00b6ff;
+  background: #00B6FF;
 }
+/*Header (Contains the word 'Info'):*/
 .inner h1 {
   color: white;
   margin: 0;
 }
+/*Inner paragraph:*/
 .inner p {
   color: white;
-  font-size: 0.8rem;
+  font-size: 1rem;
 }
+/*Letter 'i' in small circle:*/
 .inner span {
   float: right;
   color: white;
   font-weight: bold;
-  transition: color 0.5s;
+  transition: color .5s;
   position: relative;
   margin-right: 4%;
-  line-height: 12px;
-  font-size: 24px;
+  margin-top: 15%;
+  line-height:12px;
+  font-size:24px;
 }
 .inner:hover span {
-  color: rgba(255, 255, 255, 0);
+  color: rgba(0,0,0, 0);
 }

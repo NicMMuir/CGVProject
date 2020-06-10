@@ -24,10 +24,10 @@ canvas{
 }
 
 #menu {
-    position: absolute;
+    position: relative;
     width: 10%;
     height: 20em;
-    top: 20%; left: 50%;
+    top: -450px; left: 50%;
     margin: -125px 0 0 -100px;
     flex: 1;
     text-align: center;

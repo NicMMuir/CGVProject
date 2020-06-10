@@ -114,6 +114,9 @@ function animate() {
 		requestAnimationFrame( animate );
 		TWEEN.update();
 		sphereCamera.update(renderer,scene);
+		
+		//EVENTS (Allows game to scale when screen size is changed)
+		THREEx.WindowResize(renderer, camera);	
 		render();
 			}
 
