@@ -8,6 +8,8 @@ var mesh, oceanGeometry, material, clock, TWEEN;
 var Collidables = [];
 var spinToplist3 = [];
 var spinTop1, spinTop2, spinTop3, spinTop4, spinTop5;
+var mapCamera, mapWidth = 360, mapHeight = 200; // w/h should match div dimensions
+
 
 var PauseState = false;
 
@@ -73,6 +75,18 @@ camera.position.set(camstartx,camstarty,camstartz);
 camera.updateProjectionMatrix();
 controls = new THREE.PointerLockControls(camera);
 
+// orthographic cameras
+	mapCamera = new THREE.OrthographicCamera(
+    -2020,		// Left
+    190,		// Right
+    1010,		// Top
+    -1170,	// Bottom
+    -5000,            			// Near 
+    10000 );           			// Far 
+	mapCamera.up = new THREE.Vector3(0,0,-1);
+	mapCamera.lookAt( new THREE.Vector3(0,-1,0) );
+	scene.add(mapCamera);
+
 var position;//Ocean moveement
 var time;
 
@@ -134,12 +148,33 @@ function animate() {
 				mixer.update( delta );
 				TWEEN.update();
 				sphereCamera.update(renderer,scene);
+
+				//EVENTS (Allows game to scale when screen size is changed)
+				THREEx.WindowResize(renderer, camera);	
 				render();
 			}
 
 
 function render(){
-	renderer.render(scene,camera);
+	var w = window.innerWidth, h = window.innerHeight;
+
+	// setViewport parameters:
+	//  lower_left_x, lower_left_y, viewport_width, viewport_height
+	renderer.setViewport( 0, 0, w, h );	
+	renderer.clear();
+	
+	// full display
+	// renderer.setViewport( 0, 0, SCREEN_WIDTH - 2, 0.5 * SCREEN_HEIGHT - 2 );
+	renderer.render( scene, camera );
+	
+	// minimap (overhead orthogonal camera)
+	//  lower_left_x, lower_left_y, viewport_width, viewport_height
+	renderer.setViewport( 10, h - mapHeight - 10, mapWidth, mapHeight );
+	renderer.render( scene, mapCamera );
+
+	// renderer.setSize( window.innerWidth, window.innerHeight );
+	// renderer.setClearColor( 0x000000, 1 );
+	renderer.autoClear = false;
 
 	mushRender(mush_e1,-1860,955,35,35);
 	mushRender(mush_e2,-1730,940,35,35);
@@ -202,6 +237,9 @@ controller = {
 						break;
 					case 32://the spacebar is pressed
 							controller.up = keystate;
+						break;
+					case 82: //the 'R' key is pressed
+							window.location.assign("index.html");
 						break;
 				}
 

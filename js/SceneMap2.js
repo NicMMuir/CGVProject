@@ -8,6 +8,8 @@ var scene, camera,raycamera, renderer, loop,char,chardata,controller;
 var mesh, oceanGeometry, material, clock, TWEEN;
 var Collidables = [];
 var tops;
+var mapCamera, mapWidth = 240, mapHeight = 160; // w/h should match div dimensions
+
 
 var PauseState = false;
 
@@ -69,6 +71,18 @@ camera.position.set(camstartx,camstarty,camstartz);
 camera.updateProjectionMatrix();
 controls = new THREE.PointerLockControls(camera);
 
+// orthographic cameras
+	mapCamera = new THREE.OrthographicCamera(
+    -520,		// Left
+    520,		// Right
+    650,		// Top
+    -130,	// Bottom
+    -5000,            			// Near 
+    10000 );           			// Far 
+	mapCamera.up = new THREE.Vector3(0,0,-1);
+	mapCamera.lookAt( new THREE.Vector3(0,-1,0) );
+	scene.add(mapCamera);
+
 var position;//Ocean moveement
 var time;
 //char Vector3
@@ -114,11 +128,34 @@ function animate() {
 		requestAnimationFrame( animate );
 		TWEEN.update();
 		sphereCamera.update(renderer,scene);
+		
+		//EVENTS (Allows game to scale when screen size is changed)
+		THREEx.WindowResize(renderer, camera);	
 		render();
 			}
 
 function render(){
-	renderer.render(scene,camera);
+
+	var w = window.innerWidth, h = window.innerHeight;
+
+	// setViewport parameters:
+	//  lower_left_x, lower_left_y, viewport_width, viewport_height
+	renderer.setViewport( 0, 0, w, h );	
+	renderer.clear();
+	
+	// full display
+	// renderer.setViewport( 0, 0, SCREEN_WIDTH - 2, 0.5 * SCREEN_HEIGHT - 2 );
+	renderer.render( scene, camera );
+	
+	// minimap (overhead orthogonal camera)
+	//  lower_left_x, lower_left_y, viewport_width, viewport_height
+	renderer.setViewport( 10, h - mapHeight - 10, mapWidth, mapHeight );
+	renderer.render( scene, mapCamera );
+
+	// renderer.setSize( window.innerWidth, window.innerHeight );
+	// renderer.setClearColor( 0x000000, 1 );
+	renderer.autoClear = false;
+
 			boxRender(boxe1,370,0,100,100);
 			boxRender(boxe2,-400,0,100,100);
 			boxRender(boxe3,305,-205,44,50);
@@ -176,7 +213,7 @@ controller = {
 							controller.up = keystate;
 						break;
 					case 82: //the 'R' key is pressed
-							window.location.assign("CGVProject-Map2.html");
+							window.location.assign("index.html");
 						break;
 				}
 

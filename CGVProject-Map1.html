@@ -4,10 +4,10 @@
         <meta charset="utf-8">
         <title>CGVProject: Level 1</title>
 
+        <link rel="stylesheet" type="text/css" href="css/infobox.css">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
         <link rel="stylesheet" type="text/css" href="css/normalize.css">
         <link rel="stylesheet" type="text/css" href="css/standard.css">
-        <link rel="stylesheet" type="text/css" href="css/style.css">
-        <link rel="stylesheet" type="text/css" href="css/infobox.css">
     </head>
 <body>
   <script src ="js/three.js"></script>
@@ -22,7 +22,6 @@
   <script src ="js/LoadRuby.js"></script>
   <script src ="js/Audio.js"></script>
   <script src ="js/LoadCoinAudio.js"></script>
-
   <script src="js/MainCharacter.js"></script>
   <script src ="js/Enemy.js"></script>
   <script src ="js/BoxEnemy.js"></script>
@@ -41,14 +40,6 @@
   <div id="loader"></div>
 </section>
 
-  <!--   Info box pop up -->  
-  <div class="container">
-  <div class="inner"> <span>i</span>
-    <h1>Info</h1>
-    <p>This is a message card to tell you something.</p>
-  </div>
-  </div>
-
    <!--End-game scorecard-->
    <div id="menu" class = "hidden">
     <h1>YOU WIN</h1>
@@ -59,11 +50,18 @@
         <p class = "menu-btn" id = "deathcount">Deaths:</p>
     </div>
 
-    </div>
-
+      <!--   Info box pop up -->
+  <div class="wrapper">
+  <div class="inner"> <span>i</span>
+    <h1>Controls</h1>
+    <p>Move: WASD</p>
+    <p>Jump: SPACE</p>
+    <p>Look: Click on screen and move MOUSE</p>
+    <p>Press ESC to show your cursor</p>
+    <p>Fullscreen: F11</p>
+    <p>Main Menu: R</p>
+  </div>
+  </div>
 
 </body>
-
-
-
 </html>

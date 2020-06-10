@@ -148,12 +148,10 @@ function animate() {
 				mixer.update( delta*2 );
 				sphereCamera.update(renderer,scene);
 				
-	//EVENTS ()
-	THREEx.WindowResize(renderer, camera);
-	THREEx.FullScreen.bindKey({ charCode : 'm'.charCodeAt(0) });
-	
+	//EVENTS (Allows game to scale when screen size is changed)
+	THREEx.WindowResize(renderer, camera);	
 
-				render();
+	render();
 			}
 
 function render(){
@@ -224,7 +222,7 @@ controller = {
 							controller.up = keystate;
 						break;
 					case 82: //the 'R' key is pressed
-							window.location.assign("CGVProject-Map1.html");
+							window.location.assign("index.html");
 						break;
 				}
 
