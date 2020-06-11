@@ -3,13 +3,12 @@
 
 //Heightmap
 //orbital controls
-var scene, camera,raycamera, renderer, loop,char,chardata,controller;
+var scene, camera,raycamera,renderer,loop,char,chardata,controller;
 var mesh, oceanGeometry, material, clock, TWEEN;
 var Collidables = [];
 var spinToplist3 = [];
 var spinTop1, spinTop2, spinTop3, spinTop4, spinTop5;
 var mapCamera, mapWidth = 360, mapHeight = 200; // w/h should match div dimensions
-
 
 var PauseState = false;
 
@@ -115,8 +114,6 @@ function init(){
 	renderer.setSize( window.innerWidth, window.innerHeight );
 	document.body.appendChild(renderer.domElement );
 
-
-
 	getarrMap1();
 	Charinit(charstartx,charstarty,charstartz);
 
@@ -148,7 +145,6 @@ function animate() {
 				var delta = clock.getDelta();
 				mixer.update( delta );
 				TWEEN.update();
-				sphereCamera.update(renderer,scene);
 
 				//EVENTS (Allows game to scale when screen size is changed)
 				THREEx.WindowResize(renderer, camera);	
@@ -157,6 +153,7 @@ function animate() {
 
 
 function render(){
+	
 	var w = window.innerWidth, h = window.innerHeight;
 
 	// setViewport parameters:

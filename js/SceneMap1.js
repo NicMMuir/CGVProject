@@ -4,10 +4,12 @@
 //Heightmap
 //orbital controls
 
-var scene, camera,raycamera, renderer, loop,char,chardata,controller;
+var scene, camera,raycamera,loop,char,chardata,controller;
 var mesh, oceanGeometry, material, clock;
 var Collidables = [];
 var curveEnemy;
+var renderer, renderer2;
+
 
 var mixer, mixer1, mixer2, TWEEN;
 var mapCamera, mapWidth = 240, mapHeight = 160; // w/h should match div dimensions
@@ -109,6 +111,14 @@ function init(){
 	renderer.setSize( window.innerWidth, window.innerHeight );
 	document.body.appendChild(renderer.domElement );
 
+	//Renderer2 renders the orthographic camera
+	renderer2 = new THREE.WebGLRenderer({antialias: true, alpha: true});
+	renderer2.setPixelRatio( window.devicePixelRatio );
+	renderer2.setSize( window.innerWidth, window.innerHeight );
+	renderer2.domElement.style.position = 'absolute';
+	renderer2.domElement.style.top = 0;
+	renderer2.domElement.style.zIndex = '0.5';
+	document.body.appendChild( renderer2.domElement );
 
 	CurvyMap1(); //This funct contains all the curvedEnemy data from Curvy.js
 	getarrMap1();
@@ -144,6 +154,8 @@ function animate() {
 				
 	//EVENTS (Allows game to scale when screen size is changed)
 	THREEx.WindowResize(renderer, camera);	
+	THREEx.WindowResize(renderer2, mapCamera);	
+
 
 	render();
 			}
@@ -163,12 +175,12 @@ function render(){
 	
 	// minimap (overhead orthogonal camera)
 	//  lower_left_x, lower_left_y, viewport_width, viewport_height
-	renderer.setViewport( 10, h - mapHeight - 10, mapWidth, mapHeight );
-	renderer.render( scene, mapCamera );
+	renderer2.setViewport( 10, h - mapHeight - 10, mapWidth, mapHeight );
+	renderer2.render( scene, mapCamera );
 
 	// renderer.setSize( window.innerWidth, window.innerHeight );
 	// renderer.setClearColor( 0x000000, 1 );
-	renderer.autoClear = false;
+	renderer2.autoClear = false;
 
 			spikesRender_z1(trap1,-150,40);
 			spikesRender_z2(trap_2,-413,43);
