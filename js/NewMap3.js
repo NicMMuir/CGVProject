@@ -2,12 +2,7 @@ var ObjectsMap1Arr = [];
 var EnemyList = [];
 var End;
 var Mesh, oceanGeometry, oceanMaterial, clock;
-var sphereCamera;
 var End;
-
-//Placing a camera inside the start/end pad to create a reflection
-sphereCamera = new THREE.CubeCamera(1,1000,500);
-        sphereCamera.position.set(-300,213,-910);
 
 //Loading screen using css and Threejs LoadingManager
   const loadingManager = new THREE.LoadingManager( () => {
@@ -56,9 +51,8 @@ var waterTexture = new THREE.TextureLoader().load( 'Textures/water.jpg' );
 var waterMat = new THREE.MeshBasicMaterial( { map: waterTexture } );
 var seaSandTexture = new THREE.TextureLoader().load( 'Textures/seasand.jpg' );
 var seaSandMat = new THREE.MeshBasicMaterial( { map: seaSandTexture } );
-let sphereMaterial = new THREE.MeshBasicMaterial({
-          envMap: sphereCamera.renderTarget
-        });
+var galaxyTex = new THREE.TextureLoader().load( 'Textures/galaxy.jpg' );
+var galaxyMat = new THREE.MeshBasicMaterial( { map: galaxyTex } );
 
 var transMaterial = new THREE.MeshPhongMaterial({
     color: 0x000000,
@@ -86,7 +80,7 @@ var transGeometry = new THREE.BoxGeometry(75,20,1000);
 
 //Mesh:
 var startpad = new THREE.Mesh( startpadgeom, Startpadmaterial );
-var endpad = new THREE.Mesh( endpadgeom , sphereMaterial );
+var endpad = new THREE.Mesh( endpadgeom , galaxyMat );
 var StartSeg = new THREE.Mesh( StartFloorGeo , GrassMat );
 var middleFloor = new THREE.Mesh( middleFloorGeo , GrassMat );
 var transBox = new THREE.Mesh( transGeometry , transMaterial );
@@ -443,8 +437,6 @@ function genarrMap1(){
    scene.add( skybox );
    scene.add( directionalLight );
 
-  //Adding reflective camera
-  scene.add(sphereCamera);
 }
 
 function moveobjectsMap1(){
