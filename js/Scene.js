@@ -187,8 +187,9 @@ function render(){
 	if (spinTop3) spinTop3.rotation.y += 0.05;
 	if (spinTop4) spinTop4.rotation.y += 0.05;
 	if (spinTop5) spinTop5.rotation.y += 0.05;
-
-	topRender1(top1,-1239,939,16,16);
+	if (spinTop6) spinTop6.rotation.y += 0.05;
+	if (spinTop7) spinTop7.rotation.y += 0.05;
+	if (spinTop8) spinTop8.rotation.y += 0.05;
 
 	mushRender_zp1(mush_e5,890,200);
 	mushRender_zp2(mush_e6,890,215);

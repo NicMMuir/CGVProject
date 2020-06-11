@@ -158,14 +158,14 @@ function animate() {
 				requestAnimationFrame( animate );
 				TWEEN.update();
 				var delta = clock.getDelta();
-				mixer1.update( delta*2 );
-				mixer.update( delta*2 );
+				mixer1.update( delta*3 ); //Waterfall Model (clouds)
+				mixer.update( delta*2 ); //Shark Model
 				sphereCamera.update(renderer,scene);
 
 	//EVENTS (Allows game to scale when screen size is changed)
 
-	// THREEx.WindowResize(renderer, camera);
-	// THREEx.WindowResize(renderer2, mapCamera);
+	THREEx.WindowResize(renderer, camera);
+	THREEx.WindowResize(renderer2, mapCamera);
 
 
 

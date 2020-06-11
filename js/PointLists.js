@@ -1114,38 +1114,34 @@ function gerrubyl1(){
 //Gen a ruby coordinate list for map two:
 function gerrubyl2(){
   cl = []
-  var tp = new THREE.Vector3(-0.9,30,-70);
+  var tp = new THREE.Vector3(-0.9,14,-70);
   cl.push(tp);
-   tp = new THREE.Vector3(-446,20,-13);
+   tp = new THREE.Vector3(-446,10,-13);
   cl.push(tp);
-   tp = new THREE.Vector3(409,20,-10);
+   tp = new THREE.Vector3(409,10,-10);
   cl.push(tp);
-   tp = new THREE.Vector3(-311,20,-222);
+   tp = new THREE.Vector3(-311,10,-222);
   cl.push(tp);
-   tp = new THREE.Vector3(-300,30,-513);
+   tp = new THREE.Vector3(-300,14,-513);
   cl.push(tp);
    tp = new THREE.Vector3( 193.99570330852956
-, 30
+, 14
 , -322.18233779570573);
   cl.push(tp);
-  tp = new THREE.Vector3( 261.87655537861195
-, 25
-, -267.1454060153083);
-  cl.push(tp);
   tp = new THREE.Vector3( -142.05348174879128
-, 20
+, 10
 , -367.8336658743106);
   cl.push(tp);
   tp = new THREE.Vector3( 0
-, 20
+, 10
 , -250.2317204569856);
   cl.push(tp);
   tp = new THREE.Vector3( -27.190908721444266
-, 20
+, 10
 , -625.8868009335572);
   cl.push(tp);
   tp = new THREE.Vector3( 497.26461703780393
-, 20
+, 10
 , -513.3937805535154);
   cl.push(tp);
 
@@ -1159,44 +1155,44 @@ function gerrubyl3(){ //Ruby coordinates for NewMap3
 
   //Ruby coordinates for Start floor
   var tp = new THREE.Vector3( -1853.1228231402367
-, 272
+, 265
 , 962.3303370074167
 );
   cl.push(tp);
   var tp = new THREE.Vector3( -1722.9649933281394
-, 272
+, 265
 , 957.9523730428081);
   cl.push(tp);
   var tp = new THREE.Vector3( -1644.378897552875
-, 272
+, 265
 , 1036.4901141367284);
   cl.push(tp);
   var tp = new THREE.Vector3( -1485.9388023045178
-, 272
+, 265
 , 1073.8999029556626);
   cl.push(tp);
   var tp = new THREE.Vector3( -1445
-, 275
+, 265
 , 964.8143409780525);
   cl.push(tp);
   var tp = new THREE.Vector3( -1310.489126555672
-, 272
+, 265
 , 1006.6854465154398);
   cl.push(tp);
   var tp = new THREE.Vector3( -1226.0360730538234
-, 272
+, 265
 , 936.0326012426498);
   cl.push(tp);
   var tp = new THREE.Vector3( -1183.7555298529421
-, 272
+, 265
 , 981.0076698010364);
   cl.push(tp);
   var tp = new THREE.Vector3( -1106.2876631711704
-, 272
+, 265
 , 1089.8575378322562);
   cl.push(tp);
   var tp = new THREE.Vector3( -1056.0115567297282
-, 272
+, 265
 , 1004.5213543613224);
   cl.push(tp);
   var tp = new THREE.Vector3( -847.2847131132961
@@ -1206,81 +1202,81 @@ function gerrubyl3(){ //Ruby coordinates for NewMap3
 
   //Floor two rubys (Dragons Den)
   var tp = new THREE.Vector3( -581.617909645002
-, 230
+, 215
 , 1095.9741570029457);
   cl.push(tp);
   var tp = new THREE.Vector3( -599.9814260933773
-, 230
+, 215
 , 988.9038674351067);
   cl.push(tp);
   var tp = new THREE.Vector3( -400.2958363594205
-, 230
+, 215
 , 935.8278368680321);
   cl.push(tp);
   var tp = new THREE.Vector3( -422.3041007559012
-, 230
+, 215
 , 1087.9790555836594);
   cl.push(tp);
   var tp = new THREE.Vector3( -291.36743891754946
-, 230
+, 215
 , 1009.3129143558776);
   cl.push(tp);
   var tp = new THREE.Vector3( -199.43304451694613
-, 230
+, 215
 , 938.0110371349808);
   cl.push(tp);
 
   //Final Floor Rubies (Bridge + Fantasy Ring)
   var tp = new THREE.Vector3( -306.480348476107
-, 230
+, 215
 , 688.295186160052);
   cl.push(tp);
   var tp = new THREE.Vector3( -300.48352842511093
-, 230
+, 215
 , 147.60977934596292);
   cl.push(tp);
   var tp = new THREE.Vector3( -302.6762704310617
-, 230
+, 215
 , -138.68568675229366);
   cl.push(tp);
   var tp = new THREE.Vector3( -459.51760703778615
-, 230
+, 215
 , -168.64331659782016);
   cl.push(tp);
   var tp = new THREE.Vector3( -565.3686705946847
-, 230
+, 215
 , -263.299450837795);
   cl.push(tp);
   var tp = new THREE.Vector3( -674.3235570964977
-, 230
+, 215
 , -432.88706503130174);
   cl.push(tp);
   var tp = new THREE.Vector3( -657.1520414197663
-, 230
+, 215
 , -675.012025122925);
   cl.push(tp);
   var tp = new THREE.Vector3( -567.8449949511512
-, 230
+, 215
 , -833.0456871494456);
   cl.push(tp);
   var tp = new THREE.Vector3( -299.96834108836896
-, 230
+, 215
 , -933.5661297953765);
   cl.push(tp);
   var tp = new THREE.Vector3( -56.5546098844357
-, 230
+, 215
 , -809.4800087298712);
   cl.push(tp);
   var tp = new THREE.Vector3( 73.06176347438526
-, 230
+, 215
 , -590.8339143075793);
   cl.push(tp);
   var tp = new THREE.Vector3( 35.65034250941031
-, 230
+, 215
 , -336.41064653814584);
   cl.push(tp);
   var tp = new THREE.Vector3( -162.2128422747424
-, 230
+, 215
 , -166.47467327015698);
   cl.push(tp);
 

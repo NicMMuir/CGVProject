@@ -49,8 +49,6 @@ var Startpadtexture = new THREE.TextureLoader().load( 'Textures/start.jpg' );
 var Startpadmaterial = new THREE.MeshBasicMaterial( { map: Startpadtexture, side: THREE.DoubleSide } );
 var waterTexture = new THREE.TextureLoader().load( 'Textures/water.jpg' );
 var waterMat = new THREE.MeshBasicMaterial( { map: waterTexture } );
-var seaSandTexture = new THREE.TextureLoader().load( 'Textures/seasand.jpg' );
-var seaSandMat = new THREE.MeshBasicMaterial( { map: seaSandTexture } );
 var galaxyTex = new THREE.TextureLoader().load( 'Textures/galaxy.jpg' );
 var galaxyMat = new THREE.MeshBasicMaterial( { map: galaxyTex } );
 
