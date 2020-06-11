@@ -1,7 +1,8 @@
+@import url('https://fonts.googleapis.com/css?family=Monoton');
+
 body{
-    background-color: #2B2D2F;
+    background-color: #000000;
     margin: 0;
-    font-family: 'Nunito','Arial', sans-serif;
 
 }
 
@@ -25,8 +26,8 @@ canvas{
 
 #menu {
     position: relative;
-    width: 10%;
-    height: 20em;
+    width: 18%;
+    height: 21em;
     top: -450px; left: 50%;
     margin: -125px 0 0 -100px;
     flex: 1;
@@ -46,6 +47,8 @@ canvas{
 
     border: 3px solid #fff;
     border-radius: 5px;
+    
+    font-family: 'Nunito','Arial', sans-serif;
 
     font-size: 14px;
     font-weight: bold;
@@ -64,6 +67,7 @@ h1, h2{
     color: white;
     margin: 0 auto;
     text-align: center;
+    font-family: "Monoton", Helvetica, sans-serif;
     font-weight: normal;
     text-transform: uppercase;
 
