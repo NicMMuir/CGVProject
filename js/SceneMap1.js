@@ -163,13 +163,11 @@ function animate() {
 				sphereCamera.update(renderer,scene);
 
 	//EVENTS (Allows game to scale when screen size is changed)
-<<<<<<< HEAD
-	THREEx.WindowResize(renderer, camera);
-=======
-	THREEx.WindowResize(renderer, camera);	
-	THREEx.WindowResize(renderer2, mapCamera);	
 
->>>>>>> f349461b7ea8e3ad51861f5796116b463e6f3218
+	THREEx.WindowResize(renderer, camera);
+	THREEx.WindowResize(renderer2, mapCamera);
+
+
 
 	render();
 			}
@@ -258,7 +256,7 @@ controller = {
 
 
 loop = function(){
-	
+
 	checkruby();
 	checkcoin();
 	time = clock.getElapsedTime() * 5;

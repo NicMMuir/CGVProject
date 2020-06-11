@@ -77,8 +77,8 @@ controls = new THREE.PointerLockControls(camera);
     520,		// Right
     650,		// Top
     -130,	// Bottom
-    -5000,            			// Near 
-    10000 );           			// Far 
+    -5000,            			// Near
+    10000 );           			// Far
 	mapCamera.up = new THREE.Vector3(0,0,-1);
 	mapCamera.lookAt( new THREE.Vector3(0,-1,0) );
 	scene.add(mapCamera);
@@ -129,7 +129,7 @@ function init(){
 		scene.add(ObjectsMap1Arr[k] );
 		Collidables.push(ObjectsMap1Arr[k]);
 	}
-
+	bgmmusic();
 	SetLight();
 }
 
@@ -138,9 +138,9 @@ function animate() {
 		requestAnimationFrame( animate );
 		TWEEN.update();
 		sphereCamera.update(renderer,scene);
-		
+
 		//EVENTS (Allows game to scale when screen size is changed)
-		THREEx.WindowResize(renderer, camera);	
+		THREEx.WindowResize(renderer, camera);
 		THREEx.WindowResize(renderer2, mapCamera);
 
 		render();
@@ -152,13 +152,13 @@ function render(){
 
 	// setViewport parameters:
 	//  lower_left_x, lower_left_y, viewport_width, viewport_height
-	renderer.setViewport( 0, 0, w, h );	
+	renderer.setViewport( 0, 0, w, h );
 	// renderer.clear();
-	
+
 	// full display
 	// renderer.setViewport( 0, 0, SCREEN_WIDTH - 2, 0.5 * SCREEN_HEIGHT - 2 );
 	renderer.render( scene, camera );
-	
+
 	// minimap (overhead orthogonal camera)
 	//  lower_left_x, lower_left_y, viewport_width, viewport_height
 	renderer2.setViewport( 10, h - mapHeight - 10, mapWidth, mapHeight );
