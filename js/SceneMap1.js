@@ -164,8 +164,8 @@ function animate() {
 
 	//EVENTS (Allows game to scale when screen size is changed)
 
-	THREEx.WindowResize(renderer, camera);
-	THREEx.WindowResize(renderer2, mapCamera);
+	// THREEx.WindowResize(renderer, camera);
+	// THREEx.WindowResize(renderer2, mapCamera);
 
 
 
