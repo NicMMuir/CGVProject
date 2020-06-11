@@ -79,8 +79,8 @@ controls = new THREE.PointerLockControls(camera);
     520,		// Right
     650,		// Top
     -130,	// Bottom
-    -5000,            			// Near 
-    10000 );           			// Far 
+    -5000,            			// Near
+    10000 );           			// Far
 	mapCamera.up = new THREE.Vector3(0,0,-1);
 	mapCamera.lookAt( new THREE.Vector3(0,-1,0) );
 	scene.add(mapCamera);
@@ -97,6 +97,10 @@ var dobj= new Array();
 var lobj= new Array();
 var robj= new Array();
 var tp = new THREE.Vector3();
+
+
+//to play music after loading
+audioplay = false;
 
 
 
@@ -134,7 +138,7 @@ function init(){
 		scene.add(ObjectsMap1Arr[k] );
 		Collidables.push(ObjectsMap1Arr[k]);
 	}
-
+	bgmmusic();
 	SetLight();
 
 }
@@ -147,9 +151,9 @@ function animate() {
 				mixer1.update( delta*2 );
 				mixer.update( delta*2 );
 				sphereCamera.update(renderer,scene);
-				
+
 	//EVENTS (Allows game to scale when screen size is changed)
-	THREEx.WindowResize(renderer, camera);	
+	THREEx.WindowResize(renderer, camera);
 
 	render();
 			}
@@ -160,13 +164,13 @@ function render(){
 
 	// setViewport parameters:
 	//  lower_left_x, lower_left_y, viewport_width, viewport_height
-	renderer.setViewport( 0, 0, w, h );	
+	renderer.setViewport( 0, 0, w, h );
 	renderer.clear();
-	
+
 	// full display
 	// renderer.setViewport( 0, 0, SCREEN_WIDTH - 2, 0.5 * SCREEN_HEIGHT - 2 );
 	renderer.render( scene, camera );
-	
+
 	// minimap (overhead orthogonal camera)
 	//  lower_left_x, lower_left_y, viewport_width, viewport_height
 	renderer.setViewport( 10, h - mapHeight - 10, mapWidth, mapHeight );
@@ -238,6 +242,7 @@ controller = {
 
 
 loop = function(){
+	
 	checkruby();
 	checkcoin();
 	time = clock.getElapsedTime() * 5;
@@ -283,7 +288,6 @@ loop = function(){
 	if(controller.forward){
 		chardata.z_vel -=0.12;//0.12
 		action.play(); //need to figure out how controller event listener processes 'keyup' events to call action.stop() when 'W' is released
-
 	}
 	if(controller.back){
 		chardata.z_vel +=0.06;
@@ -418,6 +422,9 @@ if(erobj.length != 0){
 			}
 	Movechar(chardata.x,chardata.y,chardata.z);
 	render();
+
+
+
   window.requestAnimationFrame(loop);
 }
 
@@ -472,6 +479,7 @@ function OnMouseDown(event){
 function checkruby(){
 	for(let k = 0 ; k< RubyArr.length;k++){
 		if((controls.getObject().position.x <= (RPosList[k].x+2) && controls.getObject().position.x >= (RPosList[k].x-2) && controls.getObject().position.z >= RPosList[k].z-2 && controls.getObject().position.z <= RPosList[k].z+2)&& scene.getObjectById(RubyArr[k].id,true) != null ){
+
 			PointsCounter = PointsCounter+5;
 			genaudio();
 			scene.remove(RubyArr[k]);
