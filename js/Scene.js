@@ -7,7 +7,7 @@ var scene, camera,raycamera,renderer,loop,char,chardata,controller;
 var mesh, oceanGeometry, material, clock, TWEEN;
 var Collidables = [];
 var spinToplist3 = [];
-var spinTop1, spinTop2, spinTop3, spinTop4, spinTop5;
+var spinTop1, spinTop2, spinTop3, spinTop4, spinTop5, spinTop6, spinTop7, spinTop8, spinTop9;
 var mapCamera, mapWidth = 360, mapHeight = 200; // w/h should match div dimensions
 
 var PauseState = false;
@@ -190,6 +190,7 @@ function render(){
 	if (spinTop6) spinTop6.rotation.y += 0.05;
 	if (spinTop7) spinTop7.rotation.y += 0.05;
 	if (spinTop8) spinTop8.rotation.y += 0.05;
+	if (spinTop9) spinTop9.rotation.y += 0.05;
 
 	mushRender_zp1(mush_e5,890,200);
 	mushRender_zp2(mush_e6,890,215);

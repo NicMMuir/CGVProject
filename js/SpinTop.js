@@ -68,7 +68,7 @@ loader.load('./3DObjects/Enemy/scene.gltf', function(gltf){
 
     spinTop6 = gltf.scene.clone();
     spinTop6.position.x = -1170;
-    spinTop6.position.y = 255;
+    spinTop6.position.y = 259.9;
     spinTop6.position.z = 980;
 
     scene.add(spinTop6);
@@ -76,22 +76,31 @@ loader.load('./3DObjects/Enemy/scene.gltf', function(gltf){
     spinToplist3.push(spinTop6);
 
     spinTop7 = gltf.scene.clone();
-    spinTop7.position.x = -1660;
-    spinTop7.position.y = 255;
-    spinTop7.position.z = 1040;
+    spinTop7.position.x = -1500;
+    spinTop7.position.y = 259.9;
+    spinTop7.position.z = 1070;
 
     scene.add(spinTop7);
     EnemyList.push(spinTop7);
     spinToplist3.push(spinTop7);
 
     spinTop8 = gltf.scene.clone();
-    spinTop8.position.x = -1860;
-    spinTop8.position.y = 255;
-    spinTop8.position.z = 960;
+    spinTop8.position.x = -1240;
+    spinTop8.position.y = 259.9;
+    spinTop8.position.z = 935;
 
     scene.add(spinTop8);
     EnemyList.push(spinTop8);
     spinToplist3.push(spinTop8);
+
+    spinTop9 = gltf.scene.clone();
+    spinTop9.position.x = -1130;
+    spinTop9.position.y = 259.9;
+    spinTop9.position.z = 1060;
+
+    scene.add(spinTop9);
+    EnemyList.push(spinTop9);
+    spinToplist3.push(spinTop9);
 
     });
 

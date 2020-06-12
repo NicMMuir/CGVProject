@@ -383,16 +383,6 @@ function genarrMap1(){
         trapm3_3.position.z = 146;
         trapm3_3.position.y = 300;
 
-        top1 = getTop();
-        top1.position.x = -1239;
-        top1.position.z = 939;
-        top1.position.y = 267;
-          top1.scale.x = 5;
-        top1.scale.y = 5;
-        top1.scale.z = 5;
-        ObjectsMap1Arr.push(top1);
-        EnemyList.push(top1);
-
          ObjectsMap1Arr.push(trapm3_3);
          EnemyList.push(trapm3_3);
 
