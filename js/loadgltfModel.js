@@ -5,7 +5,7 @@ const scene  = new THREE.Scene();
 const light = new THREE.DirectionalLight('#ffffff', 0.9);
 
 light.position.set(-20, 0, 100);
-scene.add(light);
+// scene.add(light);
 var color = new THREE.Color( "grey" );
 scene.background = color;
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -35,6 +35,12 @@ function loadModel(){
     
     const onLoad = (gltf, position)=>{//gltf is the object the loader returns
         console.log(gltf);
+        gltf.scene.traverse (function (node){
+      if (node instanceof THREE.Mesh){
+        node.castShadow = true;
+        node.receiveShadow = true;
+  }
+});
         const model = gltf.scene;
         //copy the passed in position to the position of this model object
         model.position.copy(position);

@@ -44,6 +44,12 @@ function loadModel(){
   const url = '/Charblender/GLTF/Character.glb';
 
   const onLoad = (gltf)=>{//gltf is the object the loader returns
+    gltf.scene.traverse (function (node){
+  if (node instanceof THREE.Mesh){
+    node.castShadow = true;
+    node.receiveShadow = true;
+  }
+});
     CharacterBuild = gltf.scene;
     console.log("log gltf model of character", CharacterBuild);
 

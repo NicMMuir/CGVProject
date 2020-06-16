@@ -7,6 +7,13 @@ function rubyinit(){
   var loader = new THREE.GLTFLoader();
   loader.load('/Charblender/Points/ruby.glb', function(gltf){
   gltf.scene.scale.set(2,2,2);
+  //Cast and receive a shadow on the model
+  gltf.scene.traverse (function (node){
+  if (node instanceof THREE.Mesh){
+    node.castShadow = true;
+    node.receiveShadow = true;
+  }
+  });
   Ruby = gltf.scene;
 
   for(let k = 0;k<PosRubyList.length;k++){

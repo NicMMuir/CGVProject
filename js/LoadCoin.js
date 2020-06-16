@@ -7,6 +7,13 @@ function coininit(){
   var loader = new THREE.GLTFLoader();
   loader.load('/Charblender/Points/coin.glb', function(gltf){
   gltf.scene.scale.set(1.5,1.5,1.5);
+  //Cast and receive a shadow on the model
+  gltf.scene.traverse (function (node){
+  if (node instanceof THREE.Mesh){
+    node.castShadow = true;
+    node.receiveShadow = true;
+  }
+  });
   Coin = gltf.scene;
   
 

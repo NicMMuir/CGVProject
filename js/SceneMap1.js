@@ -69,20 +69,31 @@ var rayright = new THREE.Raycaster();
 //Scene and camear etc
 scene = new THREE.Scene();
 camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 5000 );
+
 renderer = new THREE.WebGLRenderer({antialias:true, alpha: true});
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.soft = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+
 camera.position.set(camstartx,camstarty,camstartz);
 //camera.lookAt(chardata.x,chardata.y,chardata.z);
 camera.updateProjectionMatrix();
 controls = new THREE.PointerLockControls(camera);
 
+
+//////////////////////////////////////////////////////////////////////////
+
+
+
 // orthographic cameras
 	mapCamera = new THREE.OrthographicCamera(
-    -520,		// Left
-    520,		// Right
-    650,		// Top
-    -130,	// Bottom
-    -5000,            			// Near
-    10000 );           			// Far
+    -520,		// Left (-520)
+    520,		// Right (520)
+    650,		// Top (650)
+    -130,	// Bottom (-130)
+    -5000,            			// Near (-5000)
+    10000 );           			// Far (10000)
 	mapCamera.up = new THREE.Vector3(0,0,-1);
 	mapCamera.lookAt( new THREE.Vector3(0,-1,0) );
 	scene.add(mapCamera);
@@ -149,7 +160,15 @@ function init(){
 		Collidables.push(ObjectsMap1Arr[k]);
 	}
 	bgmmusic();
-	SetLight();
+	// SetLight();
+
+
+  scene.traverse (function (node){
+  if (node instanceof THREE.Mesh){
+    node.castShadow = true;
+    node.receiveShadow = true;
+  }
+  });
 
 }
 
@@ -466,16 +485,16 @@ function colisiondetection(char){
 };
 
 
-function SetLight(){
-	var light = new THREE.AmbientLight(0x404040);
-	scene.add(light);
+// function SetLight(){ Not used!!! Light set in NewMap1.js!!!
+// 	var light = new THREE.AmbientLight(0x404040);
+// 	scene.add(light);
 
-	var directionalLight = new THREE.DirectionalLight( 0xffffff, 0.7 );
-	directionalLight.position.set( 0,4,1 );
-	directionalLight.castShadow = true;
+// 	var directionalLight = new THREE.DirectionalLight( 0xffffff, 0.7 );
+// 	directionalLight.position.set( 0,4,1 );
+// 	directionalLight.castShadow = false;
 
-	scene.add( directionalLight );
-};
+// 	scene.add( directionalLight );
+// };
 
 
 function Movechar(x1,y1,z1){

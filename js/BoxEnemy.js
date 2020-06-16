@@ -8,12 +8,12 @@
        var geometry = new THREE.BoxGeometry( 1, 1, 1 );
        var cubeMaterials =
        [
-         new THREE.MeshBasicMaterial( {map: new THREE.TextureLoader().load('Textures/metalb.png'),side: THREE.DoubleSide} ),
-         new THREE.MeshBasicMaterial( {map: new THREE.TextureLoader().load('Textures/metalb.png'),side: THREE.DoubleSide} ),
-         new THREE.MeshBasicMaterial( {map: new THREE.TextureLoader().load('Textures/metalb.png'),side: THREE.DoubleSide} ),
-         new THREE.MeshBasicMaterial( {map: new THREE.TextureLoader().load('Textures/metalb.png'),side: THREE.DoubleSide} ),
-         new THREE.MeshBasicMaterial( {map: new THREE.TextureLoader().load('Textures/metalb.png'),side: THREE.DoubleSide} ),
-         new THREE.MeshBasicMaterial( {map: new THREE.TextureLoader().load('Textures/metalb.png'),side: THREE.DoubleSide} )
+         new THREE.MeshPhongMaterial( {map: new THREE.TextureLoader().load('Textures/metalb.png'),side: THREE.DoubleSide} ),
+         new THREE.MeshPhongMaterial( {map: new THREE.TextureLoader().load('Textures/metalb.png'),side: THREE.DoubleSide} ),
+         new THREE.MeshPhongMaterial( {map: new THREE.TextureLoader().load('Textures/metalb.png'),side: THREE.DoubleSide} ),
+         new THREE.MeshPhongMaterial( {map: new THREE.TextureLoader().load('Textures/metalb.png'),side: THREE.DoubleSide} ),
+         new THREE.MeshPhongMaterial( {map: new THREE.TextureLoader().load('Textures/metalb.png'),side: THREE.DoubleSide} ),
+         new THREE.MeshPhongMaterial( {map: new THREE.TextureLoader().load('Textures/metalb.png'),side: THREE.DoubleSide} )
        ];
       var material = new THREE.MeshFaceMaterial(cubeMaterials);
       var cube = new THREE.Mesh( geometry, material );
@@ -23,7 +23,7 @@
       //Adding flat plane for b_spikes
       var texture = new THREE.TextureLoader().load( 'Textures/lavaRock.jpg' );
       var geometry = new THREE.PlaneGeometry( 2, 10, 22 );
-      var material = new THREE.MeshBasicMaterial( { map: texture } );
+      var material = new THREE.MeshPhongMaterial( { map: texture } );
       var plane = new THREE.Mesh( geometry, material );
       plane.scale.set(0.1,0.14,0.2);
       plane.position.set(0,0.4,0);
@@ -33,9 +33,9 @@
 
       //Creating cone(spike)
       var texture = new THREE.TextureLoader().load( 'Textures/steel.jpg' );
-      var material1 = new THREE.MeshBasicMaterial( { map: texture } );
+      var material1 = new THREE.MeshPhongMaterial( { map: texture } );
       var geometry = new THREE.ConeGeometry( 1, 6.5, 22 );
-      var material = new THREE.MeshBasicMaterial( {color: 0xcd853f} );
+      var material = new THREE.MeshPhongMaterial( {color: 0xcd853f} );
       var cone = new THREE.Mesh( geometry, material1 );
       cone.scale.set(0.1,0.1,0.1);
       cone.rotateX(Math.PI/2);

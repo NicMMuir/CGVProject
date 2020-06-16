@@ -27,6 +27,14 @@ loader.load('./3DObjects/Enemy/scene.gltf', function(gltf){
 
     gltf.scene.scale.set(2,2,2);
 
+    //Cast and receive a shadow on the model
+      gltf.scene.traverse (function (node){
+      if (node instanceof THREE.Mesh){
+        node.castShadow = true;
+        node.receiveShadow = true;
+      }
+      });
+
     var curveEnemy1 = gltf.scene;
     curveEnemy1.position.x = -315;
     curveEnemy1.position.y = -2;

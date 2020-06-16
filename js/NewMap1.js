@@ -42,23 +42,23 @@ materialArray.push(new THREE.MeshBasicMaterial( { map: texture_lf }));
 for (let i = 0; i < 6; i++)
   materialArray[i].side = THREE.BackSide;
 //Creates cube of set dimensions
-let skyboxGeo = new THREE.BoxGeometry( 2500, 1000, 2500);
+let skyboxGeo = new THREE.BoxGeometry( 3000, 2000, 4000);
 let skybox = new THREE.Mesh( skyboxGeo, materialArray );
 
 
 //Textures
 //Texture loaders for all the used textures to be called later
 var MainFloortexture = new THREE.TextureLoader().load( 'Textures/Grass.jpg' );
-var MainFloormaterial = new THREE.MeshBasicMaterial( { map: MainFloortexture, side: THREE.DoubleSide } );
+var MainFloormaterial = new THREE.MeshPhongMaterial( { map: MainFloortexture, side: THREE.DoubleSide } );
 var Startpadtexture = new THREE.TextureLoader().load( 'Textures/start.jpg' );
-var Startpadmaterial = new THREE.MeshBasicMaterial( { map: Startpadtexture } );
+var Startpadmaterial = new THREE.MeshPhongMaterial( { map: Startpadtexture } );
 var waterTexture = new THREE.TextureLoader().load( 'Textures/water.jpg' );
-var waterMat = new THREE.MeshBasicMaterial( { map: waterTexture } );
+var waterMat = new THREE.MeshPhongMaterial( { map: waterTexture } );
 var woodTexture = new THREE.TextureLoader().load( 'Textures/wood.jpg' );
-var woodMat = new THREE.MeshBasicMaterial( { map: woodTexture, polygonOffset: true, polygonOffsetUnits: 1,
+var woodMat = new THREE.MeshPhongMaterial( { map: woodTexture, polygonOffset: true, polygonOffsetUnits: 1,
 polygonOffsetFactor: 1, side: THREE.DoubleSide } );
 var woodenBoxTex = new THREE.TextureLoader().load( 'Textures/woodenbox.jpg' );
-var woodenBoxMat = new THREE.MeshBasicMaterial( { map: woodenBoxTex } );
+var woodenBoxMat = new THREE.MeshPhongMaterial( { map: woodenBoxTex } );
 sphereMaterial = new THREE.MeshBasicMaterial({
           envMap: sphereCamera.renderTarget
         });
@@ -68,26 +68,53 @@ var transMaterial = new THREE.MeshPhongMaterial({
     transparent: true,
   });
 
+
+
+
+////////////////////////////////////////////////////////////////////////////
+
+
+
+
 //Lights
 //Sets a directional light at a position with colour and intensity
-var directionalLight = new THREE.DirectionalLight( 	0xDBBD8F, 3 );
-directionalLight.position.set( 3000, 1000, 6000 );
+var directionalLight = new THREE.DirectionalLight( 	0xDBBD8F, 2 );
+directionalLight.position.set( 1500,1000,2000 ); //3000, 1000, 6000
+directionalLight.target.position.set( 282, 0, -604.); //3000, 1000, 6000
+directionalLight.castShadow = true;
+
+//Set up shadow properties for the light
+directionalLight.shadow.camera.near = 1500;
+directionalLight.shadow.camera.far = 3500;
+directionalLight.shadow.mapSize.width = 2048;  // default
+directionalLight.shadow.mapSize.height = 2048; // default
+directionalLight.shadow.bias = -0.003;
+// directionalLight.shadow.darkness = 2;
+directionalLight.shadow.camera.right = 1000;
+directionalLight.shadow.camera.left = -1000;
+directionalLight.shadow.camera.top = 1000;
+directionalLight.shadow.camera.bottom = -1000;
+
+//Create a helper for the shadow camera (optional)
+var helper = new THREE.CameraHelper( directionalLight.shadow.camera );
+
+var AmbLight = new THREE.AmbientLight(0xDBBD8F);
 
 
 
 MainFloortexture.wrapS = THREE.RepeatWrapping;
 MainFloortexture.wrapT = THREE.RepeatWrapping;
 //floor geometries
-var startpadgeom = new THREE.BoxGeometry( 5,2,5 );
-var endpadgeom = new THREE.BoxGeometry( 10, 10, 10 );
+var startpadgeom = new THREE.BoxBufferGeometry( 5,2,5 );
+var endpadgeom = new THREE.BoxBufferGeometry( 10, 10, 10 );
 
-var SouthSegmentgeom = new THREE.BoxGeometry( 1000, 20, 220 );
-var NorthEastSegmentgeom = new THREE.BoxGeometry( 220, 20, 220 );
-var NorthWestSegmentgeom = new THREE.BoxGeometry( 220, 20, 220 );
-var platformGeometry = new THREE.BoxGeometry( 50, 10, 50 );
-var highPlatformGeometry = new THREE.BoxGeometry( 51, 20, 51 );
-var veryHighPlatformGeometry = new THREE.BoxGeometry( 50, 25, 50 );
-var wallGeometry = new THREE.PlaneGeometry(50,50);
+var SouthSegmentgeom = new THREE.BoxBufferGeometry( 1000, 20, 220 );
+var NorthEastSegmentgeom = new THREE.BoxBufferGeometry( 220, 20, 220 );
+var NorthWestSegmentgeom = new THREE.BoxBufferGeometry( 220, 20, 220 );
+var platformGeometry = new THREE.BoxBufferGeometry( 50, 10, 50 );
+var highPlatformGeometry = new THREE.BoxBufferGeometry( 51, 20, 51 );
+var veryHighPlatformGeometry = new THREE.BoxBufferGeometry( 50, 25, 50 );
+var wallGeometry = new THREE.PlaneBufferGeometry(50,50);
 
 //Mesh:
 var startpad = new THREE.Mesh( startpadgeom, Startpadmaterial );
@@ -99,7 +126,7 @@ var NorthSeg = new THREE.Mesh( SouthSegmentgeom , MainFloormaterial );
 
 
 
- oceanGeometry = new THREE.PlaneBufferGeometry( 2000, 2000, 128-1, 128-1);
+ oceanGeometry = new THREE.PlaneBufferGeometry( 4000,3000, 127, 127);
         oceanGeometry.rotateX( - Math.PI / 2 );
 
         var position = oceanGeometry.attributes.position;
@@ -116,7 +143,7 @@ var texture = new THREE.TextureLoader().load( 'textures/water.jpg' );
         texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
         texture.repeat.set( 5, 5 );
 
- oceanMaterial = new THREE.MeshBasicMaterial( { color: '#ADD8E6', map: texture } );
+ oceanMaterial = new THREE.MeshPhongMaterial( { color: '#ADD8E6', map: texture } );
 var oceanMesh = new THREE.Mesh( oceanGeometry, oceanMaterial );
 
 
@@ -126,6 +153,13 @@ var leftBridge2 = new THREE.Object3D();
 {
   var loader = new THREE.GLTFLoader();
   loader.load('./3DObjects/Bridge/scene.gltf', function(gltf){
+
+  gltf.scene.traverse (function (node){
+  if (node instanceof THREE.Mesh){
+    node.castShadow = true;
+    node.receiveShadow = true;
+  }
+  });
 
     var rightWoodBridge1 = gltf.scene;
     rightBridge1.add(rightWoodBridge1);
@@ -141,6 +175,14 @@ var leftBridge2 = new THREE.Object3D();
 var centreBridge = new THREE.Object3D();
 var loader = new THREE.GLTFLoader( loadingManager );
 loader.load('./3DObjects/LongBridge/scene.gltf', function(gltf){
+
+  gltf.scene.traverse (function (node){
+  if (node instanceof THREE.Mesh){
+    node.castShadow = true;
+    node.receiveShadow = true;
+  }
+  });
+
     centreBridge.add(gltf.scene);
 });
 
@@ -151,6 +193,14 @@ var palmTree3 = new THREE.Object3D();
 var palmTree4 = new THREE.Object3D();
 var loader = new THREE.GLTFLoader();
 loader.load('./3DObjects/palmTree/scene.gltf', function(gltf){
+
+  gltf.scene.traverse (function (node){
+  if (node instanceof THREE.Mesh){
+    node.castShadow = true;
+    node.receiveShadow = true;
+  }
+  });
+
     palmTree1.add(gltf.scene);
     palmTree2.add(gltf.scene.clone());
     palmTree3.add(gltf.scene.clone());
@@ -161,6 +211,13 @@ loader.load('./3DObjects/palmTree/scene.gltf', function(gltf){
 //Load WaterFall Model
   var loader = new THREE.GLTFLoader();
   loader.load('./3DObjects/FloatIsland/scene.gltf', function(gltf){
+
+  gltf.scene.traverse (function (node){
+  if (node instanceof THREE.Mesh){
+    node.castShadow = true;
+    node.receiveShadow = true;
+  }
+  });
 
     var model = gltf.scene;
     model.scale.set(1000,1000,1000);
@@ -180,6 +237,14 @@ loader.load('./3DObjects/palmTree/scene.gltf', function(gltf){
   var loader = new THREE.GLTFLoader();
   loader.load('./3DObjects/JumpShark/scene.gltf', function(gltf){
 
+  //Cast and receive a shadow on the model
+  gltf.scene.traverse (function (node){
+  if (node instanceof THREE.Mesh){
+    node.castShadow = true;
+    node.receiveShadow = true;
+  }
+  });
+
     var sharkModel = gltf.scene;
     sharkModel.scale.set(0.15,0.15,0.15);
     sharkModel.position.x = 390 ;
@@ -192,8 +257,6 @@ loader.load('./3DObjects/palmTree/scene.gltf', function(gltf){
 
      mixer = new THREE.AnimationMixer( sharkModel ); //This animates the shark model
     mixer.clipAction( gltf.animations[ 0 ] ).play();
-
-    animate();//calls the animate function
 
     //Here we use Tween to move the shark between four points,
     //the shark moves from its current position to the targetPosition
@@ -266,6 +329,8 @@ loader.load('./3DObjects/palmTree/scene.gltf', function(gltf){
     tweenRot4.chain( tweenRot1 );
 
     tweenRot1.start(); //This begins the rotation of the shark
+
+    animate();//calls the animate function
 
         } );
 
@@ -345,7 +410,7 @@ var highPlatform12 = new THREE.Mesh( highPlatformGeometry , woodMat );
 
 
 //transparent floor geometry (Goes under the small bridge)
-var transGeometry = new THREE.BoxGeometry(15,20,45);
+var transGeometry = new THREE.BoxBufferGeometry(15,20,45);
 var rightTransBox = new THREE.Mesh(transGeometry, transMaterial);
 var leftTransBox = new THREE.Mesh(transGeometry, transMaterial);
 
@@ -506,6 +571,9 @@ function genarrMap1(){
   //Add the skybox and lights instead of pushing
   scene.add( skybox );
   scene.add( directionalLight );
+  scene.add( directionalLight.target );
+  scene.add(AmbLight);
+  // scene.add( helper );
 }
 
 function moveobjectsMap1(){
