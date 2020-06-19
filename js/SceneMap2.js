@@ -66,19 +66,24 @@ var rayright = new THREE.Raycaster();
 //Scene and camera etc
 scene = new THREE.Scene();
 camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 5000 );
+
 renderer = new THREE.WebGLRenderer({antialias:true, alpha: true});
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.soft = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
 camera.position.set(camstartx,camstarty,camstartz);
 camera.updateProjectionMatrix();
 controls = new THREE.PointerLockControls(camera);
 
 // orthographic cameras
 	mapCamera = new THREE.OrthographicCamera(
-    -520,		// Left
-    520,		// Right
-    650,		// Top
-    -130,	// Bottom
-    -5000,            			// Near
-    10000 );           			// Far
+    -520,		// Left -520
+    520,		// Right 520
+    650,		// Top 650
+    -130,	// Bottom -130
+    -5000,            			// Near -5000
+    10000 );           			// Far 10000
 	mapCamera.up = new THREE.Vector3(0,0,-1);
 	mapCamera.lookAt( new THREE.Vector3(0,-1,0) );
 	scene.add(mapCamera);
@@ -107,6 +112,10 @@ function init(){
 
 	//Renderer2 renders the orthographic camera
 	renderer2 = new THREE.WebGLRenderer({antialias: true, alpha: true});
+	renderer2.shadowMap.enabled = true;
+	renderer2.shadowMap.soft = true;
+	renderer2.shadowMap.type = THREE.PCFSoftShadowMap;
+
 	renderer2.setPixelRatio( window.devicePixelRatio );
 	renderer2.setSize( window.innerWidth, window.innerHeight );
 	renderer2.domElement.style.position = 'absolute';
@@ -130,7 +139,15 @@ function init(){
 		Collidables.push(ObjectsMap1Arr[k]);
 	}
 	bgmmusic();
-	SetLight();
+	// SetLight();
+
+	//Cast a shadow on all objects made of Mesh
+	scene.traverse (function (node){
+  if (node instanceof THREE.Mesh){
+    node.castShadow = true;
+    node.receiveShadow = true;
+  }
+  });
 }
 
 //Animate and render work hand in hand
@@ -209,7 +226,7 @@ controller = {
 				switch (event.keyCode){
 					case 87://the "W" key is pressed
 							controller.forward = keystate;
-							console.log("Character has just moved forward...");
+							// console.log("Character has just moved forward...");
 							action.play();
 						break;
 					case 83://the "S" key is pressed

@@ -36,21 +36,23 @@ materialArray.push(new THREE.MeshBasicMaterial( { map: texture_lf }));
 for (let i = 0; i < 6; i++)
   materialArray[i].side = THREE.BackSide;
 //Creates cube of set dimensions
-let skyboxGeo = new THREE.BoxGeometry( 5000, 5000, 5000);
+let skyboxGeo = new THREE.BoxGeometry( 4000, 5000, 3000);
 let skybox = new THREE.Mesh( skyboxGeo, materialArray );
+skybox.position.x = -150;
+skybox.position.z = -80;
 
 
 
 //Textures
 //Texture loaders for all the used textures to be called later
 var MainFloortexture = new THREE.TextureLoader().load( 'Textures/Grass.jpg' );
-var GrassMat = new THREE.MeshBasicMaterial( { map: MainFloortexture, side: THREE.DoubleSide } );
+var GrassMat = new THREE.MeshPhongMaterial( { map: MainFloortexture, side: THREE.DoubleSide } );
 var Startpadtexture = new THREE.TextureLoader().load( 'Textures/start.jpg' );
-var Startpadmaterial = new THREE.MeshBasicMaterial( { map: Startpadtexture, side: THREE.DoubleSide } );
+var Startpadmaterial = new THREE.MeshPhongMaterial( { map: Startpadtexture, side: THREE.DoubleSide } );
 var waterTexture = new THREE.TextureLoader().load( 'Textures/water.jpg' );
-var waterMat = new THREE.MeshBasicMaterial( { map: waterTexture } );
+var waterMat = new THREE.MeshPhongMaterial( { map: waterTexture } );
 var galaxyTex = new THREE.TextureLoader().load( 'Textures/galaxy.jpg' );
-var galaxyMat = new THREE.MeshBasicMaterial( { map: galaxyTex } );
+var galaxyMat = new THREE.MeshPhongMaterial( { map: galaxyTex } );
 
 var transMaterial = new THREE.MeshPhongMaterial({
     color: 0x000000,
@@ -62,18 +64,63 @@ var transMaterial = new THREE.MeshPhongMaterial({
 //lights
 //Sets a directional light at a position with colour and intensity
 var directionalLight = new THREE.DirectionalLight( 	0xB4CCE1, 2 );
-directionalLight.position.set( 3000, 1000, -3000 );
+directionalLight.position.set( 1700, 2000, -950 );
+directionalLight.target.position.set( -1911, 260, 1018.); //3000, 1000, 6000
+directionalLight.castShadow = true;
+
+//Set up shadow properties for the light
+directionalLight.shadow.camera.near = 1500;
+directionalLight.shadow.camera.far = 5000;
+directionalLight.shadow.mapSize.width = 2048;  // default
+directionalLight.shadow.mapSize.height = 2048; // default
+directionalLight.shadow.bias = -0.003;
+// directionalLight.shadow.darkness = 2;
+directionalLight.shadow.camera.right = 1000;
+directionalLight.shadow.camera.left = -1000;
+directionalLight.shadow.camera.top = 1000;
+directionalLight.shadow.camera.bottom = -1000;
+
+var light = new THREE.AmbientLight(0x404040);
+
+//Spotlight lights up the ship and bridge in clouds
+var spotlight = new THREE.SpotLight(0xffffff, 10, 1000);
+spotlight.position.set(-1000, 350, 380);
+spotlight.target.position.set(-300, 179, 380);
+spotlight.castShadow = true;
+
+//Set up shadow properties for the spotlight
+spotlight.shadow.camera.near = 0.5;
+spotlight.shadow.camera.far = 1000;
+spotlight.shadow.mapSize.width = 512;  // default
+spotlight.shadow.mapSize.height = 512; // default
+
+// pointlight placed in lamp on RopeBridge:
+var pointlight1 = new THREE.PointLight(0xffd700, 1, 200);
+pointlight1.position.set( -1008, 295, 1042);
+var pointlight2 = new THREE.PointLight(0xffd700, 1, 200);
+pointlight2.position.set( -1012, 300, 959);
+var pointlight3 = new THREE.PointLight(0xffd700, 1, 200);
+pointlight3.position.set( -660, 250, 1039);
+var pointlight4 = new THREE.PointLight(0xffd700, 1, 200);
+pointlight4.position.set( -660, 250, 959);
+
+//pointlight placed in energy sphere:
+var pointlight5 = new THREE.PointLight(0x4B0082, 3, 600);
+pointlight5.position.set(-300,117,-525);
+
+var pointlighthelper = new THREE.PointLightHelper( pointlight1, 10);
+
+//Create a helper for the shadow camera (optional)
+var helper = new THREE.CameraHelper( directionalLight.shadow.camera );
 
 MainFloortexture.wrapS = THREE.RepeatWrapping;
 MainFloortexture.wrapT = THREE.RepeatWrapping;
 //floor geometries
-var startpadgeom = new THREE.BoxGeometry( 5, 2, 5 );
-var StartFloorGeo = new THREE.BoxGeometry( 1000, 20, 220 );
-var middleFloorGeo = new THREE.BoxGeometry( 520, 20, 240 );
-var endpadgeom = new THREE.BoxGeometry( 10, 10, 10 );
-var transGeometry = new THREE.BoxGeometry(75,20,1000);
-
-
+var startpadgeom = new THREE.BoxBufferGeometry( 5, 2, 5 );
+var StartFloorGeo = new THREE.BoxBufferGeometry( 1000, 20, 220 );
+var middleFloorGeo = new THREE.BoxBufferGeometry( 520, 20, 240 );
+var endpadgeom = new THREE.BoxBufferGeometry( 10, 10, 10 );
+var transGeometry = new THREE.BoxBufferGeometry(75,20,1000);
 
 
 //Mesh:
@@ -86,7 +133,7 @@ var transBox = new THREE.Mesh( transGeometry , transMaterial );
 
 
 
- oceanGeometry = new THREE.PlaneBufferGeometry( 5000, 5000, 128-1, 128-1);
+ oceanGeometry = new THREE.PlaneBufferGeometry( 4000, 3000, 127, 127);
         oceanGeometry.rotateX( - Math.PI / 2 );
 
         var position = oceanGeometry.attributes.position;
@@ -103,7 +150,7 @@ var texture = new THREE.TextureLoader().load( 'textures/water.jpg' );
         texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
         texture.repeat.set( 5, 5 );
 
- oceanMaterial = new THREE.MeshBasicMaterial( { color: 0x0055a5, map: texture } );
+ oceanMaterial = new THREE.MeshPhongMaterial( { color: 0x0055a5, map: texture } );
 var oceanMesh = new THREE.Mesh( oceanGeometry, oceanMaterial );
 
 //Load Big Blue Mushroom Tree Model
@@ -111,6 +158,14 @@ var mushTree = new THREE.Object3D();
 {
   var loader = new THREE.GLTFLoader();
   loader.load('./3DObjects/BlueShroom/scene.gltf', function(gltf){
+
+   //Cast and receive a shadow on the model
+  gltf.scene.traverse (function (node){
+  if (node instanceof THREE.Mesh){
+    node.castShadow = true;
+    node.receiveShadow = true;
+  }
+  });
 
     mushTree.add(gltf.scene);
 });
@@ -129,6 +184,15 @@ var glowMush9 = new THREE.Object3D();
 {
   var loader = new THREE.GLTFLoader();
   loader.load('./3DObjects/GlowMushroom/scene.gltf', function(gltf){
+
+    //Cast and receive a shadow on the model
+  gltf.scene.traverse (function (node){
+  if (node instanceof THREE.Mesh){
+    node.castShadow = true;
+    node.receiveShadow = true;
+  }
+  });
+
     glowMush1.add(gltf.scene);
     glowMush2.add(gltf.scene.clone());
     glowMush3.add(gltf.scene.clone());
@@ -150,6 +214,14 @@ var redMush4 = new THREE.Object3D();
   var loader = new THREE.GLTFLoader();
   loader.load('./3DObjects/RedGlowShroom/scene.gltf', function(gltf){
 
+    //Cast and receive a shadow on the model
+  gltf.scene.traverse (function (node){
+  if (node instanceof THREE.Mesh){
+    node.castShadow = true;
+    node.receiveShadow = true;
+  }
+  });
+
     redMush1.add(gltf.scene);
     redMush2.add(gltf.scene.clone());
     redMush3.add(gltf.scene.clone());
@@ -163,6 +235,14 @@ var ropeBridge1 = new THREE.Object3D();
   var loader = new THREE.GLTFLoader();
   loader.load('./3DObjects/RopeBridge/scene.gltf', function(gltf){
 
+    //Cast and receive a shadow on the model
+  gltf.scene.traverse (function (node){
+  if (node instanceof THREE.Mesh){
+    node.castShadow = true;
+    node.receiveShadow = true;
+  }
+  });
+
     ropeBridge1.add(gltf.scene);
 });
 }
@@ -173,6 +253,14 @@ var fantasyBridge = new THREE.Object3D();
   var loader = new THREE.GLTFLoader();
   loader.load('./3DObjects/FantasyBridge/scene.gltf', function(gltf){
 
+    //Cast and receive a shadow on the model
+  gltf.scene.traverse (function (node){
+  if (node instanceof THREE.Mesh){
+    node.castShadow = true;
+    node.receiveShadow = true;
+  }
+  });
+
     fantasyBridge.add(gltf.scene);
 });
 }
@@ -181,6 +269,15 @@ var fantasyBridge = new THREE.Object3D();
 
   var loader = new THREE.GLTFLoader();
   loader.load('./3DObjects/Lavender/scene.gltf', function(gltf){
+
+  //Cast and receive a shadow on the model
+  gltf.scene.traverse (function (node){
+  if (node instanceof THREE.Mesh){
+    node.castShadow = true;
+    node.receiveShadow = true;
+  }
+  });
+
   var lavender = gltf.scene;
 
   lavender.scale.set(0.1,0.1,0.1);
@@ -200,6 +297,14 @@ var dragon = new THREE.Object3D();
   var loader = new THREE.GLTFLoader();
   loader.load('./3DObjects/Dragon/scene.gltf', function(gltf){
 
+    //Cast and receive a shadow on the model
+  gltf.scene.traverse (function (node){
+  if (node instanceof THREE.Mesh){
+    node.castShadow = true;
+    node.receiveShadow = true;
+  }
+  });
+
     dragon.add(gltf.scene);
         } );
 }
@@ -214,6 +319,15 @@ var dragonEgg5 = new THREE.Object3D();
   var loader = new THREE.GLTFLoader();
   loader.load('./3DObjects/DragonEgg/scene.gltf', function(gltf){
     gltf.scene.scale.set(0.2,0.2,0.2);
+
+    //Cast and receive a shadow on the model
+  gltf.scene.traverse (function (node){
+  if (node instanceof THREE.Mesh){
+    node.castShadow = true;
+    node.receiveShadow = true;
+  }
+  });
+
     dragonEgg1.add(gltf.scene);
     dragonEgg2.add(gltf.scene.clone());
     dragonEgg3.add(gltf.scene.clone());
@@ -234,6 +348,14 @@ var dragonEgg5 = new THREE.Object3D();
     var parent = outSphere.parent;
     parent.remove( outSphere );
 
+    //Cast and receive a shadow on the model
+  gltf.scene.traverse (function (node){
+  if (node instanceof THREE.Mesh){
+    node.castShadow = true;
+    node.receiveShadow = true;
+  }
+  });
+
     shipInCloud = gltf.scene;
     shipInCloud.position.x = -230;
     shipInCloud.position.y = 260;
@@ -251,6 +373,15 @@ var fantasyRing = new THREE.Object3D();
   var loader = new THREE.GLTFLoader();
   loader.load('./3DObjects/FantasyRing/scene.gltf', function(gltf){
     gltf.scene.scale.set(500,500,500);
+
+    //Cast and receive a shadow on the model
+  gltf.scene.traverse (function (node){
+  if (node instanceof THREE.Mesh){
+    node.castShadow = true;
+    node.receiveShadow = true;
+  }
+  });
+
     fantasyRing.add(gltf.scene);
 
         } );
@@ -262,6 +393,7 @@ var fantasyRing = new THREE.Object3D();
   var loader = new THREE.GLTFLoader();
   loader.load('./3DObjects/EnergySphere/scene.gltf', function(gltf){
     gltf.scene.scale.set(250,250,250);
+
     energySphere = gltf.scene;
     energySphere.position.x = -300;
     energySphere.position.y = 117;
@@ -422,8 +554,21 @@ function genarrMap1(){
   ObjectsMap1Arr.push(dragonEgg5);
 
   // //Adding Lights and Skybox
-   scene.add( skybox );
-   scene.add( directionalLight );
+  scene.add( skybox );
+  scene.add( directionalLight );
+  scene.add( directionalLight.target );
+  scene.add( light ); //ambient light
+  scene.add( spotlight );
+  scene.add( spotlight.target );
+  scene.add( pointlight1 );
+  scene.add( pointlight2 );
+  scene.add( pointlight3 );
+  scene.add( pointlight4 );
+  scene.add( pointlight5 );
+  // scene.add( pointlighthelper );
+  // scene.add( helper );
+
+
 
 }
 
@@ -534,7 +679,9 @@ fantasyBridge.position.x = -300;//Long wooden bridge in clouds
   dragonEgg5.position.z = 960;
   dragonEgg5.rotation.set(0, Math.PI, 0);
 
+    oceanMesh.position.x = -150;
     oceanMesh.position.y = -10;
+    oceanMesh.position.z = -80;
 
 }
 

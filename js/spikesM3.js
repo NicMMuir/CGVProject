@@ -7,7 +7,7 @@ function getTrapM3(){
   //Adding flat plane for spikes
   var texture = new THREE.TextureLoader().load( 'Textures/wooden.jfif' );
   var geometry = new THREE.PlaneGeometry( 3, 10, 30 );
-  var material = new THREE.MeshBasicMaterial( { map: texture } );
+  var material = new THREE.MeshPhongMaterial( { map: texture } );
   var plane = new THREE.Mesh( geometry, material );
   plane.scale.set(1.3,0.3,0.2);
   plane.position.set(0,0.4,0);
@@ -19,9 +19,9 @@ function getTrapM3(){
 
   //Creating cone(spike)
   var texture = new THREE.TextureLoader().load( 'Textures/wooden.jfif' );
-  var material1 = new THREE.MeshBasicMaterial( { map: texture } );
+  var material1 = new THREE.MeshPhongMaterial( { map: texture } );
   var geometry = new THREE.ConeGeometry( 1, 6.5, 22 );
-  var material = new THREE.MeshBasicMaterial( {color: 0xcd853f} );
+  var material = new THREE.MeshPhongMaterial( {color: 0xcd853f} );
   var cone = new THREE.Mesh( geometry, material1 );
   cone.scale.set(0.1,0.1,0.1);
   cone.rotateX(Math.PI/2);

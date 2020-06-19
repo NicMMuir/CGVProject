@@ -21,6 +21,14 @@ loader.load('./3DObjects/Enemy/scene.gltf', function(gltf){
 
     gltf.scene.scale.set(2.5,2.5,2.5);
 
+    //Cast and receive a shadow on the model
+  gltf.scene.traverse (function (node){
+  if (node instanceof THREE.Mesh){
+    node.castShadow = true;
+    node.receiveShadow = true;
+  }
+  });
+
     spinTop1 = gltf.scene;
     spinTop1.position.x = -1330;
     spinTop1.position.y = 259.9;

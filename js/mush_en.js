@@ -10,7 +10,7 @@ function mushEnemy(){
 
 //Adding cylinder(mush_Pillar) to spiked mush_Pillar
 var texture = new THREE.TextureLoader().load( 'Textures/redstripe.jfif' );
-var material = new THREE.MeshBasicMaterial( { map: texture } );
+var material = new THREE.MeshPhongMaterial( { map: texture } );
 var geometry = new THREE.CylinderGeometry( 1, 0.8, 3.5, 22 );
 var cylinder = new THREE.Mesh( geometry, material );
 cylinder.position.set(0,2.8,0);
@@ -20,9 +20,9 @@ mush_Pillar.scale.set(1/2,1/2,1/2);
 
 //Creating cone(spike)
 var texture = new THREE.TextureLoader().load( 'Textures/lights.jpg' );
-var material1 = new THREE.MeshBasicMaterial( { map: texture } );
+var material1 = new THREE.MeshPhongMaterial( { map: texture } );
 var geometry = new THREE.ConeGeometry( 1, 6.5, 22 );
-var material = new THREE.MeshBasicMaterial( {color: 0xcd853f} );
+var material = new THREE.MeshPhongMaterial( {color: 0xcd853f} );
 var cone = new THREE.Mesh( geometry, material1 );
 cone.scale.set(0.1,0.1,0.1);
 cone.rotateZ(-Math.PI/2);
@@ -46,7 +46,7 @@ var mush_Spikes3 = mush_Spikes.clone();
 var mush_Spikes4 = mush_Spikes.clone();
 
 var texture = new THREE.TextureLoader().load( 'Textures/lights.jpg' );
-var material1 = new THREE.MeshBasicMaterial( { map: texture } );
+var material1 = new THREE.MeshPhongMaterial( { map: texture } );
 var geometry = new THREE.ConeGeometry( 5, 6.5, 22 );
 var head_cone = new THREE.Mesh( geometry, material1 );
 head_cone.scale.set(0.2,0.2,0.2);

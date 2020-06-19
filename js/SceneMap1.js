@@ -134,6 +134,9 @@ function init(){
 
 	//Renderer2 renders the orthographic camera
 	renderer2 = new THREE.WebGLRenderer({antialias: true, alpha: true});
+	renderer2.shadowMap.enabled = true;
+	renderer2.shadowMap.soft = true;
+	renderer2.shadowMap.type = THREE.PCFSoftShadowMap;
 	renderer2.setPixelRatio( window.devicePixelRatio );
 	renderer2.setSize( window.innerWidth, window.innerHeight );
 	renderer2.domElement.style.position = 'absolute';
@@ -240,7 +243,7 @@ controller = {
 				switch (event.keyCode){
 					case 87://the "W" key is pressed
 							controller.forward = keystate;
-							console.log("Character has just moved forward...");
+							// console.log("Character has just moved forward...");
 
 							//controller.fowardUP = keystateUP;
 							action.play();

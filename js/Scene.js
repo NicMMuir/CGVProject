@@ -68,7 +68,12 @@ var rayright = new THREE.Raycaster();
 //Scene and camear etc
 scene = new THREE.Scene();
 camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 5000 );
+
 renderer = new THREE.WebGLRenderer({antialias:true, alpha: true});
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.soft = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
 camera.position.set(camstartx,camstarty,camstartz);
 //camera.lookAt(chardata.x,chardata.y,chardata.z);
 camera.updateProjectionMatrix();
@@ -76,12 +81,12 @@ controls = new THREE.PointerLockControls(camera);
 
 // orthographic cameras
 	mapCamera = new THREE.OrthographicCamera(
-    -2020,		// Left
-    190,		// Right
-    1010,		// Top
-    -1170,	// Bottom
-    -5000,            			// Near
-    10000 );           			// Far
+    -2020,		// Left  (-2020)
+    190,		// Right (190)
+    1010,		// Top (1010)
+    -1170,	// Bottom (-1170)
+    -5000,            			// Near (-5000)
+    10000 );           			// Far (10000)
 	mapCamera.up = new THREE.Vector3(0,0,-1);
 	mapCamera.lookAt( new THREE.Vector3(0,-1,0) );
 	scene.add(mapCamera);
@@ -130,10 +135,18 @@ function init(){
 		Collidables.push(ObjectsMap1Arr[k]);
 	}
 	bgmmusic();
-	SetLight();
+	// SetLight();
 	controls.getObject().position.x = charstartx;
 	controls.getObject().position.y = charstarty;
 	controls.getObject().position.z = charstart;
+
+	// Traverse each mesh and add shadows:
+	scene.traverse (function (node){
+  if (node instanceof THREE.Mesh){
+    node.castShadow = true;
+    node.receiveShadow = true;
+  }
+  });
 
 
 }
@@ -219,7 +232,7 @@ controller = {
 				switch (event.keyCode){
 					case 87://the "W" key is pressed
 							controller.forward = keystate;
-							console.log("Character has just moved forward...");
+							// console.log("Character has just moved forward...");
 
 							//controller.fowardUP = keystateUP;
 							action.play();
@@ -462,17 +475,17 @@ function colisiondetection(char){
 		erobj = rayright.intersectObjects(EnemyList,true);
 };
 
-//Sets Custom lights
-function SetLight(){
-	var light = new THREE.AmbientLight(0x404040);
-	scene.add(light);
+//Sets Custom lights; NOT USED!!! LIGHTS SET IN NEWMAP3.JS!!!
+// function SetLight(){
+// 	var light = new THREE.AmbientLight(0x404040);
+// 	scene.add(light);
 
-	var directionalLight = new THREE.DirectionalLight( 0xffffff, 0.7 );
-	directionalLight.position.set( 0,4,1 );
-	directionalLight.castShadow = true;
+// 	var directionalLight = new THREE.DirectionalLight( 0xffffff, 0.7 );
+// 	directionalLight.position.set( 0,4,1 );
+// 	directionalLight.castShadow = true;
 
-	scene.add( directionalLight );
-};
+// 	scene.add( directionalLight );
+// };
 
 //Move Character
 function Movechar(x1,y1,z1){

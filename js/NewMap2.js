@@ -42,30 +42,44 @@ materialArray.push(new THREE.MeshBasicMaterial( { map: texture_lf }));
 for (let i = 0; i < 6; i++)
   materialArray[i].side = THREE.BackSide;
 //Creates cube of set dimensions
-let skyboxGeo = new THREE.BoxGeometry( 2000, 1000, 2000);
+let skyboxGeo = new THREE.BoxGeometry( 2000, 1500, 3000);
 let skybox = new THREE.Mesh( skyboxGeo, materialArray );
 
 //Lights
 //Sets a directional light at a position with colour and intensity
-var directionalLight = new THREE.DirectionalLight( 	0xB07214, 5 );
-directionalLight.position.set( 3000, 1000, -6000 );
-//Creates a point light at origin just for testing
-var light = new THREE.PointLight( 0xFFFFFF, 5, 0, 1 );
-light.position.set( 0, 0, 10 );
+var directionalLight = new THREE.DirectionalLight( 	0xB07214, 2 );
+directionalLight.position.set( 700, 1000, -3000 );
+directionalLight.castShadow = true;
 
+//Set up shadow properties for the light
+directionalLight.shadow.camera.near = 2500;
+directionalLight.shadow.camera.far = 5000;
+directionalLight.shadow.mapSize.width = 2048;  // default
+directionalLight.shadow.mapSize.height = 2048; // default
+directionalLight.shadow.bias = -0.003;
+// directionalLight.shadow.darkness = 2;
+directionalLight.shadow.camera.right = 700;
+directionalLight.shadow.camera.left = -700;
+directionalLight.shadow.camera.top = 900;
+directionalLight.shadow.camera.bottom = -900;
+//Create a helper for the shadow camera (optional)
+var helper = new THREE.CameraHelper( directionalLight.shadow.camera );
+
+//Creates an ambient light at origin just for testing
+var light = new THREE.AmbientLight(0x404040);
 //Textures
 //Texture loaders for all the used textures to be called later
 var MainFloortexture = new THREE.TextureLoader().load( 'Textures/Grass.jpg' );
-var lavaRockMaterial = new THREE.MeshBasicMaterial( { map: MainFloortexture, side: THREE.DoubleSide } );
+var lavaRockMaterial = new THREE.MeshPhongMaterial( { map: MainFloortexture, side: THREE.DoubleSide } );
 var Startpadtexture = new THREE.TextureLoader().load( 'Textures/start.jpg' );
-var Startpadmaterial = new THREE.MeshBasicMaterial( { map: Startpadtexture, side: THREE.DoubleSide } );
+var Startpadmaterial = new THREE.MeshPhongMaterial( { map: Startpadtexture, side: THREE.DoubleSide } );
 var waterTexture = new THREE.TextureLoader().load( 'Textures/water.jpg' );
-var waterMat = new THREE.MeshBasicMaterial( { map: waterTexture } );
+var waterMat = new THREE.MeshPhongMaterial( { map: waterTexture } );
 var mountRockTexture = new THREE.TextureLoader().load( 'Textures/mountainRock.jpg' );
-var mountRockMat = new THREE.MeshBasicMaterial( { map: mountRockTexture, polygonOffset: true, polygonOffsetUnits: 1,
+var mountRockMat = new THREE.MeshPhongMaterial( { map: mountRockTexture, polygonOffset: true, polygonOffsetUnits: 1,
 polygonOffsetFactor: 1, side: THREE.DoubleSide } );
 var lavaRockTexture = new THREE.TextureLoader().load( 'Textures/lavaRock.jpg' );
-var lavaRockMaterial = new THREE.MeshBasicMaterial( { map: lavaRockTexture, side: THREE.DoubleSide } );
+var lavaRockMaterial = new THREE.MeshPhongMaterial( { map: lavaRockTexture, side: THREE.DoubleSide } );
 let sphereMaterial = new THREE.MeshBasicMaterial({
           envMap: sphereCamera.renderTarget
         });
@@ -81,16 +95,16 @@ var transMaterial = new THREE.MeshPhongMaterial({
 MainFloortexture.wrapS = THREE.RepeatWrapping;
 MainFloortexture.wrapT = THREE.RepeatWrapping;
 //floor geometries
-var startpadgeom = new THREE.BoxGeometry( 5, 2, 5 );
-var endpadgeom = new THREE.BoxGeometry( 10, 10, 10 );
+var startpadgeom = new THREE.BoxBufferGeometry( 5, 2, 5 );
+var endpadgeom = new THREE.BoxBufferGeometry( 10, 10, 10 );
 
-var SouthSegmentgeom = new THREE.BoxGeometry( 1000, 20, 220 );
-var NorthEastSegmentgeom = new THREE.BoxGeometry( 220, 20, 220 );
-var NorthWestSegmentgeom = new THREE.BoxGeometry( 220, 20, 220 );
-var platformGeometry = new THREE.BoxGeometry( 50, 10, 50 );
-var highPlatformGeometry = new THREE.BoxGeometry( 51, 20, 51 );
-var veryHighPlatformGeometry = new THREE.BoxGeometry( 50, 50, 50 );
-var wallGeometry = new THREE.PlaneGeometry(50,50);
+var SouthSegmentgeom = new THREE.BoxBufferGeometry( 1000, 20, 220 );
+var NorthEastSegmentgeom = new THREE.BoxBufferGeometry( 220, 20, 220 );
+var NorthWestSegmentgeom = new THREE.BoxBufferGeometry( 220, 20, 220 );
+var platformGeometry = new THREE.BoxBufferGeometry( 50, 10, 50 );
+var highPlatformGeometry = new THREE.BoxBufferGeometry( 51, 20, 51 );
+var veryHighPlatformGeometry = new THREE.BoxBufferGeometry( 50, 50, 50 );
+var wallGeometry = new THREE.PlaneBufferGeometry(50,50);
 
 //Mesh:
 var startpad = new THREE.Mesh( startpadgeom, Startpadmaterial );
@@ -102,7 +116,7 @@ var NorthSeg = new THREE.Mesh( SouthSegmentgeom , lavaRockMaterial );
 
 
 
- oceanGeometry = new THREE.PlaneBufferGeometry( 2000, 2000, 128-1, 128-1);
+ oceanGeometry = new THREE.PlaneBufferGeometry( 2000, 3000, 127, 127);
         oceanGeometry.rotateX( - Math.PI / 2 );
 
         var position = oceanGeometry.attributes.position;
@@ -119,7 +133,7 @@ var texture = new THREE.TextureLoader().load( 'textures/water.jpg' );
         texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
         texture.repeat.set( 5, 5 );
 
- oceanMaterial = new THREE.MeshBasicMaterial( { color: 0xff0000, map: texture } );
+ oceanMaterial = new THREE.MeshPhongMaterial( { color: 0xff0000, map: texture } );
 var oceanMesh = new THREE.Mesh( oceanGeometry, oceanMaterial );
 
 
@@ -129,6 +143,14 @@ var leftBridge2 = new THREE.Object3D();
 {
   var loader = new THREE.GLTFLoader();
   loader.load('./3DObjects/Bridge/scene.gltf', function(gltf){
+
+    //Cast and receive a shadow on the model
+      gltf.scene.traverse (function (node){
+      if (node instanceof THREE.Mesh){
+        node.castShadow = true;
+        node.receiveShadow = true;
+      }
+      });
 
     var rightWoodBridge1 = gltf.scene;
     rightBridge1.add(rightWoodBridge1);
@@ -142,6 +164,14 @@ var leftBridge2 = new THREE.Object3D();
 var centreBridge = new THREE.Object3D();
 var loader = new THREE.GLTFLoader();
 loader.load('./3DObjects/LongBridge/scene.gltf', function(gltf){
+
+  //Cast and receive a shadow on the model
+      gltf.scene.traverse (function (node){
+      if (node instanceof THREE.Mesh){
+        node.castShadow = true;
+        node.receiveShadow = true;
+      }
+      });
     centreBridge.add(gltf.scene);
     animate();
 });
@@ -164,6 +194,14 @@ var glowingRock14 = new THREE.Object3D();
 var loader = new THREE.GLTFLoader();
 loader.load('./3DObjects/GlowingRock/scene.gltf', function(gltf){
     gltf.scene.scale.set(1.5,1.5,1.5);
+
+  gltf.scene.traverse (function (node){
+  if (node instanceof THREE.Mesh){
+    node.castShadow = true;
+    node.receiveShadow = true;
+  }
+  });
+
     glowingRock1.add(gltf.scene);
     glowingRock2.add(gltf.scene.clone());
     glowingRock3.add(gltf.scene.clone());
@@ -185,6 +223,15 @@ loader.load('./3DObjects/GlowingRock/scene.gltf', function(gltf){
 //Once this mountain model is loaded, then only is the loading screen removed
 var loader = new THREE.GLTFLoader( loadingManager );
 loader.load('./3DObjects/HellMount/scene.gltf', function(gltf){
+
+  //Cast and receive a shadow on the model
+      gltf.scene.traverse (function (node){
+      if (node instanceof THREE.Mesh){
+        node.castShadow = true;
+        node.receiveShadow = true;
+      }
+      });
+
   var hellMount = gltf.scene;
   hellMount.position.x = 0;
   hellMount.position.y = 130;
@@ -242,14 +289,14 @@ var platform23 = new THREE.Mesh( platformGeometry , mountRockMat );
 
 
 //transparent floor geometry (Goes under the small bridge)
-var transGeometry = new THREE.BoxGeometry(15,20,45);
+var transGeometry = new THREE.BoxBufferGeometry(15,20,45);
 var rightTransBox = new THREE.Mesh(transGeometry, transMaterial);
 var leftTransBox = new THREE.Mesh(transGeometry, transMaterial);
 
 
 
 function genarrMap1(){
-  scene.fog = new THREE.FogExp2( 0xaaccff, 0.0007 );
+  // scene.fog = new THREE.FogExp2( 0xaaccff, 0.0007 );
   scene.add(oceanMesh)
 
   boxe1 = new getEnemy();
@@ -444,6 +491,9 @@ function genarrMap1(){
 //Adding Lights
 scene.add( directionalLight );
 scene.add( light );
+
+// Directional light helper:
+// scene.add( helper );
 
   // adding skybox
   scene.add( skybox )

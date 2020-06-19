@@ -27,9 +27,9 @@ function getTop(){
 
       //Creating cone(spike)
       var text = new THREE.TextureLoader().load( 'Textures/textb.png' );
-      var mat1 = new THREE.MeshBasicMaterial( { map: text } );
+      var mat1 = new THREE.MeshPhongMaterial( { map: text } );
       var geom = new THREE.ConeGeometry( 4, 6.5, 22 );
-      var mat = new THREE.MeshBasicMaterial( {color: 0xcd853f} );
+      var mat = new THREE.MeshPhongMaterial( {color: 0xcd853f} );
       var bot_cone = new THREE.Mesh( geom, mat1 );
       bot_cone.scale.set(0.1,0.1,0.1);
       bot_cone.position.set(0,-0.34,0);
@@ -40,7 +40,7 @@ function getTop(){
       // Add Circle
       var geometry = new THREE.CircleGeometry( 0.7, 32 );
       var textc = new THREE.TextureLoader().load( 'Textures/redlines.jpg' );
-      var material = new THREE.MeshBasicMaterial({map:textc});
+      var material = new THREE.MeshPhongMaterial({map:textc});
       var circle = new THREE.Mesh( geometry, material );
       circle.rotateX(-Math.PI/2);
       bottom.scale.set(1.5,2,1.5);
@@ -52,9 +52,9 @@ function getTop(){
 
       //Creating bottom cone
       var texture = new THREE.TextureLoader().load( 'Textures/lights.jpg' );
-      var material1 = new THREE.MeshBasicMaterial( { map: texture } );
+      var material1 = new THREE.MeshPhongMaterial( { map: texture } );
       var geometry = new THREE.ConeGeometry( 1, 6.5, 22 );
-      var material = new THREE.MeshBasicMaterial( {color: 0xcd853f} );
+      var material = new THREE.MeshPhongMaterial( {color: 0xcd853f} );
       var cone = new THREE.Mesh( geometry, material1 );
       cone.scale.set(0.1,0.1,0.1);
       //scene.add(cone);
