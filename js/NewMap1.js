@@ -25,12 +25,12 @@ let sphereCamera = new THREE.CubeCamera(1,3000,500);
 //Skybox
 //Initialize an array which loads textures
 let materialArray = [];
-let texture_ft = new THREE.TextureLoader().load( 'Textures/tropic_ft.jpg');
-let texture_bk = new THREE.TextureLoader().load( 'Textures/tropic_bk.jpg');
-let texture_up = new THREE.TextureLoader().load( 'Textures/tropic_up.jpg');
-let texture_dn = new THREE.TextureLoader().load( 'Textures/tropic_dn.jpg');
-let texture_rt = new THREE.TextureLoader().load( 'Textures/tropic_rt.jpg');
-let texture_lf = new THREE.TextureLoader().load( 'Textures/tropic_lf.jpg');
+let texture_ft = new THREE.TextureLoader().load( 'Textures/skyhigh_ft.png');
+let texture_bk = new THREE.TextureLoader().load( 'Textures/skyhigh_bk.png');
+let texture_up = new THREE.TextureLoader().load( 'Textures/skyhigh_up.png');
+let texture_dn = new THREE.TextureLoader().load( 'Textures/skyhigh_dn.png');
+let texture_rt = new THREE.TextureLoader().load( 'Textures/skyhigh_rt.png');
+let texture_lf = new THREE.TextureLoader().load( 'Textures/skyhigh_lf.png');
 
 materialArray.push(new THREE.MeshBasicMaterial( { map: texture_ft }));
 materialArray.push(new THREE.MeshBasicMaterial( { map: texture_bk }));
@@ -42,7 +42,7 @@ materialArray.push(new THREE.MeshBasicMaterial( { map: texture_lf }));
 for (let i = 0; i < 6; i++)
   materialArray[i].side = THREE.BackSide;
 //Creates cube of set dimensions
-let skyboxGeo = new THREE.BoxGeometry( 3000, 2000, 4000);
+let skyboxGeo = new THREE.BoxGeometry( 3000, 3000, 4000);
 let skybox = new THREE.Mesh( skyboxGeo, materialArray );
 
 
@@ -73,19 +73,23 @@ var transMaterial = new THREE.MeshPhongMaterial({
 
 ////////////////////////////////////////////////////////////////////////////
 
-
-
+//Sun in sky
+var SunGeo = new THREE.SphereBufferGeometry(15,16,8);
+var SunMat = new THREE.MeshBasicMaterial( { color: 0xffffff });
+var SunSphere = new THREE.Mesh(SunGeo, SunMat);
 
 //Lights
 //Sets a directional light at a position with colour and intensity
-var directionalLight = new THREE.DirectionalLight( 	0xDBBD8F, 2 );
-directionalLight.position.set( 1500,1000,2000 ); //3000, 1000, 6000
+var directionalLight = new THREE.DirectionalLight( 	0xDBBD8F, 1.5 );
+directionalLight.add(SunSphere);
+// directionalLight.position.set( 1500,1000,2000 ); //3000, 1000, 6000
+directionalLight.position.z = 350;
 directionalLight.target.position.set( 282, 0, -604.); //3000, 1000, 6000
 directionalLight.castShadow = true;
 
 //Set up shadow properties for the light
-directionalLight.shadow.camera.near = 1500;
-directionalLight.shadow.camera.far = 3500;
+directionalLight.shadow.camera.near = 1;
+directionalLight.shadow.camera.far = 2500;
 directionalLight.shadow.mapSize.width = 2048;  // default
 directionalLight.shadow.mapSize.height = 2048; // default
 directionalLight.shadow.bias = -0.003;
@@ -95,10 +99,22 @@ directionalLight.shadow.camera.left = -1000;
 directionalLight.shadow.camera.top = 1000;
 directionalLight.shadow.camera.bottom = -1000;
 
+// SUPER SIMPLE GLOW EFFECT
+  // use sprite because it appears the same from all angles
+  var spriteMaterial = new THREE.SpriteMaterial( 
+  { 
+    map: new THREE.ImageUtils.loadTexture( 'Textures/glow.png' ), 
+    useScreenCoordinates: false,
+    color: 0xffff00, transparent: false, blending: THREE.AdditiveBlending
+  });
+  var sprite = new THREE.Sprite( spriteMaterial );
+  sprite.scale.set(200, 200, 1.0);
+  SunSphere.add(sprite);
+
 //Create a helper for the shadow camera (optional)
 var helper = new THREE.CameraHelper( directionalLight.shadow.camera );
 
-var AmbLight = new THREE.AmbientLight(0xDBBD8F);
+var AmbLight = new THREE.AmbientLight(0xDBBD8F, 0.5 );
 
 
 
@@ -198,6 +214,7 @@ loader.load('./3DObjects/palmTree/scene.gltf', function(gltf){
   if (node instanceof THREE.Mesh){
     node.castShadow = true;
     node.receiveShadow = true;
+    node.material.metalness = 0;
   }
   });
 

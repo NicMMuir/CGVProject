@@ -1,7 +1,7 @@
 var ObjectsMap1Arr = [];
 var EnemyList = [];
 var End;
-var Mesh, oceanGeometry, oceanMaterial, clock;
+var Mesh, clock;
 var End;
 
 //Loading screen using css and Threejs LoadingManager
@@ -19,12 +19,12 @@ var End;
 //Skybox
 //Initialize an array which loads textures
 let materialArray = [];
-let texture_ft = new THREE.TextureLoader().load( 'Textures/sleepyhollow_ft.jpg');
-let texture_bk = new THREE.TextureLoader().load( 'Textures/sleepyhollow_bk.jpg');
-let texture_up = new THREE.TextureLoader().load( 'Textures/sleepyhollow_up.jpg');
-let texture_dn = new THREE.TextureLoader().load( 'Textures/sleepyhollow_dn.jpg');
-let texture_rt = new THREE.TextureLoader().load( 'Textures/sleepyhollow_rt.jpg');
-let texture_lf = new THREE.TextureLoader().load( 'Textures/sleepyhollow_lf.jpg');
+let texture_ft = new THREE.TextureLoader().load( 'Textures/galaxy_ft.png');
+let texture_bk = new THREE.TextureLoader().load( 'Textures/galaxy_bk.png');
+let texture_up = new THREE.TextureLoader().load( 'Textures/galaxy_up.png');
+let texture_dn = new THREE.TextureLoader().load( 'Textures/galaxy_dn.png');
+let texture_rt = new THREE.TextureLoader().load( 'Textures/galaxy_rt.png');
+let texture_lf = new THREE.TextureLoader().load( 'Textures/galaxy_lf.png');
 
 materialArray.push(new THREE.MeshBasicMaterial( { map: texture_ft }));
 materialArray.push(new THREE.MeshBasicMaterial( { map: texture_bk }));
@@ -36,7 +36,7 @@ materialArray.push(new THREE.MeshBasicMaterial( { map: texture_lf }));
 for (let i = 0; i < 6; i++)
   materialArray[i].side = THREE.BackSide;
 //Creates cube of set dimensions
-let skyboxGeo = new THREE.BoxGeometry( 4000, 5000, 3000);
+let skyboxGeo = new THREE.BoxGeometry( 8000, 8000, 8000);
 let skybox = new THREE.Mesh( skyboxGeo, materialArray );
 skybox.position.x = -150;
 skybox.position.z = -80;
@@ -60,39 +60,54 @@ var transMaterial = new THREE.MeshPhongMaterial({
     transparent: true,
   });
 
+//MOON SPHERE
+  //   Note: a standard flat rectangular image will look distorted,
+  //   a "spherical projection" image will look "normal".
+  
+  // radius, segmentsWidth, segmentsHeight
+  var moonGeom =  new THREE.SphereGeometry( 40, 32, 16 ); 
+  
+  // Moon
+  var moonTexture = new THREE.TextureLoader().load( 'Textures/moon.jpg');
+  var moonMaterial = new THREE.MeshBasicMaterial( { map: moonTexture } );
+  var moon = new THREE.Mesh( moonGeom, moonMaterial );
 
-//lights
+//LIGHTS
 //Sets a directional light at a position with colour and intensity
 var directionalLight = new THREE.DirectionalLight( 	0xB4CCE1, 2 );
-directionalLight.position.set( 1700, 2000, -950 );
-directionalLight.target.position.set( -1911, 260, 1018.); //3000, 1000, 6000
+directionalLight.add(moon);
+directionalLight.position.y = 1200;
+// directionalLight.position.set( -1900, 1000, 1000 );
+directionalLight.target.position.set( -890, 250, 380); //3000, 1000, 6000
 directionalLight.castShadow = true;
 
 //Set up shadow properties for the light
-directionalLight.shadow.camera.near = 1500;
-directionalLight.shadow.camera.far = 5000;
+directionalLight.shadow.camera.near = 1;
+directionalLight.shadow.camera.far = 3700;
 directionalLight.shadow.mapSize.width = 2048;  // default
 directionalLight.shadow.mapSize.height = 2048; // default
 directionalLight.shadow.bias = -0.003;
-// directionalLight.shadow.darkness = 2;
-directionalLight.shadow.camera.right = 1000;
-directionalLight.shadow.camera.left = -1000;
+directionalLight.shadow.camera.right = 1500;
+directionalLight.shadow.camera.left = -1500;
 directionalLight.shadow.camera.top = 1000;
 directionalLight.shadow.camera.bottom = -1000;
 
+//Create a helper for the shadow camera (optional)
+var helper = new THREE.CameraHelper( directionalLight.shadow.camera );
+
+// SUPER SIMPLE GLOW EFFECT
+  // use sprite because it appears the same from all angles
+  var spriteMaterial = new THREE.SpriteMaterial( 
+  { 
+    map: new THREE.TextureLoader().load( 'Textures/glow.png' ), 
+    useScreenCoordinates: false,
+    color: 0xffffff, transparent: false, blending: THREE.AdditiveBlending
+  });
+  var sprite = new THREE.Sprite( spriteMaterial );
+  sprite.scale.set(200, 200, 1.0);
+  moon.add(sprite);
+
 var light = new THREE.AmbientLight(0x404040);
-
-//Spotlight lights up the ship and bridge in clouds
-var spotlight = new THREE.SpotLight(0xffffff, 10, 1000);
-spotlight.position.set(-1000, 350, 380);
-spotlight.target.position.set(-300, 179, 380);
-spotlight.castShadow = true;
-
-//Set up shadow properties for the spotlight
-spotlight.shadow.camera.near = 0.5;
-spotlight.shadow.camera.far = 1000;
-spotlight.shadow.mapSize.width = 512;  // default
-spotlight.shadow.mapSize.height = 512; // default
 
 // pointlight placed in lamp on RopeBridge:
 var pointlight1 = new THREE.PointLight(0xffd700, 1, 200);
@@ -110,9 +125,6 @@ pointlight5.position.set(-300,117,-525);
 
 var pointlighthelper = new THREE.PointLightHelper( pointlight1, 10);
 
-//Create a helper for the shadow camera (optional)
-var helper = new THREE.CameraHelper( directionalLight.shadow.camera );
-
 MainFloortexture.wrapS = THREE.RepeatWrapping;
 MainFloortexture.wrapT = THREE.RepeatWrapping;
 //floor geometries
@@ -129,29 +141,6 @@ var endpad = new THREE.Mesh( endpadgeom , galaxyMat );
 var StartSeg = new THREE.Mesh( StartFloorGeo , GrassMat );
 var middleFloor = new THREE.Mesh( middleFloorGeo , GrassMat );
 var transBox = new THREE.Mesh( transGeometry , transMaterial );
-
-
-
-
- oceanGeometry = new THREE.PlaneBufferGeometry( 4000, 3000, 127, 127);
-        oceanGeometry.rotateX( - Math.PI / 2 );
-
-        var position = oceanGeometry.attributes.position;
-        position.usage = THREE.DynamicDrawUsage;
-
-        for ( var i = 0; i < position.count; i ++ ) {
-
-          var y = 5 * Math.sin( i / 2 );
-          position.setY( i, y );
-
-        }
-
-var texture = new THREE.TextureLoader().load( 'textures/water.jpg' );
-        texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-        texture.repeat.set( 5, 5 );
-
- oceanMaterial = new THREE.MeshPhongMaterial( { color: 0x0055a5, map: texture } );
-var oceanMesh = new THREE.Mesh( oceanGeometry, oceanMaterial );
 
 //Load Big Blue Mushroom Tree Model
 var mushTree = new THREE.Object3D();
@@ -252,15 +241,6 @@ var fantasyBridge = new THREE.Object3D();
 {
   var loader = new THREE.GLTFLoader();
   loader.load('./3DObjects/FantasyBridge/scene.gltf', function(gltf){
-
-    //Cast and receive a shadow on the model
-  gltf.scene.traverse (function (node){
-  if (node instanceof THREE.Mesh){
-    node.castShadow = true;
-    node.receiveShadow = true;
-  }
-  });
-
     fantasyBridge.add(gltf.scene);
 });
 }
@@ -410,7 +390,6 @@ var fantasyRing = new THREE.Object3D();
 
 
 function genarrMap1(){
-  scene.add(oceanMesh);
 
    mush_e1 = new mushEnemy();
    mush_e1.position.x = -1860;
@@ -558,8 +537,6 @@ function genarrMap1(){
   scene.add( directionalLight );
   scene.add( directionalLight.target );
   scene.add( light ); //ambient light
-  scene.add( spotlight );
-  scene.add( spotlight.target );
   scene.add( pointlight1 );
   scene.add( pointlight2 );
   scene.add( pointlight3 );
@@ -678,10 +655,6 @@ fantasyBridge.position.x = -300;//Long wooden bridge in clouds
   dragonEgg5.position.y = 210;
   dragonEgg5.position.z = 960;
   dragonEgg5.rotation.set(0, Math.PI, 0);
-
-    oceanMesh.position.x = -150;
-    oceanMesh.position.y = -10;
-    oceanMesh.position.z = -80;
 
 }
 

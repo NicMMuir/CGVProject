@@ -12,6 +12,7 @@ function rubyinit(){
   if (node instanceof THREE.Mesh){
     node.castShadow = true;
     node.receiveShadow = true;
+    node.material.metalness = 0;
   }
   });
   Ruby = gltf.scene;
@@ -21,11 +22,7 @@ function rubyinit(){
     temp = gltf.scene.clone();
     temp.position.x = PosRubyList[k].x ;
     temp.position.y = PosRubyList[k].y;
-    temp.position.z = PosRubyList[k].z;
-
-    temp.children[2].material.metalness = 0;    
-    temp.children[2].children[0].material.metalness = 0;    
-    temp.children[2].children[0].children[0].material.metalness = 0;    
+    temp.position.z = PosRubyList[k].z;   
 
     RubyArray.push(temp);
     scene.add(temp);

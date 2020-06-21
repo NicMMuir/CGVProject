@@ -4,11 +4,12 @@
 //Heightmap
 //orbital controls
 var scene, camera,raycamera,renderer,loop,char,chardata,controller;
-var mesh, oceanGeometry, material, clock, TWEEN;
+var mesh, material, clock, TWEEN;
 var Collidables = [];
 var spinToplist3 = [];
 var spinTop1, spinTop2, spinTop3, spinTop4, spinTop5, spinTop6, spinTop7, spinTop8, spinTop9;
 var mapCamera, mapWidth = 360, mapHeight = 200; // w/h should match div dimensions
+var directionalLight;
 
 var PauseState = false;
 
@@ -67,7 +68,7 @@ var rayright = new THREE.Raycaster();
 
 //Scene and camear etc
 scene = new THREE.Scene();
-camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 5000 );
+camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 9000 );
 
 renderer = new THREE.WebGLRenderer({antialias:true, alpha: true});
 renderer.shadowMap.enabled = true;
@@ -91,7 +92,6 @@ controls = new THREE.PointerLockControls(camera);
 	mapCamera.lookAt( new THREE.Vector3(0,-1,0) );
 	scene.add(mapCamera);
 
-var position;//Ocean moveement
 var time;
 
 
@@ -152,14 +152,21 @@ function init(){
 }
 
 //animate and render work hand in hand for rendering specific things
+var t = 0;
 function animate() {
 				requestAnimationFrame( animate );
 				var delta = clock.getDelta();
 				mixer.update( delta );
 				TWEEN.update();
 
+				//Rotating moon motion:
+				t += 0.0000001; //speed of rotation
+				directionalLight.position.x = 2000*Math.cos(t) + -890;
+    			directionalLight.position.z = 2000*Math.sin(t) + 380;
+
 				//EVENTS (Allows game to scale when screen size is changed)
 				THREEx.WindowResize(renderer, camera);
+
 				render();
 			}
 
@@ -272,14 +279,6 @@ loop = function(){
 
 	time = clock.getElapsedTime() * 5;
 
-				position = oceanGeometry.attributes.position;
-
-			 for ( let i = 0; i < position.count; i ++ ) {
-
-				 var y = 5 * Math.sin( i / 5 + ( time + i ) / 7 );
-				 position.setY( i, y );
-
-			 }
 			 for(let k = 0;k<CoinArr.length;k++){
 				 CoinArr[k].rotateY(0.01);
 			 }
@@ -287,7 +286,6 @@ loop = function(){
 				 RubyArr[k].rotateY(0.01);
 			 }
 
-			 position.needsUpdate = true;
  // onRender();
 
 
@@ -296,7 +294,7 @@ loop = function(){
 	if(controller.up && chardata.jump == false){
 
 		//must be a mutiple of the gravity
-		chardata.y_vel +=10;
+		chardata.y_vel +=30;
 		chardata.jump = true;
 	}
 
@@ -311,7 +309,7 @@ loop = function(){
 		// chardata.rotationy += 0.04
 	}
 	if(controller.forward){
-		chardata.z_vel -=0.12;//0.12
+		chardata.z_vel -=2;//0.12
 		action.play(); //need to figure out how controller event listener processes 'keyup' events to call action.stop() when 'W' is released
 
 	}

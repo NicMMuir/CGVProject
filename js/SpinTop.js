@@ -26,6 +26,7 @@ loader.load('./3DObjects/Enemy/scene.gltf', function(gltf){
   if (node instanceof THREE.Mesh){
     node.castShadow = true;
     node.receiveShadow = true;
+    node.material.metalness = 0;
   }
   });
 

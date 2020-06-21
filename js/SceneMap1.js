@@ -9,6 +9,7 @@ var mesh, oceanGeometry, material, clock;
 var Collidables = [];
 var curveEnemy;
 var renderer, renderer2;
+var directionalLight;
 
 
 var mixer, mixer1, mixer2, TWEEN;
@@ -116,11 +117,6 @@ var tp = new THREE.Vector3();
 audioplay = false;
 
 
-
-
-
-
-
 init();
 
 
@@ -175,7 +171,7 @@ function init(){
 
 }
 
-
+var t = 0;
 function animate() {
 				requestAnimationFrame( animate );
 				TWEEN.update();
@@ -183,6 +179,11 @@ function animate() {
 				mixer1.update( delta*3 ); //Waterfall Model (clouds)
 				mixer.update( delta*2 ); //Shark Model
 				sphereCamera.update(renderer,scene);
+
+				//Rotating sun motion:
+				t += 0.005; //speed at which it makes a revolution
+				directionalLight.position.x = 1000*Math.cos(t) + 0;
+    			directionalLight.position.y = 750*Math.sin(t) + 200;
 
 	//EVENTS (Allows game to scale when screen size is changed)
 
@@ -322,7 +323,7 @@ loop = function(){
 		// chardata.rotationy += 0.04
 	}
 	if(controller.forward){
-		chardata.z_vel -=0.12;//0.12
+		chardata.z_vel -=1.2;//0.12
 		action.play(); //need to figure out how controller event listener processes 'keyup' events to call action.stop() when 'W' is released
 	}
 	if(controller.back){

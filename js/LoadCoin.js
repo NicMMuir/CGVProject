@@ -12,6 +12,7 @@ function coininit(){
   if (node instanceof THREE.Mesh){
     node.castShadow = true;
     node.receiveShadow = true;
+    node.material.metalness = 0;
   }
   });
   Coin = gltf.scene;
@@ -22,8 +23,6 @@ function coininit(){
     temp.position.x = PosCoinList[k].x ;
     temp.position.y = PosCoinList[k].y;
     temp.position.z = PosCoinList[k].z;
-
-    temp.children[4].material.metalness = 0;
 
     CoinArray.push(temp);
     scene.add(temp);
