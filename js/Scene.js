@@ -152,17 +152,19 @@ function init(){
 }
 
 //animate and render work hand in hand for rendering specific things
-var t = 0;
 function animate() {
 				requestAnimationFrame( animate );
+				var time = Date.now() * 0.0005;
 				var delta = clock.getDelta();
 				mixer.update( delta );
 				TWEEN.update();
 
-				//Rotating moon motion:
-				t += 0.0000001; //speed of rotation
-				directionalLight.position.x = 2000*Math.cos(t) + -890;
-    			directionalLight.position.z = 2000*Math.sin(t) + 380;
+				directionalLight.position.x = Math.sin( time / 13) * 2000 - 890;
+				directionalLight.position.z = Math.cos( time / 13) * 2000 + 380;
+				
+				skybox.rotation.x += 0.002;
+				skybox.rotation.y += 0.001;
+				skybox.rotation.z += 0.003;
 
 				//EVENTS (Allows game to scale when screen size is changed)
 				THREEx.WindowResize(renderer, camera);
@@ -294,7 +296,7 @@ loop = function(){
 	if(controller.up && chardata.jump == false){
 
 		//must be a mutiple of the gravity
-		chardata.y_vel +=30;
+		chardata.y_vel +=10;
 		chardata.jump = true;
 	}
 
@@ -309,7 +311,7 @@ loop = function(){
 		// chardata.rotationy += 0.04
 	}
 	if(controller.forward){
-		chardata.z_vel -=2;//0.12
+		chardata.z_vel -=0.12;//0.12
 		action.play(); //need to figure out how controller event listener processes 'keyup' events to call action.stop() when 'W' is released
 
 	}

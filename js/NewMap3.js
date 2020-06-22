@@ -76,7 +76,7 @@ var transMaterial = new THREE.MeshPhongMaterial({
 //Sets a directional light at a position with colour and intensity
 var directionalLight = new THREE.DirectionalLight( 	0xB4CCE1, 2 );
 directionalLight.add(moon);
-directionalLight.position.y = 1200;
+directionalLight.position.y = 1400;
 // directionalLight.position.set( -1900, 1000, 1000 );
 directionalLight.target.position.set( -890, 250, 380); //3000, 1000, 6000
 directionalLight.castShadow = true;
