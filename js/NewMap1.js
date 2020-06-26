@@ -74,48 +74,94 @@ var transMaterial = new THREE.MeshPhongMaterial({
 ////////////////////////////////////////////////////////////////////////////
 
 //Sun in sky
-var SunGeo = new THREE.SphereBufferGeometry(15,16,8);
+var SunGeo = new THREE.SphereBufferGeometry(15,32,16);
 var SunMat = new THREE.MeshBasicMaterial( { color: 0xffffff });
 var SunSphere = new THREE.Mesh(SunGeo, SunMat);
+SunSphere.position.z = 50;
+
 
 //Lights
 //Sets a directional light at a position with colour and intensity
-var directionalLight = new THREE.DirectionalLight( 	0xDBBD8F, 1.5 );
-directionalLight.add(SunSphere);
+var sunDirectionalLight = new THREE.DirectionalLight( 	0xDBBD8F, 1.5 );
+sunDirectionalLight.add(SunSphere);
 // directionalLight.position.set( 1500,1000,2000 ); //3000, 1000, 6000
-directionalLight.position.z = 350;
-directionalLight.target.position.set( 282, 0, -604.); //3000, 1000, 6000
-directionalLight.castShadow = true;
+sunDirectionalLight.position.z = 350;
+sunDirectionalLight.target.position.set( 280, 0, -600); //3000, 1000, 6000
+sunDirectionalLight.castShadow = true;
 
 //Set up shadow properties for the light
-directionalLight.shadow.camera.near = 1;
-directionalLight.shadow.camera.far = 2500;
-directionalLight.shadow.mapSize.width = 2048;  // default
-directionalLight.shadow.mapSize.height = 2048; // default
-directionalLight.shadow.bias = -0.003;
+sunDirectionalLight.shadow.camera.near = 1;
+sunDirectionalLight.shadow.camera.far = 2500;
+sunDirectionalLight.shadow.mapSize.width = 2000; 
+sunDirectionalLight.shadow.mapSize.height = 2000;
+sunDirectionalLight.shadow.bias = -0.003;
 // directionalLight.shadow.darkness = 2;
-directionalLight.shadow.camera.right = 1000;
-directionalLight.shadow.camera.left = -1000;
-directionalLight.shadow.camera.top = 1000;
-directionalLight.shadow.camera.bottom = -1000;
+sunDirectionalLight.shadow.camera.right = 1000;
+sunDirectionalLight.shadow.camera.left = -1000;
+sunDirectionalLight.shadow.camera.top = 1000;
+sunDirectionalLight.shadow.camera.bottom = -1000;
 
-// SUPER SIMPLE GLOW EFFECT
+// SUPER SIMPLE SUN GLOW EFFECT
   // use sprite because it appears the same from all angles
-  var spriteMaterial = new THREE.SpriteMaterial( 
+  var sunSpriteMaterial = new THREE.SpriteMaterial( 
   { 
-    map: new THREE.ImageUtils.loadTexture( 'Textures/glow.png' ), 
+    map: new THREE.TextureLoader().load( 'Textures/glow.png' ), 
     useScreenCoordinates: false,
-    color: 0xffff00, transparent: false, blending: THREE.AdditiveBlending
+    color: 0xffff00, transparent: true, blending: THREE.AdditiveBlending
   });
-  var sprite = new THREE.Sprite( spriteMaterial );
-  sprite.scale.set(200, 200, 1.0);
-  SunSphere.add(sprite);
+  var sunSprite = new THREE.Sprite( sunSpriteMaterial );
+  sunSprite.scale.set(200, 200, 1.0);
+  SunSphere.add(sunSprite);
+
+//MOON SPHERE
+  //   Note: a standard flat rectangular image will look distorted,
+  //   a "spherical projection" image will look "normal".
+  
+  // radius, segmentsWidth, segmentsHeight
+  var moonGeom =  new THREE.SphereGeometry( 30, 32, 16 ); 
+  
+  // Moon
+  var moonTexture = new THREE.TextureLoader().load( 'Textures/moon.jpg');
+  var moonMaterial = new THREE.MeshBasicMaterial( { map: moonTexture } );
+  var moon = new THREE.Mesh( moonGeom, moonMaterial );
+
+//LIGHTS
+//Sets a directional light at a position with colour and intensity
+var moonDirectionalLight = new THREE.DirectionalLight(  0x0055A5 );
+moonDirectionalLight.add(moon);
+moonDirectionalLight.position.z = -1200;
+// directionalLight.position.set( -1900, 1000, 1000 );
+moonDirectionalLight.target.position.set( 390,0,90); //3000, 1000, 6000
+moonDirectionalLight.castShadow = true;
+
+//Set up shadow properties for the light
+moonDirectionalLight.shadow.camera.near = 30;
+moonDirectionalLight.shadow.camera.far = 2000;
+moonDirectionalLight.shadow.mapSize.width = 2048; 
+moonDirectionalLight.shadow.mapSize.height = 2048;
+moonDirectionalLight.shadow.bias = -0.003;
+moonDirectionalLight.shadow.camera.right = 1000;
+moonDirectionalLight.shadow.camera.left = -1000;
+moonDirectionalLight.shadow.camera.top = 1000;
+moonDirectionalLight.shadow.camera.bottom = -1000;
+
+// SUPER SIMPLE MOON GLOW EFFECT
+  // use sprite because it appears the same from all angles
+  var moonSpriteMaterial = new THREE.SpriteMaterial( 
+  { 
+    map: new THREE.TextureLoader().load( 'Textures/glow.png' ), 
+    useScreenCoordinates: false,
+    color: 0xEEEEEE, transparent: true, blending: THREE.AdditiveBlending
+  });
+  var moonSprite = new THREE.Sprite( moonSpriteMaterial );
+  moonSprite.scale.set(200, 200, 1.0);
+  moon.add(moonSprite);
+
 
 //Create a helper for the shadow camera (optional)
-var helper = new THREE.CameraHelper( directionalLight.shadow.camera );
+var helper = new THREE.CameraHelper( moonDirectionalLight.shadow.camera );
 
 var AmbLight = new THREE.AmbientLight(0xDBBD8F, 0.5 );
-
 
 
 MainFloortexture.wrapS = THREE.RepeatWrapping;
@@ -587,10 +633,13 @@ function genarrMap1(){
 
   //Add the skybox and lights instead of pushing
   scene.add( skybox );
-  scene.add( directionalLight );
-  scene.add( directionalLight.target );
+  scene.add( sunDirectionalLight );
+  scene.add( sunDirectionalLight.target );
+  scene.add( moonDirectionalLight );
+  scene.add( moonDirectionalLight.target );
   scene.add(AmbLight);
   // scene.add( helper );
+
 }
 
 function moveobjectsMap1(){

@@ -16,6 +16,9 @@ var PauseState = false;
 var DeathCounter = -1;
 var PointsCounter = 0;
 
+var CoinCounter = 0;
+var RubyCounter = 0;
+
 var RPosList = [];
 var RubyArr = [];
 var CPosList = [];
@@ -139,7 +142,6 @@ function init(){
 		Collidables.push(ObjectsMap1Arr[k]);
 	}
 	bgmmusic();
-	// SetLight();
 
 	//Cast a shadow on all objects made of Mesh
 	scene.traverse (function (node){
@@ -148,6 +150,86 @@ function init(){
     node.receiveShadow = true;
   }
   });
+
+	////////////
+	// /SUN/ //
+	////////////
+	
+	// base image texture for mesh
+	var lavaTexture = new THREE.TextureLoader().load( 'Textures/lava.jpg');
+	lavaTexture.wrapS = lavaTexture.wrapT = THREE.RepeatWrapping; 
+	// multiplier for distortion speed 		
+	var baseSpeed = 0.02;
+	// number of times to repeat texture in each direction
+	var repeatS = repeatT = 4.0;
+	
+	// texture used to generate "randomness", distort all other textures
+	var noiseTexture = new THREE.TextureLoader().load( 'Textures/cloud.png' );
+	noiseTexture.wrapS = noiseTexture.wrapT = THREE.RepeatWrapping; 
+	// magnitude of noise effect
+	var noiseScale = 0.5;
+	
+	// texture to additively blend with base image texture
+	var blendTexture = new THREE.TextureLoader().load( 'Textures/lava.jpg' );
+	blendTexture.wrapS = blendTexture.wrapT = THREE.RepeatWrapping; 
+	// multiplier for distortion speed 
+	var blendSpeed = 0.01;
+	// adjust lightness/darkness of blended texture
+	var blendOffset = 0.25;
+
+	// texture to determine normal displacement
+	var bumpTexture = noiseTexture;
+	bumpTexture.wrapS = bumpTexture.wrapT = THREE.RepeatWrapping; 
+	// multiplier for distortion speed 		
+	var bumpSpeed   = 0.15;
+	// magnitude of normal displacement
+	var bumpScale   = 40.0;
+	
+	// use "this." to create global object
+	this.customUniforms = {
+		baseTexture: 	{ type: "t", value: lavaTexture },
+		baseSpeed:		{ type: "f", value: baseSpeed },
+		repeatS:		{ type: "f", value: repeatS },
+		repeatT:		{ type: "f", value: repeatT },
+		noiseTexture:	{ type: "t", value: noiseTexture },
+		noiseScale:		{ type: "f", value: noiseScale },
+		blendTexture:	{ type: "t", value: blendTexture },
+		blendSpeed: 	{ type: "f", value: blendSpeed },
+		blendOffset: 	{ type: "f", value: blendOffset },
+		bumpTexture:	{ type: "t", value: bumpTexture },
+		bumpSpeed: 		{ type: "f", value: bumpSpeed },
+		bumpScale: 		{ type: "f", value: bumpScale },
+		alpha: 			{ type: "f", value: 1.0 },
+		time: 			{ type: "f", value: 1.0 }
+	};
+	
+	// create custom material from the shader code above
+	//   that is within specially labeled script tags
+	var customMaterial = new THREE.ShaderMaterial( 
+	{
+	    uniforms: customUniforms,
+		vertexShader:   document.getElementById( 'vertexShader'   ).textContent,
+		fragmentShader: document.getElementById( 'fragmentShader' ).textContent
+	}   );
+		
+	var ballGeometry = new THREE.SphereGeometry( 60, 64, 64 );
+	var ball = new THREE.Mesh(	ballGeometry, customMaterial );
+		ball.position.set(-250, 350, -1400);
+
+
+	// SUPER SIMPLE GLOW EFFECT
+  // use sprite because it appears the same from all angles
+  var spriteMaterial = new THREE.SpriteMaterial( 
+  { 
+    map: new THREE.TextureLoader().load( 'Textures/glow.png' ), 
+    useScreenCoordinates: false,
+    color: 0xFF4500, transparent: true, blending: THREE.AdditiveBlending
+  });
+  var sprite = new THREE.Sprite( spriteMaterial );
+  sprite.scale.set(350, 350, 1.0);
+  ball.add(sprite);
+
+	scene.add( ball );
 }
 
 //Animate and render work hand in hand
@@ -160,6 +242,8 @@ function animate() {
 		THREEx.WindowResize(renderer, camera);
 		THREEx.WindowResize(renderer2, mapCamera);
 
+		var delta = clock.getDelta();
+		customUniforms.time.value += delta;
 		render();
 			}
 
@@ -188,7 +272,7 @@ function render(){
 			boxRender(boxe1,370,0,100,100);
 			boxRender(boxe2,-400,0,100,100);
 			boxRender(boxe3,305,-205,44,50);
-			boxRender(boxe4,320,-530,130,80);
+			boxRender(boxe4,300,-520,130,100);
 			boxRender(boxe5,-300,-530,120,90);
 			boxRender(boxe6,0,30,90,60);
 
@@ -415,17 +499,43 @@ if(erobj.length != 0){
 		chardata.jump = false;
 		controls.getObject().position.set(charstartx,charstarty,charstartz);
 		}
-	}//end of the level is reached when this block is touched
-	if((controls.getObject().position.x <= (End.position.x+11) && controls.getObject().position.x >= (End.position.x-11) && controls.getObject().position.z >= End.position.z-11 && controls.getObject().position.z <= End.position.z+11)){
+	}
+
+	//end of the level is reached when this block is touched
+	{
+	if((controls.getObject().position.x <= (End.position.x+11) && controls.getObject().position.x >= (End.position.x-11) && controls.getObject().position.z >= End.position.z-11 && controls.getObject().position.z <= End.position.z+11)&& PointsCounter == 0){
+
 		document.getElementById('menu').style.visibility = 'visible';
+		document.getElementById('winlose').innerText = "TRY AGAIN";
 		document.getElementById('scorecard').innerText = "Score: " + PointsCounter;
 		document.getElementById('deathcount').innerText = "Deaths: " + DeathCounter;
-		//wait five seconds and then route back to main menu
+		document.getElementById('coincount').innerText = "Coins: " + CoinCounter + " / " + CoinArr.length;
+		document.getElementById('rubycount').innerText = "Rubies: " + RubyCounter + " / " + RubyArr.length;
+		
+		//wait seven seconds and then route back to main menu
 		window.setTimeout(function()
 		{
 			window.location.assign("index.html");
 		},
-			5000);
+		 7000);
+			}
+
+	else if((controls.getObject().position.x <= (End.position.x+11) && controls.getObject().position.x >= (End.position.x-11) && controls.getObject().position.z >= End.position.z-11 && controls.getObject().position.z <= End.position.z+11)&& PointsCounter >= 1){
+
+		document.getElementById('menu').style.visibility = 'visible';
+		document.getElementById('winlose').innerText = "YOU WIN";
+		document.getElementById('scorecard').innerText = "Score: " + PointsCounter;
+		document.getElementById('deathcount').innerText = "Deaths: " + DeathCounter;
+		document.getElementById('coincount').innerText = "Coins: " + CoinCounter + " / " + CoinArr.length;
+		document.getElementById('rubycount').innerText = "Rubies: " + RubyCounter + " / " + RubyArr.length;
+		
+		//wait seven seconds and then route back to main menu
+		window.setTimeout(function()
+		{
+			window.location.assign("index.html");
+		},
+		 7000);
+			}
 	}
 
 	Movechar(chardata.x,chardata.y,chardata.z);
@@ -458,17 +568,6 @@ function colisiondetection(char){
 };
 
 
-function SetLight(){
-	var light = new THREE.AmbientLight(0x404040);
-	scene.add(light);
-
-	var directionalLight = new THREE.DirectionalLight( 0xffffff, 0.7 );
-	directionalLight.position.set( 0,4,1 );
-	directionalLight.castShadow = true;
-
-	scene.add( directionalLight );
-};
-
 function Movechar(x1,y1,z1){
 	controls.getObject().translateZ(chardata.z_vel);
 	controls.getObject().translateX(chardata.x_vel);
@@ -485,6 +584,7 @@ function checkruby(){
 	for(let k = 0 ; k< RubyArr.length;k++){
 		if((controls.getObject().position.x <= (RPosList[k].x+2) && controls.getObject().position.x >= (RPosList[k].x-2) && controls.getObject().position.z >= RPosList[k].z-2 && controls.getObject().position.z <= RPosList[k].z+2)&& scene.getObjectById(RubyArr[k].id,true) != null ){
 			PointsCounter = PointsCounter+5;
+			RubyCounter += 1;
 			genaudio();
 			scene.remove(RubyArr[k]);
 
@@ -497,6 +597,7 @@ function checkcoin(){
 	for(let k = 0 ; k< CoinArr.length;k++){
 		if((controls.getObject().position.x <= (CPosList[k].x+2) && controls.getObject().position.x >= (CPosList[k].x-2) && controls.getObject().position.z >= CPosList[k].z-2 && controls.getObject().position.z <= CPosList[k].z+2)&& scene.getObjectById(CoinArr[k].id,true) != null){
 			PointsCounter = PointsCounter+1;
+			CoinCounter += 1;
 			genaudio();
 			scene.remove(CoinArr[k]);
 

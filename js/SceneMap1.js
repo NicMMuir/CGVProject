@@ -9,16 +9,20 @@ var mesh, oceanGeometry, material, clock;
 var Collidables = [];
 var curveEnemy;
 var renderer, renderer2;
-var directionalLight;
+var sunDirectionalLight, moonDirectionalLight;
 
 
 var mixer, mixer1, mixer2, TWEEN;
+//Orthographic map:
 var mapCamera, mapWidth = 240, mapHeight = 160; // w/h should match div dimensions
 
 var PauseState = false;
 
 var DeathCounter = -1;
 var PointsCounter = 0;
+
+var CoinCounter = 0;
+var RubyCounter = 0;
 
 var RPosList = [];
 var RubyArr = [];
@@ -171,7 +175,6 @@ function init(){
 
 }
 
-var t = 0;
 function animate() {
 				requestAnimationFrame( animate );
 				TWEEN.update();
@@ -180,10 +183,14 @@ function animate() {
 				mixer.update( delta*2 ); //Shark Model
 				sphereCamera.update(renderer,scene);
 
-				//Rotating sun motion:
-				t += 0.005; //speed at which it makes a revolution
-				directionalLight.position.x = 1000*Math.cos(t) + 0;
-    			directionalLight.position.y = 750*Math.sin(t) + 200;
+				//Rotating sun & moon motion:
+    			var time = Date.now() * 0.0005;
+
+				sunDirectionalLight.position.x = Math.sin( time / -30) * 1000;
+				sunDirectionalLight.position.y = Math.cos( time / -30) * 1000;
+				moonDirectionalLight.position.x = - Math.sin( time / 30) * 1000 ;
+				moonDirectionalLight.position.y = - Math.cos( time / 30) * 1000 - 300;
+
 
 	//EVENTS (Allows game to scale when screen size is changed)
 
@@ -282,6 +289,7 @@ loop = function(){
 
 	checkruby();
 	checkcoin();
+
 	time = clock.getElapsedTime() * 5;
 
 				position = oceanGeometry.attributes.position;
@@ -445,18 +453,41 @@ if(erobj.length != 0){
 		controls.getObject().position.set(charstartx,charstarty,charstartz);
 		}
 	}//end of the level is reached when this block is touched
-	if((controls.getObject().position.x <= (End.position.x+11) && controls.getObject().position.x >= (End.position.x-11) && controls.getObject().position.z >= End.position.z-11 && controls.getObject().position.z <= End.position.z+11)){
+	{
+	if((controls.getObject().position.x <= (End.position.x+11) && controls.getObject().position.x >= (End.position.x-11) && controls.getObject().position.z >= End.position.z-11 && controls.getObject().position.z <= End.position.z+11)&& PointsCounter == 0){
+
 		document.getElementById('menu').style.visibility = 'visible';
+		document.getElementById('winlose').innerText = "TRY AGAIN";
 		document.getElementById('scorecard').innerText = "Score: " + PointsCounter;
 		document.getElementById('deathcount').innerText = "Deaths: " + DeathCounter;
-
-		//wait five seconds and then route back to main menu
+		document.getElementById('coincount').innerText = "Coins: " + CoinCounter + " / " + CoinArr.length;
+		document.getElementById('rubycount').innerText = "Rubies: " + RubyCounter + " / " + RubyArr.length;
+		
+		//wait seven seconds and then route back to main menu
 		window.setTimeout(function()
 		{
 			window.location.assign("index.html");
 		},
-		 5000);
+		 7000);
 			}
+
+	else if((controls.getObject().position.x <= (End.position.x+11) && controls.getObject().position.x >= (End.position.x-11) && controls.getObject().position.z >= End.position.z-11 && controls.getObject().position.z <= End.position.z+11)&& PointsCounter >= 1){
+
+		document.getElementById('menu').style.visibility = 'visible';
+		document.getElementById('winlose').innerText = "YOU WIN";
+		document.getElementById('scorecard').innerText = "Score: " + PointsCounter;
+		document.getElementById('deathcount').innerText = "Deaths: " + DeathCounter;
+		document.getElementById('coincount').innerText = "Coins: " + CoinCounter + " / " + CoinArr.length;
+		document.getElementById('rubycount').innerText = "Rubies: " + RubyCounter + " / " + RubyArr.length;
+		
+		//wait seven seconds and then route back to main menu
+		window.setTimeout(function()
+		{
+			window.location.assign("index.html");
+		},
+		 7000);
+			}
+	}
 	Movechar(chardata.x,chardata.y,chardata.z);
 	render();
 
@@ -513,11 +544,13 @@ function OnMouseDown(event){
 		controls.lock();
 	}
 }
+
 function checkruby(){
 	for(let k = 0 ; k< RubyArr.length;k++){
 		if((controls.getObject().position.x <= (RPosList[k].x+2) && controls.getObject().position.x >= (RPosList[k].x-2) && controls.getObject().position.z >= RPosList[k].z-2 && controls.getObject().position.z <= RPosList[k].z+2)&& scene.getObjectById(RubyArr[k].id,true) != null ){
 
 			PointsCounter = PointsCounter+5;
+			RubyCounter += 1;
 			genaudio();
 			scene.remove(RubyArr[k]);
 
@@ -530,6 +563,7 @@ function checkcoin(){
 	for(let k = 0 ; k< CoinArr.length;k++){
 		if((controls.getObject().position.x <= (CPosList[k].x+2) && controls.getObject().position.x >= (CPosList[k].x-2) && controls.getObject().position.z >= CPosList[k].z-2 && controls.getObject().position.z <= CPosList[k].z+2)&& scene.getObjectById(CoinArr[k].id,true) != null){
 			PointsCounter = PointsCounter+1;
+			CoinCounter += 1;
 			genaudio();
 			scene.remove(CoinArr[k]);
 

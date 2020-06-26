@@ -18,7 +18,7 @@ function genaudio(){
   audioLoader.load( 'sounds/rubyNcoin/Mario-coin-sound.mp3', function( buffer ) {
 	sound.setBuffer( buffer );
 	sound.setLoop( false );
-	sound.setVolume( 0.3 );
+	sound.setVolume( 0.001 );
 	sound.play();
 });
 }
@@ -26,10 +26,10 @@ function genaudio(){
 function bgmmusic(){
   //camera.add( listener);
   // create a global audio source
-  audioLoader2.load( 'sounds/Menu and Ingame/Sea Of Tranquility.mp3', function( buffer2) {
+  audioLoader2.load( 'sounds/Menu and Ingame/BLMMT.mp3', function( buffer2) {
   sound2.setBuffer( buffer2 );
   sound2.setLoop( true );
-  sound2.setVolume( 0.5 );
+  sound2.setVolume( 0.005 );
   sound2.play();
 });
 

@@ -2,7 +2,7 @@ var ObjectsMap1Arr = [];
 var EnemyList = [];
 var End;
 var Mesh, oceanGeometry, oceanMaterial, clock;
-var tween, tweenBack;
+var tween, tweenBack, ball;
 var sphereCamera;
 var spikeEnemy = [];
 
@@ -25,12 +25,12 @@ sphereCamera = new THREE.CubeCamera(1,2000,500);
 //Skybox
 //Initialize an array which loads textures
 let materialArray = [];
-let texture_ft = new THREE.TextureLoader().load( 'Textures/bay_ft.jpg');
-let texture_bk = new THREE.TextureLoader().load( 'Textures/bay_bk.jpg');
-let texture_up = new THREE.TextureLoader().load( 'Textures/bay_up.jpg');
-let texture_dn = new THREE.TextureLoader().load( 'Textures/bay_dn.jpg');
-let texture_rt = new THREE.TextureLoader().load( 'Textures/bay_rt.jpg');
-let texture_lf = new THREE.TextureLoader().load( 'Textures/bay_lf.jpg');
+let texture_ft = new THREE.TextureLoader().load( 'Textures/wasteland_ft.jpg');//front
+let texture_bk = new THREE.TextureLoader().load( 'Textures/wasteland_bk.jpg');//bk
+let texture_up = new THREE.TextureLoader().load( 'Textures/wasteland_up.jpg');//up
+let texture_dn = new THREE.TextureLoader().load( 'Textures/wasteland_dn.jpg');//Dn
+let texture_rt = new THREE.TextureLoader().load( 'Textures/wasteland_rt.jpg');//Rt
+let texture_lf = new THREE.TextureLoader().load( 'Textures/wasteland_lf.jpg');//Lt
 
 materialArray.push(new THREE.MeshBasicMaterial( { map: texture_ft }));
 materialArray.push(new THREE.MeshBasicMaterial( { map: texture_bk }));
@@ -42,21 +42,25 @@ materialArray.push(new THREE.MeshBasicMaterial( { map: texture_lf }));
 for (let i = 0; i < 6; i++)
   materialArray[i].side = THREE.BackSide;
 //Creates cube of set dimensions
-let skyboxGeo = new THREE.BoxGeometry( 2000, 1500, 3000);
+let skyboxGeo = new THREE.BoxGeometry( 3000, 1500, 3000);
 let skybox = new THREE.Mesh( skyboxGeo, materialArray );
+skybox.rotation.set(0, Math.PI, 0);
+
+
 
 //Lights
 //Sets a directional light at a position with colour and intensity
-var directionalLight = new THREE.DirectionalLight( 	0xB07214, 2 );
-directionalLight.position.set( 700, 1000, -3000 );
+var directionalLight = new THREE.DirectionalLight( 	0xFF8C00, 2 );
+directionalLight.position.set( -200, 400, -1400 );
+directionalLight.target.position.set( 70, 0, -55);
 directionalLight.castShadow = true;
 
 //Set up shadow properties for the light
-directionalLight.shadow.camera.near = 2500;
-directionalLight.shadow.camera.far = 5000;
+directionalLight.shadow.camera.near = 60;
+directionalLight.shadow.camera.far = 1500;
 directionalLight.shadow.mapSize.width = 2048;  // default
 directionalLight.shadow.mapSize.height = 2048; // default
-directionalLight.shadow.bias = -0.003;
+directionalLight.shadow.bias = -0.004;
 // directionalLight.shadow.darkness = 2;
 directionalLight.shadow.camera.right = 700;
 directionalLight.shadow.camera.left = -700;
@@ -133,7 +137,7 @@ var texture = new THREE.TextureLoader().load( 'textures/water.jpg' );
         texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
         texture.repeat.set( 5, 5 );
 
- oceanMaterial = new THREE.MeshPhongMaterial( { color: 0xff0000, map: texture } );
+ oceanMaterial = new THREE.MeshBasicMaterial( { color: 0xff0000, map: texture } );
 var oceanMesh = new THREE.Mesh( oceanGeometry, oceanMaterial );
 
 
@@ -191,7 +195,9 @@ var glowingRock11 = new THREE.Object3D();
 var glowingRock12 = new THREE.Object3D();
 var glowingRock13 = new THREE.Object3D();
 var glowingRock14 = new THREE.Object3D();
-var loader = new THREE.GLTFLoader();
+//loadingManager is called here
+//Once this glowingRock model is loaded, then only is the loading screen removed
+var loader = new THREE.GLTFLoader( loadingManager );
 loader.load('./3DObjects/GlowingRock/scene.gltf', function(gltf){
     gltf.scene.scale.set(1.5,1.5,1.5);
 
@@ -216,28 +222,6 @@ loader.load('./3DObjects/GlowingRock/scene.gltf', function(gltf){
     glowingRock12.add(gltf.scene.clone());
     glowingRock13.add(gltf.scene.clone());
     glowingRock14.add(gltf.scene.clone());
-});
-
-//Load Hell Mountain Model
-//loadingManager is called here
-//Once this mountain model is loaded, then only is the loading screen removed
-var loader = new THREE.GLTFLoader( loadingManager );
-loader.load('./3DObjects/HellMount/scene.gltf', function(gltf){
-
-  //Cast and receive a shadow on the model
-      gltf.scene.traverse (function (node){
-      if (node instanceof THREE.Mesh){
-        node.castShadow = true;
-        node.receiveShadow = true;
-      }
-      });
-
-  var hellMount = gltf.scene;
-  hellMount.position.x = 0;
-  hellMount.position.y = 130;
-  hellMount.position.z = 1600;
-  hellMount.scale.set(0.2,0.2,0.2);
-  scene.add(hellMount);
 });
 
 
@@ -490,6 +474,7 @@ function genarrMap1(){
 
 //Adding Lights
 scene.add( directionalLight );
+scene.add( directionalLight.target );
 scene.add( light );
 
 // Directional light helper:

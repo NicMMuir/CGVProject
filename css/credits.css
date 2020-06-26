@@ -40,7 +40,7 @@ body {
   text-align: center;
   text-transform: uppercase;
   color: #fff;
-  animation: 60s credits linear infinite;
+  animation: 70s credits linear infinite;
 }
 
 .movie {
@@ -63,6 +63,6 @@ body {
     top: 100%;
   }
   100% {
-    top: -750%;
+    top: -800%;
   }
 }

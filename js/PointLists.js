@@ -72,8 +72,7 @@ function getcoinl1(){ //called in NewMap1.js + NewMap2.js
   cl.push(tp);
   tp = new THREE.Vector3( 46.95373904350231
 , 3
-, 61.816695454470185
-);
+, 61.816695454470185);
   cl.push(tp);
   tp = new THREE.Vector3( 168.26580350909674
 , 3
