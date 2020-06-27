@@ -7,6 +7,10 @@ var listener2 = new THREE.AudioListener();
 var sound2 = new THREE.Audio(listener2);
 var audioLoader2 = new THREE.AudioLoader();
 
+var listener3 = new THREE.AudioListener();
+var sound3 = new THREE.Audio(listener3);
+var audioLoader3 = new THREE.AudioLoader();
+
 //Background music sound
 //var audioLoader2 = new THREE.AudioLoader();
 
@@ -33,4 +37,15 @@ function bgmmusic(){
   sound2.play();
 });
 
+}
+
+function genSound(){
+  //camera.add( listener );
+  //Player looses life audio source
+  audioLoader3.load( 'sounds/deathSound/WOAH.mp3', function( buffer3 ) {
+  sound3.setBuffer( buffer3 );
+  sound3.setLoop( false );
+  sound3.setVolume( 0.006 );
+  sound3.play();
+});
 }

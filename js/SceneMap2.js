@@ -328,6 +328,14 @@ controller = {
 					case 82: //the 'R' key is pressed
 							window.location.assign("index.html");
 						break;
+					case 70: //the 'F' key is pressed
+					// First person view
+							camera.position.set(0, 4, -3);
+						break;
+					case 84: //the 'T' key is pressed
+					// Third person view
+							camera.position.set(camstartx,camstarty,camstartz);
+						break;
 				}
 
 				if (controller.forward == false){
@@ -372,23 +380,37 @@ loop = function(){
 	if(controller.up && chardata.jump == false){
 
 		//must be a mutiple of the gravity
-		chardata.y_vel +=10;
+		chardata.y_vel +=8;
 		chardata.jump = true;
+
+		//Rotate Char 360° when jumping in TPV
+		var charRotation = new TWEEN.Tween(CharacterBuild.rotation)
+        .to({ x: "-" + 2*Math.PI}, 2000) // relative animation
+        .delay(500)
+        charRotation.start();
+
+        if (camera.position.x == 0 && camera.position.y == 4 && camera.position.z == -3){
+        	//Rotate camera in FPV 360° when jumping
+			var charRotation = new TWEEN.Tween(camera.rotation)
+	        .to({ x: "-" + 2*Math.PI}, 2000) // relative animation
+	        .delay(500)
+	        charRotation.start();
+        }
 	}
 
 	if(controller.left){
-		chardata.x_vel -=0.1;
+		chardata.x_vel -=0.3;
 	}
 	if(controller.right){
-		chardata.x_vel +=0.1;
+		chardata.x_vel +=0.3;
 	}
 	if(controller.forward){
-		chardata.z_vel -=0.12;//0.12
+		chardata.z_vel -=0.2;//0.12
 		action.play(); //need to figure out how controller event listener processes 'keyup' events to call action.stop() when 'W' is released
 
 	}
 	if(controller.back){
-		chardata.z_vel +=0.06;
+		chardata.z_vel +=0.3;
 	}
 
 	chardata.y_vel -=0.4;//gravity(0.4)
@@ -406,6 +428,7 @@ if(dobj.length != 0){
 	}
 }
 	if(chardata.y<-20){
+		genSound();
 		DeathCounter= DeathCounter+1;
 		chardata.x=0;
 		chardata.y=6;
@@ -460,6 +483,7 @@ if(dobj.length != 0){
 /////////enemy collisions
 if(efobj.length != 0){
 	if(efobj[0].distance < 1.5){
+		genSound();
 		DeathCounter= DeathCounter+1;
 		chardata.x=0;
 		chardata.y=2;
@@ -470,6 +494,7 @@ if(efobj.length != 0){
 }
 if(ebobj.length != 0){
 	if(ebobj[0].distance < 1.5){
+		genSound();
 		DeathCounter= DeathCounter+1;
 		chardata.x=0;
 		chardata.y=2;
@@ -480,6 +505,7 @@ if(ebobj.length != 0){
 }
 if(elobj.length != 0){
 	if(elobj[0].distance < 1.5){
+		genSound();
 		DeathCounter= DeathCounter+1;
 		chardata.x=0;
 		chardata.y=2;
@@ -490,6 +516,7 @@ if(elobj.length != 0){
 }
 if(erobj.length != 0){
 	if(erobj[0].distance < 1.5){
+		genSound();
 		DeathCounter= DeathCounter+1;
 		chardata.x=0;
 		chardata.y=2;
